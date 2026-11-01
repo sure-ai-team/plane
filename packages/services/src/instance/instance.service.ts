@@ -12,6 +12,10 @@ import type {
   IInstanceAdmin,
   IInstanceConfiguration,
   IInstanceInfo,
+  TBulkUserCreatePayload,
+  TBulkUserCreateResponse,
+  TBulkUserRowResult,
+  TInstanceUserCreatePayload,
   TPage,
 } from "@plane/types";
 // api service
@@ -122,6 +126,54 @@ export class InstanceService extends APIService {
   async sendTestEmail(receiverEmail: string): Promise<void> {
     return this.post("/api/instances/email-credentials-check/", {
       receiver_email: receiverEmail,
+    })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Creates one user account with a generated temporary password
+   * @param {TInstanceUserCreatePayload} data User details; an existing account is only added to the workspace
+   * @returns {Promise<TBulkUserRowResult>} The result, including the temporary password for a new account
+   * @throws {TBulkUserCreateError} If the details are invalid
+   */
+  async createUser(data: TInstanceUserCreatePayload): Promise<TBulkUserRowResult> {
+    return this.post("/api/instances/users/", data)
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Downloads the Excel template for bulk user creation
+   * @returns {Promise<Blob>} Promise resolving to the .xlsx file
+   * @throws {Error} If the API request fails
+   */
+  async downloadBulkUserTemplate(): Promise<Blob> {
+    return this.get("/api/instances/users/bulk-create/template/", { responseType: "blob" })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Creates user accounts from an uploaded .xlsx or .csv file
+   * @param {TBulkUserCreatePayload} payload File plus defaults; dryRun checks the file without saving
+   * @returns {Promise<TBulkUserCreateResponse>} Per-row results, including temporary passwords for new accounts
+   * @throws {TBulkUserCreateError} If the file or options are invalid
+   */
+  async bulkCreateUsers(payload: TBulkUserCreatePayload): Promise<TBulkUserCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", payload.file);
+    formData.append("dry_run", payload.dryRun ? "true" : "false");
+    if (payload.workspace) formData.append("workspace", payload.workspace);
+    if (payload.role) formData.append("role", payload.role);
+    return this.post("/api/instances/users/bulk-create/", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
     })
       .then((response) => response?.data)
       .catch((error) => {
