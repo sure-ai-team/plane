@@ -55,6 +55,7 @@ const InstanceGitlabAuthenticationPage = observer(function InstanceGitlabAuthent
     });
 
     await updateConfigPromise
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         setIsSubmitting(false);
       })

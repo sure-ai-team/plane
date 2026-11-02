@@ -63,6 +63,7 @@ export const ModuleListItemAction = observer(function ModuleListItemAction(props
     if (!workspaceSlug || !projectId) return;
 
     const addToFavoritePromise = addModuleToFavorites(workspaceSlug.toString(), projectId.toString(), moduleId).then(
+      // oxlint-disable-next-line promise/always-return
       () => {
         // open favorites menu if closed
         if (!storedValue) toggleFavoriteMenu(true);
@@ -110,6 +111,7 @@ export const ModuleListItemAction = observer(function ModuleListItemAction(props
     if (!workspaceSlug || !projectId) return;
 
     await updateModuleDetails(workspaceSlug.toString(), projectId.toString(), moduleId, payload)
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         setToast({
           type: TOAST_TYPE.SUCCESS,

@@ -61,6 +61,7 @@ const InstanceGithubAuthenticationPage = observer(function InstanceGithubAuthent
     });
 
     await updateConfigPromise
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         setIsSubmitting(false);
       })

@@ -209,6 +209,7 @@ const InviteMemberInput = observer(function InviteMemberInput(props: InviteMembe
                     style={styles.popper}
                     {...attributes.popper}
                   >
+                    {/* oxlint-disable-next-line no-shadow */}
                     {Object.entries(ROLE_DETAILS).map(([key, value]) => (
                       <Listbox.Option
                         as="div"
@@ -297,6 +298,7 @@ export const InviteTeamStep = observer(function InviteTeamStep(props: Props) {
           role: email.role,
         })),
       })
+      // oxlint-disable-next-line promise/always-return
       .then(async () => {
         setToast({
           type: TOAST_TYPE.SUCCESS,

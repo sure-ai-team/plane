@@ -124,6 +124,7 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.project_id, data?.id, data?.sourceIssueId, projectId, isOpen, activeProjectId]);
 
+  // oxlint-disable-next-line no-shadow
   const addIssueToCycle = async (issue: TIssue, cycleId: string) => {
     if (!workspaceSlug || !issue.project_id) return;
 
@@ -137,6 +138,7 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
     await Promise.all([
       issues.changeModulesInIssue(workspaceSlug.toString(), issue.project_id, issue.id, moduleIds, []),
       ...moduleIds.map(
+        // oxlint-disable-next-line no-shadow
         (moduleId) => issue.project_id && fetchModuleDetails(workspaceSlug.toString(), issue.project_id, moduleId)
       ),
     ]);
@@ -260,6 +262,7 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
     }
   };
 
+  // oxlint-disable-next-line no-shadow
   const handleCycleChange = async (data: Partial<TIssue> | undefined, payload: Partial<TIssue>) => {
     if (!workspaceSlug || !data?.project_id || !data?.id) return;
     // return if user is not trying to change the cycle, i.e
@@ -285,6 +288,7 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
     }
   };
 
+  // oxlint-disable-next-line no-shadow
   const handleModuleChange = async (data: Partial<TIssue>, payload: Partial<TIssue>) => {
     if (!workspaceSlug || !data?.project_id || !data?.id) return;
     // return if user is not trying to change the module, i.e
@@ -302,6 +306,7 @@ export const CreateUpdateIssueModalBase = observer(function CreateUpdateIssueMod
     const modulesToAdd: string[] = [];
     const modulesToRemove: string[] = [];
 
+    // oxlint-disable-next-line no-shadow
     for (const moduleId of updatedModuleIds) {
       if (data.module_ids?.includes(moduleId)) {
         modulesToRemove.push(moduleId);

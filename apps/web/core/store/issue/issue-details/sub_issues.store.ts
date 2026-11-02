@@ -186,6 +186,7 @@ export class IssueSubIssuesStore implements IIssueSubIssuesStore {
         });
       });
 
+      // oxlint-disable-next-line no-shadow
       const issueIds = subIssues.map((issue) => issue.id);
       update(this.subIssues, [parentIssueId], (issues) => {
         if (!issues) return issueIds;

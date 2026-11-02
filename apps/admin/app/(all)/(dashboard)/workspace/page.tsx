@@ -65,6 +65,7 @@ const WorkspaceManagementPage = observer(function WorkspaceManagementPage(_props
     });
 
     await updateConfigPromise
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         setIsSubmitting(false);
       })

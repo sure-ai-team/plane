@@ -52,6 +52,7 @@ function WorkspaceInvitationPage() {
         accepted: true,
         token: token,
       })
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         if (invitationDetail.email === currentUser?.email) {
           router.push(`/${invitationDetail.workspace.slug}`);
@@ -69,6 +70,7 @@ function WorkspaceInvitationPage() {
         accepted: false,
         token: token,
       })
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         router.push("/");
       })

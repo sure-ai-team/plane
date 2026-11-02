@@ -50,6 +50,7 @@ export const UseCaseSetupStep = observer(function UseCaseSetupStep({ handleStepC
       use_case: formData.use_case && formData.use_case.length > 0 ? formData.use_case.join(". ") : undefined,
     };
     try {
+      // oxlint-disable-next-line unicorn/no-single-promise-in-promise-methods
       await Promise.all([
         updateUserProfile(profileUpdatePayload),
         // totalSteps > 2 && stepChange({ profile_complete: true }),
@@ -81,12 +82,15 @@ export const UseCaseSetupStep = observer(function UseCaseSetupStep({ handleStepC
   };
 
   // derived values
-  const isButtonDisabled = !isSubmitting && isValid ? false : true;
+  const isButtonDisabled = !(!isSubmitting && isValid);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
       {/* Header */}
-      <CommonOnboardingHeader title="What brings you to SGT Project Management Platform?" description="Tell us your goals and team size." />
+      <CommonOnboardingHeader
+        title="What brings you to SGT Project Management Platform?"
+        description="Tell us your goals and team size."
+      />
 
       {/* Use Case Selection */}
       <div className="flex flex-col gap-3">

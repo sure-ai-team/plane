@@ -337,6 +337,7 @@ export const CompleteExample: Story = {
           { label: "Active Projects", value: "42" },
           { label: "Completed Tasks", value: "856" },
         ].map((stat, idx) => (
+          // oxlint-disable-next-line react/no-array-index-key
           <Surface key={idx}>
             <Layer className="rounded-md bg-layer-1 p-4 hover:bg-layer-1-hover">
               <p className="mb-1 text-13 text-tertiary">{stat.label}</p>
@@ -383,7 +384,9 @@ export const CommonMistakes: Story = {
 
       <div className="space-y-6">
         <div className="rounded-md border-2 border-danger-strong p-4">
-          <h4 className="mb-2 font-semibold text-primary">❌ Mistake 1: Nested Surfaces (Same SGT Project Management Platform)</h4>
+          <h4 className="mb-2 font-semibold text-primary">
+            ❌ Mistake 1: Nested Surfaces (Same SGT Project Management Platform)
+          </h4>
           <Surface>
             <p className="mb-2 text-13 text-secondary">Surface 1</p>
             <div className="rounded-md bg-surface-2 p-4">

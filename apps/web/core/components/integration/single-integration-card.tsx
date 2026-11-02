@@ -81,6 +81,7 @@ export const SingleIntegrationCard = observer(function SingleIntegrationCard({ i
 
     await integrationService
       .deleteWorkspaceIntegration(workspaceSlug, workspaceIntegrationId ?? "")
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         mutate<IWorkspaceIntegration[]>(
           WORKSPACE_INTEGRATIONS(workspaceSlug),

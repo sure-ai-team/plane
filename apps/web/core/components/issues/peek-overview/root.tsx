@@ -70,6 +70,7 @@ export const IssuePeekOverview = observer(function IssuePeekOverview(props: IWor
         try {
           setError(false);
           await fetchIssue(workspaceSlug, projectId, issueId);
+          // oxlint-disable-next-line no-shadow
         } catch (error) {
           setError(true);
           console.error("Error fetching the parent issue", error);
@@ -110,6 +111,7 @@ export const IssuePeekOverview = observer(function IssuePeekOverview(props: IWor
         try {
           if (!issues?.archiveIssue) return;
           await issues.archiveIssue(workspaceSlug, projectId, issueId);
+          // oxlint-disable-next-line no-shadow
         } catch (error) {
           console.error("Error archiving the issue", error);
         }
@@ -169,6 +171,7 @@ export const IssuePeekOverview = observer(function IssuePeekOverview(props: IWor
           });
           await removeFromCyclePromise;
           fetchActivities(workspaceSlug, projectId, issueId);
+          // oxlint-disable-next-line no-shadow
         } catch (error) {
           console.error("Error removing issue from cycle", error);
         }
@@ -206,6 +209,7 @@ export const IssuePeekOverview = observer(function IssuePeekOverview(props: IWor
           });
           await removeFromModulePromise;
           fetchActivities(workspaceSlug, projectId, issueId);
+          // oxlint-disable-next-line no-shadow
         } catch (error) {
           console.error("Error removing issue from module", error);
         }

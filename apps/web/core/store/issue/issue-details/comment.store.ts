@@ -108,6 +108,7 @@ export class IssueCommentStore implements IIssueCommentStore {
 
     const commentIds = comments.map((comment) => comment.id);
     runInAction(() => {
+      // oxlint-disable-next-line no-shadow
       update(this.comments, issueId, (_commentIds) => {
         if (!_commentIds) return commentIds;
         return uniq(concat(_commentIds, commentIds));

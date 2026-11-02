@@ -58,6 +58,7 @@ export const CreateUpdateModuleModal = observer(function CreateUpdateModuleModal
 
     const selectedProjectId = payload.project_id ?? projectId.toString();
     await createModule(workspaceSlug.toString(), selectedProjectId, payload)
+      // oxlint-disable-next-line promise/always-return
       .then((_res) => {
         handleClose();
         setToast({
@@ -80,6 +81,7 @@ export const CreateUpdateModuleModal = observer(function CreateUpdateModuleModal
 
     const selectedProjectId = payload.project_id ?? projectId.toString();
     await updateModuleDetails(workspaceSlug.toString(), selectedProjectId, data.id, payload)
+      // oxlint-disable-next-line promise/always-return
       .then((_res) => {
         handleClose();
 
@@ -138,7 +140,7 @@ export const CreateUpdateModuleModal = observer(function CreateUpdateModuleModal
       <ModuleForm
         handleFormSubmit={handleFormSubmit}
         handleClose={handleClose}
-        status={data ? true : false}
+        status={Boolean(data)}
         projectId={activeProject ?? ""}
         setActiveProject={setActiveProject}
         data={data}

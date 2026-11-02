@@ -74,6 +74,7 @@ export const AuthHeader = observer(function AuthHeader(props: TAuthHeader) {
   const getHeaderSubHeader = (
     step: EAuthSteps,
     mode: EAuthModes,
+    // oxlint-disable-next-line no-shadow
     invitation: IWorkspaceMemberInvitation | undefined,
     email: string | undefined
   ) => {

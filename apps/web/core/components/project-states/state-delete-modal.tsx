@@ -40,6 +40,7 @@ export const StateDeleteModal = observer(function StateDeleteModal(props: TState
     setIsDeleteLoading(true);
 
     await deleteState(workspaceSlug.toString(), data.project_id, data.id)
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         handleClose();
       })

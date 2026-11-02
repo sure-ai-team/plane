@@ -213,6 +213,7 @@ const InviteMemberInput = observer(function InviteMemberInput(props: InviteMembe
                     style={styles.popper}
                     {...attributes.popper}
                   >
+                    {/* oxlint-disable-next-line no-shadow */}
                     {Object.entries(ROLE_DETAILS).map(([key, value]) => (
                       <Listbox.Option
                         as="div"
@@ -297,6 +298,7 @@ export function InviteMembers(props: Props) {
           role: email.role,
         })),
       })
+      // oxlint-disable-next-line promise/always-return
       .then(async () => {
         setToast({
           type: TOAST_TYPE.SUCCESS,
@@ -340,7 +342,8 @@ export function InviteMembers(props: Props) {
           <div className="mx-auto w-4/5 space-y-1 py-4 text-center">
             <h3 className="text-24 font-bold text-primary">Invite your teammates</h3>
             <p className="font-medium text-placeholder">
-              Work in SGT Project Management Platform happens best with your team. Invite them now to use SGT Project Management Platform to its potential.
+              Work in SGT Project Management Platform happens best with your team. Invite them now to use SGT Project
+              Management Platform to its potential.
             </p>
           </div>
           <form

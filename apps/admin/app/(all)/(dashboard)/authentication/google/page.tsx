@@ -55,6 +55,7 @@ const InstanceGoogleAuthenticationPage = observer(function InstanceGoogleAuthent
     });
 
     await updateConfigPromise
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         setIsSubmitting(false);
       })

@@ -53,6 +53,7 @@ const InstanceGiteaAuthenticationPage = observer(function InstanceGiteaAuthentic
     });
 
     await updateConfigPromise
+      // oxlint-disable-next-line promise/always-return
       .then(() => {
         setIsSubmitting(false);
       })

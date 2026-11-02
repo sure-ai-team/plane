@@ -59,6 +59,7 @@ export const useGanttResizable = (
       if (currMouseEvent.current) handleMouseMove(currMouseEvent.current);
     };
 
+    // oxlint-disable-next-line no-shadow
     const handleMouseMove = (e: MouseEvent) => {
       currMouseEvent.current = e;
       setIsMoving(dragDirection);
@@ -68,6 +69,7 @@ export const useGanttResizable = (
 
       const { left: containerLeft } = ganttContainerDimensions.current;
 
+      // oxlint-disable-next-line no-shadow
       const mouseX = e.clientX - containerLeft - SIDEBAR_WIDTH + ganttContainerElement.scrollLeft;
 
       let width = initialPositionRef.current.width;
