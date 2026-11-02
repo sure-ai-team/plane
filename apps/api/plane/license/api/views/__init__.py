@@ -28,4 +28,13 @@ from .workspace import (
 )
 
 
-from .user import InstanceBulkUserCreateEndpoint, InstanceBulkUserTemplateEndpoint, InstanceUserCreateEndpoint
+from .user import (
+    InstanceBulkUserCreateEndpoint,
+    InstanceBulkUserTemplateEndpoint,
+    InstanceUserActivationEndpoint,
+    InstanceUserCreateEndpoint,
+    InstanceUserDetailEndpoint,
+    InstanceUserPasswordEndpoint,
+    InstanceUserProjectEndpoint,
+    InstanceUserWorkspaceEndpoint,
+)

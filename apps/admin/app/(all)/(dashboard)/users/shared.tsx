@@ -61,11 +61,15 @@ type TWorkspaceSelectProps = {
   label: string;
   value: string;
   onChange: (slug: string) => void;
+  /** Text for the empty choice, for example "All workspaces" when the select is a filter. */
+  emptyLabel?: string;
+  /** Workspace slugs to leave out of the list. */
+  exclude?: string[];
 };
 
 export const WorkspaceSelect = observer(function WorkspaceSelect(props: TWorkspaceSelectProps) {
-  const { label, value, onChange } = props;
-  const workspaces = useAllWorkspaces();
+  const { label, value, onChange, emptyLabel = "No workspace", exclude = [] } = props;
+  const workspaces = useAllWorkspaces().filter((item) => !exclude.includes(item.slug));
   const selectedName = workspaces.find((item) => item.slug === value)?.name;
 
   return (
@@ -73,13 +77,13 @@ export const WorkspaceSelect = observer(function WorkspaceSelect(props: TWorkspa
       <h4 className="text-13 text-tertiary">{label}</h4>
       <CustomSelect
         value={value}
-        label={selectedName ?? "No workspace"}
+        label={selectedName ?? emptyLabel}
         onChange={onChange}
         buttonClassName="rounded-md border-subtle"
         input
       >
         <CustomSelect.Option value={NO_WORKSPACE} className="w-full">
-          No workspace
+          {emptyLabel}
         </CustomSelect.Option>
         {workspaces.map((item) => (
           <CustomSelect.Option key={item.id} value={item.slug} className="w-full">

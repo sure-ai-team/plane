@@ -45,3 +45,69 @@ export type TInstanceUserCreatePayload = {
   workspace?: string;
   role?: TBulkUserRole;
 };
+
+// ---------------------------------------------------------------------------
+// Account management (admin console > Users > All users)
+
+export type TInstanceUser = {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  display_name: string;
+  phone: string;
+  is_active: boolean;
+  is_instance_admin: boolean;
+  workspace_count: number;
+  date_joined: string;
+  last_login_time: string | null;
+  last_login_medium: string;
+  /** False while the account still has the random password it was created with. */
+  has_password: boolean;
+};
+
+export type TInstanceUserProject = {
+  id: string;
+  identifier: string;
+  name: string;
+  /** Null when the user is not a member of the project. */
+  role: TBulkUserRole | null;
+};
+
+export type TInstanceUserWorkspace = {
+  id: string;
+  slug: string;
+  name: string;
+  role: TBulkUserRole;
+  /** False when the user was removed from the workspace (shown as Suspended there). */
+  is_active: boolean;
+  is_owner: boolean;
+  projects: TInstanceUserProject[];
+};
+
+export type TInstanceUserDetail = TInstanceUser & { workspaces: TInstanceUserWorkspace[] };
+
+export type TInstanceUserStatusFilter = "" | "active" | "deactivated";
+
+export type TInstanceUserListParams = {
+  search?: string;
+  status?: TInstanceUserStatusFilter;
+  workspace?: string;
+  cursor?: string;
+  per_page?: number;
+};
+
+export type TInstanceUserListResponse = {
+  results: TInstanceUser[];
+  next_cursor: string;
+  prev_cursor: string;
+  next_page_results: boolean;
+  prev_page_results: boolean;
+  total_count: number;
+};
+
+export type TInstanceUserUpdatePayload = Partial<
+  Pick<TInstanceUser, "email" | "first_name" | "last_name" | "display_name" | "phone">
+>;
+
+export type TInstanceUserPasswordResult = { email: string; password: string };

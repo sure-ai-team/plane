@@ -4,7 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { Image, BrainCog, Cog, Mail, UserPlus } from "lucide-react";
+import { Image, BrainCog, Cog, Mail, Users } from "lucide-react";
 // plane imports
 import { LockIcon, WorkspaceIcon } from "@plane/propel/icons";
 // types
@@ -32,9 +32,9 @@ export const coreSidebarMenuLinks: Record<TCoreSidebarMenuKey, TSidebarMenuItem>
     href: `/workspace/`,
   },
   users: {
-    Icon: UserPlus,
+    Icon: Users,
     name: "Users",
-    description: "Add users one by one or in bulk.",
+    description: "Create, edit and control every account.",
     href: `/users/`,
   },
   authentication: {

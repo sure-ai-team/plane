@@ -30,7 +30,7 @@ const STATUS_BADGE: Record<TBulkUserRowStatus, { variant: TBadgeVariant; label: 
   error: { variant: "danger", label: "Failed", previewLabel: "Error" },
 };
 
-async function copyText(text: string, what: string) {
+export async function copyText(text: string, what: string) {
   try {
     await navigator.clipboard.writeText(text);
     setToast({ type: TOAST_TYPE.SUCCESS, title: `${what} copied` });

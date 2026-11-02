@@ -14,8 +14,14 @@ import type {
   IInstanceInfo,
   TBulkUserCreatePayload,
   TBulkUserCreateResponse,
+  TBulkUserRole,
   TBulkUserRowResult,
   TInstanceUserCreatePayload,
+  TInstanceUserDetail,
+  TInstanceUserListParams,
+  TInstanceUserListResponse,
+  TInstanceUserPasswordResult,
+  TInstanceUserUpdatePayload,
   TPage,
 } from "@plane/types";
 // api service
@@ -141,6 +147,134 @@ export class InstanceService extends APIService {
    */
   async createUser(data: TInstanceUserCreatePayload): Promise<TBulkUserRowResult> {
     return this.post("/api/instances/users/", data)
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Lists user accounts on the instance, newest first
+   * @param {TInstanceUserListParams} params Search text, status and workspace filters, and the page cursor
+   * @returns {Promise<TInstanceUserListResponse>} One page of accounts
+   */
+  async listUsers(params: TInstanceUserListParams = {}): Promise<TInstanceUserListResponse> {
+    return this.get("/api/instances/users/", { params })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Gets one account with its workspaces and the projects in each
+   * @param {string} userId Account id
+   */
+  async getUser(userId: string): Promise<TInstanceUserDetail> {
+    return this.get(`/api/instances/users/${userId}/`)
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Edits an account's name, email or phone
+   * @throws {TBulkUserCreateError} If a value is invalid
+   */
+  async updateUser(userId: string, data: TInstanceUserUpdatePayload): Promise<TInstanceUserDetail> {
+    return this.patch(`/api/instances/users/${userId}/`, data)
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Permanently deletes an account and the data tied to it
+   * @param {string} confirmEmail The account's email, typed by the admin to confirm
+   */
+  async deleteUser(userId: string, confirmEmail: string): Promise<void> {
+    return this.delete(`/api/instances/users/${userId}/`, { confirm_email: confirmEmail })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Sets a new password for an account and signs it out everywhere
+   * @param {string} password Optional; a strong password is generated when empty
+   * @returns {Promise<TInstanceUserPasswordResult>} The new password, shown once
+   */
+  async setUserPassword(userId: string, password = ""): Promise<TInstanceUserPasswordResult> {
+    return this.post(`/api/instances/users/${userId}/password/`, { password })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Deactivates (blocks sign-in and suspends all memberships) or reactivates an account
+   */
+  async setUserActive(userId: string, isActive: boolean): Promise<TInstanceUserDetail> {
+    return this.post(`/api/instances/users/${userId}/activation/`, { is_active: isActive })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Adds an account to a workspace, or restores a suspended membership
+   */
+  async addUserToWorkspace(userId: string, workspace: string, role: TBulkUserRole): Promise<TInstanceUserDetail> {
+    return this.post(`/api/instances/users/${userId}/workspaces/`, { workspace, role })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Changes an account's role in a workspace
+   */
+  async updateUserWorkspaceRole(userId: string, slug: string, role: TBulkUserRole): Promise<TInstanceUserDetail> {
+    return this.patch(`/api/instances/users/${userId}/workspaces/${slug}/`, { role })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Removes an account from a workspace and its projects (shown as Suspended in the workspace)
+   */
+  async removeUserFromWorkspace(userId: string, slug: string): Promise<TInstanceUserDetail> {
+    return this.delete(`/api/instances/users/${userId}/workspaces/${slug}/`)
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Adds an account to a project, or changes its role there
+   */
+  async setUserProjectRole(userId: string, projectId: string, role: TBulkUserRole): Promise<TInstanceUserDetail> {
+    return this.put(`/api/instances/users/${userId}/projects/${projectId}/`, { role })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /**
+   * Removes an account from a project
+   */
+  async removeUserFromProject(userId: string, projectId: string): Promise<TInstanceUserDetail> {
+    return this.delete(`/api/instances/users/${userId}/projects/${projectId}/`)
       .then((response) => response?.data)
       .catch((error) => {
         throw error?.response?.data;

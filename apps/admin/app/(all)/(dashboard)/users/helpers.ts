@@ -23,15 +23,17 @@ export function getFullName(row: Pick<TBulkUserRowResult, "first_name" | "last_n
   return [row.first_name, row.last_name].filter(Boolean).join(" ");
 }
 
+type TCredentials = Pick<TBulkUserRowResult, "first_name" | "email" | "password">;
+
 /** The ready-to-send text an admin pastes into WhatsApp, Teams or similar. */
-export function buildCredentialsMessage(row: TBulkUserRowResult, loginUrl: string): string {
+export function buildCredentialsMessage(row: TCredentials, loginUrl: string, isReset = false): string {
   const greeting = row.first_name ? `Hello ${row.first_name},` : "Hello,";
   return [
     greeting,
-    `Your ${SITE_NAME} account is ready.`,
+    isReset ? `Your ${SITE_NAME} password has been reset.` : `Your ${SITE_NAME} account is ready.`,
     `Sign in: ${loginUrl}`,
     `Email: ${row.email}`,
-    `Temporary password: ${row.password}`,
+    `${isReset ? "New" : "Temporary"} password: ${row.password}`,
     "Please change your password from your profile settings after you sign in.",
   ].join("\n");
 }
@@ -82,4 +84,23 @@ export function downloadFile(content: Blob | string, filename: string, type = "t
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
+}
+
+export const ROLE_LABELS: Record<TBulkUserRole, string> = { admin: "Admin", member: "Member", guest: "Guest" };
+
+/** Roles a user can hold in a project, given their workspace role (a project role cannot be higher). */
+export function allowedProjectRoles(workspaceRole: TBulkUserRole): TBulkUserRole[] {
+  if (workspaceRole === "guest") return ["guest"];
+  if (workspaceRole === "member") return ["member", "guest"];
+  return ["admin", "member", "guest"];
+}
+
+export function formatDate(value: string | null): string {
+  if (!value) return "-";
+  return new Date(value).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+export function getErrorMessage(err: unknown, fallback = "Something went wrong. Try again."): string {
+  const message = (err as { error?: string } | undefined)?.error;
+  return typeof message === "string" && message ? message : fallback;
 }

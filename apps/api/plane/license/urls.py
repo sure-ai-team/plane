@@ -21,6 +21,11 @@ from plane.license.api.views import (
     InstanceBulkUserCreateEndpoint,
     InstanceBulkUserTemplateEndpoint,
     InstanceUserCreateEndpoint,
+    InstanceUserDetailEndpoint,
+    InstanceUserPasswordEndpoint,
+    InstanceUserActivationEndpoint,
+    InstanceUserWorkspaceEndpoint,
+    InstanceUserProjectEndpoint,
 )
 
 urlpatterns = [
@@ -81,4 +86,18 @@ urlpatterns = [
         name="instance-bulk-user-template",
     ),
     path("users/bulk-create/", InstanceBulkUserCreateEndpoint.as_view(), name="instance-bulk-user-create"),
+    path("users/<uuid:pk>/", InstanceUserDetailEndpoint.as_view(), name="instance-user-detail"),
+    path("users/<uuid:pk>/password/", InstanceUserPasswordEndpoint.as_view(), name="instance-user-password"),
+    path("users/<uuid:pk>/activation/", InstanceUserActivationEndpoint.as_view(), name="instance-user-activation"),
+    path("users/<uuid:pk>/workspaces/", InstanceUserWorkspaceEndpoint.as_view(), name="instance-user-workspaces"),
+    path(
+        "users/<uuid:pk>/workspaces/<str:slug>/",
+        InstanceUserWorkspaceEndpoint.as_view(),
+        name="instance-user-workspace",
+    ),
+    path(
+        "users/<uuid:pk>/projects/<uuid:project_id>/",
+        InstanceUserProjectEndpoint.as_view(),
+        name="instance-user-project",
+    ),
 ]
