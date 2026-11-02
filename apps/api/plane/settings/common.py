@@ -343,8 +343,6 @@ CELERY_IMPORTS = (
     "plane.bgtasks.email_notification_task",
     "plane.bgtasks.cleanup_task",
     "plane.license.bgtasks.telemetry_metrics",
-    # management tasks
-    "plane.bgtasks.dummy_data_task",
     # issue version tasks
     "plane.bgtasks.issue_version_sync",
     "plane.bgtasks.issue_description_version_sync",
@@ -560,9 +558,6 @@ SCRIPT_CAPABLE_MIME_TYPES: frozenset[str] = frozenset(
         "application/xml",
     ]
 )
-
-# Seed directory path
-SEED_DIR = os.path.join(BASE_DIR, "seeds")
 
 ENABLE_DRF_SPECTACULAR = os.environ.get("ENABLE_DRF_SPECTACULAR", "0") == "1"
 

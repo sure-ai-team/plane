@@ -5,7 +5,6 @@
 import pytest
 from django.urls import reverse
 from rest_framework import status
-from unittest.mock import patch
 
 from plane.db.models import Workspace, WorkspaceMember
 
@@ -24,8 +23,7 @@ class TestWorkspaceAPI:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     @pytest.mark.django_db
-    @patch("plane.bgtasks.workspace_seed_task.workspace_seed.delay")
-    def test_create_workspace_valid_data(self, mock_workspace_seed, session_client, create_user):
+    def test_create_workspace_valid_data(self, session_client, create_user):
         """Test creating a workspace with valid data"""
         url = reverse("workspace")
         user = create_user  # Use the create_user fixture directly as it returns a user object
@@ -55,12 +53,8 @@ class TestWorkspaceAPI:
         assert workspace.owner == user
         assert workspace_member.role == 20
 
-        # Verify the workspace_seed task was called
-        mock_workspace_seed.assert_called_once_with(response.data["id"])
-
     @pytest.mark.django_db
-    @patch("plane.bgtasks.workspace_seed_task.workspace_seed.delay")
-    def test_create_duplicate_workspace(self, mock_workspace_seed, session_client):
+    def test_create_duplicate_workspace(self, session_client):
         """Test creating a duplicate workspace"""
         url = reverse("workspace")
 
