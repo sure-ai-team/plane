@@ -2,7 +2,7 @@
   "name": "admin",
   "version": "1.4.2",
   "private": true,
-  "description": "Admin UI for SGT Project Management Platform",
+  "description": "Admin UI for SURE Project Management Platform",
   "license": "AGPL-3.0",
   "type": "module",
   "scripts": {

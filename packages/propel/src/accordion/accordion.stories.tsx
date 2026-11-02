@@ -33,10 +33,10 @@ export const Default: Story = {
     return (
       <Accordion.Root className="w-96">
         <Accordion.Item value="item-1">
-          <Accordion.Trigger>What is SGT Project Management Platform?</Accordion.Trigger>
+          <Accordion.Trigger>What is SURE Project Management Platform?</Accordion.Trigger>
           <Accordion.Content>
-            SGT Project Management Platform is an open-source project management tool designed for developers and teams to plan, track, and manage
-            their work efficiently.
+            SURE Project Management Platform is an open-source project management tool designed for developers and teams
+            to plan, track, and manage their work efficiently.
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="item-2">
@@ -49,8 +49,8 @@ export const Default: Story = {
         <Accordion.Item value="item-3">
           <Accordion.Trigger>Is it free to use?</Accordion.Trigger>
           <Accordion.Content>
-            SGT Project Management Platform offers both free and paid plans. The free plan includes essential features for small teams, while paid
-            plans unlock advanced functionality.
+            SURE Project Management Platform offers both free and paid plans. The free plan includes essential features
+            for small teams, while paid plans unlock advanced functionality.
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>

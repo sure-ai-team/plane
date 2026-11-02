@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SGT Project Management Platform Project Setup Script
+# SURE Project Management Platform Project Setup Script
 # This script prepares the local development environment by setting up all necessary .env files
 # https://sure.com.sa
 
@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 
 # Print header
 echo -e "${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BOLD}${BLUE}                   SGT Project Management Platform - Project Management Tool                    ${NC}"
+echo -e "${BOLD}${BLUE}                   SURE Project Management Platform - Project Management Tool                    ${NC}"
 echo -e "${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${BOLD}Setting up your development environment...${NC}\n"
 

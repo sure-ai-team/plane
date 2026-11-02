@@ -138,7 +138,7 @@
   "stay_ahead_of_blockers_description": "Виявляйте проблеми між проєктами та залежності між циклами, які неочевидні в інших поданнях.",
   "analytics": "Аналітика",
   "workspace_invites": "Запрошення до робочого простору",
-  "enter_god_mode": "Увійти в режим Бога",
+  "enter_god_mode": "Відкрити Superadmin",
   "workspace_logo": "Логотип робочого простору",
   "new_issue": "Нова робоча одиниця",
   "your_work": "Ваша робота",
@@ -244,7 +244,7 @@
   "full_changelog": "Повний журнал змін",
   "support": "Підтримка",
   "forum": "Forum",
-  "powered_by_plane_pages": "Працює на SGT Project Management Platform Pages",
+  "powered_by_plane_pages": "Працює на SURE Project Management Platform Pages",
   "please_select_at_least_one_invitation": "Виберіть принаймні одне запрошення.",
   "please_select_at_least_one_invitation_description": "Виберіть принаймні одне запрошення, щоб приєднатися до робочого простору.",
   "we_see_that_someone_has_invited_you_to_join_a_workspace": "Ми бачимо, що вас запросили приєднатися до робочого простору",
@@ -820,7 +820,7 @@
     "edited_by": "Відредаговано"
   },
   "self_hosted_maintenance_message": {
-    "plane_didnt_start_up_this_could_be_because_one_or_more_plane_services_failed_to_start": "SGT Project Management Platform не запустився. Це може бути через те, що один або декілька сервісів SGT Project Management Platform не змогли запуститися.",
+    "plane_didnt_start_up_this_could_be_because_one_or_more_plane_services_failed_to_start": "SURE Project Management Platform не запустився. Це може бути через те, що один або декілька сервісів SURE Project Management Platform не змогли запуститися.",
     "choose_view_logs_from_setup_sh_and_docker_logs_to_be_sure": "Виберіть View Logs з setup.sh та логів Docker, щоб переконатися."
   },
   "customize_navigation": "Налаштувати навігацію",

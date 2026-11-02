@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { isEqual, xor } from "lodash-es";
 import { observer } from "mobx-react";
 import { useParams } from "next/navigation";
-// SGT Project Management Platform imports
+// SURE Project Management Platform imports
 import { useTranslation } from "@plane/i18n";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { TBaseIssue, TIssue } from "@plane/types";

@@ -5,7 +5,7 @@
  */
 
 import { observer } from "mobx-react";
-// SGT Project Management Platform
+// SURE Project Management Platform
 import { Row } from "@plane/ui";
 // components
 import { cn } from "@plane/utils";

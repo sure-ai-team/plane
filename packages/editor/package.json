@@ -2,7 +2,7 @@
   "name": "@plane/editor",
   "version": "1.4.2",
   "private": true,
-  "description": "Core Editor that powers SGT Project Management Platform",
+  "description": "Core Editor that powers SURE Project Management Platform",
   "keywords": [
     "editor",
     "markdown",

@@ -69,7 +69,7 @@ const InstanceGitlabAuthenticationPage = observer(function InstanceGitlabAuthent
       customHeader={
         <AuthenticationMethodCard
           name="GitLab"
-          description="Allow members to login or sign up to SGT Project Management Platform with their GitLab accounts."
+          description="Allow members to login or sign up to SURE Project Management Platform with their GitLab accounts."
           icon={<img src={GitlabLogo} height={24} width={24} alt="GitLab Logo" />}
           config={
             <ToggleSwitch
@@ -105,6 +105,6 @@ const InstanceGitlabAuthenticationPage = observer(function InstanceGitlabAuthent
   );
 });
 
-export const meta: Route.MetaFunction = () => [{ title: "GitLab Authentication - God Mode" }];
+export const meta: Route.MetaFunction = () => [{ title: "GitLab Authentication - Superadmin" }];
 
 export default InstanceGitlabAuthenticationPage;

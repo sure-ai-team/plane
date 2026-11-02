@@ -3,7 +3,7 @@
     "label": "Paramètres de l’espace de travail",
     "page_label": "{workspace} - Paramètres généraux",
     "key_created": "Clé créée",
-    "copy_key": "Copiez et sauvegardez cette clé secrète dans SGT Project Management Platform Pages. Vous ne pourrez plus voir cette clé après avoir cliqué sur Fermer. Un fichier CSV contenant la clé a été téléchargé.",
+    "copy_key": "Copiez et sauvegardez cette clé secrète dans SURE Project Management Platform Pages. Vous ne pourrez plus voir cette clé après avoir cliqué sur Fermer. Un fichier CSV contenant la clé a été téléchargé.",
     "token_copied": "Jeton copié dans le presse-papiers.",
     "settings": {
       "general": {
@@ -161,7 +161,7 @@
         "generating": "Génération",
         "delete": {
           "title": "Supprimer le jeton API",
-          "description": "Toute application utilisant ce jeton n’aura plus accès aux données de SGT Project Management Platform. Cette action ne peut pas être annulée.",
+          "description": "Toute application utilisant ce jeton n’aura plus accès aux données de SURE Project Management Platform. Cette action ne peut pas être annulée.",
           "success": {
             "title": "Succès !",
             "message": "Le jeton API a été supprimé avec succès"
@@ -176,7 +176,7 @@
         "title": "Intégrations",
         "heading": "Intégrations",
         "description": "Connectez-vous avec des outils et services populaires pour synchroniser votre travail dans tout votre écosystème.",
-        "page_title": "Travaillez avec vos données SGT Project Management Platform dans les applications disponibles ou dans les vôtres.",
+        "page_title": "Travaillez avec vos données SURE Project Management Platform dans les applications disponibles ou dans les vôtres.",
         "page_description": "Affichez toutes les intégrations utilisées par cet espace de travail ou par vous."
       },
       "imports": {
@@ -258,7 +258,7 @@
       "project_states": {
         "title": "États du projet",
         "heading": "Consultez la vue d’ensemble de la progression pour tous les projets.",
-        "description": "Les États de projet sont une fonctionnalité exclusive à SGT Project Management Platform pour suivre la progression de tous vos projets par n’importe quelle propriété de projet.",
+        "description": "Les États de projet sont une fonctionnalité exclusive à SURE Project Management Platform pour suivre la progression de tous vos projets par n’importe quelle propriété de projet.",
         "go_to_settings": "Aller aux paramètres"
       },
       "projects": {
@@ -303,14 +303,14 @@
         "install": "Installer",
         "installed": "Installé",
         "configure": "Configurer",
-        "app_available": "Vous avez rendu cette application disponible pour une utilisation avec un espace de travail SGT Project Management Platform",
+        "app_available": "Vous avez rendu cette application disponible pour une utilisation avec un espace de travail SURE Project Management Platform",
         "app_credentials_regenrated": {
           "title": "Les identifiants de l'application ont été régénérés avec succès",
           "description": "Remplacez le secret client partout où il est utilisé. L'ancien secret n'est plus valide."
         },
         "app_created": {
           "title": "Application créée avec succès",
-          "description": "Utilisez les identifiants pour installer l'application dans un espace de travail SGT Project Management Platform"
+          "description": "Utilisez les identifiants pour installer l'application dans un espace de travail SURE Project Management Platform"
         },
         "installed_apps": "Applications installées",
         "all_apps": "Toutes les applications",
@@ -351,10 +351,10 @@
         },
         "redirect_uris": {
           "label": "URI de redirection (séparés par des espaces)",
-          "description": "Les utilisateurs seront redirigés vers ce chemin après s'être authentifiés avec SGT Project Management Platform.",
+          "description": "Les utilisateurs seront redirigés vers ce chemin après s'être authentifiés avec SURE Project Management Platform.",
           "placeholder": "https://example.com https://example.com/"
         },
-        "app_available_description": "Connectez un espace de travail SGT Project Management Platform pour commencer à l'utiliser",
+        "app_available_description": "Connectez un espace de travail SURE Project Management Platform pour commencer à l'utiliser",
         "client_id_and_secret": "ID Client et Secret",
         "client_id_and_secret_description": "Copiez et sauvegardez cette clé secrète. Vous ne pourrez plus voir cette clé après avoir cliqué sur Fermer.",
         "client_id_and_secret_download": "Vous pouvez télécharger un CSV avec la clé ici.",
@@ -403,12 +403,12 @@
         "workspace_permissions": "Permissions de l'espace de travail",
         "workspace_permissions_description": "Les permissions de l'espace de travail sont utilisées pour accorder l'accès à l'espace de travail.",
         "with_the_permissions": "avec les permissions",
-        "app_consent_title": "{app} demande l'accès à votre espace de travail et profil SGT Project Management Platform.",
+        "app_consent_title": "{app} demande l'accès à votre espace de travail et profil SURE Project Management Platform.",
         "choose_workspace_to_connect_app_with": "Choisissez un espace de travail auquel connecter l'application",
         "app_consent_workspace_permissions_title": "{app} souhaite",
         "app_consent_user_permissions_title": "{app} peut également demander la permission d'un utilisateur pour les ressources suivantes. Ces permissions seront demandées et autorisées uniquement par un utilisateur.",
         "app_consent_accept_title": "En acceptant, vous",
-        "app_consent_accept_1": "Accordez à l'application l'accès à vos données SGT Project Management Platform partout où vous pouvez utiliser l'application dans ou en dehors de SGT Project Management Platform",
+        "app_consent_accept_1": "Accordez à l'application l'accès à vos données SURE Project Management Platform partout où vous pouvez utiliser l'application dans ou en dehors de SURE Project Management Platform",
         "app_consent_accept_2": "Acceptez la politique de confidentialité et les conditions d'utilisation de {app}",
         "accepting": "Acceptation en cours...",
         "accept": "Accepter",
@@ -450,7 +450,7 @@
         "upload_and_save": "Télécharger et enregistrer",
         "app_consent_no_access_title": "Demande d’installation",
         "app_consent_no_access_description": "Cette application ne peut être installée qu'après qu'un administrateur de l'espace de travail l'ait installée. Contactez l'administrateur de votre espace de travail pour continuer.",
-        "app_consent_unapproved_title": "Cette application n’a pas encore été examinée ni approuvée par SGT Project Management Platform.",
+        "app_consent_unapproved_title": "Cette application n’a pas encore été examinée ni approuvée par SURE Project Management Platform.",
         "app_consent_unapproved_description": "Assurez-vous de faire confiance à cette application avant de la connecter à votre espace de travail.",
         "go_to_app": "Aller à l’application",
         "enable_app_mentions": "Activer les mentions de l'application",
@@ -480,7 +480,7 @@
         "description": "Voir votre travail devenir plus intelligent et plus rapide avec l'IA qui est connectée de manière native à votre travail et à votre base de connaissances."
       },
       "runners": {
-        "title": "SGT Project Management Platform Runner",
+        "title": "SURE Project Management Platform Runner",
         "heading": "Scripts",
         "new_script": "Nouveau script",
         "description": "Automatisez vos flux de travail avec des scripts personnalisés et des règles d’automatisation."
@@ -489,7 +489,7 @@
     "empty_state": {
       "api_tokens": {
         "title": "Aucun jeton API créé",
-        "description": "Les API SGT Project Management Platform peuvent être utilisées pour intégrer vos données dans SGT Project Management Platform avec n’importe quel système externe. Créez un jeton pour commencer."
+        "description": "Les API SURE Project Management Platform peuvent être utilisées pour intégrer vos données dans SURE Project Management Platform avec n’importe quel système externe. Créez un jeton pour commencer."
       },
       "webhooks": {
         "title": "Aucun webhook ajouté",

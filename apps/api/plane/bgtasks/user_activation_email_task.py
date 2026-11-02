@@ -24,7 +24,7 @@ def user_activation_email(current_site, user_id):
     try:
         # Send email to user when account is activated
         user = User.objects.get(id=user_id)
-        subject = f"{user.first_name or user.display_name or user.email} has been activated on SGT Project Management Platform"
+        subject = f"{user.first_name or user.display_name or user.email} has been activated on SURE Project Management Platform"
 
         context = {"email": str(user.email), "profile_url": current_site + "/profile"}
 

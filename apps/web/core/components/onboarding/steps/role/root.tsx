@@ -95,7 +95,7 @@ export const RoleSetupStep = observer(function RoleSetupStep({ handleStepChange 
       {/* Header */}
       <CommonOnboardingHeader
         title="What's your role?"
-        description="Let's set up SGT Project Management Platform for how you work."
+        description="Let's set up SURE Project Management Platform for how you work."
       />
       {/* Role Selection */}
       <div className="flex flex-col gap-3">

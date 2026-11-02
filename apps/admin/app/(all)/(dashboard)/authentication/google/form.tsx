@@ -189,7 +189,9 @@ export function InstanceGoogleConfigForm(props: Props) {
       <div className="flex flex-col gap-8">
         <div className="grid w-full grid-cols-2 gap-x-12 gap-y-8">
           <div className="col-span-2 flex flex-col gap-y-4 pt-1 md:col-span-1">
-            <div className="pt-2.5 text-18 font-medium">Google-provided details for SGT Project Management Platform</div>
+            <div className="pt-2.5 text-18 font-medium">
+              Google-provided details for SURE Project Management Platform
+            </div>
             {GOOGLE_FORM_FIELDS.map((field) => (
               <ControllerInput
                 key={field.key}
@@ -222,7 +224,7 @@ export function InstanceGoogleConfigForm(props: Props) {
             </div>
           </div>
           <div className="col-span-2 flex flex-col gap-y-6 md:col-span-1">
-            <div className="pt-2 text-18 font-medium">SGT Project Management Platform-provided details for Google</div>
+            <div className="pt-2 text-18 font-medium">SURE Project Management Platform-provided details for Google</div>
 
             <div className="flex flex-col gap-y-4">
               {/* common service details */}

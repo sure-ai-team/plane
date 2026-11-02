@@ -138,7 +138,7 @@
   "stay_ahead_of_blockers_description": "Spot challenges from one project to another and see inter-cycle dependencies that aren't obvious from any other view.",
   "analytics": "Analytics",
   "workspace_invites": "Workspace invites",
-  "enter_god_mode": "Enter god mode",
+  "enter_god_mode": "Enter Superadmin",
   "workspace_logo": "Workspace logo",
   "new_issue": "New work item",
   "your_work": "Your work",
@@ -244,7 +244,7 @@
   "full_changelog": "Full changelog",
   "support": "Support",
   "forum": "Forum",
-  "powered_by_plane_pages": "Powered by SGT Project Management Platform Pages",
+  "powered_by_plane_pages": "Powered by SURE Project Management Platform Pages",
   "please_select_at_least_one_invitation": "Please select at least one invitation.",
   "please_select_at_least_one_invitation_description": "Please select at least one invitation to join the workspace.",
   "we_see_that_someone_has_invited_you_to_join_a_workspace": "We see that someone has invited you to join a workspace",
@@ -820,7 +820,7 @@
     "edited_by": "Edited by"
   },
   "self_hosted_maintenance_message": {
-    "plane_didnt_start_up_this_could_be_because_one_or_more_plane_services_failed_to_start": "SGT Project Management Platform didn't start up. This could be because one or more SGT Project Management Platform services failed to start.",
+    "plane_didnt_start_up_this_could_be_because_one_or_more_plane_services_failed_to_start": "SURE Project Management Platform didn't start up. This could be because one or more SURE Project Management Platform services failed to start.",
     "choose_view_logs_from_setup_sh_and_docker_logs_to_be_sure": "Choose View Logs from setup.sh and Docker logs to be sure."
   },
   "customize_navigation": "Customize navigation",

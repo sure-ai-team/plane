@@ -18,7 +18,7 @@ type TGlobalModalsProps = {
 };
 
 /**
- * GlobalModals component manages all workspace-level modals across SGT Project Management Platform applications.
+ * GlobalModals component manages all workspace-level modals across SURE Project Management Platform applications.
  *
  * This includes:
  * - Profile settings modal

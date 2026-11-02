@@ -34,7 +34,7 @@ export const SUBSCRIPTION_WITH_BILLING_FREQUENCY = [
 export const PLANE_COMMUNITY_PRODUCTS: Record<string, IPaymentProduct> = {
   [EProductSubscriptionEnum.PRO]: {
     id: EProductSubscriptionEnum.PRO,
-    name: "SGT Project Management Platform Pro",
+    name: "SURE Project Management Platform Pro",
     description:
       "More views, more cycles powers, more pages features, new reports, and better dashboards are waiting to be unlocked.",
     type: "PRO",
@@ -61,9 +61,9 @@ export const PLANE_COMMUNITY_PRODUCTS: Record<string, IPaymentProduct> = {
   },
   [EProductSubscriptionEnum.BUSINESS]: {
     id: EProductSubscriptionEnum.BUSINESS,
-    name: "SGT Project Management Platform Business",
+    name: "SURE Project Management Platform Business",
     description:
-      "The earliest packaging of Business at $10 a seat a month billed annually, $12 a seat a month billed monthly for SGT Project Management Platform Cloud",
+      "The earliest packaging of Business at $10 a seat a month billed annually, $12 a seat a month billed monthly for SURE Project Management Platform Cloud",
     type: "BUSINESS",
     prices: [
       {
@@ -88,7 +88,7 @@ export const PLANE_COMMUNITY_PRODUCTS: Record<string, IPaymentProduct> = {
   },
   [EProductSubscriptionEnum.ENTERPRISE]: {
     id: EProductSubscriptionEnum.ENTERPRISE,
-    name: "SGT Project Management Platform Enterprise",
+    name: "SURE Project Management Platform Enterprise",
     description: "",
     type: "ENTERPRISE",
     prices: [

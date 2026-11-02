@@ -1,7 +1,7 @@
 {
-  "name": "SGT Project Management Platform",
-  "short_name": "SGT PM",
-  "header_token": "SGT",
+  "name": "SURE Project Management Platform",
+  "short_name": "SURE PM",
+  "header_token": "SURE",
   "slug": "sgtpm",
   "company": "Sure Global Tech",
   "lockup_lines": ["Project Management", "Platform"],

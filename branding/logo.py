@@ -1,4 +1,4 @@
-"""Logo geometry for the Sure Global Tech (SGT) brand, shared by rebrand.py and generate_assets.py.
+"""Logo geometry for the SURE (Sure Global Tech) brand, shared by rebrand.py and generate_assets.py.
 
 The source is the official vector logo in branding/sgt/sure-logo.svg. Its shapes are
 used in document order:

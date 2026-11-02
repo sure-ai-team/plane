@@ -195,8 +195,8 @@
         "primary_button": {
           "text": "İlk iş öğenizi oluşturun",
           "comic": {
-            "title": "İş öğeleri SGT Project Management Platform'de yapı taşlarıdır.",
-            "description": "SGT Project Management Platform UI'yi yeniden tasarlamak, şirketi yeniden markalaştırmak veya yeni yakıt enjeksiyon sistemini başlatmak, muhtemelen alt iş öğeleri olan iş öğesi örnekleridir."
+            "title": "İş öğeleri SURE Project Management Platform'de yapı taşlarıdır.",
+            "description": "SURE Project Management Platform UI'yi yeniden tasarlamak, şirketi yeniden markalaştırmak veya yeni yakıt enjeksiyon sistemini başlatmak, muhtemelen alt iş öğeleri olan iş öğesi örnekleridir."
           }
         }
       },
@@ -271,8 +271,8 @@
   "project_page": {
     "empty_state": {
       "general": {
-        "title": "Bir not, belge veya tam bir bilgi bankası yazın. SGT Project Management Platform'in AI asistanı Galileo'nun başlamanıza yardımcı olmasını sağlayın",
-        "description": "Sayfalar SGT Project Management Platform'de düşüncelerinizi döktüğünüz alanlardır. Toplantı notları alın, kolayca biçimlendirin, iş öğelerini yerleştirin, bir bileşen kitaplığı kullanarak düzenleyin ve hepsini proje bağlamınızda tutun. Herhangi bir belgeyi hızlıca tamamlamak için bir kısayol veya düğme ile SGT Project Management Platform'in AI'sı Galileo'yu çağırın.",
+        "title": "Bir not, belge veya tam bir bilgi bankası yazın. SURE Project Management Platform'in AI asistanı Galileo'nun başlamanıza yardımcı olmasını sağlayın",
+        "description": "Sayfalar SURE Project Management Platform'de düşüncelerinizi döktüğünüz alanlardır. Toplantı notları alın, kolayca biçimlendirin, iş öğelerini yerleştirin, bir bileşen kitaplığı kullanarak düzenleyin ve hepsini proje bağlamınızda tutun. Herhangi bir belgeyi hızlıca tamamlamak için bir kısayol veya düğme ile SURE Project Management Platform'in AI'sı Galileo'yu çağırın.",
         "primary_button": {
           "text": "İlk sayfanızı oluşturun"
         }

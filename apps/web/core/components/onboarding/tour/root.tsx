@@ -39,7 +39,7 @@ const TOUR_STEPS: {
     key: "work-items",
     title: "Plan with work items",
     description:
-      "The work item is the building block of the SGT Project Management Platform. Most concepts in SGT Project Management Platform are either associated with work items and their properties.",
+      "The work item is the building block of the SURE Project Management Platform. Most concepts in SURE Project Management Platform are either associated with work items and their properties.",
     image: IssuesTour,
     nextStep: "cycles",
   },
@@ -99,11 +99,11 @@ export const TourRoot = observer(function TourRoot(props: TOnboardingTourProps) 
             </div>
             <div className="flex flex-col overflow-y-auto p-6">
               <h3 className="font-semibold sm:text-18">
-                Welcome to SGT Project Management Platform, {currentUser?.first_name} {currentUser?.last_name}
+                Welcome to SURE Project Management Platform, {currentUser?.first_name} {currentUser?.last_name}
               </h3>
               <p className="mt-3 text-13 text-secondary">
-                We{"'"}re glad that you decided to try out SGT Project Management Platform. You can now manage your projects with ease. Get
-                started by creating a project.
+                We{"'"}re glad that you decided to try out SURE Project Management Platform. You can now manage your
+                projects with ease. Get started by creating a project.
               </p>
               <div className="flex h-full items-end">
                 <div className="mt-12 flex items-center gap-6">

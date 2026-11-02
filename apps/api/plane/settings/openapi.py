@@ -12,14 +12,14 @@ SPECTACULAR_SETTINGS = {
     # ========================================================================
     # Basic API Information
     # ========================================================================
-    "TITLE": "The SGT Project Management Platform REST API",
+    "TITLE": "The SURE Project Management Platform REST API",
     "DESCRIPTION": (
-        "The SGT Project Management Platform REST API\n\n"
+        "The SURE Project Management Platform REST API\n\n"
         "Visit our quick start guide and full API documentation at "
         "[developers.sure.com.sa](https://sure.com.sa)."
     ),
     "CONTACT": {
-        "name": "SGT Project Management Platform",
+        "name": "SURE Project Management Platform",
         "url": "https://sure.com.sa",
         "email": "info@sure.com.sa",
     },

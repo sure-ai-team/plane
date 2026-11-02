@@ -5,7 +5,7 @@
       "not_right_now": "Non ora",
       "create_project": {
         "title": "Crea un progetto",
-        "description": "La maggior parte delle cose inizia con un progetto in SGT Project Management Platform.",
+        "description": "La maggior parte delle cose inizia con un progetto in SURE Project Management Platform.",
         "cta": "Inizia"
       },
       "invite_team": {
@@ -19,7 +19,7 @@
         "cta": "Configura questo spazio"
       },
       "personalize_account": {
-        "title": "Rendi SGT Project Management Platform tuo.",
+        "title": "Rendi SURE Project Management Platform tuo.",
         "description": "Scegli la tua immagine, i colori e altro.",
         "cta": "Personalizza ora"
       },
@@ -53,7 +53,7 @@
       }
     },
     "new_at_plane": {
-      "title": "Novità su SGT Project Management Platform"
+      "title": "Novità su SURE Project Management Platform"
     },
     "quick_tutorial": {
       "title": "Tutorial rapido"

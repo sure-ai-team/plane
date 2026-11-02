@@ -385,7 +385,7 @@ export const CommonMistakes: Story = {
       <div className="space-y-6">
         <div className="rounded-md border-2 border-danger-strong p-4">
           <h4 className="mb-2 font-semibold text-primary">
-            ❌ Mistake 1: Nested Surfaces (Same SGT Project Management Platform)
+            ❌ Mistake 1: Nested Surfaces (Same SURE Project Management Platform)
           </h4>
           <Surface>
             <p className="mb-2 text-13 text-secondary">Surface 1</p>

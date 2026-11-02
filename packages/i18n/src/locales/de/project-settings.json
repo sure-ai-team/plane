@@ -182,18 +182,18 @@
       "description": "Konfigurieren Sie automatisierte Aktionen, um Ihren Projektmanagement-Workflow zu optimieren und manuelle Aufgaben zu reduzieren.",
       "auto-archive": {
         "title": "Geschlossene Arbeitselemente automatisch archivieren",
-        "description": "SGT Project Management Platform archiviert automatisch Arbeitselemente, die abgeschlossen oder abgebrochen wurden.",
+        "description": "SURE Project Management Platform archiviert automatisch Arbeitselemente, die abgeschlossen oder abgebrochen wurden.",
         "duration": "Arbeitselemente automatisch archivieren, die geschlossen sind seit"
       },
       "auto-close": {
         "title": "Arbeitselemente automatisch schließen",
-        "description": "SGT Project Management Platform schließt automatisch Arbeitselemente, die nicht abgeschlossen oder abgebrochen wurden.",
+        "description": "SURE Project Management Platform schließt automatisch Arbeitselemente, die nicht abgeschlossen oder abgebrochen wurden.",
         "duration": "Arbeitselemente automatisch schließen, die inaktiv sind seit",
         "auto_close_status": "Auto-Schließ-Status"
       },
       "auto-remind": {
         "title": "Automatische Erinnerungen",
-        "description": "SGT Project Management Platform wird automatische Erinnerungen via E-Mail und in-App-Benachrichtigungen senden, um Ihr Team auf den Lauf der Dinge zu halten.",
+        "description": "SURE Project Management Platform wird automatische Erinnerungen via E-Mail und in-App-Benachrichtigungen senden, um Ihr Team auf den Lauf der Dinge zu halten.",
         "duration": "Erinnerung vor"
       }
     },
@@ -371,7 +371,7 @@
         },
         "email": {
           "title": "E-Mail",
-          "description": "Sammeln Sie neue Arbeitselemente von allen, die eine E-Mail an eine SGT Project Management Platform-E-Mail-Adresse senden.",
+          "description": "Sammeln Sie neue Arbeitselemente von allen, die eine E-Mail an eine SURE Project Management Platform-E-Mail-Adresse senden.",
           "fieldName": "E-Mail-ID"
         },
         "form": {

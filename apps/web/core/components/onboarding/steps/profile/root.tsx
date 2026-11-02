@@ -148,7 +148,7 @@ export const ProfileSetupStep = observer(function ProfileSetupStep({ handleStepC
       {/* Header */}
       <CommonOnboardingHeader
         title="Create your profile."
-        description="This is how you will appear in SGT Project Management Platform."
+        description="This is how you will appear in SURE Project Management Platform."
       />
 
       {/* Profile Picture Section */}

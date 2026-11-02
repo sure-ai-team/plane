@@ -6,7 +6,7 @@
 
 /**
  * Theme Application Utilities
- * Applies generated palettes to CSS variables for SGT Project Management Platform's theme system
+ * Applies generated palettes to CSS variables for SURE Project Management Platform's theme system
  */
 
 import { hexToOKLCH, oklchToCSS, getRelativeLuminance, getPerceptualBrightness } from "./color-conversion";

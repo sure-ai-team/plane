@@ -8,6 +8,7 @@ RESTRICTED_WORKSPACE_SLUGS = [
     "api",
     "create-workspace",
     "god-mode",
+    "superadmin",
     "installations",
     "invitations",
     "onboarding",

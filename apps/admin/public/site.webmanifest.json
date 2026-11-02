@@ -1,7 +1,7 @@
 {
-  "name": "SGT Project Management Platform God Mode",
-  "short_name": "SGT PM",
-  "description": "SGT Project Management Platform helps you plan your issues, cycles, and product modules.",
+  "name": "SURE Project Management Platform Superadmin",
+  "short_name": "SURE PM",
+  "description": "SURE Project Management Platform helps you plan your issues, cycles, and product modules.",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#f9fafb",

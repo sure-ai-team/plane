@@ -20,7 +20,7 @@ INSTALLED_APPS += ("scout_apm.django",)  # noqa
 # Scout Settings
 SCOUT_MONITOR = os.environ.get("SCOUT_MONITOR", False)
 SCOUT_KEY = os.environ.get("SCOUT_KEY", "")
-SCOUT_NAME = "SGT Project Management Platform"
+SCOUT_NAME = "SURE Project Management Platform"
 
 LOG_DIR = os.path.join(BASE_DIR, "logs")  # noqa
 

@@ -12,7 +12,7 @@ A lightweight TypeScript decorator library for building Express.js controllers w
 
 ## Installation
 
-This package is part of the SGT Project Management Platform workspace and can be used by adding it to your project's dependencies:
+This package is part of the SURE Project Management Platform workspace and can be used by adding it to your project's dependencies:
 
 ```json
 {

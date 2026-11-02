@@ -24,7 +24,7 @@ import "@fontsource/material-symbols-rounded";
 // oxlint-disable-next-line import/no-unassigned-import
 import "@fontsource/ibm-plex-mono";
 
-const APP_TITLE = "SGT Project Management Platform";
+const APP_TITLE = "SURE Project Management Platform";
 const APP_DESCRIPTION =
   "Open-source project management tool to manage work items, sprints, and product roadmaps with peace of mind.";
 

@@ -60,6 +60,6 @@ function UsersPage(_props: Route.ComponentProps) {
   );
 }
 
-export const meta: Route.MetaFunction = () => [{ title: "Users - God Mode" }];
+export const meta: Route.MetaFunction = () => [{ title: "Users - Superadmin" }];
 
 export default UsersPage;

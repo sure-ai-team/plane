@@ -319,9 +319,9 @@ class IssueListCreateAPIEndpoint(BaseAPIView):
             return Response(
                 {
                     "pql": (
-                        "PQL and structured filters are not supported on this SGT Project Management Platform edition. "
+                        "PQL and structured filters are not supported on this SURE Project Management Platform edition. "
                         "Remove the pql/filters parameter and filter results client-side, or use "
-                        "a SGT Project Management Platform edition that supports work item query filtering."
+                        "a SURE Project Management Platform edition that supports work item query filtering."
                     ),
                     "unsupported_parameters": unsupported_filters,
                 },

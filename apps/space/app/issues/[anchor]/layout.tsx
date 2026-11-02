@@ -19,8 +19,9 @@ import { usePublish, usePublishList } from "@/hooks/store/publish";
 import { useIssueFilter } from "@/hooks/store/use-issue-filter";
 import type { Route } from "./+types/layout";
 
-const DEFAULT_TITLE = "SGT Project Management Platform";
-const DEFAULT_DESCRIPTION = "Made with SGT Project Management Platform, an AI-powered work management platform with publishing capabilities.";
+const DEFAULT_TITLE = "SURE Project Management Platform";
+const DEFAULT_DESCRIPTION =
+  "Made with SURE Project Management Platform, an AI-powered work management platform with publishing capabilities.";
 
 interface IssueMetadata {
   name?: string;

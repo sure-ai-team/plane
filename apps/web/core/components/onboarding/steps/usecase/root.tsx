@@ -88,7 +88,7 @@ export const UseCaseSetupStep = observer(function UseCaseSetupStep({ handleStepC
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
       {/* Header */}
       <CommonOnboardingHeader
-        title="What brings you to SGT Project Management Platform?"
+        title="What brings you to SURE Project Management Platform?"
         description="Tell us your goals and team size."
       />
 

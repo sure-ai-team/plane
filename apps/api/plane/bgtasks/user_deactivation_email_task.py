@@ -24,7 +24,7 @@ def user_deactivation_email(current_site, user_id):
     try:
         # Send email to user when account is deactivated
         user = User.objects.get(id=user_id)
-        subject = f"{user.first_name or user.display_name or user.email} has been deactivated on SGT Project Management Platform"
+        subject = f"{user.first_name or user.display_name or user.email} has been deactivated on SURE Project Management Platform"
 
         context = {"email": str(user.email), "login_url": current_site + "/login"}
 

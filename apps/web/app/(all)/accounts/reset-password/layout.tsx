@@ -11,4 +11,4 @@ export default function ResetPasswordLayout() {
   return <Outlet />;
 }
 
-export const meta: Route.MetaFunction = () => [{ title: "Reset Password - SGT Project Management Platform" }];
+export const meta: Route.MetaFunction = () => [{ title: "Reset Password - SURE Project Management Platform" }];

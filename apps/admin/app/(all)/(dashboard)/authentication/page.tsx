@@ -171,6 +171,8 @@ const InstanceAuthenticationPage = observer(function InstanceAuthenticationPage(
   );
 });
 
-export const meta: Route.MetaFunction = () => [{ title: "Authentication Settings - SGT Project Management Platform Web" }];
+export const meta: Route.MetaFunction = () => [
+  { title: "Authentication Settings - SURE Project Management Platform Web" },
+];
 
 export default InstanceAuthenticationPage;

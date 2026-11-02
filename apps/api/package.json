@@ -2,6 +2,6 @@
   "name": "plane-api",
   "version": "1.4.2",
   "private": true,
-  "description": "API server powering SGT Project Management Platform's backend",
+  "description": "API server powering SURE Project Management Platform's backend",
   "license": "AGPL-3.0"
 }

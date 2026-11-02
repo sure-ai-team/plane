@@ -70,7 +70,7 @@ const InstanceGiteaAuthenticationPage = observer(function InstanceGiteaAuthentic
       customHeader={
         <AuthenticationMethodCard
           name="Gitea"
-          description="Allow members to login or sign up to SGT Project Management Platform with their Gitea accounts."
+          description="Allow members to login or sign up to SURE Project Management Platform with their Gitea accounts."
           icon={<img src={giteaLogo} height={24} width={24} alt="Gitea Logo" />}
           config={
             <ToggleSwitch
@@ -101,6 +101,6 @@ const InstanceGiteaAuthenticationPage = observer(function InstanceGiteaAuthentic
     </PageWrapper>
   );
 });
-export const meta: Route.MetaFunction = () => [{ title: "Gitea Authentication - God Mode" }];
+export const meta: Route.MetaFunction = () => [{ title: "Gitea Authentication - Superadmin" }];
 
 export default InstanceGiteaAuthenticationPage;

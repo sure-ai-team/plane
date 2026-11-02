@@ -27,7 +27,7 @@ export function PoweredBy(props: TPoweredBy) {
     >
       <PlaneLogo className="h-3 w-auto text-primary" />
       <div className="text-11">
-        Powered by <span className="font-semibold">SGT Project Management Platform</span>
+        Powered by <span className="font-semibold">SURE Project Management Platform</span>
       </div>
     </a>
   );

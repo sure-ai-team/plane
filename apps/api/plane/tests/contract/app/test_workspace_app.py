@@ -30,9 +30,9 @@ class TestWorkspaceAPI:
 
         # Test with valid data - include all required fields
         workspace_data = {
-            "name": "SGT Project Management Platform",
+            "name": "SURE Project Management Platform",
             "slug": "pla-ne-test",
-            "company_name": "SGT Project Management Platform Inc.",
+            "company_name": "SURE Project Management Platform Inc.",
         }
 
         # Make the request
@@ -59,10 +59,10 @@ class TestWorkspaceAPI:
         url = reverse("workspace")
 
         # Create first workspace
-        session_client.post(url, {"name": "SGT Project Management Platform", "slug": "pla-ne"}, format="json")
+        session_client.post(url, {"name": "SURE Project Management Platform", "slug": "pla-ne"}, format="json")
 
         # Try to create a workspace with the same slug
-        response = session_client.post(url, {"name": "SGT Project Management Platform", "slug": "pla-ne"}, format="json")
+        response = session_client.post(url, {"name": "SURE Project Management Platform", "slug": "pla-ne"}, format="json")
 
         # The API returns 400 BAD REQUEST for duplicate slugs, not 409 CONFLICT
         assert response.status_code == status.HTTP_400_BAD_REQUEST

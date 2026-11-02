@@ -1,5 +1,5 @@
 """
-Seed a SGT Project Management Platform instance with demo users, a workspace, projects and work items.
+Seed a SURE Project Management Platform instance with demo users, a workspace, projects and work items.
 
 Run against the running stack (safe to re-run, it skips what already exists):
 
@@ -174,7 +174,7 @@ def run():
     for email, first, last, _, title, _ in USERS:
         users[email] = upsert_user(email, first, last, title)
 
-    # Instance admin (god-mode) and finish instance setup
+    # Instance admin (superadmin) and finish instance setup
     for email, *_, is_instance_admin in USERS:
         if is_instance_admin:
             InstanceAdmin.objects.get_or_create(user=users[email], instance=instance, defaults={"role": 20})

@@ -69,7 +69,7 @@
     "page": {
       "step_zero": {
         "title": "Documenta con Páginas potenciadas por IA",
-        "description": "Las Páginas en SGT Project Management Platform te permiten capturar, organizar y colaborar en información del proyecto—sin herramientas externas."
+        "description": "Las Páginas en SURE Project Management Platform te permiten capturar, organizar y colaborar en información del proyecto—sin herramientas externas."
       },
       "step_one": {
         "title": "Hacer página Pública o Privada",
@@ -95,7 +95,7 @@
     "intake": {
       "step_zero": {
         "title": "Optimiza solicitudes con recepción",
-        "description": "Una característica exclusiva de SGT Project Management Platform que permite a los Invitados crear elementos de trabajo para errores, solicitudes o tickets."
+        "description": "Una característica exclusiva de SURE Project Management Platform que permite a los Invitados crear elementos de trabajo para errores, solicitudes o tickets."
       },
       "step_one": {
         "title": "Solicitudes de recepción abiertas/cerradas",
@@ -154,7 +154,7 @@
   },
   "get_started": {
     "title": "¡Hola {name}, bienvenido a bordo!",
-    "description": "Aquí está todo lo que necesitas para comenzar tu viaje con SGT Project Management Platform.",
+    "description": "Aquí está todo lo que necesitas para comenzar tu viaje con SURE Project Management Platform.",
     "checklist_section": {
       "title": "Comenzar",
       "description": "Comienza tu configuración y ve tus ideas cobrar vida más rápido.",
@@ -188,8 +188,8 @@
       "more_integrations": "Explorar más integraciones"
     },
     "switch_to_plane_section": {
-      "title": "Descubre por qué los equipos cambian a SGT Project Management Platform",
-      "description": "Compara SGT Project Management Platform con las herramientas que usas hoy y ve la diferencia."
+      "title": "Descubre por qué los equipos cambian a SURE Project Management Platform",
+      "description": "Compara SURE Project Management Platform con las herramientas que usas hoy y ve la diferencia."
     }
   }
 }

@@ -138,7 +138,7 @@
   "stay_ahead_of_blockers_description": "Detecta desafíos de un proyecto a otro y ve dependencias entre ciclos que no son obvias desde ninguna otra vista.",
   "analytics": "Análisis",
   "workspace_invites": "Invitaciones al espacio de trabajo",
-  "enter_god_mode": "Entrar en modo dios",
+  "enter_god_mode": "Entrar en Superadmin",
   "workspace_logo": "Logo del espacio de trabajo",
   "new_issue": "Nuevo elemento de trabajo",
   "your_work": "Tu trabajo",
@@ -244,7 +244,7 @@
   "full_changelog": "Registro de cambios completo",
   "support": "Soporte",
   "forum": "Forum",
-  "powered_by_plane_pages": "Desarrollado por SGT Project Management Platform Pages",
+  "powered_by_plane_pages": "Desarrollado por SURE Project Management Platform Pages",
   "please_select_at_least_one_invitation": "Por favor selecciona al menos una invitación.",
   "please_select_at_least_one_invitation_description": "Por favor selecciona al menos una invitación para unirte al espacio de trabajo.",
   "we_see_that_someone_has_invited_you_to_join_a_workspace": "Vemos que alguien te ha invitado a unirte a un espacio de trabajo",
@@ -820,7 +820,7 @@
     "edited_by": "Editado por"
   },
   "self_hosted_maintenance_message": {
-    "plane_didnt_start_up_this_could_be_because_one_or_more_plane_services_failed_to_start": "SGT Project Management Platform no se inició. Esto podría deberse a que uno o más servicios de SGT Project Management Platform fallaron al iniciar.",
+    "plane_didnt_start_up_this_could_be_because_one_or_more_plane_services_failed_to_start": "SURE Project Management Platform no se inició. Esto podría deberse a que uno o más servicios de SURE Project Management Platform fallaron al iniciar.",
     "choose_view_logs_from_setup_sh_and_docker_logs_to_be_sure": "Selecciona View Logs desde setup.sh y los logs de Docker para estar seguro."
   },
   "customize_navigation": "Personalizar navegación",

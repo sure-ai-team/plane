@@ -18,7 +18,9 @@
         reverse_proxy localhost:3004
     }
 
-	handle_path /god-mode* {
+	@oldAdmin path_regexp oldAdmin ^/god-mode(/.*)?$
+	redir @oldAdmin /superadmin{re.oldAdmin.1} permanent
+	handle_path /superadmin* {
         root * /app/admin
         try_files {path} {path}/ /index.html
         file_server

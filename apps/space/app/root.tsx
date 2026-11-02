@@ -27,8 +27,8 @@ import "@fontsource/material-symbols-rounded";
 // oxlint-disable-next-line import/no-unassigned-import
 import "@fontsource/ibm-plex-mono";
 
-const APP_TITLE = "SGT Project Management Platform | Published projects";
-const APP_DESCRIPTION = "Published projects from SGT Project Management Platform";
+const APP_TITLE = "SURE Project Management Platform | Published projects";
+const APP_DESCRIPTION = "Published projects from SURE Project Management Platform";
 
 export const links: Route.LinksFunction = () => [
   { rel: "apple-touch-icon", sizes: "180x180", href: appleTouchIcon },

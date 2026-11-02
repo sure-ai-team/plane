@@ -25,7 +25,7 @@ type TPlansComparisonBaseProps = {
 export const shouldRenderPlanDetail = (planKey: TPlanePlans) => {
   // Free plan is not required to be shown in the comparison
   if (planKey === "free") return false;
-  // SGT Project Management Platform one plan is not longer available
+  // SURE Project Management Platform one plan is not longer available
   if (planKey === "one") return false;
   return true;
 };

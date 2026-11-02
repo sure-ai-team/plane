@@ -28,29 +28,29 @@ const Titles = {
   [EAuthModes.SIGN_IN]: {
     [EAuthSteps.EMAIL]: {
       header: "Work in all dimensions.",
-      subHeader: "Welcome back to SGT Project Management Platform.",
+      subHeader: "Welcome back to SURE Project Management Platform.",
     },
     [EAuthSteps.PASSWORD]: {
       header: "Work in all dimensions.",
-      subHeader: "Welcome back to SGT Project Management Platform.",
+      subHeader: "Welcome back to SURE Project Management Platform.",
     },
     [EAuthSteps.UNIQUE_CODE]: {
       header: "Work in all dimensions.",
-      subHeader: "Welcome back to SGT Project Management Platform.",
+      subHeader: "Welcome back to SURE Project Management Platform.",
     },
   },
   [EAuthModes.SIGN_UP]: {
     [EAuthSteps.EMAIL]: {
       header: "Work in all dimensions.",
-      subHeader: "Create your SGT Project Management Platform account.",
+      subHeader: "Create your SURE Project Management Platform account.",
     },
     [EAuthSteps.PASSWORD]: {
       header: "Work in all dimensions.",
-      subHeader: "Create your SGT Project Management Platform account.",
+      subHeader: "Create your SURE Project Management Platform account.",
     },
     [EAuthSteps.UNIQUE_CODE]: {
       header: "Work in all dimensions.",
-      subHeader: "Create your SGT Project Management Platform account.",
+      subHeader: "Create your SURE Project Management Platform account.",
     },
   },
 };

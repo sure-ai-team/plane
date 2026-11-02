@@ -14,7 +14,7 @@
       "sidebar_header": "Настройка триггера",
       "input_label": "Какой триггер для этой автоматизации?",
       "input_placeholder": "Выберите опцию",
-      "section_plane_events": "События SGT Project Management Platform",
+      "section_plane_events": "События SURE Project Management Platform",
       "section_time_based": "По времени",
       "fixed_schedule": "Фиксированное расписание",
       "schedule": {

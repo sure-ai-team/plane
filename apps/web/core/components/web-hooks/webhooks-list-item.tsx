@@ -6,7 +6,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-// SGT Project Management Platform imports
+// SURE Project Management Platform imports
 import type { IWebhook } from "@plane/types";
 import { ToggleSwitch } from "@plane/ui";
 // hooks

@@ -7,7 +7,7 @@
 export const API_BASE_URL = process.env.VITE_API_BASE_URL || "";
 export const API_BASE_PATH = process.env.VITE_API_BASE_PATH || "";
 export const API_URL = encodeURI(`${API_BASE_URL}${API_BASE_PATH}`);
-// God Mode Admin App Base Url
+// Superadmin console base URL
 export const ADMIN_BASE_URL = process.env.VITE_ADMIN_BASE_URL || "";
 export const ADMIN_BASE_PATH = process.env.VITE_ADMIN_BASE_PATH || "";
 export const GOD_MODE_URL = encodeURI(`${ADMIN_BASE_URL}${ADMIN_BASE_PATH}`);

@@ -38,7 +38,7 @@ import "@fontsource/material-symbols-rounded";
 // oxlint-disable-next-line import/no-unassigned-import
 import "@fontsource/ibm-plex-mono";
 
-const APP_TITLE = "SGT Project Management Platform";
+const APP_TITLE = "SURE Project Management Platform";
 
 export const links: LinksFunction = () => [
   { rel: "icon", type: "image/png", sizes: "32x32", href: favicon32 },
@@ -69,7 +69,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#fff" />
         {/* Meta info for PWA */}
-        <meta name="application-name" content="SGT Project Management Platform" />
+        <meta name="application-name" content="SURE Project Management Platform" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
@@ -111,7 +111,7 @@ export const meta: Route.MetaFunction = () => [
   { property: "og:image", content: ogImage },
   { property: "og:image:width", content: "1200" },
   { property: "og:image:height", content: "630" },
-  { property: "og:image:alt", content: "SGT Project Management Platform - Modern project management" },
+  { property: "og:image:alt", content: "SURE Project Management Platform - Modern project management" },
   {
     name: "keywords",
     content:
@@ -122,7 +122,7 @@ export const meta: Route.MetaFunction = () => [
   { name: "twitter:image", content: ogImage },
   { name: "twitter:image:width", content: "1200" },
   { name: "twitter:image:height", content: "630" },
-  { name: "twitter:image:alt", content: "SGT Project Management Platform - Modern project management" },
+  { name: "twitter:image:alt", content: "SURE Project Management Platform - Modern project management" },
 ];
 
 export default function Root() {

@@ -5,7 +5,7 @@
       "not_right_now": "Зараз не треба",
       "create_project": {
         "title": "Створити проєкт",
-        "description": "Більшість речей починається з проєкту в SGT Project Management Platform.",
+        "description": "Більшість речей починається з проєкту в SURE Project Management Platform.",
         "cta": "Почати"
       },
       "invite_team": {
@@ -19,7 +19,7 @@
         "cta": "Налаштувати цей простір"
       },
       "personalize_account": {
-        "title": "Налаштуйте SGT Project Management Platform під себе.",
+        "title": "Налаштуйте SURE Project Management Platform під себе.",
         "description": "Оберіть картинку, кольори та інше.",
         "cta": "Налаштувати зараз"
       },
@@ -53,7 +53,7 @@
       }
     },
     "new_at_plane": {
-      "title": "Новинки в SGT Project Management Platform"
+      "title": "Новинки в SURE Project Management Platform"
     },
     "quick_tutorial": {
       "title": "Швидкий посібник"

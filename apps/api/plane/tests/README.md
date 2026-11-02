@@ -1,6 +1,6 @@
-# SGT Project Management Platform Tests
+# SURE Project Management Platform Tests
 
-This directory contains tests for the SGT Project Management Platform application. The tests are organized using pytest.
+This directory contains tests for the SURE Project Management Platform application. The tests are organized using pytest.
 
 ## Test Structure
 
@@ -14,7 +14,7 @@ Tests are organized into the following categories:
 
 ## API vs App Endpoints
 
-SGT Project Management Platform has two types of API endpoints:
+SURE Project Management Platform has two types of API endpoints:
 
 1. **External API** (`plane.api`):
    - Available at `/api/v1/` endpoint

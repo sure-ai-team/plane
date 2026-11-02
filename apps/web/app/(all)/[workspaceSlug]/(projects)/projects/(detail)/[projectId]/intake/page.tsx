@@ -67,7 +67,7 @@ function ProjectInboxPage({ params }: Route.ComponentProps) {
         workspace: currentProjectDetails?.name,
       })
     : t("inbox_issue.page_label", {
-        workspace: "SGT Project Management Platform",
+        workspace: "SURE Project Management Platform",
       });
 
   const currentNavigationTab = navigationTab

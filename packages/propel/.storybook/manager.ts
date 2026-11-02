@@ -9,7 +9,7 @@ import { create } from "storybook/theming";
 
 const planeTheme = create({
   base: "dark",
-  brandTitle: "SGT Project Management Platform UI",
+  brandTitle: "SURE Project Management Platform UI",
   brandUrl: "https://sure.com.sa",
   brandImage: "plane-lockup-light.svg",
   brandTarget: "_self",

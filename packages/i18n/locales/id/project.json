@@ -195,8 +195,8 @@
         "primary_button": {
           "text": "Buat item kerja pertama Anda",
           "comic": {
-            "title": "Item kerja adalah blok bangunan di SGT Project Management Platform.",
-            "description": "Mendesain ulang UI SGT Project Management Platform, Mengganti merek perusahaan, atau Meluncurkan sistem injeksi bahan bakar baru adalah contoh item kerja yang kemungkinan besar memiliki sub-item kerja."
+            "title": "Item kerja adalah blok bangunan di SURE Project Management Platform.",
+            "description": "Mendesain ulang UI SURE Project Management Platform, Mengganti merek perusahaan, atau Meluncurkan sistem injeksi bahan bakar baru adalah contoh item kerja yang kemungkinan besar memiliki sub-item kerja."
           }
         }
       },
@@ -271,8 +271,8 @@
   "project_page": {
     "empty_state": {
       "general": {
-        "title": "Tulis catatan, dokumen, atau seluruh basis pengetahuan. Dapatkan Galileo, asisten AI SGT Project Management Platform, untuk membantu Anda memulai",
-        "description": "Halaman adalah ruang pemikiran di SGT Project Management Platform. Catat notul rapat, format dengan mudah, sertakan item kerja, tata letak menggunakan perpustakaan komponen, dan simpan semua di dalam konteks proyek Anda. Untuk menyelesaikan dokumen dengan cepat, panggil Galileo, AI SGT Project Management Platform, dengan pintasan atau dengan mengklik tombol.",
+        "title": "Tulis catatan, dokumen, atau seluruh basis pengetahuan. Dapatkan Galileo, asisten AI SURE Project Management Platform, untuk membantu Anda memulai",
+        "description": "Halaman adalah ruang pemikiran di SURE Project Management Platform. Catat notul rapat, format dengan mudah, sertakan item kerja, tata letak menggunakan perpustakaan komponen, dan simpan semua di dalam konteks proyek Anda. Untuk menyelesaikan dokumen dengan cepat, panggil Galileo, AI SURE Project Management Platform, dengan pintasan atau dengan mengklik tombol.",
         "primary_button": {
           "text": "Buat halaman pertama Anda"
         }

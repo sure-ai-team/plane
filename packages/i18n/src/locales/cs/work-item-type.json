@@ -367,7 +367,7 @@
         },
         "confirmation": {
           "title": "Jakmile budou povoleny, typy pracovních položek nelze zakázat.",
-          "description": "Typ pracovních položek SGT Project Management Platform se stane výchozím typem pracovních položek pro tento projekt a zobrazí se s ikonou a pozadím v tomto projektu.",
+          "description": "Typ pracovních položek SURE Project Management Platform se stane výchozím typem pracovních položek pro tento projekt a zobrazí se s ikonou a pozadím v tomto projektu.",
           "button": {
             "default": "Povolit",
             "loading": "Nastavuji"

@@ -69,7 +69,7 @@
     "page": {
       "step_zero": {
         "title": "Dokumentujte s AI stránkami",
-        "description": "Stránky v SGT Project Management Platform vám umožňují zachytit, organizovat a spolupracovat na projektových informacích—bez externích nástrojů."
+        "description": "Stránky v SURE Project Management Platform vám umožňují zachytit, organizovat a spolupracovat na projektových informacích—bez externích nástrojů."
       },
       "step_one": {
         "title": "Nastavte stránku jako Veřejnou nebo Soukromou",
@@ -95,7 +95,7 @@
     "intake": {
       "step_zero": {
         "title": "Zefektivněte požadavky s příjmem",
-        "description": "Funkce pouze v SGT Project Management Platform, která umožňuje hostům vytvářet pracovní položky pro chyby, požadavky nebo tikety."
+        "description": "Funkce pouze v SURE Project Management Platform, která umožňuje hostům vytvářet pracovní položky pro chyby, požadavky nebo tikety."
       },
       "step_one": {
         "title": "Otevřené/uzavřené požadavky příjmu",
@@ -154,7 +154,7 @@
   },
   "get_started": {
     "title": "Ahoj {name}, vítej na palubě!",
-    "description": "Zde je vše, co potřebujete k nastartování vaší cesty s SGT Project Management Platform.",
+    "description": "Zde je vše, co potřebujete k nastartování vaší cesty s SURE Project Management Platform.",
     "checklist_section": {
       "title": "Začít",
       "description": "Začněte s nastavením a uvidíte své nápady ožít rychleji.",
@@ -188,8 +188,8 @@
       "more_integrations": "Procházet další integrace"
     },
     "switch_to_plane_section": {
-      "title": "Objevte, proč týmy přecházejí na SGT Project Management Platform",
-      "description": "Porovnejte SGT Project Management Platform s nástroji, které dnes používáte, a uvidíte rozdíl."
+      "title": "Objevte, proč týmy přecházejí na SURE Project Management Platform",
+      "description": "Porovnejte SURE Project Management Platform s nástroji, které dnes používáte, a uvidíte rozdíl."
     }
   }
 }

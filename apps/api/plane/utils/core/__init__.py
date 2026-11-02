@@ -3,9 +3,9 @@
 # See the LICENSE file for details.
 
 """
-Core utilities for SGT Project Management Platform database routing and request scoping.
+Core utilities for SURE Project Management Platform database routing and request scoping.
 This package contains essential components for managing read replica routing
-and request-scoped context in the SGT Project Management Platform application.
+and request-scoped context in the SURE Project Management Platform application.
 """
 
 from .dbrouters import ReadReplicaRouter

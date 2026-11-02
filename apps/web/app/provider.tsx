@@ -7,7 +7,7 @@
 import { lazy, Suspense } from "react";
 import { useTheme } from "next-themes";
 import { SWRConfig } from "swr";
-// SGT Project Management Platform Imports
+// SURE Project Management Platform Imports
 import { WEB_SWR_CONFIG } from "@plane/constants";
 import { TranslationProvider } from "@plane/i18n";
 import { Toast } from "@plane/propel/toast";

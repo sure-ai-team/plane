@@ -522,7 +522,7 @@ function Page() {
 }
 ```
 
-### ❌ Mistake 2: Nested Surfaces (Same SGT Project Management Platform)
+### ❌ Mistake 2: Nested Surfaces (Same SURE Project Management Platform)
 
 ```tsx
 // ❌ Wrong: Nested surfaces in same plane

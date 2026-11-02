@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 raise CommandError("Machine signature is required")
 
             instance = Instance.objects.create(
-                instance_name="SGT Project Management Platform",
+                instance_name="SURE Project Management Platform",
                 instance_id=secrets.token_hex(12),
                 current_version=current_version,
                 latest_version=latest_version,

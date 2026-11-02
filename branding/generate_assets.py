@@ -196,7 +196,7 @@ def og_image(size, path):
 
 
 def replace_badge(path):
-    """Paint the SGT icon over the round blue brand badge near the bottom of an illustration."""
+    """Paint the SURE icon over the round blue brand badge near the bottom of an illustration."""
     img = Image.open(path).convert("RGBA")
     w, h = img.size
     xs, ys = [], []

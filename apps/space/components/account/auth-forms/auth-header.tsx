@@ -27,7 +27,7 @@ const Titles: TAuthHeaderDetails = {
   },
   [EAuthModes.SIGN_UP]: {
     header: "View, comment, and do more",
-    subHeader: "Sign up or log in to work with SGT Project Management Platform work items and Pages.",
+    subHeader: "Sign up or log in to work with SURE Project Management Platform work items and Pages.",
   },
 };
 

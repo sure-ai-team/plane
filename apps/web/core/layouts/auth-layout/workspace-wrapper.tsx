@@ -175,7 +175,7 @@ export const WorkspaceAuthWrapper = observer(function WorkspaceAuthWrapper(props
               <img
                 src={WorkSpaceNotAvailable}
                 className="h-[220px] object-contain object-center"
-                alt="SGT Project Management Platform logo"
+                alt="SURE Project Management Platform logo"
               />
             </div>
             <h3 className="text-center text-16 font-semibold">Workspace not found</h3>

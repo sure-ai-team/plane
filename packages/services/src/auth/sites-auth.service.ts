@@ -11,7 +11,7 @@ import type { IEmailCheckData, IEmailCheckResponse } from "@plane/types";
 import { APIService } from "../api.service";
 
 /**
- * Service class for handling authentication-related operations for SGT Project Management Platform space application
+ * Service class for handling authentication-related operations for SURE Project Management Platform space application
  * Provides methods for user authentication, password management, and session handling
  * @extends {APIService}
  * @remarks This service is only available for plane sites

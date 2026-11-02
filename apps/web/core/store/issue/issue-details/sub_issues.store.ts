@@ -7,7 +7,7 @@
 import { pull, concat, uniq, set, update } from "lodash-es";
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { computedFn } from "mobx-utils";
-// SGT Project Management Platform Imports
+// SURE Project Management Platform Imports
 import type {
   TIssue,
   TIssueSubIssues,

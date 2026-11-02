@@ -267,8 +267,8 @@ def webhook_send_task(
         headers = {
             "Content-Type": "application/json",
             "User-Agent": "Autopilot",
-            "X-SGT-Delivery": str(uuid.uuid4()),
-            "X-SGT-Event": event,
+            "X-SURE-Delivery": str(uuid.uuid4()),
+            "X-SURE-Event": event,
         }
 
         # # Your secret key
@@ -301,7 +301,7 @@ def webhook_send_task(
                 hashlib.sha256,
             )
             signature = hmac_signature.hexdigest()
-            headers["X-SGT-Signature"] = signature
+            headers["X-SURE-Signature"] = signature
     except Exception as e:
         log_exception(e)
         logger.error(f"Failed to send webhook: {e}")

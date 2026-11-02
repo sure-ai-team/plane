@@ -4,9 +4,9 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "SGT Project Management Platform | Accelerate software development with peace.",
-  "short_name": "SGT PM",
-  "description": "SGT Project Management Platform accelerated the software development by order of magnitude for agencies and product companies.",
+  "name": "SURE Project Management Platform | Accelerate software development with peace.",
+  "short_name": "SURE PM",
+  "description": "SURE Project Management Platform accelerated the software development by order of magnitude for agencies and product companies.",
   "icons": [
     {
       "src": "/icon-192x192.png",

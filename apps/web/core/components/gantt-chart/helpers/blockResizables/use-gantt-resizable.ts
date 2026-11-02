@@ -5,7 +5,7 @@
  */
 
 import { useRef, useState } from "react";
-// SGT Project Management Platform
+// SURE Project Management Platform
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { IBlockUpdateDependencyData, IGanttBlock } from "@plane/types";
 // hooks

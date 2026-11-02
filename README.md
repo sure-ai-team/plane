@@ -1,4 +1,4 @@
-# SGT Project Management Platform
+# SURE Project Management Platform
 
 Self-hosted project and work tracking for Sure Global Tech teams. It runs entirely on our own infrastructure and needs
 no outside services: no telemetry, no billing, and no email server.
@@ -48,7 +48,7 @@ All services run with Docker Compose. The stack's project name is `sgtpm`, so co
 | ----------------------- | ------------------------------------------------------------------------------------------------ |
 | `proxy`                 | Caddy reverse proxy. The only service with published ports (80/443). Routes to everything below. |
 | `web`                   | Main web app (`/`)                                                                               |
-| `admin`                 | Instance admin console (`/god-mode`)                                                             |
+| `admin`                 | Superadmin console (`/superadmin`)                                                               |
 | `space`                 | Public project pages (`/spaces`)                                                                 |
 | `live`                  | Realtime collaboration server for pages (`/live`)                                                |
 | `api`                   | Django REST API (`/api`)                                                                         |
@@ -100,7 +100,7 @@ You need Docker with Compose v2.
    docker compose up -d
    ```
 
-3. Open http://localhost. The admin console is at http://localhost/god-mode.
+3. Open http://localhost. The Superadmin console is at http://localhost/superadmin.
 
 To load demo users, a workspace, projects and work items into a fresh instance:
 
@@ -110,7 +110,7 @@ docker compose exec -T api python manage.py shell < deployments/demo/seed_demo_d
 
 ## First-time setup
 
-1. Open `/god-mode` and create the **instance admin** account. The first sign-up on a new instance becomes the admin.
+1. Open `/superadmin` and create the **instance admin** account. The first sign-up on a new instance becomes the admin.
 2. Under **Authentication**, choose how people sign in:
    - Keep **password login** on. The platform runs without email, so turn **unique-code (magic link) login** off.
    - Turn **sign-up** off if accounts should only be created by an admin from the **Users** page. With sign-up off,
@@ -126,7 +126,7 @@ email; without it, everything still works through the in-app inbox.
 
 ### Admin console
 
-Open **Users** in the admin console (`/god-mode/users`). New accounts get a generated 16-character temporary password,
+Open **Users** in the admin console (`/superadmin/users`). New accounts get a generated 16-character temporary password,
 which the admin sends to the user, for example on WhatsApp. No email is sent.
 
 - **Add a user:** enter the email (required), name, phone, workspace and workspace role, then click **Add user**.

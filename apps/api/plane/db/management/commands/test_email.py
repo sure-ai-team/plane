@@ -44,7 +44,7 @@ class Command(BaseCommand):
             timeout=30,
         )
         # Prepare email details
-        subject = "Test email from SGT Project Management Platform"
+        subject = "Test email from SURE Project Management Platform"
 
         html_content = render_to_string("emails/test_email.html")
         text_content = strip_tags(html_content)

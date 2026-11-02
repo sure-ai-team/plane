@@ -35,7 +35,7 @@ ENV VITE_API_BASE_PATH=$VITE_API_BASE_PATH
 
 ARG VITE_ADMIN_BASE_URL=""
 ENV VITE_ADMIN_BASE_URL=$VITE_ADMIN_BASE_URL
-ARG VITE_ADMIN_BASE_PATH="/god-mode"
+ARG VITE_ADMIN_BASE_PATH="/superadmin"
 ENV VITE_ADMIN_BASE_PATH=$VITE_ADMIN_BASE_PATH
 
 ARG VITE_SPACE_BASE_URL=""
@@ -80,7 +80,7 @@ FROM nginx:1.31-alpine AS production
 RUN apk update && apk upgrade --no-cache && rm -rf /var/cache/apk/*
 
 COPY apps/admin/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=installer /app/apps/admin/build/client /usr/share/nginx/html/god-mode
+COPY --from=installer /app/apps/admin/build/client /usr/share/nginx/html/superadmin
 
 EXPOSE 3000
 

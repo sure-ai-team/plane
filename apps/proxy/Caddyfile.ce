@@ -6,8 +6,12 @@
   redir /spaces /spaces/ permanent
 	reverse_proxy /spaces/* space:3000
 
-  redir /god-mode /god-mode/ permanent
-	reverse_proxy /god-mode/* admin:3000
+  redir /superadmin /superadmin/ permanent
+	reverse_proxy /superadmin/* admin:3000
+
+	# The console moved from /god-mode; keep old links and bookmarks working.
+	@oldAdmin path_regexp oldAdmin ^/god-mode(/.*)?$
+	redir @oldAdmin /superadmin{re.oldAdmin.1} permanent
 	
 	reverse_proxy /live/* live:3000
 

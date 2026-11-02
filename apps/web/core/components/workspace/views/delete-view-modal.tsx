@@ -7,7 +7,7 @@
 import { useState } from "react";
 import { observer } from "mobx-react";
 import { useParams } from "next/navigation";
-// SGT Project Management Platform Imports
+// SURE Project Management Platform Imports
 import { useTranslation } from "@plane/i18n";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { IWorkspaceView } from "@plane/types";

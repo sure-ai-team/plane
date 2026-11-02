@@ -2,7 +2,7 @@
   "name": "live",
   "version": "1.4.2",
   "private": true,
-  "description": "A realtime collaborative server powers SGT Project Management Platform's rich text editor",
+  "description": "A realtime collaborative server powers SURE Project Management Platform's rich text editor",
   "license": "AGPL-3.0",
   "author": "Plane Software Inc.",
   "type": "module",

@@ -8,7 +8,7 @@ import { Outlet } from "react-router";
 import type { Route } from "./+types/layout";
 
 export const meta: Route.MetaFunction = () => [
-  { title: "Sign up - SGT Project Management Platform" },
+  { title: "Sign up - SURE Project Management Platform" },
   { name: "robots", content: "index, nofollow" },
 ];
 
