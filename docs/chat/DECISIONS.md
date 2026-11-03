@@ -117,3 +117,9 @@ Append-only. Newest at the bottom. Format: number, date, decision, why, alternat
 **Why:** the translate skill forbids copying English into other locales. The platform has 18 non-English locales and no Arabic locale (so no RTL work in phase 1). Translating ~110 keys into 18 locales is its own reviewed PR.
 **How:** `en/chat.json` in both locale trees; `{}` in every other locale, so i18next falls back to English. `sync:check` reports the missing keys until the translation PR lands.
 **Consequences:** non-English users see English chat copy for now. Follow-up tracked in `PROGRESS.md` (Q1).
+
+## D23 — 2026-11-03 — Voice notes use native browser APIs, not wavesurfer.js
+
+**Why:** playback only needs the 64-point waveform stored with each attachment plus an `<audio preload="none">` element. Recording needs `MediaRecorder` plus a Web Audio analyser for the live meter. That's about 300 lines of our own code against a 30 KB dependency, and it keeps full control of styling and the one-at-a-time playback rule.
+**How:** `components/chat/voice/` contains `use-voice-recorder.ts` (MIME fallback webm/opus → mp4 → ogg, hard stop at `CHAT_MAX_VOICE_SECONDS`, live levels, review step), `voice-note-player.tsx` (seekable bars, 1×/1.5×/2×, a single active player app-wide) and `voice-recorder.tsx`.
+**Rejected:** `wavesurfer.js` and its Record plugin (D11 listed it; superseded here).

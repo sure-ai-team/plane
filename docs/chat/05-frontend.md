@@ -218,3 +218,15 @@ Add to `pnpm-workspace.yaml` catalog, then `catalog:` in `apps/web/package.json`
 - **Viewer:** `yet-another-react-lightbox` 3.32.2 with Zoom and Video, lazy-loaded with its stylesheet on first open.
 - **Details panel:** Media (last 9) and Files (last 10) sections, built from the messages already loaded in the thread. There's no server-side media listing in phase 1.
 - **i18n:** `chat.upload.*`, `chat.media.*`, `chat.details.*`, plus three new composer keys.
+
+## As built (PR 7)
+
+- **Record:** the mic button replaces the composer with the recorder bar (discard, timer, live level meter, "up to 5:00", Stop).
+  - Stop moves to review: play the recording back, record again, or Send.
+  - Microphone denied or unsupported shows a toast.
+- **Send:**
+  1. The recording uploads as an audio file flagged `is_voice` with its `duration` and `waveform` (D18).
+  2. Once the upload is confirmed it is sent on its own, so the message `kind` is `voice`.
+  3. A failed upload stays in the tray with Retry.
+- **Playback:** every audio attachment in messages uses the waveform player; nothing downloads until Play. D23 records why this is native rather than `wavesurfer.js`.
+- **Tests:** `components/chat/helpers.test.ts` covers previews, grouping, day labels, voice MIME fallback and extensions. 50 web tests in total.
