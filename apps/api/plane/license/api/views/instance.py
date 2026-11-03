@@ -21,6 +21,7 @@ from plane.license.api.serializers import InstanceSerializer
 from plane.license.models import Instance
 from plane.license.utils.instance_value import get_configuration_value
 from plane.utils.cache import cache_response, invalidate_cache
+from plane.utils.chat_config import get_chat_config
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 
@@ -165,6 +166,9 @@ class InstanceEndpoint(BaseAPIView):
 
         data["instance_changelog_url"] = settings.INSTANCE_CHANGELOG_URL
         data["is_self_managed"] = settings.IS_SELF_MANAGED
+
+        # Workspace chat on/off and attachment limits (non-secret).
+        data["chat"] = get_chat_config().as_public_dict()
 
         instance_data = serializer.data
         instance_data["workspaces_exist"] = Workspace.objects.count() >= 1

@@ -6,7 +6,9 @@
 
 import type { IUserLite } from "../users";
 import type {
+  IInstanceChatConfig,
   TInstanceAIConfigurationKeys,
+  TInstanceChatConfigurationKeys,
   TInstanceEmailConfigurationKeys,
   TInstanceImageConfigurationKeys,
   TInstanceAuthenticationKeys,
@@ -66,6 +68,7 @@ export interface IInstanceConfig {
   admin_base_url: string | undefined;
   is_self_managed: boolean;
   instance_changelog_url?: string;
+  chat?: IInstanceChatConfig;
 }
 
 export interface IInstanceAdmin {
@@ -85,7 +88,8 @@ export type TInstanceConfigurationKeys =
   | TInstanceEmailConfigurationKeys
   | TInstanceImageConfigurationKeys
   | TInstanceAuthenticationKeys
-  | TInstanceWorkspaceConfigurationKeys;
+  | TInstanceWorkspaceConfigurationKeys
+  | TInstanceChatConfigurationKeys;
 
 export interface IInstanceConfiguration {
   id: string;

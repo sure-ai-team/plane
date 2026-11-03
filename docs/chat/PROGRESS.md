@@ -4,16 +4,16 @@ Update at the end of every working session. Keep it short; details live in the P
 
 ## Status board
 
-| PR                  | Branch                          | Status      | Opened     | Merged | Notes                                              |
-| ------------------- | ------------------------------- | ----------- | ---------- | ------ | -------------------------------------------------- |
-| 1 Backend core      | `feat/chat-1-backend-core`      | in review   | 2026-11-03 |        | 117 chat tests; full suite green; S1 widened (D20) |
-| 2 Superadmin config | `feat/chat-2-superadmin-config` | not started |            |        |                                                    |
-| 3 Real-time         | `feat/chat-3-realtime`          | not started |            |        |                                                    |
-| 4 Web data layer    | `feat/chat-4-web-data-layer`    | not started |            |        |                                                    |
-| 5 Chat UI: text     | `feat/chat-5-ui-text`           | not started |            |        |                                                    |
-| 6 Attachments UI    | `feat/chat-6-ui-attachments`    | not started |            |        |                                                    |
-| 7 Voice notes       | `feat/chat-7-voice-notes`       | not started |            |        |                                                    |
-| 8 Hardening         | `feat/chat-8-hardening`         | not started |            |        |                                                    |
+| PR                  | Branch                          | Status      | Opened     | Merged | Notes                                                                               |
+| ------------------- | ------------------------------- | ----------- | ---------- | ------ | ----------------------------------------------------------------------------------- |
+| 1 Backend core      | `feat/chat-1-backend-core`      | in review   | 2026-11-03 |        | 117 chat tests; full suite green; S1 widened (D20)                                  |
+| 2 Superadmin config | `feat/chat-2-superadmin-config` | in review   | 2026-11-03 |        | Seeded `CHAT_*` keys, validated save, `config.chat` in instance payload, admin page |
+| 3 Real-time         | `feat/chat-3-realtime`          | not started |            |        |                                                                                     |
+| 4 Web data layer    | `feat/chat-4-web-data-layer`    | not started |            |        |                                                                                     |
+| 5 Chat UI: text     | `feat/chat-5-ui-text`           | not started |            |        |                                                                                     |
+| 6 Attachments UI    | `feat/chat-6-ui-attachments`    | not started |            |        |                                                                                     |
+| 7 Voice notes       | `feat/chat-7-voice-notes`       | not started |            |        |                                                                                     |
+| 8 Hardening         | `feat/chat-8-hardening`         | not started |            |        |                                                                                     |
 
 Status values: `not started` · `in progress` · `in review` · `merged` · `blocked`.
 
@@ -34,6 +34,7 @@ none
 
 - **2026-11-03** — Planning complete. Decisions D1–D14 recorded. Docs 00–10 written. Mockups published.
 - **2026-11-03** — PR 1 built: models + migration `0125_chat`, REST API (conversations, members, messages, read, attachments, unread, presence, config, live endpoints), Redis publishing, cleanup tasks, S1 fix across all generic asset paths. 117 chat tests. Decisions D15–D20. Test stack note: `minio/minio` is gone from Docker Hub; run tests with an override that uses `cgr.dev/chainguard/minio` (see PR description).
+- **2026-11-03** — PR 2 built: `CHAT_*` keys seeded, Superadmin save validates ranges and clears the chat config cache, `config.chat` in `/api/instances/`, new Superadmin → Chat page.
 
 ## Load-test results (PR 8)
 

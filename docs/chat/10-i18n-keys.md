@@ -178,7 +178,9 @@ Placeholders use `{name}` syntax as in existing files. Plurals use CLDR forms as
 }
 ```
 
-## Admin app (`apps/admin` locales)
+## Admin app (`apps/admin` locales) — not used
+
+The admin app has no i18n; the Chat settings page uses English copy like the other Superadmin pages (PR 2). The keys below are kept only as a reference for the wording.
 
 ```jsonc
 {
