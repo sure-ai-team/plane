@@ -137,3 +137,40 @@ partysocket               ^1.1
 ```
 
 Add to `pnpm-workspace.yaml` catalog, then `catalog:` in `apps/web/package.json` (and `packages/propel` for the two media components).
+
+## As built (PR 4)
+
+- **Types:** `packages/types/src/chat/index.ts`. All REST shapes, payloads, and the socket frame unions (`TChatServerFrame`, `TChatClientFrame`).
+- **Service:** `core/services/chat.service.ts`. One method per endpoint. Errors are normalised to `TChatApiError { error, code }`. `uploadToStorage()` posts straight to MinIO/S3 with progress and `AbortSignal`.
+- **Socket:** `core/services/chat-socket.ts` (`ChatSocket` over `partysocket/ws`).
+  - Statuses: `idle → connecting → open ⇄ reconnecting`, plus `blocked`.
+  - Reaching `blocked` (close codes 4400, 4401, 4403, 4404) stops reconnecting.
+  - Heartbeat: a ping every 30 s; a ping still unanswered at the next heartbeat forces a reconnect.
+  - Typing is throttled client-side to one frame per conversation every 3 s.
+  - `onReady(isReconnect)` triggers catch-up.
+- **Stores:** `core/store/chat/`, registered as `rootStore.chat`. Use them through `useChat()` (`core/hooks/store/use-chat.ts`).
+  - `ChatRootStore` (`root.store.ts`):
+    - `init(slug)`, `teardown()`, `openConversation(id)`, `markRead(id)`
+    - `send(id, draft)`: takes the ready uploads with it
+    - `sendTyping(id)`, `applyFrame(frame)`, `catchUp()`
+  - `ChatConversationStore`:
+    - `sorted` / `groups` / `directs` / `totalUnread`
+    - optimistic `markRead` that never moves backwards
+    - `setMuted` rolls back if the server refuses
+    - `leave`, `create`, `update`, `remove`
+  - `ChatMessageStore`:
+    - `items(id)` = confirmed messages in `seq` order, then this tab's pending sends
+    - `open` / `loadOlder` / `catchUp`
+    - `send` / `retry` / `discardPending` (optimistic, reconciled by `client_id`)
+    - `applyCreated` returns `applied | duplicate | gap | not-loaded`; a gap triggers catch-up
+    - live "Seen by" via `setReadPositions` + `applyRead`
+    - at most 500 live messages kept per thread
+  - `ChatUploadStore`:
+    - `add(conversationId, files, {isVoice, media})` checks type, size and count before uploading (mirrors the server)
+    - up to 3 uploads at a time
+    - pipeline: `queued → preparing → uploading → confirming → ready | failed`
+    - `retry`, `remove` (also deletes the server record), `takeReady`, `canSend` / `isBusy` / `hasFailures`
+    - `prepare` hook for thumbnails, posters and dimensions, wired in PR 6
+  - `ChatRealtimeStore`: `typingUserIds(id)` (5 s expiry, cleared by that user's next message), `isOnline(userId)`, socket `status` / `closeCode`.
+- **MobX gotcha:** objects that the stores later mutate in place (thread state, pending messages, upload items, typing maps) are made `observable()` _before_ they go into an observable `Map`. Otherwise MobX stores a copy and the in-place mutations are lost.
+- **Tests:** vitest in `apps/web` (`pnpm --filter web test`), config `apps/web/vitest.config.ts`, 43 tests covering the socket client and all four stores.
