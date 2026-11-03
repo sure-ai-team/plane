@@ -15,7 +15,7 @@ import { EditIcon, LinkIcon, TrashIcon } from "@plane/propel/icons";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { TChatApiError, TChatConversation, TChatMessage } from "@plane/types";
 import { AlertModalCore, CustomMenu } from "@plane/ui";
-import { cn, copyUrlToClipboard, isCommentEmpty } from "@plane/utils";
+import { cn, copyUrlToClipboard, getFileURL, isCommentEmpty } from "@plane/utils";
 // components
 import { LiteTextEditor } from "@/components/editor/lite-text";
 // hooks
@@ -23,6 +23,7 @@ import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
 // local
 import { ChatMessageAttachments } from "../attachments/message-attachments";
+import { ChatVoiceNotePlayer } from "../voice/voice-note-player";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath, timeLabel, userName } from "../common/helpers";
 
@@ -192,7 +193,16 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           )
         )}
 
-        <ChatMessageAttachments attachments={message.attachments} />
+        <ChatMessageAttachments
+          attachments={message.attachments}
+          renderAudio={(attachment) => (
+            <ChatVoiceNotePlayer
+              src={getFileURL(attachment.url) ?? attachment.url}
+              waveform={attachment.waveform}
+              duration={attachment.duration}
+            />
+          )}
+        />
 
         {showSeenBy && message.seen_by_count > 0 && (
           <div className="mt-0.5 text-11 text-tertiary">

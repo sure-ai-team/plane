@@ -164,6 +164,20 @@
       "files": "Files",
       "no_media": "No photos or videos in the loaded messages yet",
       "no_files": "No files in the loaded messages yet"
+    },
+    "voice": {
+      "record": "Record voice note",
+      "stop": "Stop",
+      "discard": "Discard recording",
+      "record_again": "Record again",
+      "play": "Play voice note",
+      "pause": "Pause",
+      "position": "Playback position",
+      "send": "Send",
+      "speed": "Playback speed",
+      "up_to": "up to {max}",
+      "permission_denied": "Microphone access is blocked. Allow it in your browser settings.",
+      "unsupported": "Voice recording isn't supported in this browser."
     }
   }
 }

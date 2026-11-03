@@ -91,12 +91,12 @@ Branch `feat/chat-6-ui-attachments`
 
 Branch `feat/chat-7-voice-notes`
 
-- [ ] `VoiceRecorder`, `VoiceNotePlayer` + stories (wavesurfer.js + record plugin)
-- [ ] `waveform.ts`; MIME preference incl. Safari `audio/mp4`
-- [ ] Hard stop at `CHAT_MAX_VOICE_SECONDS`; permission-denied toast
-- [ ] Single-player-at-a-time; playback rates
-- [ ] Manual matrix voice rows in all four browsers
-- [ ] `PROGRESS.md` updated
+- [x] Voice recorder and player in `apps/web` (native MediaRecorder + Web Audio, D23; no stories, D21)
+- [x] `waveform.ts`; MIME preference incl. Safari `audio/mp4`
+- [x] Hard stop at `CHAT_MAX_VOICE_SECONDS`; permission-denied toast
+- [x] Single-player-at-a-time; playback rates
+- [ ] Manual matrix voice rows in all four browsers (needs a deployed build; Safari on a Mac/iPhone)
+- [x] `PROGRESS.md` updated
 
 ## PR 8 — Hardening (S)
 
