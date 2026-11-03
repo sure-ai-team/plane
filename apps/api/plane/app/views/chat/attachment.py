@@ -257,7 +257,9 @@ class ChatAttachmentEndpoint(ChatBaseEndpoint):
 
         attributes = dict(asset.attributes or {})
         kind = attributes.get("kind", "file")
-        storage = S3Storage(request=request)
+        # Server-side reads go to the internal storage endpoint. A request-bound client points at the
+        # public host (for links handed to the browser), which the API container often can't reach.
+        storage = S3Storage(request=None)
         head = storage.get_object_metadata(asset.asset.name)
         if not head or not head.get("ContentLength"):
             raise services.ChatError(400, "UPLOAD_MISSING", "The file hasn't finished uploading.")

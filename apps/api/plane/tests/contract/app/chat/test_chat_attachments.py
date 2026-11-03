@@ -161,6 +161,23 @@ class TestConfirm:
         confirm = owner_client.patch(attachment_url(workspace.slug, asset_id), {}, format="json")
         assert confirm.data["thumb_url"].endswith("?thumb=1")
 
+    def test_confirm_reads_storage_through_internal_endpoint(self, owner_client, workspace, group, storage):
+        """Confirm reads the file server-side, so it must not use the browser-facing (request-host) endpoint."""
+        from plane.app.views.chat import attachment as attachment_views
+
+        response = owner_client.post(
+            attachments_url(workspace.slug, group["id"]),
+            {"name": "a.png", "type": "image/png", "size": 1000},
+            format="json",
+        )
+        storage.objects[response.data["upload_data"]["fields"]["key"]] = 1000
+        attachment_views.S3Storage.reset_mock()
+        confirm = owner_client.patch(attachment_url(workspace.slug, response.data["asset_id"]), {}, format="json")
+        assert confirm.status_code == 200
+        assert attachment_views.S3Storage.call_args_list
+        for call in attachment_views.S3Storage.call_args_list:
+            assert call.kwargs.get("request") is None and not call.args
+
     def test_only_uploader_can_confirm_or_cancel(self, owner_client, alice_client, workspace, group, storage):
         response = owner_client.post(
             attachments_url(workspace.slug, group["id"]),

@@ -1,5 +1,5 @@
 # Seed the isolated "surechat" smoke-test stack (run with: python manage.py shell < seed.py).
-from plane.db.models import User, Workspace, WorkspaceMember
+from plane.db.models import Profile, User, Workspace, WorkspaceMember
 from plane.license.models import Instance
 
 PASSWORD = "ChatSmoke#2026-x"
@@ -27,4 +27,13 @@ for name, role in (("alice", 20), ("bob", 15), ("carol", 15), ("guest", 5)):
     WorkspaceMember.objects.update_or_create(
         workspace=workspace, member=users[name], defaults={"role": role, "is_active": True}
     )
+# Sign-up normally creates the profile; without it the web app shows "Server Error" after sign-in.
+for user in users.values():
+    profile, _ = Profile.objects.get_or_create(user=user)
+    profile.is_onboarded = True
+    profile.is_tour_completed = True
+    profile.is_navigation_tour_completed = True
+    profile.last_workspace_id = workspace.id
+    profile.onboarding_step = {"profile_complete": True, "workspace_create": True, "workspace_invite": True, "workspace_join": True}
+    profile.save()
 print("SEEDED", {name: str(user.id) for name, user in users.items()})

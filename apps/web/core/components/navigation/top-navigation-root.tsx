@@ -7,6 +7,8 @@
 // components
 import { observer } from "mobx-react";
 import { useParams, usePathname } from "next/navigation";
+import { MessageSquare } from "lucide-react";
+import { useTranslation } from "@plane/i18n";
 import { cn } from "@plane/utils";
 import { TopNavPowerK } from "@/components/navigation";
 import { HelpMenuRoot } from "@/components/workspace/sidebar/help-section/root";
@@ -18,6 +20,9 @@ import { AppSidebarItem } from "@/components/sidebar/sidebar-item";
 import { InboxIcon } from "@plane/propel/icons";
 import useSWR from "swr";
 import { useWorkspaceNotifications } from "@/hooks/store/notifications";
+import { useChatAvailability } from "@/components/chat/hooks/use-chat-availability";
+import { useChat } from "@/hooks/store/use-chat";
+import { useWorkspacePaths } from "@/hooks/use-workspace-paths";
 // local imports
 import { StarUsOnGitHubLink } from "@/app/(all)/[workspaceSlug]/(projects)/star-us-link";
 
@@ -29,6 +34,11 @@ export const TopNavigationRoot = observer(function TopNavigationRoot() {
   // store hooks
   const { unreadNotificationsCount, getUnreadNotificationsCount } = useWorkspaceNotifications();
   const { preferences } = useAppRailPreferences();
+  const { t } = useTranslation();
+  const chat = useChat();
+  const { isChatPath } = useWorkspacePaths();
+  const isChatAvailable = useChatAvailability(workspaceSlug?.toString());
+  const chatUnread = chat.conversation.totalUnread;
 
   const showLabel = preferences.displayMode === "icon_with_label";
 
@@ -77,6 +87,25 @@ export const TopNavigationRoot = observer(function TopNavigationRoot() {
             }}
           />
         </Tooltip>
+        {isChatAvailable && (
+          <Tooltip tooltipContent={t("chat.nav.rail_label")} position="bottom">
+            <AppSidebarItem
+              variant="link"
+              item={{
+                href: `/${workspaceSlug?.toString()}/chat`,
+                icon: (
+                  <div className="relative">
+                    <MessageSquare className="size-5" strokeWidth={1.75} />
+                    {chatUnread > 0 && (
+                      <span className="absolute top-0 right-0 size-2 rounded-full bg-danger-primary" />
+                    )}
+                  </div>
+                ),
+                isActive: isChatPath,
+              }}
+            />
+          </Tooltip>
+        )}
         <HelpMenuRoot />
         <StarUsOnGitHubLink />
         <div className="flex size-8 items-center justify-center rounded-md hover:bg-layer-1-hover">
