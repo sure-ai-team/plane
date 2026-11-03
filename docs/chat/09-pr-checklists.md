@@ -78,14 +78,14 @@ Branch `feat/chat-5-ui-text`
 
 Branch `feat/chat-6-ui-attachments`
 
-- [ ] `upload.store` wired to composer; paste + drop; tray with progress/cancel/retry/errors
-- [ ] `image-thumb.ts`, `video-poster.ts`
-- [ ] `AttachmentGrid`, `FileCard`, `VideoTile`, `UploadTray` + stories
-- [ ] Lightbox (lazy) with zoom + video
-- [ ] Details panel: media + files tabs
-- [ ] Client-side size pre-check from `config.chat`
-- [ ] Manual matrix rows for images/video/files in all four browsers
-- [ ] `PROGRESS.md` updated
+- [x] `upload.store` wired to composer; paste + drop; tray with progress/cancel/retry/errors
+- [x] `image-thumb.ts`, `video-poster.ts`
+- [x] Attachment grid, file card, video tile, upload tray in `apps/web` (D21, no stories)
+- [x] Lightbox (lazy) with zoom + video
+- [x] Details panel: media + files sections (from loaded messages)
+- [x] Client-side size pre-check from `config.chat`
+- [ ] Manual matrix rows for images/video/files in all four browsers (needs a deployed build)
+- [x] `PROGRESS.md` updated
 
 ## PR 7 — Voice notes (S)
 

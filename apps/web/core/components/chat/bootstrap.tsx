@@ -12,6 +12,7 @@ import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
 // local
 import { useChatAvailability } from "./hooks/use-chat-availability";
+import { prepareChatMedia } from "./media/prepare";
 
 /**
  * Mounted once per workspace. Connects the chat socket and loads the conversation
@@ -27,6 +28,8 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
 
   useEffect(() => {
     if (!slug || !userId || !isAvailable) return;
+    // Thumbnails, posters and waveforms are made in the browser before upload.
+    chat.upload.prepare = prepareChatMedia;
     void chat.init(slug);
     return () => chat.teardown();
   }, [chat, slug, userId, isAvailable]);

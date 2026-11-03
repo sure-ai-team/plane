@@ -116,7 +116,10 @@
       "placeholder": "Message {name}",
       "send": "Send",
       "editing": "Editing message",
-      "reply_cancel": "Cancel reply"
+      "reply_cancel": "Cancel reply",
+      "attach": "Attach files",
+      "waiting_uploads": "Waiting for uploads…",
+      "remove_failed": "Remove or retry the failed files first"
     },
     "delete_group": {
       "title": "Delete {name}?",
@@ -131,6 +134,36 @@
     "errors": {
       "generic": "Something went wrong. Please try again.",
       "not_found": "This conversation no longer exists, or you're not a member."
+    },
+    "upload": {
+      "ready": "Ready",
+      "preparing": "Preparing…",
+      "uploading": "Uploading {percent}%",
+      "confirming": "Checking…",
+      "failed": "Upload failed",
+      "retry": "Retry",
+      "remove": "Remove {name}",
+      "too_large": "{name} is too large. The limit is {limit} MB.",
+      "type_not_allowed": "{name} can't be shared: this file type isn't allowed.",
+      "type_mismatch": "The file doesn't match its type.",
+      "too_many": "You can attach up to {max} files per message.",
+      "drop_title": "Drop files to share in {name}",
+      "drop_hint": "Images up to {image} MB · videos up to {video} MB · audio up to {audio} MB · other files up to {file} MB",
+      "rejected_title": "Some files weren't added"
+    },
+    "media": {
+      "open_image": "Open image {name}",
+      "play_video": "Play video {name}",
+      "download": "Download {name}",
+      "preview_unavailable": "Preview unavailable",
+      "more": "+{count}"
+    },
+    "details": {
+      "members": "Members",
+      "media": "Media",
+      "files": "Files",
+      "no_media": "No photos or videos in the loaded messages yet",
+      "no_files": "No files in the loaded messages yet"
     }
   }
 }

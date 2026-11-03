@@ -202,3 +202,19 @@ Add to `pnpm-workspace.yaml` catalog, then `catalog:` in `apps/web/package.json`
 - **Project chip in the thread header and a link from project navigation:** phase 2 (Q2).
 - **Copy link:** copies the conversation link, not a message deep link (phase 2).
 - **Media and files tabs in the details panel:** PR 6.
+
+## As built (PR 6)
+
+- **Browser-side processing** (`components/chat/media/prepare.ts`, registered as `chat.upload.prepare` by `ChatBootstrap`):
+  - Images: dimensions, plus a thumbnail (longest side 400 px, WebP with a JPEG fallback on Safari) when the original is large.
+  - Videos: dimensions, duration and a poster frame at about 1 s.
+  - Audio files: duration and a 64-point waveform.
+  - Each step has an 8 s timeout. Anything the browser can't decode (HEIC images, HEVC video in Chrome) uploads without a preview.
+- **Composer:** a paperclip button (multiple files) and image paste. Files are checked before upload and refused ones are explained in a toast. The upload tray shows per-file progress, retry and remove. Send waits for every upload; failed files must be retried or removed first.
+- **Thread:**
+  - Files can be dropped anywhere on it (`react-dropzone`); the overlay shows the limits from `chat.config`.
+  - Messages show an image grid (1–3 columns, `+N` after 6), video tiles with poster and duration, a plain `<audio>` player for now (PR 7 replaces it), and file cards that download through `?download=1`.
+  - Pending messages show their attachments too.
+- **Viewer:** `yet-another-react-lightbox` 3.32.2 with Zoom and Video, lazy-loaded with its stylesheet on first open.
+- **Details panel:** Media (last 9) and Files (last 10) sections, built from the messages already loaded in the thread. There's no server-side media listing in phase 1.
+- **i18n:** `chat.upload.*`, `chat.media.*`, `chat.details.*`, plus three new composer keys.

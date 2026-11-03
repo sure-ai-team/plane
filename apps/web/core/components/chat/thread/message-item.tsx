@@ -22,6 +22,7 @@ import { LiteTextEditor } from "@/components/editor/lite-text";
 import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
 // local
+import { ChatMessageAttachments } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath, timeLabel, userName } from "../common/helpers";
 
@@ -191,7 +192,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           )
         )}
 
-        {/* Attachments render here in PR 6. */}
+        <ChatMessageAttachments attachments={message.attachments} />
 
         {showSeenBy && message.seen_by_count > 0 && (
           <div className="mt-0.5 text-11 text-tertiary">

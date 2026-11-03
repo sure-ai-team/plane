@@ -13,6 +13,7 @@ import { cn } from "@plane/utils";
 import { useChat } from "@/hooks/store/use-chat";
 import type { TPendingMessage } from "@/store/chat";
 // local
+import { ChatMessageAttachments } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
 import { dayLabel, timeLabel, userName } from "../common/helpers";
 
@@ -80,6 +81,7 @@ export const ChatPendingMessage = observer(function ChatPendingMessage(props: TP
         <p className={cn("text-13 break-words whitespace-pre-wrap", failed ? "text-secondary" : "text-tertiary")}>
           {pending.body_stripped}
         </p>
+        <ChatMessageAttachments attachments={pending.attachments} />
         <div className="mt-0.5 flex items-center gap-2 text-11">
           {failed ? (
             <>

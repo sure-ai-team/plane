@@ -11,7 +11,7 @@ Update at the end of every working session. Keep it short; details live in the P
 | 3 Real-time         | `feat/chat-3-realtime`          | in review   | 2026-11-03 |        | Live chat socket, Redis bridge, typing, presence, heartbeats; 26 tests              |
 | 4 Web data layer    | `feat/chat-4-web-data-layer`    | in review   | 2026-11-03 |        | Types, service, socket client, 4 stores; 43 tests                                   |
 | 5 Chat UI: text     | `feat/chat-5-ui-text`           | in review   | 2026-11-03 |        | Routes, rail badge, sidebar, thread, composer, modals, details; en strings          |
-| 6 Attachments UI    | `feat/chat-6-ui-attachments`    | not started |            |        |                                                                                     |
+| 6 Attachments UI    | `feat/chat-6-ui-attachments`    | in review   | 2026-11-03 |        | Upload tray, paste/drop, thumbnails/posters, grid, video, files, lightbox           |
 | 7 Voice notes       | `feat/chat-7-voice-notes`       | not started |            |        |                                                                                     |
 | 8 Hardening         | `feat/chat-8-hardening`         | not started |            |        |                                                                                     |
 
@@ -39,6 +39,7 @@ none
 - **2026-11-03** — PR 3 built: `/live/chat/` socket with cookie auth + API access check, one Redis pattern subscription for user and workspace channels, typing and presence through Redis, heartbeats and periodic access re-checks, health stats. 26 live tests.
 - **2026-11-03** — PR 4 built: shared chat types, REST service with direct-to-storage upload, `ChatSocket` (partysocket, heartbeat, terminal close codes, typing throttle), stores for conversations, messages (optimistic sends, gap detection, catch-up, live Seen by), uploads (queue, concurrency 3, retry/cancel, prepare hook) and realtime state; `rootStore.chat` + `useChat()`. vitest added to `apps/web`; 43 tests.
 - **2026-11-03** — PR 5 built: chat section (routes, layout, sidebar, Virtuoso thread, composer on the comment editor, new-conversation and add-members modals, details panel), Chat item with unread badge in the app rail, `ChatBootstrap` at workspace level, `chat` i18n namespace (en). Follow-ups: translations (D22), Create work item from message and composer drafts (PR 8).
+- **2026-11-03** — PR 6 built: browser-side thumbnails/posters/waveforms, attach button + paste + drag-and-drop with pre-checks, upload tray, attachments in messages (image grid, video tiles, file cards), lazy lightbox, media/files in the details panel.
 
 ## Load-test results (PR 8)
 
