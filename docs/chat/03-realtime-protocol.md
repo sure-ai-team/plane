@@ -102,3 +102,17 @@ Health: extend `health.controller.ts` with `chat: { sockets: n, users: n, redis:
 - Clients apply `message.created` only if `seq > newestKnownSeq`; otherwise ignore (duplicate) — gaps are filled by catch-up, so out-of-order delivery is harmless.
 - `message.updated` / `.deleted` apply regardless of order (last write wins by `edited_at`; delete always wins).
 - `read.updated` applies if `seq > stored`.
+
+## As built (PR 3)
+
+- Code: `apps/live/src/chat/` (`hub.ts` connection lifecycle, `registry.ts`, `redis-bridge.ts`, `publisher.ts`, `presence.ts`, `typing.ts`, `api.ts`) and `controllers/chat.controller.ts`. Tests: `apps/live/tests/chat/`.
+- After a successful handshake the server sends `{ "t": "ready", "d": { "user_id" } }`. Clients should wait for it before sending frames; frames received earlier are ignored.
+- Close codes: `4400` bad frame or missing/invalid `workspace`, `4401` not signed in, `4403` origin not allowed or no chat access, `4404` chat disabled, `4408` replaced (more than 10 sockets for the user), `1011` server error, `1001` shutdown.
+- Frames larger than 4 KB close the socket with `4400`.
+- **Typing and presence go through Redis too**, so a second live instance would work without changes:
+  - typing → `chat:user:<id>` of each other member;
+  - presence → `chat:ws:<slug>`, delivered to every socket in that workspace.
+- Presence key: `chat:online:<user_id>` = `"1"` with a 60 s TTL (set with `NX` on connect, so "online" is announced once; refreshed by `ping`; deleted when the user's last socket on this instance closes). A user online in one workspace shows as online in all of them.
+- Server heartbeat: a WebSocket ping every 30 s; a socket that misses one round is terminated. Chat access is re-checked every 10 minutes per socket (`4403` / `4404` on loss).
+- Typing member lists are cached 60 s and dropped immediately on `member.added`, `member.removed` or `conversation.deleted`. Typing from a non-member is dropped silently.
+- `GET /live/health/` now includes `chat: { users, sockets, redis }`.

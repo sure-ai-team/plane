@@ -39,13 +39,13 @@ Branch `feat/chat-2-superadmin-config`
 
 Branch `feat/chat-3-realtime`
 
-- [ ] `controllers/chat.controller.ts` + `chat/{registry,redis-bridge,presence,typing}.ts` per `03`
-- [ ] Registered in `CONTROLLERS`; health endpoint extended
-- [ ] Origin check, per-user socket cap, membership re-check timer
-- [ ] `member-ids` call uses `X-Live-Secret`
-- [ ] Vitest suites in `08` § Live server green
-- [ ] Manual: two browsers exchange messages; presence and typing visible
-- [ ] `PROGRESS.md` updated
+- [x] `controllers/chat.controller.ts` + `chat/{registry,redis-bridge,presence,typing}.ts` per `03`
+- [x] Registered in `CONTROLLERS`; health endpoint extended
+- [x] Origin check, per-user socket cap, membership re-check timer
+- [x] `member-ids` call uses `X-Live-Secret`
+- [x] Vitest suites in `08` § Live server green
+- [ ] Manual: two browsers exchange messages; presence and typing visible (needs the web UI from PR 5; covered by unit tests with a fake Redis until then)
+- [x] `PROGRESS.md` updated
 
 ## PR 4 — Web data layer (M)
 
