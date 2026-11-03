@@ -17,6 +17,7 @@ Everything needed to build, review and maintain the chat feature. Read in order 
 | 10  | [10-i18n-keys.md](10-i18n-keys.md)                         | The full `chat.*` translation key list                                                | PR 5–7                       |
 | —   | [DECISIONS.md](DECISIONS.md)                               | Decision log (why, alternatives rejected)                                             | Before changing any decision |
 | —   | [PROGRESS.md](PROGRESS.md)                                 | Live status per PR, open questions, blockers                                          | Start of every session       |
+| —   | [DEPLOYMENT.md](DEPLOYMENT.md)                             | Deploy steps, smoke test, proxy upload note, rollback, running backend tests          | Deploying                    |
 
 ## Rules for this folder
 

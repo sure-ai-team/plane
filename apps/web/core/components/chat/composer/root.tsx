@@ -45,7 +45,9 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
   const chat = useChat();
   const editorRef = useRef<EditorRefApi>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [html, setHtml] = useState(EMPTY_HTML);
+  // The composer is keyed by conversation, so this restores the draft on switch.
+  const [initialHtml] = useState(() => chat.getDraft(conversation.id) ?? EMPTY_HTML);
+  const [html, setHtml] = useState(initialHtml);
   const [isRecording, setIsRecording] = useState(false);
   const addFiles = useChatFileIntake(conversation.id);
 
@@ -68,6 +70,7 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
     // Clear immediately: the message shows as "sending" in the thread straight away.
     editorRef.current?.clearEditor();
     setHtml(EMPTY_HTML);
+    chat.setDraft(conversation.id, null);
     onCancelReply();
     onSent();
     void chat.send(conversation.id, {
@@ -132,11 +135,12 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
                 workspaceSlug={workspaceSlug}
                 workspaceId={workspaceId}
                 projectId={conversation.project?.id}
-                initialValue={EMPTY_HTML}
+                initialValue={initialHtml}
                 value={null}
                 placeholder={t("chat.composer.placeholder", { name })}
                 onChange={(_json, nextHtml) => {
                   setHtml(nextHtml);
+                  chat.setDraft(conversation.id, isCommentEmpty(nextHtml) ? null : nextHtml);
                   if (!isCommentEmpty(nextHtml)) chat.sendTyping(conversation.id);
                 }}
                 onEnterKeyPress={() => send()}

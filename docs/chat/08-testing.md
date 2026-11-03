@@ -103,3 +103,14 @@ Storybook: one story per shared component including states (loading, error, RTL 
 - 500 connections to `/live/chat/`, each pinging every 30 s; 20 msgs/s sent via REST by 20 virtual users across 10 groups of 50.
 - Pass: p95 delivery latency < 200 ms on the same network; live server RSS < 512 MB; no socket drops; Redis CPU < 20 %.
 - Script lives in `apps/live/loadtest/chat.js` (not run in CI).
+
+## As built
+
+| Suite                    | Where                                                                                                                                      | Count                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------- |
+| Backend (pytest, Docker) | `apps/api/plane/tests/contract/app/chat/`, `test_chat_config_admin.py`, `unit/models/test_chat_models.py`, `unit/utils/test_chat_media.py` | 123 chat tests; full suite green |
+| Live server (vitest)     | `apps/live/tests/chat/`                                                                                                                    | 26 chat tests (58 total)         |
+| Web (vitest)             | `apps/web/core/store/chat/*.test.ts`, `core/services/chat-socket.test.ts`, `core/components/chat/helpers.test.ts`                          | 51                               |
+| Load test (k6, manual)   | `apps/live/loadtest/chat.js`                                                                                                               | see `DEPLOYMENT.md` § 5          |
+
+The browser matrix above and the load test need a deployed build. `DEPLOYMENT.md` § 3 is the short smoke test.

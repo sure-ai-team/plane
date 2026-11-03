@@ -4,16 +4,16 @@ Update at the end of every working session. Keep it short; details live in the P
 
 ## Status board
 
-| PR                  | Branch                          | Status      | Opened     | Merged | Notes                                                                               |
-| ------------------- | ------------------------------- | ----------- | ---------- | ------ | ----------------------------------------------------------------------------------- |
-| 1 Backend core      | `feat/chat-1-backend-core`      | in review   | 2026-11-03 |        | 117 chat tests; full suite green; S1 widened (D20)                                  |
-| 2 Superadmin config | `feat/chat-2-superadmin-config` | in review   | 2026-11-03 |        | Seeded `CHAT_*` keys, validated save, `config.chat` in instance payload, admin page |
-| 3 Real-time         | `feat/chat-3-realtime`          | in review   | 2026-11-03 |        | Live chat socket, Redis bridge, typing, presence, heartbeats; 26 tests              |
-| 4 Web data layer    | `feat/chat-4-web-data-layer`    | in review   | 2026-11-03 |        | Types, service, socket client, 4 stores; 43 tests                                   |
-| 5 Chat UI: text     | `feat/chat-5-ui-text`           | in review   | 2026-11-03 |        | Routes, rail badge, sidebar, thread, composer, modals, details; en strings          |
-| 6 Attachments UI    | `feat/chat-6-ui-attachments`    | in review   | 2026-11-03 |        | Upload tray, paste/drop, thumbnails/posters, grid, video, files, lightbox           |
-| 7 Voice notes       | `feat/chat-7-voice-notes`       | in review   | 2026-11-03 |        | Native recorder + waveform player (D23)                                             |
-| 8 Hardening         | `feat/chat-8-hardening`         | not started |            |        |                                                                                     |
+| PR                  | Branch                          | Status    | Opened     | Merged | Notes                                                                                                   |
+| ------------------- | ------------------------------- | --------- | ---------- | ------ | ------------------------------------------------------------------------------------------------------- |
+| 1 Backend core      | `feat/chat-1-backend-core`      | in review | 2026-11-03 |        | 117 chat tests; full suite green; S1 widened (D20)                                                      |
+| 2 Superadmin config | `feat/chat-2-superadmin-config` | in review | 2026-11-03 |        | Seeded `CHAT_*` keys, validated save, `config.chat` in instance payload, admin page                     |
+| 3 Real-time         | `feat/chat-3-realtime`          | in review | 2026-11-03 |        | Live chat socket, Redis bridge, typing, presence, heartbeats; 26 tests                                  |
+| 4 Web data layer    | `feat/chat-4-web-data-layer`    | in review | 2026-11-03 |        | Types, service, socket client, 4 stores; 43 tests                                                       |
+| 5 Chat UI: text     | `feat/chat-5-ui-text`           | in review | 2026-11-03 |        | Routes, rail badge, sidebar, thread, composer, modals, details; en strings                              |
+| 6 Attachments UI    | `feat/chat-6-ui-attachments`    | in review | 2026-11-03 |        | Upload tray, paste/drop, thumbnails/posters, grid, video, files, lightbox                               |
+| 7 Voice notes       | `feat/chat-7-voice-notes`       | in review | 2026-11-03 |        | Native recorder + waveform player (D23)                                                                 |
+| 8 Hardening         | `feat/chat-8-hardening`         | in review | 2026-11-03 |        | Proxy upload cap fix, drafts, Create work item, load-test script, DEPLOYMENT.md; staging checks pending |
 
 Status values: `not started` · `in progress` · `in review` · `merged` · `blocked`.
 
@@ -41,6 +41,8 @@ none
 - **2026-11-03** — PR 5 built: chat section (routes, layout, sidebar, Virtuoso thread, composer on the comment editor, new-conversation and add-members modals, details panel), Chat item with unread badge in the app rail, `ChatBootstrap` at workspace level, `chat` i18n namespace (en). Follow-ups: translations (D22), Create work item from message and composer drafts (PR 8).
 - **2026-11-03** — PR 6 built: browser-side thumbnails/posters/waveforms, attach button + paste + drag-and-drop with pre-checks, upload tray, attachments in messages (image grid, video tiles, file cards), lazy lightbox, media/files in the details panel.
 - **2026-11-03** — PR 7 built: voice recorder (MediaRecorder, Safari mp4 fallback, live meter, review step, hard stop) and waveform player (seek, speed, one at a time) with native APIs instead of wavesurfer.js (D23). 50 web tests.
+- **2026-11-03** — PR 8 built: found and fixed a proxy limit that would have blocked every upload over 5 MB (`UPLOAD_SIZE_LIMIT` for the bucket); "Create work item from message"; composer drafts per conversation (also fixes the composer not resetting between conversations); k6 load-test script; `DEPLOYMENT.md`. Full re-run: backend suite, live 58, web 51, all type checks, production builds of web/live/admin.
+- **Remaining for release:** deploy `v1-chat` to staging → smoke test (`DEPLOYMENT.md` § 3) → browser matrix (incl. Safari voice) → load test → release gate (`07`) → translations PR (D22).
 
 ## Load-test results (PR 8)
 

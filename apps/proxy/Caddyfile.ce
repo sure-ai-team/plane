@@ -1,5 +1,13 @@
 (sgtpm_proxy) {
-	request_body {
+	# Browsers upload straight to MinIO with presigned POSTs, whose policy
+	# already enforces each file's size (chat videos can be 200 MB), so the
+	# storage bucket gets its own cap. Everything else keeps FILE_SIZE_LIMIT.
+	@storage path /{$BUCKET_NAME} /{$BUCKET_NAME}/*
+	request_body @storage {
+		max_size {$UPLOAD_SIZE_LIMIT:2147483648}
+	}
+	@notStorage not path /{$BUCKET_NAME} /{$BUCKET_NAME}/*
+	request_body @notStorage {
 		max_size {$FILE_SIZE_LIMIT}
 	}
 

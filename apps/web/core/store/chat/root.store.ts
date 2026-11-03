@@ -42,6 +42,8 @@ export class ChatRootStore {
   readonly socket: ChatSocket;
 
   private pruneTimer: ReturnType<typeof setInterval> | null = null;
+  /** Unsent composer text per conversation (kept while switching; not persisted). */
+  private drafts = new Map<string, string>();
 
   constructor(private readonly deps: TChatRootDeps) {
     const currentUserId = () => deps.currentUser()?.id;
@@ -95,6 +97,7 @@ export class ChatRootStore {
     if (this.pruneTimer) clearInterval(this.pruneTimer);
     this.pruneTimer = null;
     this.socket.disconnect();
+    this.drafts.clear();
     this.conversation.reset();
     this.message.reset();
     this.realtime.reset();
@@ -136,6 +139,17 @@ export class ChatRootStore {
       this.loadPresence(),
       ...this.message.loadedConversationIds().map((id) => this.message.catchUp(slug, id).catch(() => 0)),
     ]);
+  }
+
+  // ------------------------------------------------------------------ drafts
+
+  getDraft(conversationId: string): string | undefined {
+    return this.drafts.get(conversationId);
+  }
+
+  setDraft(conversationId: string, html: string | null) {
+    if (html) this.drafts.set(conversationId, html);
+    else this.drafts.delete(conversationId);
   }
 
   // ------------------------------------------------------------------ threads
