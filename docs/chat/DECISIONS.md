@@ -105,3 +105,15 @@ Append-only. Newest at the bottom. Format: number, date, decision, why, alternat
 
 **Why:** the generic endpoints accepted any `EntityTypeContext` value and looked up assets by id within the workspace, so chat files could have been read, downloaded, duplicated, restored or re-linked through them.
 **How:** `FileAsset.PRIVATE_ENTITY_TYPES` / `PUBLIC_ENTITY_TYPES`; `non_chat_assets()` in `asset/v2.py`; the same exclusion in the v1 and public-API asset views; `chat_conversation` / `chat_message` read-only in every `FileAsset` serializer.
+
+## D21 — 2026-11-03 — Chat UI components live in `apps/web`, not `@plane/propel` / `@plane/ui`
+
+**Why:** every chat component depends on the chat stores, the comment editor wrapper and web-only hooks; none is reusable outside chat. Putting them in a shared package would mean threading stores through props for no reuse.
+**How:** `apps/web/core/components/chat/` (sidebar, thread, composer, modals, details, common). Only generic pieces already in `@plane/ui` / `@plane/propel` are used (Avatar, ModalCore, AlertModalCore, CustomMenu, IconButton, Button, Loader, Logo).
+**Consequences:** no Storybook stories for chat components; behaviour is covered by store tests and manual checks. Revisit if another app (space, admin) needs chat.
+
+## D22 — 2026-11-03 — Ship English first; other locales get empty `chat.json`
+
+**Why:** the translate skill forbids copying English into other locales. The platform has 18 non-English locales and no Arabic locale (so no RTL work in phase 1). Translating ~110 keys into 18 locales is its own reviewed PR.
+**How:** `en/chat.json` in both locale trees; `{}` in every other locale, so i18next falls back to English. `sync:check` reports the missing keys until the translation PR lands.
+**Consequences:** non-English users see English chat copy for now. Follow-up tracked in `PROGRESS.md` (Q1).

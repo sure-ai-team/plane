@@ -19,6 +19,8 @@ interface AppSidebarItemData {
   onClick?: () => void;
   disabled?: boolean;
   showLabel?: boolean;
+  /** Unread count shown as a pill on the icon (hidden when 0). */
+  badge?: number;
 }
 
 interface AppSidebarItemProps {
@@ -34,6 +36,7 @@ interface AppSidebarItemLabelProps {
 interface AppSidebarItemIconProps {
   icon?: React.ReactNode;
   highlight?: boolean;
+  badge?: number;
 }
 
 interface AppSidebarLinkItemProps {
@@ -82,17 +85,22 @@ function AppSidebarItemLabel({ highlight = false, label }: AppSidebarItemLabelPr
   );
 }
 
-function AppSidebarItemIcon({ icon, highlight }: AppSidebarItemIconProps) {
+function AppSidebarItemIcon({ icon, highlight, badge }: AppSidebarItemIconProps) {
   if (!icon) return null;
 
   return (
     <div
-      className={cn(styles.icon, {
+      className={cn(styles.icon, "relative", {
         [styles.iconActive]: highlight,
         [styles.iconInactive]: !highlight,
       })}
     >
       {icon}
+      {!!badge && badge > 0 && (
+        <span className="absolute -top-1 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent-primary px-1 text-9 font-semibold text-on-color shadow-[0_0_0_2px_var(--bg-canvas)]">
+          {badge > 99 ? "99+" : badge}
+        </span>
+      )}
     </div>
   );
 }
@@ -129,11 +137,11 @@ export type AppSidebarItemComponent = React.FC<AppSidebarItemProps> & {
 function AppSidebarItem({ variant = "link", item }: AppSidebarItemProps) {
   if (!item) return null;
 
-  const { icon, isActive, label, href, onClick, disabled, showLabel = true } = item;
+  const { icon, isActive, label, href, onClick, disabled, showLabel = true, badge } = item;
 
   const commonItems = (
     <>
-      <AppSidebarItemIcon icon={icon} highlight={isActive} />
+      <AppSidebarItemIcon icon={icon} highlight={isActive} badge={badge} />
       {showLabel && <AppSidebarItemLabel highlight={isActive} label={label} />}
     </>
   );

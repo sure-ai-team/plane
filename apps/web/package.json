@@ -67,6 +67,7 @@
     "react-pdf-html": "catalog:",
     "react-popper": "catalog:",
     "react-router": "catalog:",
+    "react-virtuoso": "catalog:",
     "recharts": "catalog:",
     "serve": "catalog:",
     "smooth-scroll-into-view-if-needed": "catalog:",

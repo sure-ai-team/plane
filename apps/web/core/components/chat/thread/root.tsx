@@ -1,0 +1,138 @@
+/**
+ * Copyright (c) 2023-present Plane Software, Inc. and contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ * See the LICENSE file for details.
+ */
+
+import { useEffect, useState } from "react";
+import { observer } from "mobx-react";
+import { PanelRight } from "lucide-react";
+import { useTranslation } from "@plane/i18n";
+import { IconButton } from "@plane/propel/icon-button";
+import type { TChatMessage } from "@plane/types";
+import { cn } from "@plane/utils";
+// hooks
+import { useChat } from "@/hooks/store/use-chat";
+import { useWorkspace } from "@/hooks/store/use-workspace";
+// local
+import { ConversationAvatar } from "../common/avatars";
+import { ChatComposer } from "../composer/root";
+import { ChatDetailsPanel } from "../details/root";
+import { ChatMessageList } from "./message-list";
+import { ChatTypingIndicator } from "./small-items";
+
+type Props = {
+  workspaceSlug: string;
+  conversationId: string;
+};
+
+export const ChatThread = observer(function ChatThread(props: Props) {
+  const { workspaceSlug, conversationId } = props;
+  const { t } = useTranslation();
+  const chat = useChat();
+  const { getWorkspaceBySlug } = useWorkspace();
+  const [replyTo, setReplyTo] = useState<TChatMessage | null>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isMissing, setIsMissing] = useState(false);
+
+  const workspaceId = getWorkspaceBySlug(workspaceSlug)?.id ?? "";
+  const conversation = chat.conversation.getById(conversationId);
+  const isReady = chat.isInitialized && chat.workspaceSlug === workspaceSlug;
+
+  useEffect(() => {
+    setReplyTo(null);
+    setIsMissing(false);
+    if (!isReady) return;
+    let cancelled = false;
+    const open = async () => {
+      await chat.openConversation(conversationId);
+      if (!cancelled && !chat.conversation.getById(conversationId)) setIsMissing(true);
+    };
+    void open();
+    return () => {
+      cancelled = true;
+      chat.setActiveConversation(null);
+    };
+  }, [chat, conversationId, isReady]);
+
+  if (isMissing) {
+    return (
+      <div className="flex h-full flex-1 items-center justify-center p-6 text-center text-13 text-secondary">
+        {t("chat.errors.not_found")}
+      </div>
+    );
+  }
+
+  if (!conversation) return <div className="flex-1" />;
+
+  const name = chat.conversation.displayName(conversation);
+  const subtitle =
+    conversation.type === "direct"
+      ? chat.realtime.isOnline(conversation.direct_user?.id)
+        ? t("chat.status.online")
+        : t("chat.status.offline")
+      : t("chat.members.count", { count: conversation.member_count });
+  const status = chat.realtime.status;
+
+  return (
+    <div className="flex h-full min-w-0 flex-1">
+      <div className="flex h-full min-w-0 flex-1 flex-col">
+        <header className="flex h-header shrink-0 items-center gap-2.5 border-b border-subtle px-4">
+          <ConversationAvatar conversation={conversation} size={24} showPresence />
+          <div className="flex min-w-0 flex-1 flex-col">
+            <h1 className="truncate text-14 font-medium text-primary">{name}</h1>
+            <span className="truncate text-11 text-tertiary">{subtitle}</span>
+          </div>
+          <IconButton
+            icon={PanelRight}
+            variant={isDetailsOpen ? "tertiary" : "ghost"}
+            size="lg"
+            aria-label={isDetailsOpen ? t("chat.actions.hide_details") : t("chat.actions.details")}
+            aria-pressed={isDetailsOpen}
+            onClick={() => setIsDetailsOpen((value) => !value)}
+          />
+        </header>
+
+        {(status === "reconnecting" || status === "blocked") && (
+          <div
+            role="status"
+            className={cn(
+              "border-b px-4 py-1.5 text-12",
+              status === "blocked"
+                ? "border-danger-subtle bg-danger-subtle text-danger-primary"
+                : "border-warning-subtle bg-warning-subtle text-warning-primary"
+            )}
+          >
+            {status === "reconnecting"
+              ? t("chat.status.reconnecting")
+              : chat.realtime.closeCode === 4404
+                ? t("chat.status.blocked_disabled")
+                : t("chat.status.blocked_access")}
+          </div>
+        )}
+
+        <ChatMessageList
+          workspaceSlug={workspaceSlug}
+          workspaceId={workspaceId}
+          conversation={conversation}
+          onReply={setReplyTo}
+        />
+        <ChatTypingIndicator conversation={conversation} />
+        <ChatComposer
+          workspaceSlug={workspaceSlug}
+          workspaceId={workspaceId}
+          conversation={conversation}
+          replyTo={replyTo}
+          onCancelReply={() => setReplyTo(null)}
+          onSent={() => undefined}
+        />
+      </div>
+
+      {isDetailsOpen && (
+        <div className="hidden h-full w-72 shrink-0 border-l border-subtle lg:block">
+          <ChatDetailsPanel workspaceSlug={workspaceSlug} conversation={conversation} />
+        </div>
+      )}
+    </div>
+  );
+});
