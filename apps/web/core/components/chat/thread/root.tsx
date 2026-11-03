@@ -144,6 +144,7 @@ export const ChatThread = observer(function ChatThread(props: Props) {
         />
         <ChatTypingIndicator conversation={conversation} />
         <ChatComposer
+          key={conversation.id}
           workspaceSlug={workspaceSlug}
           workspaceId={workspaceId}
           conversation={conversation}

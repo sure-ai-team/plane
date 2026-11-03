@@ -102,10 +102,12 @@ Branch `feat/chat-7-voice-notes`
 
 Branch `feat/chat-8-hardening`
 
-- [ ] Load test script + results recorded in `PROGRESS.md`
-- [ ] Range-request check through Caddy
-- [ ] Full manual matrix in `08` completed and recorded
-- [ ] `07` release gate completed
+- [x] Load test script (`apps/live/loadtest/chat.js`, k6); [ ] results recorded in `PROGRESS.md` (run on staging)
+- [x] Proxy reviewed: uploads to the bucket were capped at 5 MB by `request_body`. Fixed with a separate `UPLOAD_SIZE_LIMIT` for the bucket (validated with `caddy adapt`); `reverse_proxy` passes `Range` through. [ ] Live `curl -r 0-1023` check on staging
+- [x] Deferred PR 5 items: "Create work item from message" (prefilled issue modal), composer drafts per conversation
+- [x] `DEPLOYMENT.md`: deploy steps, smoke test, rollback, test-stack MinIO override
+- [ ] Full manual matrix in `08` completed and recorded (needs a deployed build)
+- [ ] `07` release gate completed (needs a deployed build)
 - [ ] `pnpm audit --prod`, `pip-audit`
-- [ ] `README.md` (repo) feature list mentions Chat; `docs/chat/00-overview.md` status → "shipped"
-- [ ] `PROGRESS.md` updated
+- [x] `README.md` (repo) feature list mentions Chat; [ ] `00-overview.md` status → "shipped" after the release gate
+- [x] `PROGRESS.md` updated

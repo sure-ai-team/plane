@@ -11,13 +11,14 @@ import type { EditorRefApi } from "@plane/editor";
 import { useTranslation } from "@plane/i18n";
 import { Button } from "@plane/propel/button";
 import { IconButton } from "@plane/propel/icon-button";
-import { EditIcon, LinkIcon, TrashIcon } from "@plane/propel/icons";
+import { EditIcon, LinkIcon, TrashIcon, WorkItemsIcon } from "@plane/propel/icons";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { TChatApiError, TChatConversation, TChatMessage } from "@plane/types";
 import { AlertModalCore, CustomMenu } from "@plane/ui";
 import { cn, copyUrlToClipboard, getFileURL, isCommentEmpty } from "@plane/utils";
 // components
 import { LiteTextEditor } from "@/components/editor/lite-text";
+import { CreateUpdateIssueModal } from "@/components/issues/issue-modal/modal";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
@@ -48,6 +49,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isCreateWorkItemOpen, setIsCreateWorkItemOpen] = useState(false);
 
   const isOwn = !!currentUser && message.sender?.id === currentUser.id;
   const isGroupAdmin = conversation.type === "group" && conversation.my_role === 20;
@@ -90,6 +92,13 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
         setDraftHtml(message.body_html);
         setIsEditing(true);
       },
+    },
+    {
+      key: "work-item",
+      title: t("chat.message.create_work_item"),
+      icon: WorkItemsIcon,
+      shouldRender: message.kind !== "system" && hasBody,
+      action: () => setIsCreateWorkItemOpen(true),
     },
     {
       key: "copy",
@@ -241,6 +250,18 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
             </CustomMenu>
           )}
         </div>
+      )}
+
+      {isCreateWorkItemOpen && (
+        <CreateUpdateIssueModal
+          isOpen
+          onClose={() => setIsCreateWorkItemOpen(false)}
+          data={{
+            name: (message.body_stripped || "").slice(0, 255),
+            description_html: message.body_html,
+            ...(conversation.project ? { project_id: conversation.project.id } : {}),
+          }}
+        />
       )}
 
       <AlertModalCore

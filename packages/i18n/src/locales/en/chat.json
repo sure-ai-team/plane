@@ -90,7 +90,8 @@
       "send_failed": "Couldn't send",
       "sending": "Sending…",
       "retry": "Retry",
-      "discard": "Discard"
+      "discard": "Discard",
+      "create_work_item": "Create work item"
     },
     "system": {
       "created": "{actor} created the group",
