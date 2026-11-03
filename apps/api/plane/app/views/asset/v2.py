@@ -28,6 +28,16 @@ from plane.bgtasks.storage_metadata_task import get_asset_object_metadata
 from plane.throttles.asset import AssetRateThrottle
 
 
+def non_chat_assets(manager=None):
+    """Assets the generic endpoints may read, copy, restore or serve.
+
+    Chat attachments are private to a conversation and are only reachable
+    through the chat endpoints, which check membership (docs/chat/07-security.md S1).
+    """
+    manager = manager if manager is not None else FileAsset.objects
+    return manager.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES)
+
+
 class UserAssetsV2Endpoint(BaseAPIView):
     """This endpoint is used to upload user profile images."""
 
@@ -346,7 +356,7 @@ class WorkspaceFileAssetEndpoint(BaseAPIView):
         entity_identifier = request.data.get("entity_identifier", False)
 
         # Check if the entity type is allowed
-        if entity_type not in FileAsset.EntityTypeContext.values:
+        if entity_type not in FileAsset.PUBLIC_ENTITY_TYPES:
             return Response(
                 {"error": "Invalid entity type.", "status": False},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -417,7 +427,7 @@ class WorkspaceFileAssetEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
     def patch(self, request, slug, asset_id):
         # get the asset id
-        asset = FileAsset.objects.get(id=asset_id, workspace__slug=slug)
+        asset = non_chat_assets().get(id=asset_id, workspace__slug=slug)
         # enforce project-level access for project-bound assets
         if not self.has_project_asset_access(request, asset):
             return Response(
@@ -444,7 +454,7 @@ class WorkspaceFileAssetEndpoint(BaseAPIView):
 
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
     def delete(self, request, slug, asset_id):
-        asset = FileAsset.objects.get(id=asset_id, workspace__slug=slug)
+        asset = non_chat_assets().get(id=asset_id, workspace__slug=slug)
         # enforce project-level access for project-bound assets
         if not self.has_project_asset_access(request, asset):
             return Response(
@@ -461,7 +471,7 @@ class WorkspaceFileAssetEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
     def get(self, request, slug, asset_id):
         # get the asset id
-        asset = FileAsset.objects.get(id=asset_id, workspace__slug=slug)
+        asset = non_chat_assets().get(id=asset_id, workspace__slug=slug)
         # enforce project-level access for project-bound assets
         if not self.has_project_asset_access(request, asset):
             return Response(
@@ -538,7 +548,7 @@ class AssetRestoreEndpoint(BaseAPIView):
 
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
     def post(self, request, slug, asset_id):
-        asset = FileAsset.all_objects.get(id=asset_id, workspace__slug=slug)
+        asset = non_chat_assets(FileAsset.all_objects).get(id=asset_id, workspace__slug=slug)
         asset.is_deleted = False
         asset.deleted_at = None
         asset.save(update_fields=["is_deleted", "deleted_at"])
@@ -586,7 +596,7 @@ class ProjectAssetEndpoint(BaseAPIView):
         entity_identifier = request.data.get("entity_identifier")
 
         # Check if the entity type is allowed
-        if entity_type not in FileAsset.EntityTypeContext.values:
+        if entity_type not in FileAsset.PUBLIC_ENTITY_TYPES:
             return Response(
                 {"error": "Invalid entity type.", "status": False},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -772,7 +782,11 @@ class AssetCheckEndpoint(BaseAPIView):
 
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
     def get(self, request, slug, asset_id):
-        asset = FileAsset.all_objects.filter(id=asset_id, workspace__slug=slug, deleted_at__isnull=True).exists()
+        asset = (
+            non_chat_assets(FileAsset.all_objects)
+            .filter(id=asset_id, workspace__slug=slug, deleted_at__isnull=True)
+            .exists()
+        )
         return Response({"exists": asset}, status=status.HTTP_200_OK)
 
 
@@ -818,7 +832,7 @@ class DuplicateAssetEndpoint(BaseAPIView):
         entity_id = request.data.get("entity_id", None)
         entity_type = request.data.get("entity_type", None)
 
-        if not entity_type or entity_type not in FileAsset.EntityTypeContext.values:
+        if not entity_type or entity_type not in FileAsset.PUBLIC_ENTITY_TYPES:
             return Response(
                 {"error": "Invalid entity type or entity id"},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -832,7 +846,7 @@ class DuplicateAssetEndpoint(BaseAPIView):
 
         storage = S3Storage(request=request)
         # Restrict the source asset to the same destination workspace to prevent cross-workspace asset copying
-        original_asset = FileAsset.objects.filter(
+        original_asset = non_chat_assets().filter(
             id=asset_id,
             is_uploaded=True,
             workspace=workspace,
@@ -871,7 +885,9 @@ class WorkspaceAssetDownloadEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="WORKSPACE")
     def get(self, request, slug, asset_id):
         try:
-            asset = FileAsset.objects.get(
+            # Chat attachments are served only by the chat endpoint, which
+            # checks conversation membership.
+            asset = non_chat_assets().get(
                 id=asset_id,
                 workspace__slug=slug,
                 is_uploaded=True,

@@ -141,6 +141,9 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "anon": "30/minute",
         "asset_id": "5/minute",
+        "chat_send": os.environ.get("CHAT_SEND_RATE", "60/minute"),
+        "chat_upload": os.environ.get("CHAT_UPLOAD_RATE", "30/minute"),
+        "chat_read": os.environ.get("CHAT_READ_RATE", "120/minute"),
     },
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
@@ -348,6 +351,8 @@ CELERY_IMPORTS = (
     "plane.bgtasks.issue_description_version_sync",
     # Jira CSV imports
     "plane.bgtasks.jira_import_task",
+    # Chat attachment storage cleanup
+    "plane.bgtasks.chat_cleanup_task",
 )
 
 FILE_SIZE_LIMIT = int(os.environ.get("FILE_SIZE_LIMIT", 5242880))
@@ -417,6 +422,8 @@ if LIVE_BASE_URL and not is_valid_url(LIVE_BASE_URL):
 LIVE_BASE_PATH = os.environ.get("LIVE_BASE_PATH", "/live/")
 
 LIVE_URL = urljoin(LIVE_BASE_URL, LIVE_BASE_PATH) if LIVE_BASE_URL else None
+# Shared secret the live server sends (X-Live-Secret) on its internal chat calls.
+LIVE_SERVER_SECRET_KEY = os.environ.get("LIVE_SERVER_SECRET_KEY", "")
 
 # WEB URL
 WEB_URL = os.environ.get("WEB_URL")

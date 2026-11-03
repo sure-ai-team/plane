@@ -95,7 +95,6 @@ asset.is_uploaded = True; asset.attributes["size"] = head.size
 - `bgtasks/chat_cleanup_task.py`:
   - `delete_chat_objects(keys)`: `delete_objects` in batches of 1000; log failures; retry 3× with backoff.
   - `purge_orphan_chat_uploads()` (Celery Beat, daily 03:00): assets with `entity_type=CHAT_ATTACHMENT`, `chat_message IS NULL`, `created_at < now-24h` → delete objects + rows.
-  - `deactivate_chat_memberships(user_id, workspace_id)`: called from the existing workspace-member removal/deactivation path.
 - Register the beat schedule in `settings/common.py` `CELERY_BEAT_SCHEDULE`.
 
 ## Error copy (see 10-i18n-keys.md)

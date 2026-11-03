@@ -45,7 +45,7 @@ Common rules:
   "direct_user": UserLite|null,            // the other party, direct only
   "member_count": 8, "my_role": 20, "is_muted": false,
   "last_message_seq": 1042, "last_read_seq": 1040, "unread_count": 2,
-  "last_message_at": "…|null", "last_message_preview": "Omar: Reproduced it…",
+  "last_message_at": "…|null", "last_message_preview": { "sender_id": "uuid", "kind": "attachment", "attachment_kinds": ["image"], "text": "Reproduced it" },
   "created_at": "…", "created_by": "uuid"
 }
 
@@ -116,7 +116,7 @@ Query: `before_seq` (exclusive, page backwards), `after_seq` (exclusive, page fo
 - At least one of non-empty `body_stripped` or `attachment_ids`. `400 EMPTY_MESSAGE`.
 - `attachment_ids`: each must be `CHAT_ATTACHMENT`, `is_uploaded=True`, `chat_conversation_id == id`, `created_by == me`, `chat_message IS NULL`. Else `400 INVALID_ATTACHMENT`. Count ≤ `CHAT_MAX_FILES_PER_MESSAGE` → `400 TOO_MANY_FILES`.
 - `kind`: `voice` if the only attachment is audio and body empty; `attachment` if any attachments; else `text`.
-- Mentions parsed from `body_json` mention nodes → `MessageMention` rows (only active conversation members; others silently dropped).
+- Mentions parsed from `<mention-component entity_name="user_mention">` tags in the sanitised `body_html` (same as comments) → `MessageMention` rows (only active conversation members; others silently dropped).
 - Duplicate `client_id` → `200` existing message. New → `201 Message`.
 - Throttle: `chat_send` 60/min/user.
 
@@ -145,7 +145,7 @@ Query: `before_seq` (exclusive, page backwards), `after_seq` (exclusive, page fo
 }
 ```
 
-→ `200 { "asset_id": "uuid", "upload_data": { "url": "…", "fields": {…} }, "asset_url": "…" }` (same shape as `UserAssetsV2Endpoint`).
+→ `200 { "asset_id": "uuid", "upload_data": { "url": "…", "fields": {…} }, "asset_url": "…", "attachment": Attachment }`. Upload links expire after 15 minutes. Recorded voice notes send `"is_voice": true` and a `duration` (D18).
 Errors: `400 TYPE_NOT_ALLOWED`, `413 FILE_TOO_LARGE { "limit_bytes": … }`, `400 DURATION_TOO_LONG`.
 Throttle: `chat_upload` 30/min/user.
 
@@ -169,7 +169,7 @@ Membership check on `chat_conversation` → `302` to presigned GET (5 min). `dis
 
 ### `GET presence/` → `{ "online_user_ids": ["uuid"] }` (from Redis `chat:online:*` for this workspace's members).
 
-### `GET conversations/<id>/member-ids/` — **live-server only**: header `X-Live-Secret: <LIVE_SERVER_SECRET_KEY>`; no session. `{ "member_ids": ["uuid"] }`. Any other caller → `403`.
+### `GET live/conversations/<id>/member-ids/` and `GET live/users/<user_id>/access/` — **live-server only**: header `X-Live-Secret: <LIVE_SERVER_SECRET_KEY>`; no session. `{ "member_ids": ["uuid"] }`. Any other caller → `403`.
 
 ## Throttles (`plane/throttles/chat.py`)
 
@@ -180,3 +180,14 @@ Membership check on `chat_conversation` → `302` to presigned GET (5 min). `dis
 | `chat_read`   | 120/min | user |
 
 Registered in `REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]`.
+
+## Added during PR 1
+
+- `GET config/` → the chat limits for the web client's pre-upload checks: `{ enabled, max_image_mb, max_video_mb, max_audio_mb, max_file_mb, max_files_per_message, max_voice_seconds }`.
+- `GET live/users/<user_id>/access/` (live-server only, `X-Live-Secret`) → `{ "allowed": bool }`: may this user open a chat socket for this workspace.
+- `GET attachments/<asset_id>/?download=1` forces `Content-Disposition: attachment` for media too.
+- `Attachment` also carries `is_voice` and `is_uploaded`.
+- Member URLs (`members/<member_id>/`) take the member's **user id**.
+- An attachment uploaded but not yet sent is visible only to its uploader.
+- Every chat id in REST and socket payloads is a string.
+- Events: see `03-realtime-protocol.md` (conversation events carry ids, D16; `member.updated` added for role/mute changes and admin promotion).

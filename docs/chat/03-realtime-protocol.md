@@ -4,7 +4,7 @@
 
 - URL: `wss://<host>/live/chat/?workspace=<slug>` (path under `LIVE_BASE_PATH`, proxied by Caddy `/live/*`).
 - Auth: session cookie, same as the collaboration socket. Live server calls `handleAuthentication` (`apps/live/src/lib/auth.ts`) → `GET /api/users/me/`. On failure: close `4401`.
-- Workspace check: live server calls `GET /api/workspaces/<slug>/chat/membership-check/` _(add to 02 if not present — or reuse `/api/users/me/workspaces/`)_ and closes `4403` if the user is not an active admin/member.
+- Workspace check: live server calls `GET /api/workspaces/<slug>/chat/live/users/<user_id>/access/` with `X-Live-Secret` and closes `4403` unless `{ "allowed": true }`.
 - Origin check: `Origin` header must be in `CORS_ALLOWED_ORIGINS`; else `4403`.
 - One socket per tab. The server keeps `Map<userId, Set<WebSocket>>` plus `socket → {userId, workspaceSlug}`.
 - Max 10 sockets per user; the 11th closes the oldest.
@@ -25,21 +25,22 @@ Unknown `t` → ignored. Malformed JSON → close `4400`.
 
 ### Server → client
 
-| `t`                    | `d`                                       | Source                                                      |
-| ---------------------- | ----------------------------------------- | ----------------------------------------------------------- |
-| `pong`                 | `{}`                                      |                                                             |
-| `message.created`      | `{ "message": Message }`                  | Redis                                                       |
-| `message.updated`      | `{ "message": Message }`                  | Redis                                                       |
-| `message.deleted`      | `{ "conversation_id", "id", "seq" }`      | Redis                                                       |
-| `conversation.created` | `{ "conversation": Conversation }`        | Redis (sent to each new member)                             |
-| `conversation.updated` | `{ "conversation": Conversation }`        | Redis                                                       |
-| `conversation.deleted` | `{ "id" }`                                | Redis                                                       |
-| `member.added`         | `{ "conversation_id", "member": Member }` | Redis                                                       |
-| `member.removed`       | `{ "conversation_id", "user_id" }`        | Redis. If `user_id == me` the client drops the conversation |
-| `read.updated`         | `{ "conversation_id", "user_id", "seq" }` | Redis                                                       |
-| `typing`               | `{ "conversation_id", "user_id" }`        | Live server                                                 |
-| `presence`             | `{ "user_id", "online": true\|false }`    | Live server                                                 |
-| `error`                | `{ "code", "message" }`                   | Live server                                                 |
+| `t`                    | `d`                                                      | Source                                                                    |
+| ---------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `pong`                 | `{}`                                                     |                                                                           |
+| `message.created`      | `{ "message": Message }`                                 | Redis                                                                     |
+| `message.updated`      | `{ "message": Message }`                                 | Redis                                                                     |
+| `message.deleted`      | `{ "conversation_id", "id", "seq" }`                     | Redis                                                                     |
+| `conversation.created` | `{ "conversation_id" }` (D16)                            | Redis (sent to each new member); client fetches `GET conversations/<id>/` |
+| `conversation.updated` | `{ "conversation_id", "name", "logo_props", "project" }` | Redis                                                                     |
+| `member.updated`       | `{ "conversation_id", "member": Member }`                | Redis (role change, admin promotion; mute goes to the muting user only)   |
+| `conversation.deleted` | `{ "conversation_id" }`                                  | Redis                                                                     |
+| `member.added`         | `{ "conversation_id", "member": Member }`                | Redis                                                                     |
+| `member.removed`       | `{ "conversation_id", "user_id" }`                       | Redis. If `user_id == me` the client drops the conversation               |
+| `read.updated`         | `{ "conversation_id", "user_id", "seq" }`                | Redis                                                                     |
+| `typing`               | `{ "conversation_id", "user_id" }`                       | Live server                                                               |
+| `presence`             | `{ "user_id", "online": true\|false }`                   | Live server                                                               |
+| `error`                | `{ "code", "message" }`                                  | Live server                                                               |
 
 `Message` / `Conversation` / `Member` are exactly the REST shapes from `02-api-contracts.md`; the serializer output is published verbatim so client code has one type.
 
@@ -68,7 +69,7 @@ Transitions (first socket opened / last socket closed) publish `presence` to… 
 
 ### Typing
 
-Live server receives `typing` → needs recipient ids. Cache: `Map<conversationId, {ids: string[], at: number}>` with 60 s TTL, filled by `GET /api/workspaces/<slug>/chat/conversations/<id>/member-ids/` using header `X-Live-Secret`. Fan-out to each recipient's sockets except the sender's. Never persisted.
+Live server receives `typing` → needs recipient ids. Cache: `Map<conversationId, {ids: string[], at: number}>` with 60 s TTL, filled by `GET /api/workspaces/<slug>/chat/live/conversations/<id>/member-ids/` using header `X-Live-Secret`. Fan-out to each recipient's sockets except the sender's. Never persisted.
 
 ## Live server file layout (`apps/live/src`)
 

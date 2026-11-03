@@ -23,7 +23,6 @@ Conventions: `apps/api/tests/TESTING_GUIDE.md`, markers `unit` / `contract` / `s
 
 - `delete_chat_objects` batches and retries.
 - `purge_orphan_chat_uploads` removes only orphans older than 24 h.
-- `deactivate_chat_memberships` flips `is_active` and leaves others untouched.
 
 ### contract/test_chat_conversations.py
 

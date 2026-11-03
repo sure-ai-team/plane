@@ -43,17 +43,17 @@ class SystemEvent(models.TextChoices):   # stored in Message.meta["event"] for k
 
 ## Conversation
 
-| Field                  | Type                                                               | Notes                                                         |
-| ---------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------- |
-| `workspace`            | FK `db.Workspace`, CASCADE, related_name `chat_conversations`      |                                                               |
-| `type`                 | CharField(10), choices `ConversationType`                          |                                                               |
-| `name`                 | CharField(255), blank                                              | Required for groups; empty for direct                         |
-| `logo_props`           | JSONField, default dict                                            | Same shape as project `logo_props` (emoji / icon)             |
-| `project`              | FK `db.Project`, SET_NULL, null, related_name `chat_conversations` | Group only                                                    |
-| `direct_key`           | CharField(80), null, db_index                                      | `f"{min(uid_a, uid_b)}:{max(uid_a, uid_b)}"`; null for groups |
-| `last_message_seq`     | PositiveBigIntegerField, default 0                                 | Per-conversation counter                                      |
-| `last_message_at`      | DateTimeField, null, db_index                                      | Sort key for the sidebar                                      |
-| `last_message_preview` | CharField(200), blank                                              | Stripped text or "Photo", "Voice note", …                     |
+| Field                  | Type                                                               | Notes                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `workspace`            | FK `db.Workspace`, CASCADE, related_name `chat_conversations`      |                                                                                                          |
+| `type`                 | CharField(10), choices `ConversationType`                          |                                                                                                          |
+| `name`                 | CharField(255), blank                                              | Required for groups; empty for direct                                                                    |
+| `logo_props`           | JSONField, default dict                                            | Same shape as project `logo_props` (emoji / icon)                                                        |
+| `project`              | FK `db.Project`, SET_NULL, null, related_name `chat_conversations` | Group only                                                                                               |
+| `direct_key`           | CharField(80), null, db_index                                      | `f"{min(uid_a, uid_b)}:{max(uid_a, uid_b)}"`; null for groups                                            |
+| `last_message_seq`     | PositiveBigIntegerField, default 0                                 | Per-conversation counter                                                                                 |
+| `last_message_at`      | DateTimeField, null, db_index                                      | Sort key for the sidebar                                                                                 |
+| `last_message_preview` | JSONField, default dict                                            | `{sender_id, kind, event, attachment_kinds, text}`; the client renders it in the viewer's language (D16) |
 
 Constraints / indexes:
 
@@ -89,7 +89,7 @@ indexes = [
 db_table = "chat_conversation_members"
 ```
 
-Rejoining a group reactivates the existing row (sets `is_active=True`, clears `left_at`); it does not create a second row.
+Rejoining a group reactivates the existing row (sets `is_active=True`, clears `left_at`); it does not create a second row. Leaving the _workspace_ does not touch these rows: access is checked against `WorkspaceMember` on every query (D15).
 
 ## Message
 
@@ -136,7 +136,8 @@ Unique `(message, user)`. Index `(user, -created_at)`. `db_table = "chat_message
 - Add `CHAT_ATTACHMENT = "CHAT_ATTACHMENT"` to `EntityTypeContext`.
 - Add `chat_message = models.ForeignKey("db.Message", on_delete=models.CASCADE, null=True, related_name="assets")` — CASCADE so deleting a message deletes the rows; object deletion is handled by the Celery task (04 § Deletion).
 - Add `chat_conversation = models.ForeignKey("db.Conversation", on_delete=models.CASCADE, null=True, related_name="assets")` — set at upload time, before the message exists; used for the ownership check at send time.
-- `asset_url` property: for `CHAT_ATTACHMENT` return `f"/api/assets/v2/workspaces/{slug}/chat/attachments/{self.id}/"`.
+- `asset_url` property: for `CHAT_ATTACHMENT` return `f"/api/workspaces/{slug}/chat/attachments/{self.id}/"`.
+- `PRIVATE_ENTITY_TYPES` / `PUBLIC_ENTITY_TYPES` class constants (D20); the reverse accessor from `Conversation` is `chat_assets`.
 - `attributes` shape for chat: see `04-attachments-and-media.md` § Attributes.
 
 ## Sequence assignment (service layer: `app/views/chat/services.py`)

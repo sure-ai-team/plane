@@ -6,21 +6,21 @@ Branch naming: `feat/chat-<n>-<slug>` (use the `branch-name` skill). PR title pr
 
 Branch `feat/chat-1-backend-core`
 
-- [ ] `db/models/chat.py` per `01` (ChatBaseModel, 4 models, enums, constraints, indexes); exported in `db/models/__init__.py`
-- [ ] `FileAsset`: `CHAT_ATTACHMENT`, `chat_message`, `chat_conversation`, `asset_url` branch
-- [ ] Migration `0125_chat` applies and reverses cleanly
-- [ ] `app/serializers/chat.py` producing exactly the shapes in `02`
-- [ ] `app/views/chat/` + `app/urls/chat.py` — every endpoint in `02`, including attachments and `member-ids`
-- [ ] `app/views/chat/services.py`: `send_message`, `get_membership_or_403`, preview builder, mention parser
-- [ ] `plane/utils/chat_events.py` `publish_chat_event` (pipeline, on_commit)
-- [ ] `plane/utils/chat_config.py` with defaults (config page itself is PR 2)
-- [ ] `throttles/chat.py` + rates registered
-- [ ] `bgtasks/chat_cleanup_task.py`: `delete_chat_objects`, `purge_orphan_chat_uploads`, `deactivate_chat_memberships`; beat schedule; hook into workspace-member removal
-- [ ] **S1 fix** in `asset/v2.py` (both endpoints) + regression test
-- [ ] `filetype` in `requirements/base.txt`
-- [ ] All tests in `08` § Backend (unit + contract + smoke) green in Docker
-- [ ] `07` per-PR checklist ticked
-- [ ] `PROGRESS.md` updated
+- [x] `db/models/chat.py` per `01` (ChatBaseModel, 4 models, enums, constraints, indexes); exported in `db/models/__init__.py`
+- [x] `FileAsset`: `CHAT_ATTACHMENT`, `chat_message`, `chat_conversation`, `asset_url` branch
+- [x] Migration `0125_chat` applies and reverses cleanly
+- [x] `app/serializers/chat.py` producing exactly the shapes in `02`
+- [x] `app/views/chat/` + `app/urls/chat.py` — every endpoint in `02`, including attachments and `member-ids`
+- [x] `app/views/chat/services.py`: `send_message`, `get_membership_or_403`, preview builder, mention parser
+- [x] `plane/utils/chat_events.py` `publish_chat_event` (pipeline, on_commit)
+- [x] `plane/utils/chat_config.py` with defaults (config page itself is PR 2)
+- [x] `throttles/chat.py` + rates registered
+- [x] `bgtasks/chat_cleanup_task.py`: `delete_chat_objects`, `purge_orphan_chat_uploads`; beat schedule (membership deactivation dropped, D15)
+- [x] **S1 fix** in `asset/v2.py` (both endpoints) + regression test
+- [x] `filetype` in `requirements/base.txt`
+- [x] All tests in `08` § Backend (unit + contract) green in Docker; the end-to-end flow lives in the contract tests rather than a separate smoke file
+- [x] `07` per-PR checklist ticked
+- [x] `PROGRESS.md` updated
 
 ## PR 2 — Superadmin config (S)
 
