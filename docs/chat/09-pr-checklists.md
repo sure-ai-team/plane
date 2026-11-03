@@ -26,14 +26,14 @@ Branch `feat/chat-1-backend-core`
 
 Branch `feat/chat-2-superadmin-config`
 
-- [ ] Keys seeded in `configure_instance.py` per `06`
-- [ ] Cache + invalidation signal
-- [ ] `ChatEnabledMixin` applied to all chat views; live server honours it (PR 3 wires it)
-- [ ] Public instance payload exposes `config.chat`
-- [ ] Admin page `/superadmin/chat/` with validation and toast; sidebar entry
-- [ ] `admin.chat.*` i18n keys in admin locales
-- [ ] `contract/test_chat_config.py` green
-- [ ] `PROGRESS.md` updated
+- [x] Keys seeded in `configure_instance.py` per `06`
+- [x] Cache + invalidation on the config PATCH (no signal needed)
+- [x] `ChatBaseEndpoint` returns 404 `CHAT_DISABLED` for every chat view (done in PR 1); live server honours it in PR 3
+- [x] Public instance payload exposes `config.chat`
+- [x] Admin page `/superadmin/chat/` with validation and toast; sidebar entry
+- [x] English copy (admin app has no i18n)
+- [x] `contract/app/test_chat_config_admin.py` green
+- [x] `PROGRESS.md` updated
 
 ## PR 3 — Real-time (M)
 

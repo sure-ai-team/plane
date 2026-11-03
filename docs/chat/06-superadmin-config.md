@@ -25,10 +25,11 @@ None are secrets (`is_encrypted = False`). Hard caps enforced server-side regard
 
 ## Admin page (`apps/admin`)
 
-- Route: `/superadmin/chat/` (follow existing `settings/*` page structure; sidebar entry **Chat** under the feature section).
+- Route: `/superadmin/chat/`; sidebar entry **Chat** after Users.
 - Form: toggle **Enable chat**; number inputs for the five limits (MB) and voice seconds; Save button; toast on success.
 - Validation: integers ≥ 1, within the hard caps above.
-- i18n keys under `admin.chat.*` in the admin app's locale files (list in `10-i18n-keys.md`).
+- Copy is English, like every other Superadmin page (the admin app has no i18n). Files: `apps/admin/app/(all)/(dashboard)/chat/{page,form}.tsx`; sidebar item in `hooks/use-sidebar-menu`; header label in `components/common/header/core.ts`.
+- Saving goes through the existing `PATCH /api/instances/configurations/`, which now rejects out-of-range `CHAT_*` values (400 with `fields`) and clears the chat config cache, so changes apply immediately.
 
 ## Behaviour when disabled
 

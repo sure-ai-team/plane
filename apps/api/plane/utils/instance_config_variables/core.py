@@ -5,6 +5,9 @@
 # Python imports
 import os
 
+# Module imports
+from plane.utils.chat_config import CHAT_CONFIG_KEYS
+
 authentication_config_variables = [
     {
         "key": "ENABLE_SIGNUP",
@@ -250,6 +253,18 @@ unsplash_config_variables = [
     },
 ]
 
+# Workspace chat (docs/chat/06-superadmin-config.md). Defaults live in
+# plane.utils.chat_config.CHAT_CONFIG_KEYS so the API and the seed agree.
+chat_config_variables = [
+    {
+        "key": key,
+        "value": os.environ.get(key, default),
+        "category": "CHAT",
+        "is_encrypted": False,
+    }
+    for key, (default, _minimum, _maximum) in CHAT_CONFIG_KEYS.items()
+]
+
 core_config_variables = [
     *authentication_config_variables,
     *workspace_management_config_variables,
@@ -260,4 +275,5 @@ core_config_variables = [
     *smtp_config_variables,
     *llm_config_variables,
     *unsplash_config_variables,
+    *chat_config_variables,
 ]
