@@ -104,6 +104,8 @@ class FileAssetSerializer(BaseSerializer):
         model = FileAsset
         fields = "__all__"
         read_only_fields = [
+            "chat_conversation",
+            "chat_message",
             "id",
             "created_by",
             "updated_by",

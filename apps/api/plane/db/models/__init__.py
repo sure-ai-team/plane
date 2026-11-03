@@ -93,3 +93,16 @@ from .device import Device, DeviceSession
 from .sticky import Sticky
 
 from .description import Description, DescriptionVersion
+
+from .chat import (
+    ChatBaseModel,
+    Conversation,
+    ConversationMember,
+    ConversationRole,
+    ConversationType,
+    Message,
+    MessageKind,
+    MessageMention,
+    SystemEvent,
+    build_direct_key,
+)
