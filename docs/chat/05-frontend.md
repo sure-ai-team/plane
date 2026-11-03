@@ -174,3 +174,31 @@ Add to `pnpm-workspace.yaml` catalog, then `catalog:` in `apps/web/package.json`
   - `ChatRealtimeStore`: `typingUserIds(id)` (5 s expiry, cleared by that user's next message), `isOnline(userId)`, socket `status` / `closeCode`.
 - **MobX gotcha:** objects that the stores later mutate in place (thread state, pending messages, upload items, typing maps) are made `observable()` _before_ they go into an observable `Map`. Otherwise MobX stores a copy and the in-place mutations are lost.
 - **Tests:** vitest in `apps/web` (`pnpm --filter web test`), config `apps/web/vitest.config.ts`, 43 tests covering the socket client and all four stores.
+
+## As built (PR 5)
+
+- **Routes:** `app/(all)/[workspaceSlug]/(chat)/layout.tsx` with `chat/page.tsx` (empty state) and `chat/[conversationId]/page.tsx`, registered in `app/routes/core.ts` as a sibling of the projects section.
+  - The layout redirects to the workspace home when chat isn't available (`useChatAvailability`: chat enabled in Superadmin, and the user is a workspace admin or member).
+  - On narrow screens the sidebar and the thread take turns.
+- **Bootstrap:** `ChatBootstrap`, mounted once in `WorkspaceContentWrapper`, calls `chat.init(slug)`. The socket and the conversation list are live on every page, which keeps the app-rail badge current.
+- **App rail:** a Chat item in `navigation/app-rail-hoc.tsx`, with `AppSidebarItemData.badge` (new, generic) showing `chat.conversation.totalUnread`. `useWorkspacePaths` gains `isChatPath`, and Projects is no longer highlighted on chat pages.
+- **Components** (`core/components/chat/`):
+  - `sidebar/`: header with search and new conversation; collapsible Groups and Direct messages; items show presence, unread, mute, typing and a localised preview.
+  - `thread/`:
+    - `root` holds the header, connection banner, list, typing line, composer and the details toggle.
+    - `message-list` is Virtuoso, with `firstItemIndex` prepend handling, a "new messages" pill, and mark-read when the newest message is visible and the tab is visible.
+    - `message-item` renders the body through a read-only `LiteTextEditor`; it has inline edit, delete confirm, reply and copy link.
+    - `small-items` has the day divider, system lines, pending and failed sends, and the typing indicator.
+  - `composer/`: `LiteTextEditor` with `variant="none"` and images disabled; Enter sends; reply banner; sends typing frames.
+  - `modals/`: new conversation (direct or group, workspace-member picker), add members.
+  - `details/`: members with admin actions (promote, demote, remove), mute, leave, delete group.
+- **i18n:** namespace `chat` (D22).
+- **Dependency:** `react-virtuoso` 4.18.19 (catalog).
+
+### Deferred from PR 5 (tracked in PROGRESS.md)
+
+- **"Create work item from message":** needs the create-issue modal to accept prefilled data. Planned for PR 8.
+- **Composer drafts kept while switching conversations:** today the composer resets per conversation. Planned for PR 8.
+- **Project chip in the thread header and a link from project navigation:** phase 2 (Q2).
+- **Copy link:** copies the conversation link, not a message deep link (phase 2).
+- **Media and files tabs in the details panel:** PR 6.

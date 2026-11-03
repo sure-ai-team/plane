@@ -62,17 +62,17 @@ Branch `feat/chat-4-web-data-layer`
 
 Branch `feat/chat-5-ui-text`
 
-- [ ] Routes + `(chat)/layout.tsx`; gated by `CHAT_ENABLED` and role
-- [ ] App rail item with badge (`AppSidebarItem.badge`)
-- [ ] Sidebar (groups, directs, quick links, footer)
-- [ ] Thread: header, Virtuoso list, day dividers, grouping, system messages, "new messages" pill, mark-read hook
-- [ ] Composer (text only): editor wrapper, mention + work-item pickers, Enter/Shift+Enter
-- [ ] Message hover toolbar: Reply, Create work item, Edit, Delete, Copy link
-- [ ] New-conversation modal, members modal, delete-group modal, details panel (members tab)
-- [ ] Shared components + stories: `MessageItem`, `MessageGroup`, `DayDivider`, `SystemMessage`, `TypingIndicator`, `PresenceDot`, `ConversationListItem`, `UnreadBadge`
-- [ ] `chat.json` keys from `10` in **both** locale trees (en + ar at minimum; others via translate skill)
-- [ ] Matches mockup; RTL and dark checked in Storybook
-- [ ] `PROGRESS.md` updated
+- [x] Routes + `(chat)/layout.tsx`; gated by `CHAT_ENABLED` and role
+- [x] App rail item with badge (`AppSidebarItem.badge`)
+- [x] Sidebar (groups, directs, quick links, footer)
+- [x] Thread: header, Virtuoso list, day dividers, grouping, system messages, "new messages" pill, mark-read hook
+- [x] Composer (text only): editor wrapper, mention + work-item pickers, Enter/Shift+Enter
+- [x] Message hover toolbar: Reply, Edit, Delete, Copy link (Create work item deferred to PR 8)
+- [x] New-conversation modal, members modal, delete-group modal, details panel (members tab)
+- [x] Chat components in `apps/web/core/components/chat/` (D21: not in shared packages, so no stories)
+- [x] `chat.json` (en) in **both** locale trees; empty `{}` for the other 18 locales until the translation PR (D22). No Arabic locale exists in the platform
+- [ ] Visual check against the mockups in a running app (needs a deployed build; RTL n/a until an RTL locale exists)
+- [x] `PROGRESS.md` updated
 
 ## PR 6 — Attachments UI (M)
 

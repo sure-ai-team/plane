@@ -1,0 +1,136 @@
+{
+  "chat": {
+    "title": "Chat",
+    "page_label": "{workspace} - Chat",
+    "nav": {
+      "rail_label": "Chat"
+    },
+    "sections": {
+      "groups": "Groups",
+      "directs": "Direct messages"
+    },
+    "actions": {
+      "new": "New conversation",
+      "new_group": "New group",
+      "new_direct": "New direct message",
+      "mute": "Mute conversation",
+      "unmute": "Unmute conversation",
+      "leave": "Leave group",
+      "delete_group": "Delete group",
+      "add_members": "Add members",
+      "rename": "Rename group",
+      "details": "Conversation details",
+      "hide_details": "Hide details"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Connecting…",
+      "reconnecting": "Reconnecting…",
+      "blocked_disabled": "Chat is turned off for this instance.",
+      "blocked_access": "You don't have access to chat in this workspace."
+    },
+    "members": {
+      "count": "{count, plural, one {# member} other {# members}}",
+      "role_admin": "Admin",
+      "role_member": "Member",
+      "make_admin": "Make admin",
+      "remove_admin": "Remove admin",
+      "remove": "Remove from group",
+      "you": "You",
+      "only_members_hint": "Only members of this workspace can be added. Guests can't be messaged."
+    },
+    "new_conversation": {
+      "title": "New conversation",
+      "direct": "Direct message",
+      "group": "Group",
+      "group_name": "Group name",
+      "group_name_placeholder": "e.g. Mobile app release",
+      "members": "Members",
+      "to": "To",
+      "search_members": "Search members",
+      "no_members_found": "No members found",
+      "create_group": "Create group",
+      "start": "Start conversation",
+      "cancel": "Cancel"
+    },
+    "thread": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "new_messages": "New messages",
+      "jump_to_latest": "Jump to latest",
+      "seen_by": "{count, plural, one {Seen by #} other {Seen by #}}",
+      "typing_one": "{name} is typing…",
+      "typing_two": "{first} and {second} are typing…",
+      "typing_many": "Several people are typing…",
+      "edited": "edited",
+      "replying_to": "Replying to {name}",
+      "reply_attachment": "Attachment",
+      "reply_voice": "Voice note",
+      "empty_title": "No messages yet",
+      "empty_body": "Say hello to get the conversation started.",
+      "no_conversation_title": "Pick a conversation",
+      "no_conversation_body": "Choose a conversation from the list, or start a new one.",
+      "loading_older": "Loading older messages…",
+      "load_failed": "Couldn't load messages.",
+      "retry": "Try again",
+      "deleted_user": "Former member"
+    },
+    "message": {
+      "reply": "Reply",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copy_link": "Copy link",
+      "link_copied": "Link copied",
+      "more": "More actions",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete_confirm_title": "Delete message?",
+      "delete_confirm_body": "This removes the message and its files for everyone. This can't be undone.",
+      "send_failed": "Couldn't send",
+      "sending": "Sending…",
+      "retry": "Retry",
+      "discard": "Discard"
+    },
+    "system": {
+      "created": "{actor} created the group",
+      "member_added": "{actor} added {name}",
+      "member_removed": "{actor} removed {name}",
+      "member_left": "{name} left",
+      "renamed": "{actor} renamed the group to \"{name}\"",
+      "icon_changed": "{actor} changed the group icon",
+      "project_linked": "{actor} linked the group to a project",
+      "someone": "Someone"
+    },
+    "preview": {
+      "you": "You",
+      "photo": "Photo",
+      "video": "Video",
+      "voice": "Voice note",
+      "file": "File",
+      "attachments": "{count, plural, one {# attachment} other {# attachments}}",
+      "system": "Group update",
+      "empty": "No messages yet"
+    },
+    "composer": {
+      "placeholder": "Message {name}",
+      "send": "Send",
+      "editing": "Editing message",
+      "reply_cancel": "Cancel reply"
+    },
+    "delete_group": {
+      "title": "Delete {name}?",
+      "body": "All messages and files in this group will be removed for everyone. This can't be undone.",
+      "confirm": "Delete group"
+    },
+    "leave_group": {
+      "title": "Leave {name}?",
+      "body": "You'll stop receiving messages from this group.",
+      "confirm": "Leave"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "not_found": "This conversation no longer exists, or you're not a member."
+    }
+  }
+}
