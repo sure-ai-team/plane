@@ -6,7 +6,8 @@
 
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { PanelRight } from "lucide-react";
+import { PanelRight, Upload } from "lucide-react";
+import { useDropzone } from "react-dropzone";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
 import type { TChatMessage } from "@plane/types";
@@ -18,6 +19,7 @@ import { useWorkspace } from "@/hooks/store/use-workspace";
 import { ConversationAvatar } from "../common/avatars";
 import { ChatComposer } from "../composer/root";
 import { ChatDetailsPanel } from "../details/root";
+import { useChatFileIntake } from "../hooks/use-file-intake";
 import { ChatMessageList } from "./message-list";
 import { ChatTypingIndicator } from "./small-items";
 
@@ -36,6 +38,12 @@ export const ChatThread = observer(function ChatThread(props: Props) {
   const [isMissing, setIsMissing] = useState(false);
 
   const workspaceId = getWorkspaceBySlug(workspaceSlug)?.id ?? "";
+  const addFiles = useChatFileIntake(conversationId);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: addFiles,
+    noClick: true,
+    noKeyboard: true,
+  });
   const conversation = chat.conversation.getById(conversationId);
   const isReady = chat.isInitialized && chat.workspaceSlug === workspaceSlug;
 
@@ -76,7 +84,24 @@ export const ChatThread = observer(function ChatThread(props: Props) {
 
   return (
     <div className="flex h-full min-w-0 flex-1">
-      <div className="flex h-full min-w-0 flex-1 flex-col">
+      <div {...getRootProps({ className: "relative flex h-full min-w-0 flex-1 flex-col" })}>
+        <input {...getInputProps()} />
+        {isDragActive && (
+          <div className="pointer-events-none absolute inset-2 z-20 flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-accent-strong bg-accent-subtle/95 text-center">
+            <Upload className="size-7 text-accent-primary" />
+            <p className="text-16 font-medium text-primary">{t("chat.upload.drop_title", { name })}</p>
+            {chat.config && (
+              <p className="text-12 text-secondary">
+                {t("chat.upload.drop_hint", {
+                  image: chat.config.max_image_mb,
+                  video: chat.config.max_video_mb,
+                  audio: chat.config.max_audio_mb,
+                  file: chat.config.max_file_mb,
+                })}
+              </p>
+            )}
+          </div>
+        )}
         <header className="flex h-header shrink-0 items-center gap-2.5 border-b border-subtle px-4">
           <ConversationAvatar conversation={conversation} size={24} showPresence />
           <div className="flex min-w-0 flex-1 flex-col">

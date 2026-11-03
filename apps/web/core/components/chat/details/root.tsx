@@ -4,16 +4,16 @@
  * See the LICENSE file for details.
  */
 
-import { useState } from "react";
+import { Suspense, lazy, useMemo, useState } from "react";
 import { observer } from "mobx-react";
-import { Bell, BellOff, LogOut, MoreHorizontal, UserPlus } from "lucide-react";
+import { Bell, BellOff, LogOut, MoreHorizontal, Play, UserPlus } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
 import { TrashIcon } from "@plane/propel/icons";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
-import type { TChatApiError, TChatConversation, TChatMember } from "@plane/types";
+import type { TChatApiError, TChatAttachment, TChatConversation, TChatMember } from "@plane/types";
 import { AlertModalCore, CustomMenu } from "@plane/ui";
-import { cn } from "@plane/utils";
+import { cn, getFileURL } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
@@ -21,11 +21,15 @@ import { useAppRouter } from "@/hooks/use-app-router";
 // services
 import { ChatService } from "@/services/chat.service";
 // local
+import { ChatFileCard } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath } from "../common/helpers";
 import { ChatAddMembersModal } from "../modals/add-members";
 
 const chatService = new ChatService();
+const ChatLightbox = lazy(() => import("../attachments/lightbox"));
+const MEDIA_LIMIT = 9;
+const FILE_LIMIT = 10;
 
 type Props = {
   workspaceSlug: string;
@@ -48,6 +52,21 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
   const isAdmin = isGroup && conversation.my_role === 20;
   const name = chat.conversation.displayName(conversation);
   const members = conversation.members ?? [];
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  // Built from the messages loaded in this thread (newest first).
+  const items = chat.message.items(conversation.id);
+  const { media, files } = useMemo(() => {
+    const all: TChatAttachment[] = [];
+    for (const item of items) if (item.type === "message") all.push(...item.message.attachments);
+    all.reverse();
+    return {
+      media: all
+        .filter((attachment) => attachment.kind === "image" || attachment.kind === "video")
+        .slice(0, MEDIA_LIMIT),
+      files: all.filter((attachment) => attachment.kind === "file").slice(0, FILE_LIMIT),
+    };
+  }, [items]);
 
   const fail = (error: unknown) =>
     setToast({ type: TOAST_TYPE.ERROR, title: t("chat.errors.generic"), message: (error as TChatApiError)?.error });
@@ -148,7 +167,55 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
             );
           })}
         </section>
+
+        <section className="flex flex-col gap-2">
+          <h4 className="text-12 font-semibold text-tertiary">{t("chat.details.media")}</h4>
+          {media.length === 0 ? (
+            <p className="text-12 text-tertiary">{t("chat.details.no_media")}</p>
+          ) : (
+            <div className="grid grid-cols-3 gap-1">
+              {media.map((attachment, index) => {
+                const src = attachment.thumb_url ?? (attachment.kind === "image" ? attachment.url : null);
+                return (
+                  <button
+                    key={attachment.id}
+                    type="button"
+                    onClick={() => setLightboxIndex(index)}
+                    aria-label={
+                      attachment.kind === "video"
+                        ? t("chat.media.play_video", { name: attachment.name })
+                        : t("chat.media.open_image", { name: attachment.name })
+                    }
+                    className="relative aspect-square overflow-hidden rounded-sm bg-layer-1"
+                  >
+                    {src && <img src={getFileURL(src)} alt="" loading="lazy" className="h-full w-full object-cover" />}
+                    {attachment.kind === "video" && (
+                      <span className="absolute inset-0 flex items-center justify-center text-on-color">
+                        <Play className="size-4 fill-current drop-shadow" />
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+        <section className="flex flex-col gap-2">
+          <h4 className="text-12 font-semibold text-tertiary">{t("chat.details.files")}</h4>
+          {files.length === 0 ? (
+            <p className="text-12 text-tertiary">{t("chat.details.no_files")}</p>
+          ) : (
+            files.map((attachment) => <ChatFileCard key={attachment.id} attachment={attachment} />)
+          )}
+        </section>
       </div>
+
+      {lightboxIndex !== null && (
+        <Suspense fallback={null}>
+          <ChatLightbox attachments={media} index={lightboxIndex} onClose={() => setLightboxIndex(null)} />
+        </Suspense>
+      )}
 
       <div className="flex flex-col gap-0.5 border-t border-subtle p-2">
         <button

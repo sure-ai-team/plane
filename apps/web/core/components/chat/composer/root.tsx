@@ -6,7 +6,7 @@
 
 import { useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { CornerUpLeft, SendHorizontal, X } from "lucide-react";
+import { CornerUpLeft, Paperclip, SendHorizontal, X } from "lucide-react";
 import type { EditorRefApi } from "@plane/editor";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
@@ -17,7 +17,9 @@ import { LiteTextEditor } from "@/components/editor/lite-text";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 // local
+import { ChatUploadTray } from "../attachments/upload-tray";
 import { userName } from "../common/helpers";
+import { useChatFileIntake } from "../hooks/use-file-intake";
 
 type Props = {
   workspaceSlug: string;
@@ -41,11 +43,22 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
   const { t } = useTranslation();
   const chat = useChat();
   const editorRef = useRef<EditorRefApi>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [html, setHtml] = useState(EMPTY_HTML);
+  const addFiles = useChatFileIntake(conversation.id);
 
   const name = chat.conversation.displayName(conversation);
   const hasText = !isCommentEmpty(html);
-  const canSend = hasText;
+  const hasReadyFiles = chat.upload.canSend(conversation.id);
+  const isUploading = chat.upload.isBusy(conversation.id);
+  const hasFailedFiles = chat.upload.hasFailures(conversation.id);
+  // Attachments must all be ready (failed ones removed or retried) before sending.
+  const canSend = (hasText || hasReadyFiles) && !isUploading && !hasFailedFiles;
+  const sendHint = isUploading
+    ? t("chat.composer.waiting_uploads")
+    : hasFailedFiles
+      ? t("chat.composer.remove_failed")
+      : undefined;
 
   const send = () => {
     if (!canSend) return;
@@ -91,8 +104,15 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
             />
           </div>
         )}
+        <ChatUploadTray conversationId={conversation.id} />
         <div
           role="group"
+          onPaste={(event) => {
+            const files = Array.from(event.clipboardData?.files ?? []);
+            if (files.length === 0) return;
+            event.preventDefault();
+            addFiles(files);
+          }}
           className="max-h-60 overflow-y-auto px-1"
           onKeyDown={(event) => {
             if (event.key === "Escape" && replyTo) onCancelReply();
@@ -124,12 +144,31 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
           />
         </div>
         <div className="flex items-center gap-1 px-2 pb-2">
-          {/* Attach and record buttons arrive in PR 6 and PR 7. */}
+          <IconButton
+            icon={Paperclip}
+            variant="ghost"
+            size="lg"
+            aria-label={t("chat.composer.attach")}
+            onClick={() => fileInputRef.current?.click()}
+          />
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            hidden
+            onChange={(event) => {
+              addFiles(Array.from(event.target.files ?? []));
+              event.target.value = "";
+            }}
+          />
+          {/* The voice-note recorder joins here in PR 7. */}
           <span className="flex-1" />
+          {sendHint && <span className="text-11 text-tertiary">{sendHint}</span>}
           <button
             type="button"
             onClick={send}
             disabled={!canSend}
+            title={sendHint}
             aria-label={t("chat.composer.send")}
             className={cn(
               "flex h-7 items-center gap-1.5 rounded-md px-2.5 text-12 font-medium transition-colors",

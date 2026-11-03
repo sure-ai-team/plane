@@ -73,7 +73,8 @@
     "smooth-scroll-into-view-if-needed": "catalog:",
     "swr": "catalog:",
     "use-font-face-observer": "catalog:",
-    "uuid": "catalog:"
+    "uuid": "catalog:",
+    "yet-another-react-lightbox": "catalog:"
   },
   "devDependencies": {
     "@plane/tailwind-config": "workspace:*",
