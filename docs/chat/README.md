@@ -34,3 +34,7 @@ Everything needed to build, review and maintain the chat feature. Read in order 
 - Backend tests run in Docker: `docker compose -f docker-compose-test.yml run --rm api-tests pytest -m unit`.
 - Mirror every i18n change into both `packages/i18n/src/locales` and `packages/i18n/locales`.
 - Keep SPDX headers on new files.
+
+## Phase 2 — UI and UX
+
+Specs for the next phase (reactions, search, notifications, composer, sidebar, minimized chat, bubbles, work-item integration, mobile) are in [phase-2/](phase-2/README.md).
