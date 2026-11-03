@@ -73,6 +73,8 @@ import { ThemeStore } from "./theme.store";
 import type { IUserStore } from "./user";
 import { UserStore } from "./user";
 import type { IWorkspaceRootStore } from "./workspace";
+import { createChatRootStore } from "./chat";
+import type { ChatRootStore } from "./chat";
 
 enableStaticRendering(typeof window === "undefined");
 
@@ -109,6 +111,7 @@ export class CoreRootStore {
   workItemFilters: IWorkItemFilterStore;
   powerK: IPowerKStore;
   timelineStore: ITimelineStore;
+  chat: ChatRootStore;
 
   constructor() {
     this.router = new RouterStore();
@@ -143,9 +146,13 @@ export class CoreRootStore {
     this.workItemFilters = new WorkItemFilterStore();
     this.powerK = new PowerKStore();
     this.timelineStore = new TimeLineStore(this);
+    this.chat = createChatRootStore(() => this.user.data);
   }
 
   resetOnSignOut() {
+    // Close the chat socket before the user store is replaced.
+    this.chat.teardown();
+    this.chat = createChatRootStore(() => this.user.data);
     // handling the system theme when user logged out from the app
     localStorage.setItem("theme", "system");
     void setLanguage(FALLBACK_LANGUAGE);

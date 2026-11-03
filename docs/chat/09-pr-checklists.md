@@ -51,12 +51,12 @@ Branch `feat/chat-3-realtime`
 
 Branch `feat/chat-4-web-data-layer`
 
-- [ ] `packages/types/src/chat/*` (shapes = `02` + `03`)
-- [ ] `chat.service.ts`, `chat-socket.ts` (partysocket, catch-up, ping/pong)
-- [ ] Four stores registered on `RootStore`; `applyEvent` router
-- [ ] Vitest suites in `08` § Web green
-- [ ] Catalog entries for new deps added (even if only partysocket is used yet)
-- [ ] `PROGRESS.md` updated
+- [x] `packages/types/src/chat/*` (shapes = `02` + `03`)
+- [x] `chat.service.ts`, `chat-socket.ts` (partysocket, catch-up, ping/pong)
+- [x] Four stores registered on `RootStore`; `applyEvent` router
+- [x] Vitest suites in `08` § Web green
+- [x] Catalog entries: `partysocket` 1.3.0 added; `vitest` (already in the catalog) added to `apps/web`. `react-virtuoso`, `wavesurfer.js` and `yet-another-react-lightbox` are added in the PRs that use them
+- [x] `PROGRESS.md` updated
 
 ## PR 5 — Chat UI: text (M)
 
