@@ -267,26 +267,30 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
     );
   }
 
-  if (rows.length === 0) {
-    return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-2 p-6 text-center">
-        <ConversationAvatar conversation={conversation} size={48} />
-        <p className="text-16 font-semibold text-primary">{chat.conversation.displayName(conversation)}</p>
-        <p className="max-w-xs text-13 text-tertiary">
-          {conversation.type === "direct"
-            ? t("chat.states.new_direct", { name: chat.conversation.displayName(conversation) })
-            : t("chat.states.new_group", { name: conversation.name })}
-        </p>
-        <button
-          type="button"
-          onClick={() => void chat.send(conversation.id, { body_html: "<p>👋</p>", body_stripped: "👋" })}
-          className="mt-1 h-8 rounded-md border border-subtle px-3 text-13 font-medium text-primary hover:bg-layer-transparent-hover"
-        >
-          {t("chat.states.say_hi")}
-        </button>
-      </div>
-    );
-  }
+  const intro = (
+    <div className="flex flex-col items-center justify-center gap-2 p-6 text-center">
+      <ConversationAvatar conversation={conversation} size={48} />
+      <p className="text-16 font-semibold text-primary">{chat.conversation.displayName(conversation)}</p>
+      <p className="max-w-xs text-13 text-tertiary">
+        {conversation.type === "direct"
+          ? t("chat.states.new_direct", { name: chat.conversation.displayName(conversation) })
+          : t("chat.states.new_group", { name: conversation.name })}
+      </p>
+      <button
+        type="button"
+        onClick={() => void chat.send(conversation.id, { body_html: "<p>👋</p>", body_stripped: "👋" })}
+        className="mt-1 h-8 rounded-md border border-subtle px-3 text-13 font-medium text-primary hover:bg-layer-transparent-hover"
+      >
+        {t("chat.states.say_hi")}
+      </button>
+    </div>
+  );
+
+  if (rows.length === 0) return <div className="flex flex-1 flex-col justify-center">{intro}</div>;
+
+  // A new group only has its "created" line; keep the intro above it until someone writes.
+  const hasUserMessages = items.some((item) => item.type !== "message" || item.message.kind !== "system");
+  const showIntro = !thread.hasMoreBefore && !hasUserMessages;
 
   return (
     <div className="relative min-h-0 flex-1">
@@ -313,7 +317,9 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
         increaseViewportBy={{ top: 600, bottom: 300 }}
         components={{
           Header: () =>
-            thread.isLoadingOlder ? (
+            showIntro ? (
+              intro
+            ) : thread.isLoadingOlder ? (
               <p className="py-3 text-center text-12 text-tertiary">{t("chat.thread.loading_older")}</p>
             ) : (
               <div className="h-3" />
