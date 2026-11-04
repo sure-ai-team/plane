@@ -26,13 +26,15 @@ type Props = {
   duration: number | null | undefined;
   /** Accent colours for messages, neutral inside the recorder. */
   variant?: "message" | "preview";
+  /** "inverse": flat on my own accent-coloured bubble (no card chrome). */
+  tone?: "default" | "inverse";
 };
 
 /**
  * Draws the waveform stored with the attachment, so nothing downloads until
  * play is pressed (`preload="none"`).
  */
-export function ChatVoiceNotePlayer({ src, waveform, duration, variant = "message" }: Props) {
+export function ChatVoiceNotePlayer({ src, waveform, duration, variant = "message", tone = "default" }: Props) {
   const { t } = useTranslation();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -95,12 +97,13 @@ export function ChatVoiceNotePlayer({ src, waveform, duration, variant = "messag
   };
 
   const isMessage = variant === "message";
+  const inverse = tone === "inverse";
 
   return (
     <div
       className={cn(
         "flex w-80 max-w-full items-center gap-2.5 rounded-md py-1.5 pr-2 pl-1.5",
-        isMessage ? "border border-subtle bg-layer-1" : "bg-transparent"
+        isMessage && !inverse ? "border border-subtle bg-layer-1" : "bg-transparent"
       )}
     >
       <audio ref={audioRef} src={src} preload="none">
@@ -110,7 +113,12 @@ export function ChatVoiceNotePlayer({ src, waveform, duration, variant = "messag
         type="button"
         onClick={toggle}
         aria-label={isPlaying ? t("chat.voice.pause") : t("chat.voice.play")}
-        className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent-primary text-on-color hover:bg-accent-primary-hover"
+        className={cn(
+          "flex size-7 shrink-0 items-center justify-center rounded-full",
+          inverse
+            ? "bg-surface-1 text-accent-primary hover:bg-surface-1/90"
+            : "bg-accent-primary text-on-color hover:bg-accent-primary-hover"
+        )}
       >
         {isPlaying ? (
           <Pause className="size-3 fill-current" />
@@ -140,12 +148,21 @@ export function ChatVoiceNotePlayer({ src, waveform, duration, variant = "messag
             // Bars are positional and never reorder.
             // oxlint-disable-next-line react/no-array-index-key
             key={index}
-            className={cn("flex-1 rounded-full", index / bars.length < progress ? "bg-accent-primary" : "bg-layer-3")}
+            className={cn(
+              "flex-1 rounded-full",
+              inverse
+                ? index / bars.length < progress
+                  ? "bg-surface-1"
+                  : "bg-surface-1/40"
+                : index / bars.length < progress
+                  ? "bg-accent-primary"
+                  : "bg-layer-3"
+            )}
             style={{ height: `${Math.max(12, Math.round(value * 100))}%` }}
           />
         ))}
       </div>
-      <span className="shrink-0 text-11 text-secondary tabular-nums">
+      <span className={cn("shrink-0 text-11 tabular-nums", inverse ? "text-on-color" : "text-secondary")}>
         {isPlaying || current > 0
           ? `${formatClock(current)} / ${formatClock(knownDuration)}`
           : formatClock(knownDuration)}
@@ -154,7 +171,12 @@ export function ChatVoiceNotePlayer({ src, waveform, duration, variant = "messag
         type="button"
         onClick={() => setRate((value) => RATES[(RATES.indexOf(value) + 1) % RATES.length])}
         aria-label={t("chat.voice.speed")}
-        className="h-5 shrink-0 rounded-sm border border-subtle px-1 text-10 font-semibold text-secondary hover:bg-layer-transparent-hover"
+        className={cn(
+          "h-5 shrink-0 rounded-sm border px-1 text-10 font-semibold",
+          inverse
+            ? "border-white/40 text-on-color hover:bg-white/10"
+            : "border-subtle text-secondary hover:bg-layer-transparent-hover"
+        )}
       >
         {rate}x
       </button>

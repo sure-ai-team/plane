@@ -5,11 +5,12 @@
  */
 
 import { Suspense, lazy, useState } from "react";
-import { Play } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import type { TChatAttachment } from "@plane/types";
 import { EModalPosition, EModalWidth, ModalCore } from "@plane/ui";
-import { cn, getFileURL } from "@plane/utils";
+import { cn } from "@plane/utils";
+
+import { ChatMediaThumb } from "./media-thumb";
 
 const ChatLightbox = lazy(() => import("../attachments/lightbox"));
 
@@ -52,7 +53,6 @@ export function ChatMediaGallery({ attachments, isOpen, onClose }: Props) {
         ) : (
           <div className="vertical-scrollbar grid scrollbar-sm max-h-[60vh] grid-cols-3 gap-1.5 overflow-y-auto sm:grid-cols-4 md:grid-cols-5">
             {items.map((attachment, position) => {
-              const src = attachment.thumb_url ?? (attachment.kind === "image" ? attachment.url : null);
               return (
                 <button
                   key={attachment.id}
@@ -65,12 +65,7 @@ export function ChatMediaGallery({ attachments, isOpen, onClose }: Props) {
                   }
                   className="relative aspect-square overflow-hidden rounded-md bg-layer-1"
                 >
-                  {src && <img src={getFileURL(src)} alt="" loading="lazy" className="h-full w-full object-cover" />}
-                  {attachment.kind === "video" && (
-                    <span className="absolute inset-0 flex items-center justify-center text-on-color">
-                      <Play className="size-5 fill-current drop-shadow" />
-                    </span>
-                  )}
+                  <ChatMediaThumb attachment={attachment} iconClassName="size-5" />
                 </button>
               );
             })}
