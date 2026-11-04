@@ -28,6 +28,7 @@ import type {
   TChatPreferences,
   TChatSearchQuery,
   TChatSearchResponse,
+  TChatWorkItemReference,
   TChatPinnedMessage,
   TChatReactionSummary,
 } from "@plane/types";
@@ -73,6 +74,13 @@ export class ChatService extends APIService {
     payload: TChatMembershipSettingsPayload
   ): Promise<TChatMembershipSettings> {
     return this.call(this.patch(`${this.base(workspaceSlug)}/conversations/${conversationId}/me/`, payload));
+  }
+
+  /** Conversations I'm in that link to this work item ("Discussed in chat"). */
+  workItemReferences(workspaceSlug: string, projectId: string, issueId: string): Promise<TChatWorkItemReference[]> {
+    return this.call(
+      this.get(`/api/workspaces/${workspaceSlug}/projects/${projectId}/issues/${issueId}/chat-references/`)
+    );
   }
 
   getPreferences(workspaceSlug: string): Promise<TChatPreferences> {

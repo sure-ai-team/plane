@@ -70,10 +70,10 @@ Branch `feat/chat-14-dock-bubbles`
 
 Branch `feat/chat-15-work-items`
 
-- [ ] Rich work-item card with permission fallback; batched cache
-- [ ] Share to chat dialog; Discuss in chat → dock window
-- [ ] Project navigation "Chat" entry
-- [ ] "Discussed in chat" section on the work-item page
+- [x] Rich work-item card with permission fallback; batched cache
+- [x] Share to chat dialog; Discuss in chat → dock window
+- [x] Project navigation "Chat" entry (header tabs and sidebar) → chat filtered to the project's group chats (`/chat?project=<id>`)
+- [x] "Discussed in chat" section on the work-item page
 
 ## PR 16 — Polish, mobile, release (M)
 

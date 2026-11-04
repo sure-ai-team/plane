@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Archive, ArrowLeft, ChevronDown, Search, Settings2, SquarePen, Star, TextSearch } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
@@ -15,9 +16,10 @@ import { Loader } from "@plane/ui";
 import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
+import { useProject } from "@/hooks/store/use-project";
 import type { TChatListFilter } from "@/store/chat";
 // local
-import { chatSearchPath } from "../common/helpers";
+import { chatPath, chatSearchPath } from "../common/helpers";
 import { ChatSettingsModal } from "../modals/chat-settings";
 import { ChatNewConversationModal } from "../modals/new-conversation";
 import { ChatConversationItem } from "./conversation-item";
@@ -99,6 +101,14 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const store = chat.conversation;
+  // Opened from a project's "Chat" navigation entry: only that project's group chats.
+  const projectFilter = useSearchParams().get("project");
+  const { getPartialProjectById } = useProject();
+  const projectChats = projectFilter
+    ? store.sorted.filter((conversation) => conversation.project?.id === projectFilter)
+    : null;
+  const projectName =
+    (projectFilter && getPartialProjectById(projectFilter)?.name) || projectChats?.[0]?.project?.name || "";
 
   useEffect(() => {
     if (isSearchOpen) searchRef.current?.focus();
@@ -225,6 +235,25 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
             </Link>
             {renderList(matches)}
           </>
+        ) : projectChats ? (
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center justify-between gap-2 px-2 py-1.5">
+              <span className="truncate text-12 font-semibold text-secondary">
+                {t("chat.sidebar.project_chats", { project: projectName })}
+              </span>
+              <Link
+                href={chatPath(workspaceSlug)}
+                className="shrink-0 text-12 font-medium text-accent-primary hover:underline"
+              >
+                {t("chat.sidebar.show_all")}
+              </Link>
+            </div>
+            {projectChats.length === 0 ? (
+              <p className="px-2 py-6 text-center text-13 text-tertiary">{t("chat.sidebar.project_empty")}</p>
+            ) : (
+              renderList(projectChats)
+            )}
+          </div>
         ) : isArchiveOpen ? (
           <div className="flex flex-col gap-1">
             <button

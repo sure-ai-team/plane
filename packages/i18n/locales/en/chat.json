@@ -3,7 +3,8 @@
     "title": "Chat",
     "page_label": "{workspace} - Chat",
     "nav": {
-      "rail_label": "Chat"
+      "rail_label": "Chat",
+      "project_chat": "Chat"
     },
     "sections": {
       "groups": "Groups",
@@ -257,7 +258,10 @@
       "unstar": "Unstar",
       "mark_read": "Mark as read",
       "archive": "Archive",
-      "unarchive": "Unarchive"
+      "unarchive": "Unarchive",
+      "project_chats": "Chats for {project}",
+      "show_all": "Show all",
+      "project_empty": "No group chats are linked to this project yet. Link one from a group's details."
     },
     "search": {
       "title": "Search messages",
@@ -389,6 +393,18 @@
       "close": "Close",
       "expand": "Open {name}",
       "heads": "Minimized chats"
+    },
+    "workitem": {
+      "share": "Share to chat",
+      "discuss": "Discuss in chat",
+      "discuss_hint": "The chat opens with a link to this work item ready to send.",
+      "this_project": "This project",
+      "shared": "{count, plural, one {Shared to # conversation} other {Shared to # conversations}}",
+      "discussed_in": "{count, plural, one {Discussed in # conversation} other {Discussed in # conversations}}",
+      "discussed_hint": "Only conversations you're in are listed.",
+      "chip": "{key}",
+      "due": "Due {date}",
+      "sub_items": "{count, plural, one {# sub-item} other {# sub-items}}"
     }
   }
 }

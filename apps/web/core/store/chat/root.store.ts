@@ -17,6 +17,8 @@ import { ChatRealtimeStore } from "./realtime.store";
 import { ChatSearchStore } from "./search.store";
 import type { IChatServiceLike } from "./types";
 import { ChatUploadStore } from "./upload.store";
+import { ChatWorkItemStore } from "./work-items.store";
+import type { TWorkItemFetcher } from "./work-items.store";
 
 const PRUNE_INTERVAL_MS = 1_000;
 /** Every key chat keeps in the browser starts with this (cleared on sign-out). */
@@ -56,6 +58,8 @@ export type TChatRootDeps = {
   leader?: TabLeader | null;
   /** Whether this tab is visible (document.visibilityState in the browser). */
   isVisible?: () => boolean;
+  /** Work-item details for message cards (existing work-item API; project permissions apply). */
+  fetchWorkItems?: TWorkItemFetcher | null;
 };
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
@@ -77,6 +81,7 @@ export class ChatRootStore {
   readonly search: ChatSearchStore;
   readonly notify: ChatNotifyStore;
   readonly dock: ChatDockStore;
+  readonly workItems: ChatWorkItemStore;
   private translate: TTranslate = (key) => key;
   readonly socket: ChatSocket;
 
@@ -101,6 +106,7 @@ export class ChatRootStore {
     this.realtime = new ChatRealtimeStore(currentUserId, deps.now);
     this.search = new ChatSearchStore(deps.service);
     this.dock = new ChatDockStore(() => this.storage);
+    this.workItems = new ChatWorkItemStore(deps.fetchWorkItems ?? null);
     this.notify = new ChatNotifyStore(deps.service, deps.desktop ?? null, deps.leader ?? null, deps.now);
     this.socket = deps.createSocket({
       onFrame: (frame) => this.applyFrame(frame),
@@ -172,6 +178,7 @@ export class ChatRootStore {
     this.search.clear();
     this.notify.reset();
     this.dock.reset();
+    this.workItems.reset();
     if (this.activeConversationId) this.upload.clear(this.activeConversationId);
     this.workspaceSlug = null;
     this.activeConversationId = null;
