@@ -17,5 +17,7 @@ Read in order. Phase 1 docs are one level up (`docs/chat/`). Their decisions sti
 | [10-i18n-keys.md](10-i18n-keys.md)         | New `chat.*` string inventory                                      |
 | [DECISIONS.md](DECISIONS.md)               | P2-D0… (locked vs proposed)                                        |
 | [PROGRESS.md](PROGRESS.md)                 | Status board, open questions, session log                          |
+| [RELEASE_NOTES.md](RELEASE_NOTES.md)       | What's new, for users and admins                                   |
+| [DEPLOYMENT.md](DEPLOYMENT.md)             | Upgrading from phase 1: migrations, rebuilds, smoke test, rollback |
 
 Mockups: _SURE Workspace Chat_ canvas → page "Phase 2 — UI & UX" (https://claude.ai/artifact/Pqw2s7Wc5uEq2PEC3ch3Ae).

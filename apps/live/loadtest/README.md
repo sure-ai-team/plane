@@ -21,4 +21,4 @@ The seed script marks the instance as set up and sets known passwords. Use it on
 
 ## Load test (`chat.js`)
 
-k6, 500 sockets. See the header of the file and `docs/chat/DEPLOYMENT.md` § 5.
+k6, 500 sockets, with phase 2 reactions and searches. Needs at least 50 test sessions (10 sockets per user). See the header of the file, `docs/chat/DEPLOYMENT.md` § 5 and `docs/chat/phase-2/DEPLOYMENT.md` § 4 (results and API worker sizing).
