@@ -105,7 +105,10 @@
       "open_project_setting": "Deschide o setare a proiectului",
       "nav_project_settings": "Mergi la setările proiectului",
       "nav_workspace_active_cycle": "Mergi la toate ciclurile active",
-      "nav_project_overview": "Mergi la prezentarea generală a proiectului"
+      "nav_project_overview": "Mergi la prezentarea generală a proiectului",
+      "nav_chat": "Mergi la chat",
+      "open_chat_conversation": "Deschide o conversație",
+      "search_chat_messages": "Caută mesaje în chat"
     },
     "account_actions": {
       "sign_out": "Deconectează-te",
@@ -166,7 +169,8 @@
       "update_theme": "Schimbă tema",
       "update_timezone": "Schimbă fusul orar",
       "update_start_of_week": "Schimbă prima zi a săptămânii",
-      "update_language": "Schimbă limba"
+      "update_language": "Schimbă limba",
+      "open_chat_conversation": "Deschide o conversație"
     },
     "search_menu": {
       "no_results": "Niciun rezultat găsit",

@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "Chat",
+    "page_label": "{workspace} - Chat",
+    "nav": {
+      "rail_label": "Chat",
+      "project_chat": "Chat"
+    },
+    "sections": {
+      "groups": "Grupuri",
+      "directs": "Mesaje directe"
+    },
+    "actions": {
+      "new": "Conversație nouă",
+      "new_group": "Grup nou",
+      "new_direct": "Mesaj direct nou",
+      "mute": "Dezactivează notificările conversației",
+      "unmute": "Activează notificările conversației",
+      "leave": "Părăsește grupul",
+      "delete_group": "Șterge grupul",
+      "add_members": "Adaugă membri",
+      "rename": "Redenumește grupul",
+      "details": "Detaliile conversației",
+      "hide_details": "Ascunde detaliile"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Se conectează…",
+      "reconnecting": "Se reconectează…",
+      "blocked_disabled": "Chatul este dezactivat pentru această instanță.",
+      "blocked_access": "Nu aveți acces la chat în acest spațiu de lucru."
+    },
+    "members": {
+      "count": "{count, plural, one {# membru} few {# membri} other {# de membri}}",
+      "role_admin": "Administrator",
+      "role_member": "Membru",
+      "make_admin": "Fă administrator",
+      "remove_admin": "Elimină rolul de administrator",
+      "remove": "Elimină din grup",
+      "you": "Tu",
+      "only_members_hint": "Pot fi adăugați doar membrii acestui spațiu de lucru. Invitaților nu li se pot trimite mesaje."
+    },
+    "new_conversation": {
+      "title": "Conversație nouă",
+      "direct": "Mesaj direct",
+      "group": "Grup",
+      "group_name": "Numele grupului",
+      "group_name_placeholder": "de ex. Lansarea aplicației mobile",
+      "members": "Membri",
+      "to": "Către",
+      "search_members": "Caută membri",
+      "no_members_found": "Nu s-au găsit membri",
+      "create_group": "Creează grupul",
+      "start": "Începe conversația",
+      "cancel": "Anulează"
+    },
+    "thread": {
+      "today": "Astăzi",
+      "yesterday": "Ieri",
+      "new_messages": "Mesaje noi",
+      "jump_to_latest": "Salt la cele mai recente",
+      "seen_by": "{count, plural, one {Văzut de #} few {Văzut de #} other {Văzut de #}}",
+      "typing_one": "{name} scrie…",
+      "typing_two": "{first} și {second} scriu…",
+      "typing_many": "Mai multe persoane scriu…",
+      "edited": "editat",
+      "replying_to": "Răspuns pentru {name}",
+      "reply_attachment": "Atașament",
+      "reply_voice": "Mesaj vocal",
+      "empty_title": "Niciun mesaj încă",
+      "empty_body": "Salutați pentru a începe conversația.",
+      "no_conversation_title": "Alegeți o conversație",
+      "no_conversation_body": "Alegeți o conversație din listă sau începeți una nouă.",
+      "loading_older": "Se încarcă mesajele mai vechi…",
+      "load_failed": "Mesajele nu au putut fi încărcate.",
+      "retry": "Încercați din nou",
+      "deleted_user": "Fost membru",
+      "loading_newer": "Se încarcă mesajele mai noi…"
+    },
+    "message": {
+      "reply": "Răspunde",
+      "edit": "Editează",
+      "delete": "Șterge",
+      "copy_link": "Copiază linkul către mesaj",
+      "link_copied": "Link copiat",
+      "more": "Mai multe acțiuni",
+      "save": "Salvează",
+      "cancel": "Anulează",
+      "delete_confirm_title": "Ștergeți mesajul?",
+      "delete_confirm_body": "Mesajul și fișierele sale vor fi eliminate pentru toți. Acțiunea nu poate fi anulată.",
+      "send_failed": "Nu s-a putut trimite",
+      "sending": "Se trimite…",
+      "retry": "Reîncearcă",
+      "discard": "Renunță",
+      "create_work_item": "Creează activitate",
+      "no_access": "Nu puteți deschide acest mesaj."
+    },
+    "system": {
+      "created": "{actor} a creat grupul",
+      "member_added": "{actor} a adăugat în grup: {name}",
+      "member_removed": "{actor} a eliminat din grup: {name}",
+      "member_left": "{name} a părăsit grupul",
+      "renamed": "{actor} a redenumit grupul în „{name}”",
+      "icon_changed": "{actor} a schimbat pictograma grupului",
+      "project_linked": "{actor} a asociat grupul cu un proiect",
+      "pinned": "{actor} a fixat un mesaj",
+      "unpinned": "{actor} a anulat fixarea unui mesaj",
+      "someone": "Cineva"
+    },
+    "preview": {
+      "you": "Tu",
+      "photo": "Fotografie",
+      "video": "Videoclip",
+      "voice": "Mesaj vocal",
+      "file": "Fișier",
+      "attachments": "{count, plural, one {# atașament} few {# atașamente} other {# de atașamente}}",
+      "system": "Actualizare grup",
+      "empty": "Niciun mesaj încă"
+    },
+    "composer": {
+      "placeholder": "Mesaj către {name}",
+      "send": "Trimite",
+      "editing": "Se editează mesajul",
+      "reply_cancel": "Anulează răspunsul",
+      "attach": "Atașează fișiere",
+      "waiting_uploads": "Se așteaptă finalizarea încărcărilor…",
+      "remove_failed": "Mai întâi eliminați sau reîncercați fișierele care au eșuat",
+      "emoji": "Inserează emoji",
+      "formatting": "Formatare",
+      "emoji_suggestions": "Sugestii de emoji",
+      "suggestion_hint": "↑ ↓ pentru a naviga · Enter pentru a alege · Esc pentru a închide"
+    },
+    "delete_group": {
+      "title": "Ștergeți {name}?",
+      "body": "Toate mesajele și fișierele din acest grup vor fi eliminate pentru toți. Acțiunea nu poate fi anulată.",
+      "confirm": "Șterge grupul"
+    },
+    "leave_group": {
+      "title": "Părăsiți {name}?",
+      "body": "Nu veți mai primi mesaje din acest grup.",
+      "confirm": "Părăsește"
+    },
+    "errors": {
+      "generic": "Ceva nu a funcționat. Încercați din nou.",
+      "not_found": "Această conversație nu mai există sau nu sunteți membru."
+    },
+    "upload": {
+      "ready": "Gata",
+      "preparing": "Se pregătește…",
+      "uploading": "Se încarcă {percent}%",
+      "confirming": "Se verifică…",
+      "failed": "Încărcarea a eșuat",
+      "retry": "Reîncearcă",
+      "remove": "Elimină {name}",
+      "too_large": "{name} este prea mare. Limita este de {limit} MB.",
+      "type_not_allowed": "{name} nu poate fi partajat: acest tip de fișier nu este permis.",
+      "type_mismatch": "Fișierul nu corespunde tipului său.",
+      "too_many": "Puteți atașa cel mult {max} fișiere per mesaj.",
+      "drop_title": "Plasați fișierele aici pentru a le partaja în {name}",
+      "drop_hint": "Imagini de până la {image} MB · videoclipuri de până la {video} MB · audio de până la {audio} MB · alte fișiere de până la {file} MB",
+      "rejected_title": "Unele fișiere nu au fost adăugate"
+    },
+    "media": {
+      "open_image": "Deschide imaginea {name}",
+      "play_video": "Redă videoclipul {name}",
+      "download": "Descarcă {name}",
+      "preview_unavailable": "Previzualizare indisponibilă",
+      "more": "+{count}",
+      "view_all": "Vezi tot ({count})",
+      "filter": "Filtrează conținutul media",
+      "filter_all": "Toate",
+      "filter_image": "Imagini",
+      "filter_video": "Videoclipuri",
+      "loaded_only": "Afișează conținutul media din mesajele încărcate în această conversație. Derulați în sus în chat pentru a le încărca pe cele mai vechi."
+    },
+    "details": {
+      "members": "Membri",
+      "media": "Media",
+      "files": "Fișiere",
+      "no_media": "Încă nu există fotografii sau videoclipuri în mesajele încărcate",
+      "no_files": "Încă nu există fișiere în mesajele încărcate"
+    },
+    "voice": {
+      "record": "Înregistrează un mesaj vocal",
+      "stop": "Oprește",
+      "discard": "Renunță la înregistrare",
+      "record_again": "Înregistrează din nou",
+      "play": "Redă mesajul vocal",
+      "pause": "Pauză",
+      "position": "Poziția redării",
+      "send": "Trimite",
+      "speed": "Viteza de redare",
+      "up_to": "până la {max}",
+      "permission_denied": "Accesul la microfon este blocat. Permiteți-l din setările browserului.",
+      "unsupported": "Înregistrarea vocală nu este acceptată în acest browser."
+    },
+    "reactions": {
+      "add": "Adaugă o reacție",
+      "react_with": "Reacționează cu {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# reacție} few {# reacții} other {# de reacții}}",
+      "tooltip": "{names} a reacționat cu {emoji}",
+      "and_others": "{names} și {count, plural, one {încă # persoană} few {încă # persoane} other {încă # de persoane}}"
+    },
+    "picker": {
+      "search": "Caută emoji"
+    },
+    "pins": {
+      "title": "Fixate",
+      "pinned": "Fixat",
+      "count": "Fixat · {index} din {total}",
+      "next": "Următorul mesaj fixat",
+      "view_all": "Vezi tot",
+      "close": "Închide mesajele fixate",
+      "pin": "Fixează mesajul",
+      "unpin": "Anulează fixarea",
+      "pinned_by": "Fixat de {name}",
+      "empty": "Niciun mesaj fixat încă.",
+      "hint": "Oricine din conversație poate fixa mesaje. Cel mult 50 de mesaje fixate per conversație."
+    },
+    "jump": {
+      "to_message": "Salt la mesaj",
+      "jump": "Salt",
+      "highlight": "Ați ajuns aici"
+    },
+    "unread": {
+      "divider": "Noi",
+      "divider_label": "Mesaje noi",
+      "pill": "{count, plural, one {# mesaj nou} few {# mesaje noi} other {# de mesaje noi}} din {time}",
+      "jump": "Salt",
+      "dismiss": "Închide"
+    },
+    "forward": {
+      "action": "Redirecționează",
+      "title": "Redirecționează mesajul",
+      "to": "Către",
+      "search": "Caută conversații",
+      "no_results": "Nicio conversație nu corespunde.",
+      "limit": "Puteți redirecționa către cel mult {count} conversații simultan.",
+      "note": "Adăugați un mesaj (opțional)",
+      "submit": "{count, plural, one {Trimite către # conversație} few {Trimite către # conversații} other {Trimite către # de conversații}}",
+      "done": "{count, plural, one {Redirecționat către # conversație} few {Redirecționat către # conversații} other {Redirecționat către # de conversații}}",
+      "from": "Redirecționat de la {name}",
+      "from_conversation": "Redirecționat de la {name} din {conversation}"
+    },
+    "sidebar": {
+      "find": "Găsește o conversație",
+      "find_placeholder": "Găsește după nume",
+      "search_messages_for": "Caută mesaje pentru „{query}”",
+      "filter": {
+        "label": "Filtrează conversațiile",
+        "all": "Toate",
+        "unread": "{count, plural, =0 {Necitite} one {Necitite #} few {Necitite #} other {Necitite #}}",
+        "mentions": "{count, plural, =0 {Mențiuni} one {Mențiuni #} few {Mențiuni #} other {Mențiuni #}}"
+      },
+      "starred": "Marcate cu stea",
+      "archived": "Arhivate",
+      "archived_empty": "Nicio conversație arhivată.",
+      "no_unread": "Sunteți la zi.",
+      "no_mentions": "Nicio mențiune necitită.",
+      "draft": "Schiță: {text}",
+      "muted": "Notificări dezactivate",
+      "mentions_label": "{count, plural, one {# mențiune necitită} few {# mențiuni necitite} other {# de mențiuni necitite}}",
+      "options": "Opțiuni pentru {name}",
+      "star": "Marchează cu stea",
+      "unstar": "Elimină steaua",
+      "mark_read": "Marchează ca citită",
+      "archive": "Arhivează",
+      "unarchive": "Dezarhivează",
+      "project_chats": "Chaturi pentru {project}",
+      "show_all": "Afișează tot",
+      "project_empty": "Încă nu există chaturi de grup asociate cu acest proiect. Asociați unul din detaliile unui grup."
+    },
+    "search": {
+      "title": "Caută mesaje",
+      "back": "Înapoi la chat",
+      "placeholder": "Caută mesaje",
+      "clear": "Șterge căutarea",
+      "filter": {
+        "in": "În conversația",
+        "in_all": "În: toate conversațiile",
+        "from": "De la",
+        "from_anyone": "De la: oricine",
+        "has": "Conține",
+        "has_any": "Conține: orice",
+        "after": "După",
+        "before": "Înainte de"
+      },
+      "has": {
+        "file": "Conține: fișier",
+        "image": "Conține: imagine",
+        "video": "Conține: videoclip",
+        "voice": "Conține: mesaj vocal",
+        "link": "Conține: link",
+        "work_item": "Conține: activitate"
+      },
+      "results": "{count, plural, one {# rezultat} few {# rezultate} other {# de rezultate}}",
+      "results_many": "Peste 1.000 de rezultate",
+      "results_label": "Rezultatele căutării",
+      "hint": "Tastați cel puțin două caractere sau alegeți un filtru „Conține”.",
+      "empty": "Niciun mesaj nu corespunde căutării.",
+      "load_more": "Încarcă mai multe",
+      "loading": "Se încarcă…",
+      "context": "Rezultatul în context",
+      "open": "Deschide conversația",
+      "footer": "Rezultatele includ doar conversațiile din care faceți parte. Folosiți ↑ ↓ pentru a naviga între rezultate și Enter pentru a deschide unul."
+    },
+    "shortcuts": {
+      "title": "Comenzi rapide de la tastatură",
+      "previous_next": "Conversația anterioară / următoare",
+      "next_unread": "Următoarea conversație necitită",
+      "jump_conversation": "Salt la o conversație",
+      "search": "Caută mesaje",
+      "edit_last": "Editează ultimul mesaj (editor gol)",
+      "mark_read": "Marchează conversația ca citită",
+      "jump_unread": "Salt la primul mesaj necitit",
+      "new_line": "Linie nouă în editor",
+      "show_shortcuts": "Afișează comenzile rapide"
+    },
+    "about": {
+      "title": "Despre acest grup",
+      "description": "Descrierea grupului",
+      "placeholder": "Care este scopul acestui grup?",
+      "empty": "Nicio descriere încă.",
+      "add": "Adaugă o descriere",
+      "edit": "Editează descrierea",
+      "change_icon": "Faceți clic pe pictogramă pentru a o schimba"
+    },
+    "notify": {
+      "title": "Notifică-mă despre",
+      "button_label": "Notificări: {level}",
+      "level": {
+        "all": "Toate mesajele",
+        "mentions": "Doar mențiunile",
+        "off": "Dezactivate"
+      },
+      "level_description": {
+        "all": "Fiecare mesaj nou",
+        "mentions": "Când cineva vă menționează sau vă răspunde",
+        "off": "Nimic. Numărul de mesaje necitite se actualizează în continuare."
+      },
+      "snooze": "Amână pentru",
+      "snooze_1h": "1 oră",
+      "snooze_8h": "8 ore",
+      "snooze_tomorrow": "Până mâine",
+      "snoozed_short": "Amânat",
+      "snoozed_until": "Amânat până la {time}",
+      "unsnooze": "Dezactivează",
+      "blocked": "Browserul blochează notificările pentru acest site. Permiteți-le din setările site-ului din browser (pictograma de lângă adresă).",
+      "unsupported": "Acest browser nu poate afișa notificări pe desktop.",
+      "allow": "Permite notificările pe desktop",
+      "new_message": "Mesaj nou",
+      "sent_photo": "A trimis o fotografie",
+      "sent_video": "A trimis un videoclip",
+      "sent_voice": "A trimis un mesaj vocal",
+      "sent_file": "A trimis un fișier"
+    },
+    "prefs": {
+      "title": "Setări chat",
+      "subtitle": "Acestea se aplică doar pentru dumneavoastră, în acest spațiu de lucru.",
+      "desktop_notifications": "Notificări pe desktop",
+      "desktop_notifications_description": "Afișează o notificare pentru mesajele noi cât timp acest site este deschis.",
+      "sound": "Sunet",
+      "sound_description": "Redă un sunet scurt la fiecare notificare.",
+      "show_preview": "Afișează previzualizarea mesajului",
+      "show_preview_description": "Include textul mesajului în notificări.",
+      "inbox_mentions": "Chat în Căsuța de mesaje",
+      "inbox_mentions_description": "Adaugă mențiunile și mesajele directe în Căsuța de mesaje.",
+      "layout": {
+        "title": "Aspectul mesajelor",
+        "description": "Cum arată mesajele în conversații.",
+        "bubbles": "Baloane",
+        "compact": "Compact",
+        "direct_only": "Folosește baloane doar în mesajele directe"
+      },
+      "minimize": {
+        "title": "Chaturi minimizate",
+        "description": "Cum arată, când sunt minimizate, chaturile pe care le țineți deschise pe alte pagini.",
+        "docked": "File andocate",
+        "heads": "Bule de chat"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} v-a menționat într-un chat",
+      "mentioned_in": "{name} v-a menționat în {conversation}",
+      "direct": "{name} v-a trimis un mesaj"
+    },
+    "slash": {
+      "title": "Comenzi",
+      "workitem": "Creează o activitate și asociaz-o aici",
+      "link": "Asociază o activitate existentă",
+      "mute": "Dezactivează sau activează notificările acestei conversații",
+      "code": "Inserează un bloc de cod",
+      "shrug": "Adaugă ¯\\_(ツ)_/¯",
+      "muted": "Notificările conversației au fost dezactivate",
+      "unmuted": "Notificările conversației au fost activate"
+    },
+    "dock": {
+      "open_full": "Deschide în chatul complet",
+      "minimize": "Minimizează",
+      "close": "Închide",
+      "expand": "Deschide {name}",
+      "heads": "Chaturi minimizate"
+    },
+    "workitem": {
+      "share": "Partajează în chat",
+      "discuss": "Discută în chat",
+      "discuss_hint": "Chatul se deschide cu un link către această activitate, gata de trimis.",
+      "this_project": "Acest proiect",
+      "shared": "{count, plural, one {Partajat în # conversație} few {Partajat în # conversații} other {Partajat în # de conversații}}",
+      "discussed_in": "{count, plural, one {Discutat în # conversație} few {Discutat în # conversații} other {Discutat în # de conversații}}",
+      "discussed_hint": "Sunt afișate doar conversațiile din care faceți parte.",
+      "chip": "{key}",
+      "due": "Termen: {date}",
+      "archived": "Arhivat",
+      "sub_items": "{count, plural, one {# sub-activitate} few {# sub-activități} other {# de sub-activități}}"
+    },
+    "mobile": {
+      "back": "Înapoi la conversații",
+      "close": "Închide",
+      "message_actions": "Acțiuni pentru mesaj",
+      "copy_text": "Copiază textul"
+    },
+    "states": {
+      "empty_title": "Comunicați cu spațiul de lucru",
+      "empty_body": "Trimiteți un mesaj unui coleg sau creați un grup pentru un proiect sau o echipă. Partajați fișiere, mesaje vocale și activități.",
+      "new_direct": "Acesta este începutul conversației cu {name}.",
+      "new_group": "Acesta este începutul grupului {name}.",
+      "say_hi": "👋 Salutați",
+      "offline": "Sunteți offline. Mesajele pe care le trimiteți vor pleca după ce vă reconectați.",
+      "waiting": "În așteptarea trimiterii",
+      "back_online": "Din nou online. Se recuperează tot ce ați pierdut."
+    },
+    "a11y": {
+      "new_message": "Mesaj nou de la {name}: {text}"
+    }
+  }
+}
