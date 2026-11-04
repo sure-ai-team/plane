@@ -4,6 +4,7 @@
  * See the LICENSE file for details.
  */
 
+import { useRef, useState } from "react";
 import { observer } from "mobx-react";
 import Link from "next/link";
 import { Archive, ArchiveRestore, Bell, BellOff, CheckCheck, MoreHorizontal, Star, StarOff } from "lucide-react";
@@ -19,6 +20,10 @@ import { isQuiet } from "@/store/chat";
 // local
 import { ConversationAvatar } from "../common/avatars";
 import { chatPath, listTimeLabel, previewText } from "../common/helpers";
+
+/** Width of the two actions revealed by swiping a row left (touch). */
+const SWIPE_WIDTH = 148;
+const SWIPE_OPEN_AT = 60;
 
 type Props = {
   workspaceSlug: string;
@@ -43,6 +48,26 @@ export const ChatConversationItem = observer(function ChatConversationItem(props
     currentUser?.id,
     t as (key: string, params?: Record<string, unknown>) => string
   );
+
+  // Touch: swipe left to reveal Mute and Archive.
+  const [offset, setOffset] = useState(0);
+  const touchStart = useRef<{ x: number; y: number; base: number } | null>(null);
+  const onTouchStart = (event: React.TouchEvent) => {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY, base: offset };
+  };
+  const onTouchMove = (event: React.TouchEvent) => {
+    const start = touchStart.current;
+    if (!start) return;
+    const touch = event.touches[0];
+    const dx = touch.clientX - start.x;
+    if (Math.abs(touch.clientY - start.y) > Math.abs(dx)) return; // scrolling the list
+    setOffset(Math.max(-SWIPE_WIDTH, Math.min(0, start.base + dx)));
+  };
+  const onTouchEnd = () => {
+    touchStart.current = null;
+    setOffset((value) => (value < -SWIPE_OPEN_AT ? -SWIPE_WIDTH : 0));
+  };
 
   const run = (task: Promise<void>) =>
     void task.catch((error: TChatApiError) =>
@@ -84,12 +109,53 @@ export const ChatConversationItem = observer(function ChatConversationItem(props
   ].filter((item) => !item.hidden);
 
   return (
-    <div className="group/row relative">
+    <div className="group/row relative overflow-hidden rounded-md">
+      {offset < 0 && (
+        <div className="absolute inset-y-0 right-0 flex" style={{ width: SWIPE_WIDTH }}>
+          <button
+            type="button"
+            onClick={() => {
+              setOffset(0);
+              run(chat.conversation.setMuted(workspaceSlug, conversation.id, !quiet));
+            }}
+            className="flex flex-1 flex-col items-center justify-center gap-0.5 bg-layer-3 text-11 font-medium text-primary"
+          >
+            {quiet ? <Bell className="size-4" /> : <BellOff className="size-4" />}
+            {quiet ? t("chat.actions.unmute") : t("chat.actions.mute")}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setOffset(0);
+              run(
+                chat.conversation.updateMySettings(workspaceSlug, conversation.id, {
+                  archived: !conversation.archived_at,
+                })
+              );
+            }}
+            className="flex flex-1 flex-col items-center justify-center gap-0.5 bg-accent-primary text-11 font-medium text-on-color"
+          >
+            {conversation.archived_at ? <ArchiveRestore className="size-4" /> : <Archive className="size-4" />}
+            {conversation.archived_at ? t("chat.sidebar.unarchive") : t("chat.sidebar.archive")}
+          </button>
+        </div>
+      )}
       <Link
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onClick={(event) => {
+          // Tapping a swiped-open row closes it instead of opening the chat.
+          if (offset !== 0) {
+            event.preventDefault();
+            setOffset(0);
+          }
+        }}
+        style={offset ? { transform: `translateX(${offset}px)` } : undefined}
         href={chatPath(workspaceSlug, conversation.id)}
         aria-current={isActive ? "page" : undefined}
         className={cn(
-          "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-13 outline-none focus-visible:ring-1 focus-visible:ring-accent-strong",
+          "relative flex w-full items-center gap-2 rounded-md bg-surface-1 px-2 py-1.5 text-13 transition-transform outline-none focus-visible:ring-1 focus-visible:ring-accent-strong motion-reduce:transition-none",
           isActive
             ? "bg-layer-transparent-active text-primary"
             : "text-secondary hover:bg-layer-transparent-hover active:bg-layer-transparent-active"

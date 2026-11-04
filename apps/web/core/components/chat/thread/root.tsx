@@ -7,7 +7,8 @@
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import { useSearchParams } from "next/navigation";
-import { PanelRight, Pin, Star, Upload } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, PanelRight, Pin, Star, Upload, X } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
@@ -33,6 +34,23 @@ type Props = {
   workspaceSlug: string;
   conversationId: string;
 };
+
+/** "Back online" for a few seconds after the network returns. */
+function ChatBackOnline({ onDone }: { onDone: () => void }) {
+  const { t } = useTranslation();
+  useEffect(() => {
+    const timer = window.setTimeout(onDone, 4_000);
+    return () => window.clearTimeout(timer);
+  }, [onDone]);
+  return (
+    <div
+      role="status"
+      className="border-b border-success-subtle bg-success-subtle px-4 py-1.5 text-12 text-success-primary"
+    >
+      {t("chat.states.back_online")}
+    </div>
+  );
+}
 
 export const ChatThread = observer(function ChatThread(props: Props) {
   const { workspaceSlug, conversationId } = props;
@@ -102,6 +120,7 @@ export const ChatThread = observer(function ChatThread(props: Props) {
         : t("chat.status.offline")
       : t("chat.members.count", { count: conversation.member_count });
   const status = chat.realtime.status;
+  const isOffline = !chat.realtime.isNetworkOnline;
 
   return (
     <div className="flex h-full min-w-0 flex-1">
@@ -124,6 +143,13 @@ export const ChatThread = observer(function ChatThread(props: Props) {
           </div>
         )}
         <header className="flex h-header shrink-0 items-center gap-2.5 border-b border-subtle px-4">
+          <Link
+            href={chatPath(workspaceSlug)}
+            aria-label={t("chat.mobile.back")}
+            className="-ml-2 flex size-8 items-center justify-center rounded-md text-secondary hover:bg-layer-transparent-hover md:hidden"
+          >
+            <ArrowLeft className="size-4" />
+          </Link>
           <ConversationAvatar conversation={conversation} size={24} showPresence />
           <div className="flex min-w-0 flex-1 flex-col">
             <h1 className="truncate text-14 font-medium text-primary">{name}</h1>
@@ -167,7 +193,18 @@ export const ChatThread = observer(function ChatThread(props: Props) {
           onOpenPanel={() => setSidePanel("pins")}
         />
 
-        {(status === "reconnecting" || status === "blocked") && (
+        {isOffline && (
+          <div
+            role="status"
+            className="border-b border-danger-subtle bg-danger-subtle px-4 py-1.5 text-12 text-danger-primary"
+          >
+            {t("chat.states.offline")}
+          </div>
+        )}
+        {!isOffline && chat.realtime.justReconnected && (
+          <ChatBackOnline onDone={() => chat.realtime.setJustReconnected(false)} />
+        )}
+        {!isOffline && (status === "reconnecting" || status === "blocked") && (
           <div
             role="status"
             className={cn(
@@ -205,9 +242,23 @@ export const ChatThread = observer(function ChatThread(props: Props) {
       </div>
 
       {sidePanel && (
-        <div className="hidden h-full w-72 shrink-0 border-l border-subtle lg:block">
+        // Full-screen sheet on phones and tablets, a side panel on desktop.
+        <div className="fixed inset-0 z-40 flex flex-col bg-surface-1 lg:static lg:z-auto lg:h-full lg:w-72 lg:shrink-0 lg:border-l lg:border-subtle">
           {sidePanel === "details" ? (
-            <ChatDetailsPanel workspaceSlug={workspaceSlug} conversation={conversation} />
+            <>
+              <div className="flex h-11 shrink-0 items-center justify-end border-b border-subtle px-2 lg:hidden">
+                <IconButton
+                  icon={X}
+                  variant="ghost"
+                  size="base"
+                  aria-label={t("chat.mobile.close")}
+                  onClick={() => setSidePanel(null)}
+                />
+              </div>
+              <div className="min-h-0 flex-1">
+                <ChatDetailsPanel workspaceSlug={workspaceSlug} conversation={conversation} />
+              </div>
+            </>
           ) : (
             <ChatPinnedPanel
               workspaceSlug={workspaceSlug}

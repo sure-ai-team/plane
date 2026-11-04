@@ -52,6 +52,18 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
     return () => chat.notify.setOpenHandler(null);
   }, [chat, slug]);
 
+  // Offline: sends wait in a queue and go out when the network returns.
+  useEffect(() => {
+    const update = () => chat.setNetworkOnline(navigator.onLine);
+    update();
+    window.addEventListener("online", update);
+    window.addEventListener("offline", update);
+    return () => {
+      window.removeEventListener("online", update);
+      window.removeEventListener("offline", update);
+    };
+  }, [chat]);
+
   const conversations = chat.conversation.sorted;
   useChatTabTitle(
     isAvailable ? chat.conversation.totalUnread : 0,

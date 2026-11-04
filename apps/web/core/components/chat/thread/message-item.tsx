@@ -6,7 +6,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { CornerUpLeft, Forward, MoreHorizontal, Pin, PinOff, SmilePlus } from "lucide-react";
+import { Copy, CornerUpLeft, Forward, MoreHorizontal, Pin, PinOff, SmilePlus } from "lucide-react";
 import type { EditorRefApi } from "@plane/editor";
 import { useTranslation } from "@plane/i18n";
 import { Button } from "@plane/propel/button";
@@ -48,6 +48,9 @@ type Props = {
   onReply: (message: TChatMessage) => void;
 };
 
+/** How long a touch must be held to open the message action sheet. */
+const LONG_PRESS_MS = 450;
+
 /** Link to one message: opening it scrolls there (docs/chat/phase-2/DECISIONS.md P2-D7). */
 export const messageLink = (workspaceSlug: string, conversationId: string, messageId: string) =>
   `${chatPath(workspaceSlug, conversationId).replace(/^\//, "")}?m=${messageId}`;
@@ -76,6 +79,17 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isCreateWorkItemOpen, setIsCreateWorkItemOpen] = useState(false);
   const [isForwardOpen, setIsForwardOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const pressTimer = useRef<number | null>(null);
+  // Touch: long-press opens the action sheet (phones have no hover toolbar).
+  const startPress = () => {
+    if (isEditing) return;
+    pressTimer.current = window.setTimeout(() => setIsSheetOpen(true), LONG_PRESS_MS);
+  };
+  const cancelPress = () => {
+    if (pressTimer.current) window.clearTimeout(pressTimer.current);
+    pressTimer.current = null;
+  };
 
   const isOwn = !!currentUser && message.sender?.id === currentUser.id;
   const isBubble = layout === "bubbles";
@@ -187,7 +201,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   return (
     <div
       className={cn(
-        "group/message relative flex gap-2.5 rounded-md px-3 transition-colors duration-700 hover:bg-layer-transparent-hover",
+        "group/message relative flex gap-2.5 rounded-md px-3 transition-colors duration-700 hover:bg-layer-transparent-hover motion-reduce:transition-none",
         {
           "flex-row-reverse": mine,
           "pt-2": showHeader,
@@ -195,6 +209,10 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           "bg-warning-subtle hover:bg-warning-subtle": isHighlighted,
         }
       )}
+      onTouchStart={startPress}
+      onTouchEnd={cancelPress}
+      onTouchMove={cancelPress}
+      onTouchCancel={cancelPress}
     >
       <div className={cn("w-7 shrink-0", { hidden: mine })}>
         {showHeader && <ChatUserAvatar user={message.sender} size={28} showTooltip />}
@@ -412,6 +430,85 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
             ...(conversation.project ? { project_id: conversation.project.id } : {}),
           }}
         />
+      )}
+
+      {isSheetOpen && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col justify-end bg-backdrop"
+          role="presentation"
+          onClick={() => setIsSheetOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-label={t("chat.mobile.message_actions")}
+            className="rounded-t-2xl bg-surface-1 pt-2 pb-6 shadow-raised-300"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") setIsSheetOpen(false);
+            }}
+          >
+            <span className="mx-auto mb-3 block h-1 w-9 rounded-full bg-layer-3" aria-hidden />
+            <div className="flex justify-between border-b border-subtle px-5 pb-3">
+              {QUICK_REACTIONS.map((emoji) => (
+                <button
+                  key={emoji}
+                  type="button"
+                  aria-label={t("chat.reactions.react_with", { emoji })}
+                  onClick={() => {
+                    react(emoji);
+                    setIsSheetOpen(false);
+                  }}
+                  className="flex size-11 items-center justify-center rounded-full bg-layer-1 text-18"
+                >
+                  {emoji}
+                </button>
+              ))}
+              <ChatEmojiPicker
+                ariaLabel={t("chat.reactions.add")}
+                onSelect={(emoji) => {
+                  react(emoji);
+                  setIsSheetOpen(false);
+                }}
+                buttonClassName="flex size-11 items-center justify-center rounded-full bg-layer-1 text-secondary"
+              >
+                <SmilePlus className="size-5" />
+              </ChatEmojiPicker>
+            </div>
+            {[
+              { key: "reply", title: t("chat.message.reply"), icon: CornerUpLeft, action: () => onReply(message) },
+              {
+                key: "pin",
+                title: message.is_pinned ? t("chat.pins.unpin") : t("chat.pins.pin"),
+                icon: message.is_pinned ? PinOff : Pin,
+                action: togglePin,
+              },
+              { key: "forward", title: t("chat.forward.action"), icon: Forward, action: () => setIsForwardOpen(true) },
+              {
+                key: "copy-text",
+                title: t("chat.mobile.copy_text"),
+                icon: Copy,
+                action: () => void navigator.clipboard?.writeText(message.body_stripped ?? ""),
+              },
+              ...menuItems,
+            ].map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => {
+                  setIsSheetOpen(false);
+                  item.action();
+                }}
+                className={cn(
+                  "flex h-12 w-full items-center gap-3.5 px-5 text-left text-14 text-primary active:bg-layer-transparent-active",
+                  "className" in item ? item.className : undefined
+                )}
+              >
+                <item.icon className="size-4 shrink-0" />
+                {item.title}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
 
       {isForwardOpen && (

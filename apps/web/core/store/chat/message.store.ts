@@ -52,7 +52,8 @@ export type TFocusRequest = {
   nonce: number;
 };
 
-export type TPendingStatus = "sending" | "failed";
+/** "queued": made while offline; sent automatically when the connection returns. */
+export type TPendingStatus = "sending" | "queued" | "failed";
 
 /** A message shown immediately while the server confirms it. */
 export type TPendingMessage = {
@@ -118,7 +119,8 @@ export class ChatMessageStore {
     private readonly service: IChatServiceLike,
     private readonly currentUser: () => TChatUser | null,
     private readonly createClientId: () => string,
-    private readonly now: () => Date = () => new Date()
+    private readonly now: () => Date = () => new Date(),
+    private readonly isOffline: () => boolean = () => false
   ) {
     makeObservable(this, {
       threads: observable,
@@ -409,7 +411,26 @@ export class ChatMessageStore {
     this.pending.delete(clientId);
   }
 
+  /** Send everything that was queued while offline (called when the browser is back online). */
+  async sendQueued(workspaceSlug: string): Promise<number> {
+    const queued = Array.from(this.pending.values()).filter((item) => item.status === "queued");
+    for (const item of queued) {
+      runInAction(() => {
+        item.status = "sending";
+      });
+      // eslint-disable-next-line no-await-in-loop -- keep the order they were written in
+      await this.deliver(workspaceSlug, item);
+    }
+    return queued.length;
+  }
+
   private async deliver(workspaceSlug: string, pending: TPendingMessage): Promise<TChatMessage | undefined> {
+    if (this.isOffline()) {
+      runInAction(() => {
+        pending.status = "queued";
+      });
+      return undefined;
+    }
     try {
       const message = await this.service.sendMessage(workspaceSlug, pending.conversation_id, {
         body_html: pending.body_html,
@@ -428,7 +449,8 @@ export class ChatMessageStore {
       runInAction(() => {
         const current = this.pending.get(pending.client_id);
         if (current) {
-          current.status = "failed";
+          // Lost the connection mid-send: wait for it instead of failing.
+          current.status = this.isOffline() ? "queued" : "failed";
           current.error = (error as TChatApiError) ?? { error: "Couldn't send.", code: "UNKNOWN" };
         }
       });

@@ -97,7 +97,13 @@ export class ChatRootStore {
   constructor(private readonly deps: TChatRootDeps) {
     const currentUserId = () => deps.currentUser()?.id;
     this.conversation = new ChatConversationStore(deps.service, currentUserId);
-    this.message = new ChatMessageStore(deps.service, deps.currentUser, deps.createClientId);
+    this.message = new ChatMessageStore(
+      deps.service,
+      deps.currentUser,
+      deps.createClientId,
+      () => new Date(),
+      () => !this.realtime.isNetworkOnline
+    );
     this.upload = new ChatUploadStore(
       deps.service,
       () => this.config,
@@ -364,6 +370,13 @@ export class ChatRootStore {
     });
     if (message) runInAction(() => this.conversation.applyMessageCreated(message));
     return message;
+  }
+
+  /** The browser went offline or came back (wired to window online/offline events). */
+  setNetworkOnline(isOnline: boolean) {
+    const wasOffline = !this.realtime.isNetworkOnline;
+    this.realtime.setNetworkOnline(isOnline);
+    if (isOnline && wasOffline && this.workspaceSlug) void this.message.sendQueued(this.workspaceSlug);
   }
 
   sendTyping(conversationId: string) {
