@@ -10,10 +10,11 @@ import { useParams } from "next/navigation";
 import { useTranslation } from "@plane/i18n";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
+import { useMember } from "@/hooks/store/use-member";
 import { useUser } from "@/hooks/store/user";
 import { useAppRouter } from "@/hooks/use-app-router";
 // local
-import { chatPath } from "./common/helpers";
+import { chatPath, setChatDateLocale } from "./common/helpers";
 import { useChatAvailability } from "./hooks/use-chat-availability";
 import { useChatTabTitle } from "./hooks/use-chat-tab-title";
 import { prepareChatMedia } from "./media/prepare";
@@ -29,7 +30,9 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
   const { data: currentUser } = useUser();
   const isAvailable = useChatAvailability(slug);
   const userId = currentUser?.id;
-  const { t } = useTranslation();
+  const { t, currentLocale } = useTranslation();
+  // Set during render so the first labels already use the app language.
+  setChatDateLocale(currentLocale);
   const router = useAppRouter();
   const routerRef = useRef(router);
   routerRef.current = router;
@@ -51,6 +54,16 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
     });
     return () => chat.notify.setOpenHandler(null);
   }, [chat, slug]);
+
+  // Member pickers (new conversation, add members, search "From") read workspace members from the
+  // store, which other pages fill but the chat page alone does not. Load them once per workspace.
+  const {
+    workspace: { getWorkspaceMemberIds, fetchWorkspaceMembers },
+  } = useMember();
+  const hasMembers = !!slug && getWorkspaceMemberIds(slug).length > 0;
+  useEffect(() => {
+    if (slug && isAvailable && !hasMembers) void fetchWorkspaceMembers(slug).catch(() => undefined);
+  }, [slug, isAvailable, hasMembers, fetchWorkspaceMembers]);
 
   // Offline: sends wait in a queue and go out when the network returns.
   useEffect(() => {

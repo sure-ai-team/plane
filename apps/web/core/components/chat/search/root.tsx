@@ -17,13 +17,23 @@ import { cn } from "@plane/utils";
 // hooks
 import { useMember } from "@/hooks/store/use-member";
 import { useChat } from "@/hooks/store/use-chat";
+import { useUser } from "@/hooks/store/user";
 import { useAppRouter } from "@/hooks/use-app-router";
 import { ChatService } from "@/services/chat.service";
 import { canSearch } from "@/store/chat";
 import type { TChatSearchFilters } from "@/store/chat";
 // local
 import { ChatUserAvatar } from "../common/avatars";
-import { chatPath, chatSearchPath, groupResults, listTimeLabel, timeLabel, userName } from "../common/helpers";
+import {
+  chatPath,
+  chatSearchPath,
+  groupResults,
+  listTimeLabel,
+  messageSummary,
+  systemMessageText,
+  timeLabel,
+  userName,
+} from "../common/helpers";
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
 
@@ -45,6 +55,7 @@ export const ChatSearch = observer(function ChatSearch({ workspaceSlug }: Props)
   const { t } = useTranslation();
   const tr = t as TTranslate;
   const chat = useChat();
+  const { data: currentUser } = useUser();
   const search = chat.search;
   const router = useAppRouter();
   // The router object may change identity between renders; effects read it through a ref.
@@ -313,25 +324,32 @@ export const ChatSearch = observer(function ChatSearch({ workspaceSlug }: Props)
               </button>
             </div>
             <div className="flex flex-1 flex-col gap-1 overflow-hidden p-3">
-              {(context ?? []).map((message) => (
-                <div
-                  key={message.id}
-                  className={cn("flex gap-2 rounded-md p-2", {
-                    "bg-warning-subtle": message.id === selected.message.id,
-                  })}
-                >
-                  <ChatUserAvatar user={message.sender} size={24} />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="truncate text-12 font-medium text-primary">{userName(message.sender, tr)}</span>
-                      <span className="text-11 text-tertiary">{timeLabel(message.created_at)}</span>
+              {(context ?? []).map((message) =>
+                message.kind === "system" ? (
+                  <p key={message.id} className="px-2 py-1 text-center text-11 text-tertiary">
+                    {systemMessageText(message, chat.conversation.byId.get(selected.conversation.id), tr, currentUser)}{" "}
+                    · {timeLabel(message.created_at)}
+                  </p>
+                ) : (
+                  <div
+                    key={message.id}
+                    className={cn("flex gap-2 rounded-md p-2", {
+                      "bg-warning-subtle": message.id === selected.message.id,
+                    })}
+                  >
+                    <ChatUserAvatar user={message.sender} size={24} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline gap-2">
+                        <span className="truncate text-12 font-medium text-primary">
+                          {userName(message.sender, tr)}
+                        </span>
+                        <span className="text-11 text-tertiary">{timeLabel(message.created_at)}</span>
+                      </div>
+                      <p className="line-clamp-3 text-12 break-words text-secondary">{messageSummary(message, tr)}</p>
                     </div>
-                    <p className="line-clamp-3 text-12 break-words text-secondary">
-                      {message.kind === "system" ? t("chat.preview.system") : message.body_stripped}
-                    </p>
                   </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
             <p className="border-t border-subtle px-4 py-2.5 text-11 text-tertiary">{t("chat.search.footer")}</p>
           </>

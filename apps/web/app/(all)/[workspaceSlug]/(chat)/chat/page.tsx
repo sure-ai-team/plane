@@ -57,7 +57,14 @@ function ChatHomePage({ params }: Route.ComponentProps) {
         <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-6 text-center">
           <MessageSquare className="size-8 text-placeholder" strokeWidth={1.5} />
           <h1 className="text-16 font-medium text-primary">{t("chat.thread.no_conversation_title")}</h1>
-          <p className="max-w-xs text-13 text-tertiary">{t("chat.thread.no_conversation_body")}</p>
+          <p className="max-w-sm text-13 text-balance text-tertiary">{t("chat.thread.no_conversation_body")}</p>
+          <button
+            type="button"
+            onClick={() => setNewMode("direct")}
+            className="mt-2 h-8 rounded-md bg-accent-primary px-3 text-13 font-medium text-on-color hover:bg-accent-primary-hover"
+          >
+            {t("chat.actions.new")}
+          </button>
         </div>
       )}
       {newMode && (

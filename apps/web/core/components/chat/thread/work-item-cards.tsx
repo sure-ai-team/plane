@@ -10,13 +10,14 @@ import Link from "next/link";
 import { useTranslation } from "@plane/i18n";
 import { PriorityIcon, StateGroupIcon, WorkItemsIcon } from "@plane/propel/icons";
 import type { TChatWorkItemRef } from "@plane/types";
-import { cn, renderFormattedDate } from "@plane/utils";
+import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 import { useMember } from "@/hooks/store/use-member";
 import { useProjectState } from "@/hooks/store/use-project-state";
 // local
 import { ChatUserAvatar } from "../common/avatars";
+import { shortDateLabel } from "../common/helpers";
 
 const browsePath = (workspaceSlug: string, ref: TChatWorkItemRef) =>
   `/${workspaceSlug}/browse/${ref.project_identifier}-${ref.sequence_id}/`;
@@ -83,12 +84,12 @@ const WorkItemCard = observer(function WorkItemCard({ workspaceSlug, workItem, t
         {card.priority && card.priority !== "none" && (
           <span className="flex items-center gap-1 rounded-sm border border-subtle px-1.5 py-0.5 capitalize">
             <PriorityIcon priority={card.priority} size={10} />
-            {card.priority}
+            {t(card.priority)}
           </span>
         )}
         {card.targetDate && (
           <span className="rounded-sm border border-subtle px-1.5 py-0.5">
-            {t("chat.workitem.due", { date: renderFormattedDate(card.targetDate) ?? card.targetDate })}
+            {t("chat.workitem.due", { date: shortDateLabel(card.targetDate) })}
           </span>
         )}
         {assignee && (

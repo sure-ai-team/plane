@@ -30,6 +30,11 @@ export const chatSearchPath = (workspaceSlug: string, params: Record<string, str
 export const userName = (user: TChatUser | null | undefined, t: TTranslate) =>
   user?.display_name || t("chat.thread.deleted_user");
 
+// ".../acme/browse/MOB-12/" -> "MOB-12": a pasted work-item URL reads better as its key in one-line previews.
+const WORK_ITEM_URL = /(?:https?:\/\/[^\s/]+)?\/[^\s/]+\/browse\/([A-Za-z0-9]+-\d+)\/?(?=\s|$|[.,;:!?)])/g;
+export const shortenWorkItemUrls = (text: string): string =>
+  text.replace(WORK_ITEM_URL, (_match, key: string) => key.toUpperCase());
+
 /** Localised one-line summary for the sidebar (the API stores structured preview data). */
 export const previewText = (
   preview: TChatPreview | undefined,
@@ -40,7 +45,7 @@ export const previewText = (
   if (!preview || !preview.kind) return t("chat.preview.empty");
   if (preview.kind === "system") return t("chat.preview.system");
 
-  let body = (preview.text ?? "").trim();
+  let body = shortenWorkItemUrls((preview.text ?? "").trim());
   if (!body) {
     const kinds = preview.attachment_kinds ?? [];
     if (preview.kind === "voice") body = t("chat.preview.voice");
@@ -59,18 +64,79 @@ export const previewText = (
   return body;
 };
 
+/** "Sara added Omar", "Group renamed to …" for a system message. */
+export const systemMessageText = (
+  message: Pick<TChatMessage, "meta">,
+  conversation: Pick<TChatConversation, "members" | "direct_user"> | undefined,
+  t: TTranslate,
+  // The viewer, who is not always in `conversation.members` (e.g. conversations loaded for search).
+  me?: { id: string; display_name: string } | null
+): string => {
+  const nameOf = (userId: unknown) => {
+    if (typeof userId !== "string") return t("chat.system.someone");
+    if (me && userId === me.id) return me.display_name;
+    const member = conversation?.members?.find((item) => item.member.id === userId)?.member;
+    if (member) return member.display_name;
+    if (conversation?.direct_user?.id === userId) return conversation.direct_user.display_name;
+    return t("chat.system.someone");
+  };
+  const event = message.meta?.event ?? "created";
+  return t(`chat.system.${event}`, {
+    actor: nameOf(message.meta?.actor_id),
+    name: event === "renamed" || event === "created" ? String(message.meta?.name ?? "") : nameOf(message.meta?.user_id),
+  });
+};
+
+/** A message's text, or what it carries when it has none ("Photo", "Voice note", "3 attachments"). */
+export const messageSummary = (
+  message: Pick<TChatMessage, "kind" | "body_stripped" | "attachments">,
+  t: TTranslate
+) => {
+  const text = (message.body_stripped ?? "").trim();
+  if (text) return text;
+  const kinds = (message.attachments ?? []).map((attachment) => attachment.kind);
+  if (message.kind === "voice") return t("chat.preview.voice");
+  if (kinds.length > 1) return t("chat.preview.attachments", { count: kinds.length });
+  if (kinds[0] === "image") return t("chat.preview.photo");
+  if (kinds[0] === "video") return t("chat.preview.video");
+  if (kinds[0] === "audio") return t("chat.preview.voice");
+  if (kinds[0] === "file") return t("chat.preview.file");
+  return "";
+};
+
+// Dates and times follow the app language, not the browser's. Plane's language codes are BCP 47
+// tags except Ukrainian ("ua"). Undefined falls back to the browser's locale.
+const DATE_LOCALE_TAGS: Record<string, string> = { ua: "uk" };
+let dateLocale: string | undefined;
+
+/** Called with the app language (ChatBootstrap); every chat date/time label uses it. */
+export const setChatDateLocale = (language: string | undefined) => {
+  dateLocale = language ? (DATE_LOCALE_TAGS[language] ?? language) : undefined;
+};
+
+export const chatDateLocale = (): string | undefined => dateLocale;
+
+/** "Nov 6" for a date-only value such as a work item's due date (read as a local date, not UTC). */
+export const shortDateLabel = (date: string): string => {
+  const parsed = new Date(/^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T00:00:00` : date);
+  return Number.isNaN(parsed.getTime())
+    ? date
+    : parsed.toLocaleDateString(dateLocale, { month: "short", day: "numeric", year: "numeric" });
+};
+
 /** Short relative label for the sidebar: time today, weekday this week, otherwise date. */
 export const listTimeLabel = (iso: string | null, now: Date = new Date()): string => {
   if (!iso) return "";
   const date = new Date(iso);
   const sameDay = date.toDateString() === now.toDateString();
-  if (sameDay) return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  if (sameDay) return date.toLocaleTimeString(dateLocale, { hour: "2-digit", minute: "2-digit" });
   const days = (now.getTime() - date.getTime()) / 86_400_000;
-  if (days < 7) return date.toLocaleDateString([], { weekday: "short" });
-  return date.toLocaleDateString([], { month: "short", day: "numeric" });
+  if (days < 7) return date.toLocaleDateString(dateLocale, { weekday: "short" });
+  return date.toLocaleDateString(dateLocale, { month: "short", day: "numeric" });
 };
 
-export const timeLabel = (iso: string) => new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+export const timeLabel = (iso: string) =>
+  new Date(iso).toLocaleTimeString(dateLocale, { hour: "2-digit", minute: "2-digit" });
 
 export const dayKey = (iso: string) => new Date(iso).toDateString();
 
@@ -80,7 +146,7 @@ export const dayLabel = (iso: string, t: TTranslate, now: Date = new Date()) => 
   const yesterday = new Date(now);
   yesterday.setDate(now.getDate() - 1);
   if (date.toDateString() === yesterday.toDateString()) return t("chat.thread.yesterday");
-  return date.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" });
+  return date.toLocaleDateString(dateLocale, { weekday: "long", month: "long", day: "numeric" });
 };
 
 /** Consecutive messages from the same person within 5 minutes share one header. */

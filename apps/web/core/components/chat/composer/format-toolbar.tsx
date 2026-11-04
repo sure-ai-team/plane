@@ -7,6 +7,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { EditorRefApi } from "@plane/editor";
 import { TOOLBAR_ITEMS } from "@plane/editor";
+import { useTranslation } from "@plane/i18n";
 import { Tooltip } from "@plane/propel/tooltip";
 import { cn } from "@plane/utils";
 
@@ -19,6 +20,7 @@ type Props = { editorRef: EditorRefApi | null };
 
 /** Bold, italic, strike, lists, quote and code for the chat composer (P2 04-frontend.md § Composer). */
 export function ChatFormatToolbar({ editorRef }: Props) {
+  const { t } = useTranslation();
   const [active, setActive] = useState<Record<string, boolean>>({});
 
   const refresh = useCallback(() => {
@@ -39,7 +41,11 @@ export function ChatFormatToolbar({ editorRef }: Props) {
   }, [editorRef, refresh]);
 
   return (
-    <div role="toolbar" aria-label="Formatting" className="flex items-center gap-0.5 border-b border-subtle px-2 py-1">
+    <div
+      role="toolbar"
+      aria-label={t("chat.composer.formatting")}
+      className="flex items-center gap-0.5 border-b border-subtle px-2 py-1"
+    >
       {ITEMS.map((item) => (
         <Tooltip
           key={item.renderKey}

@@ -4,7 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { Check } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
@@ -59,7 +59,9 @@ export const ChatNewConversationModal = observer(function ChatNewConversationMod
     }
   }, [isOpen, initialMode]);
 
-  const candidates = useMemo(() => {
+  // Not memoised: the store getters keep the same identity, so a memo would keep a list computed
+  // before members loaded. The observer re-renders when members change.
+  const candidates = (() => {
     const needle = query.trim().toLowerCase();
     return getWorkspaceMemberIds(workspaceSlug)
       .map((id) => getWorkspaceMemberDetails(id))
@@ -77,7 +79,7 @@ export const ChatNewConversationModal = observer(function ChatNewConversationMod
           `${details.member.display_name} ${details.member.first_name ?? ""} ${details.member.last_name ?? ""}`.toLowerCase();
         return haystack.includes(needle);
       });
-  }, [getWorkspaceMemberIds, getWorkspaceMemberDetails, workspaceSlug, currentUser?.id, query]);
+  })();
 
   const toggle = (userId: string) => {
     if (mode === "direct") {

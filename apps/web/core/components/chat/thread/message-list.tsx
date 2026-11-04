@@ -346,7 +346,7 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
                 showHeader={row.showHeader}
               />
             ) : row.item.message.kind === "system" ? (
-              <ChatSystemMessage message={row.item.message} conversation={conversation} />
+              <ChatSystemMessage workspaceSlug={workspaceSlug} message={row.item.message} conversation={conversation} />
             ) : (
               <ChatMessageItem
                 workspaceSlug={workspaceSlug}

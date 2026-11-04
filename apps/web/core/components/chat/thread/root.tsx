@@ -164,7 +164,8 @@ export const ChatThread = observer(function ChatThread(props: Props) {
                 .updateMySettings(workspaceSlug, conversation.id, { is_starred: !conversation.is_starred })
                 .catch(() => setToast({ type: TOAST_TYPE.ERROR, title: t("chat.errors.generic") }))
             }
-            className="flex size-7 items-center justify-center rounded-md text-tertiary hover:bg-layer-transparent-hover"
+            // Hidden on phones so the name has room; starring stays in the list's conversation menu.
+            className="hidden size-7 items-center justify-center rounded-md text-tertiary hover:bg-layer-transparent-hover sm:flex"
           >
             <Star className={conversation.is_starred ? "size-4 fill-current text-warning-primary" : "size-4"} />
           </button>
