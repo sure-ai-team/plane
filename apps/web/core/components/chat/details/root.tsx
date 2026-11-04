@@ -6,14 +6,14 @@
 
 import { Suspense, lazy, useMemo, useState } from "react";
 import { observer } from "mobx-react";
-import { Bell, BellOff, LogOut, MoreHorizontal, Play, UserPlus } from "lucide-react";
+import { Bell, BellOff, LogOut, MoreHorizontal, UserPlus } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
 import { TrashIcon } from "@plane/propel/icons";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { TChatApiError, TChatAttachment, TChatConversation, TChatMember } from "@plane/types";
 import { AlertModalCore, CustomMenu } from "@plane/ui";
-import { cn, getFileURL } from "@plane/utils";
+import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
@@ -23,6 +23,7 @@ import { ChatService } from "@/services/chat.service";
 // local
 import { ChatGroupAbout } from "./about";
 import { ChatMediaGallery } from "./media-gallery";
+import { ChatMediaThumb } from "./media-thumb";
 import { ChatFileCard } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath } from "../common/helpers";
@@ -192,7 +193,6 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
           ) : (
             <div className="grid grid-cols-3 gap-1">
               {media.map((attachment, index) => {
-                const src = attachment.thumb_url ?? (attachment.kind === "image" ? attachment.url : null);
                 return (
                   <button
                     key={attachment.id}
@@ -205,12 +205,7 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
                     }
                     className="relative aspect-square overflow-hidden rounded-sm bg-layer-1"
                   >
-                    {src && <img src={getFileURL(src)} alt="" loading="lazy" className="h-full w-full object-cover" />}
-                    {attachment.kind === "video" && (
-                      <span className="absolute inset-0 flex items-center justify-center text-on-color">
-                        <Play className="size-4 fill-current drop-shadow" />
-                      </span>
-                    )}
+                    <ChatMediaThumb attachment={attachment} />
                   </button>
                 );
               })}

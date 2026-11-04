@@ -97,15 +97,21 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const isBubble = layout === "bubbles";
   const mine = isBubble && isOwn;
   // In the compact layout the bubble wrapper is `display: contents`, so nothing changes.
-  const bubbleClass =
-    !isBubble || isEditing
-      ? "contents"
-      : cn(
-          "mt-0.5 flex max-w-[78%] flex-col gap-1 rounded-2xl px-3 py-2",
-          mine
-            ? "rounded-br-md bg-accent-primary text-on-color [&_.ProseMirror]:!text-on-color [&_.text-tertiary]:!text-on-color [&_a]:!text-on-color [&_a]:underline"
-            : "rounded-bl-md bg-layer-1"
-        );
+  // While editing, the bubble turns neutral and wide so the editor, its buttons and the
+  // attachments stay grouped (and the on-colour text rule doesn't hit the editor).
+  const bubbleClass = !isBubble
+    ? "contents"
+    : cn(
+        "mt-0.5 flex flex-col gap-1 rounded-2xl px-3 py-2",
+        isEditing
+          ? "w-[78%] rounded-br-md bg-layer-1"
+          : cn(
+              "w-fit max-w-[78%]",
+              mine
+                ? "rounded-br-md bg-accent-primary text-on-color [&_.ProseMirror]:!text-on-color [&_.text-tertiary]:!text-on-color [&_a]:!text-on-color [&_a]:underline"
+                : "rounded-bl-md bg-layer-1"
+            )
+      );
 
   useEffect(() => {
     if (editNonce > 0) {
@@ -333,6 +339,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
                 src={getFileURL(attachment.url) ?? attachment.url}
                 waveform={attachment.waveform}
                 duration={attachment.duration}
+                tone={mine ? "inverse" : "default"}
               />
             )}
           />

@@ -64,13 +64,14 @@ function ChatImageTile({ attachment, onOpen, className, overlay }: TVisualProps)
       onClick={onOpen}
       aria-label={t("chat.media.open_image", { name: attachment.name })}
       className={cn(
-        "relative overflow-hidden rounded-md border border-subtle bg-layer-1 focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:outline-none",
+        "relative min-h-24 min-w-40 overflow-hidden rounded-md border border-subtle bg-layer-1 focus-visible:ring-2 focus-visible:ring-accent-strong focus-visible:outline-none",
         className
       )}
     >
       {failed ? (
-        <span className="flex h-full min-h-24 w-full items-center justify-center text-tertiary">
+        <span className="flex h-full min-h-24 w-full flex-col items-center justify-center gap-1 px-3 text-secondary">
           <ImageOff className="size-5" />
+          <span className="max-w-full truncate text-11">{attachment.name}</span>
         </span>
       ) : (
         <img
@@ -157,7 +158,7 @@ export function ChatMessageAttachments({ attachments, renderAudio }: Props) {
               key={attachment.id}
               attachment={attachment}
               onOpen={() => open(attachment)}
-              className={columns === 1 ? "max-h-80 w-fit max-w-full" : "aspect-square"}
+              className={columns === 1 ? "max-h-80 w-fit max-w-full [&_img]:max-h-80 [&_img]:w-auto" : "aspect-square"}
               overlay={index === shownImages.length - 1 && hiddenCount > 0 ? `+${hiddenCount}` : null}
             />
           ))}
