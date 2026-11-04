@@ -13,6 +13,8 @@ import type { ChatService } from "@/services/chat.service";
 export type IChatServiceLike = Pick<
   ChatService,
   | "listConversations"
+  | "updateMembership"
+  | "searchMessages"
   | "getConversation"
   | "createConversation"
   | "updateConversation"

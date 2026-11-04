@@ -252,6 +252,7 @@ export const coreRoutes: RouteConfigEntry[] = [
       // ====================================================================
       layout("./(all)/[workspaceSlug]/(chat)/layout.tsx", [
         route(":workspaceSlug/chat", "./(all)/[workspaceSlug]/(chat)/chat/page.tsx"),
+        route(":workspaceSlug/chat/search", "./(all)/[workspaceSlug]/(chat)/chat/search/page.tsx"),
         route(":workspaceSlug/chat/:conversationId", "./(all)/[workspaceSlug]/(chat)/chat/[conversationId]/page.tsx"),
       ]),
 

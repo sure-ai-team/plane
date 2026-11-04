@@ -229,6 +229,86 @@
       "done": "{count, plural, one {Forwarded to # conversation} other {Forwarded to # conversations}}",
       "from": "Forwarded from {name}",
       "from_conversation": "Forwarded from {name} in {conversation}"
+    },
+    "sidebar": {
+      "find": "Find a conversation",
+      "find_placeholder": "Find by name",
+      "search_messages_for": "Search messages for \"{query}\"",
+      "filter": {
+        "label": "Filter conversations",
+        "all": "All",
+        "unread": "{count, plural, =0 {Unread} other {Unread #}}",
+        "mentions": "{count, plural, =0 {Mentions} other {Mentions #}}"
+      },
+      "starred": "Starred",
+      "archived": "Archived",
+      "archived_empty": "No archived conversations.",
+      "no_unread": "You're all caught up.",
+      "no_mentions": "No unread mentions.",
+      "draft": "Draft: {text}",
+      "muted": "Notifications off",
+      "mentions_label": "{count, plural, one {# unread mention} other {# unread mentions}}",
+      "options": "Options for {name}",
+      "star": "Star",
+      "unstar": "Unstar",
+      "mark_read": "Mark as read",
+      "archive": "Archive",
+      "unarchive": "Unarchive"
+    },
+    "search": {
+      "title": "Search messages",
+      "back": "Back to chat",
+      "placeholder": "Search messages",
+      "clear": "Clear search",
+      "filter": {
+        "in": "In conversation",
+        "in_all": "In: all conversations",
+        "from": "From",
+        "from_anyone": "From: anyone",
+        "has": "Has",
+        "has_any": "Has: anything",
+        "after": "After",
+        "before": "Before"
+      },
+      "has": {
+        "file": "Has: file",
+        "image": "Has: image",
+        "video": "Has: video",
+        "voice": "Has: voice note",
+        "link": "Has: link",
+        "work_item": "Has: work item"
+      },
+      "results": "{count, plural, one {# result} other {# results}}",
+      "results_many": "1,000+ results",
+      "results_label": "Search results",
+      "hint": "Type at least two characters, or pick a \"Has\" filter.",
+      "empty": "No messages match your search.",
+      "load_more": "Load more",
+      "loading": "Loading…",
+      "context": "Result in context",
+      "open": "Open conversation",
+      "footer": "Results only include conversations you're a member of. Use ↑ ↓ to move between results and Enter to open one."
+    },
+    "shortcuts": {
+      "title": "Keyboard shortcuts",
+      "previous_next": "Previous / next conversation",
+      "next_unread": "Next unread conversation",
+      "jump_conversation": "Jump to a conversation",
+      "search": "Search messages",
+      "edit_last": "Edit your last message (empty composer)",
+      "mark_read": "Mark conversation as read",
+      "jump_unread": "Jump to first unread",
+      "new_line": "New line in the composer",
+      "show_shortcuts": "Show shortcuts"
+    },
+    "about": {
+      "title": "About this group",
+      "description": "Group description",
+      "placeholder": "What is this group for?",
+      "empty": "No description yet.",
+      "add": "Add a description",
+      "edit": "Edit description",
+      "change_icon": "Click the icon to change it"
     }
   }
 }

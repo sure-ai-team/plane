@@ -125,6 +125,11 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
               className="max-h-60 overflow-y-auto px-1"
               onKeyDown={(event) => {
                 if (event.key === "Escape" && replyTo) onCancelReply();
+                // ↑ in an empty composer edits my last message (shortcuts sheet).
+                if (event.key === "ArrowUp" && !hasText && !event.shiftKey && !event.altKey) {
+                  event.preventDefault();
+                  chat.requestEditLast(conversation.id);
+                }
               }}
             >
               <LiteTextEditor

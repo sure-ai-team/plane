@@ -150,8 +150,10 @@ export class CoreRootStore {
   }
 
   resetOnSignOut() {
-    // Close the chat socket before the user store is replaced.
+    // Close the chat socket before the user store is replaced, and remove the
+    // drafts and dock state chat kept in this browser (shared machines).
     this.chat.teardown();
+    this.chat.clearLocalData();
     this.chat = createChatRootStore(() => this.user.data);
     // handling the system theme when user logged out from the app
     localStorage.setItem("theme", "system");

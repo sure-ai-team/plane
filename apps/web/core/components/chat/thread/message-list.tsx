@@ -118,6 +118,15 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
   }, [items, unreadIndex]);
 
   // Scroll to a message someone jumped to (reply quote, pin, search, link) and highlight it.
+  // Shift+J: scroll to the "New" divider.
+  const jumpUnreadNonce = chat.jumpUnreadNonce;
+  const lastJumpNonce = useRef(jumpUnreadNonce);
+  useEffect(() => {
+    if (jumpUnreadNonce === lastJumpNonce.current) return;
+    lastJumpNonce.current = jumpUnreadNonce;
+    if (unreadIndex >= 0) virtuoso.current?.scrollToIndex({ index: unreadIndex, align: "start", behavior: "smooth" });
+  }, [jumpUnreadNonce, unreadIndex]);
+
   const focusRequest = chat.message.focusRequest;
   useEffect(() => {
     if (!focusRequest || focusRequest.conversationId !== conversation.id) return;
@@ -135,7 +144,9 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
     return () => window.clearTimeout(timer);
   }, [focusRequest, rows, conversation.id, chat.message]);
 
-  // The newest message I sent: the only one that shows "Seen by".
+  // ↑ in an empty composer: edit my newest message.
+  const editRequest = chat.editLastRequest;
+  const [editTarget, setEditTarget] = useState<{ id: string; nonce: number } | null>(null);
   const lastOwnMessageId = useMemo(() => {
     for (let index = rows.length - 1; index >= 0; index -= 1) {
       const row = rows[index];
@@ -143,6 +154,15 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
     }
     return null;
   }, [rows, currentUser?.id]);
+
+  useEffect(() => {
+    if (!editRequest || editRequest.conversationId !== conversation.id) return;
+    chat.clearEditLastRequest();
+    if (!lastOwnMessageId) return;
+    setEditTarget({ id: lastOwnMessageId, nonce: editRequest.nonce });
+    const index = rows.findIndex((row) => row.item.type === "message" && row.item.message.id === lastOwnMessageId);
+    if (index >= 0) virtuoso.current?.scrollToIndex({ index, align: "center" });
+  }, [editRequest, conversation.id, lastOwnMessageId, rows, chat]);
 
   useEffect(() => {
     const firstKey = rows[0]?.key ?? null;
@@ -286,6 +306,7 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
                 showHeader={row.showHeader}
                 showSeenBy={row.item.message.id === lastOwnMessageId}
                 isHighlighted={row.item.message.id === highlightedId}
+                editNonce={editTarget?.id === row.item.message.id ? editTarget.nonce : 0}
                 onReply={onReply}
               />
             )}

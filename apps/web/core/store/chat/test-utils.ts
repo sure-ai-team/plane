@@ -89,6 +89,8 @@ const mock = <K extends keyof IChatServiceLike>(implementation?: IChatServiceLik
 export const makeService = (): TFakeService => ({
   listConversations: mock<"listConversations">(async () => []),
   getConversation: mock<"getConversation">(),
+  updateMembership: mock<"updateMembership">(),
+  searchMessages: mock<"searchMessages">(async () => ({ results: [], next_cursor: null, total_estimate: 0 })),
   createConversation: mock<"createConversation">(),
   updateConversation: mock<"updateConversation">(),
   deleteConversation: mock<"deleteConversation">(async () => undefined),

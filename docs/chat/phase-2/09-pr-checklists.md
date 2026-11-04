@@ -31,11 +31,11 @@ Branch `feat/chat-10-thread-interactions`
 
 Branch `feat/chat-11-sidebar-search`
 
-- [ ] Filters, sections, star, archive + archived list, mention badge, last seen, row context menu
-- [ ] Drafts persisted per user + sidebar draft line; cleared on sign-out
-- [ ] Search route with filters, grouped results, context pane, keyboard nav, URL state
-- [ ] Power K chat group; shortcuts + `?` sheet
-- [ ] Group description/logo editing in details
+- [x] Filters, sections, star, archive + archived list, mention badge, row context menu ("last seen" deferred: the API has no last-seen time yet; presence dots stay)
+- [x] Drafts persisted per user + sidebar draft line; cleared on sign-out
+- [x] Search route with filters, grouped results, context pane, keyboard nav, URL state
+- [x] Power K: "Go to chat" (`G T`; `G C` is cycles), "Open a conversation" (`O T`), "Search chat messages"; shortcuts + `?` sheet (Alt+↑/↓, Alt+Shift+↓, Ctrl+Shift+F, ↑ edit last, Esc, Shift+J)
+- [x] Group description/logo editing in details
 
 ## PR 12 — Notifications (M)
 
