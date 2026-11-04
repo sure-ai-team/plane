@@ -23,6 +23,10 @@ import type {
   TChatUploadResponse,
   TChatAttachment,
   TChatForwardPayload,
+  TChatMembershipSettings,
+  TChatMembershipSettingsPayload,
+  TChatSearchQuery,
+  TChatSearchResponse,
   TChatPinnedMessage,
   TChatReactionSummary,
 } from "@plane/types";
@@ -55,8 +59,23 @@ export class ChatService extends APIService {
 
   // ---------------------------------------------------------------- conversations
 
-  listConversations(workspaceSlug: string): Promise<TChatConversation[]> {
-    return this.call(this.get(`${this.base(workspaceSlug)}/conversations/`));
+  listConversations(workspaceSlug: string, options: { archived?: boolean } = {}): Promise<TChatConversation[]> {
+    return this.call(
+      this.get(`${this.base(workspaceSlug)}/conversations/`, options.archived ? { params: { archived: "true" } } : {})
+    );
+  }
+
+  /** My settings for one conversation: notify level, snooze, star, archive. */
+  updateMembership(
+    workspaceSlug: string,
+    conversationId: string,
+    payload: TChatMembershipSettingsPayload
+  ): Promise<TChatMembershipSettings> {
+    return this.call(this.patch(`${this.base(workspaceSlug)}/conversations/${conversationId}/me/`, payload));
+  }
+
+  searchMessages(workspaceSlug: string, query: TChatSearchQuery): Promise<TChatSearchResponse> {
+    return this.call(this.get(`${this.base(workspaceSlug)}/search/`, { params: query }));
   }
 
   getConversation(workspaceSlug: string, conversationId: string): Promise<TChatConversation> {

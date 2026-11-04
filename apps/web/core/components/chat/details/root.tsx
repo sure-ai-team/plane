@@ -21,6 +21,7 @@ import { useAppRouter } from "@/hooks/use-app-router";
 // services
 import { ChatService } from "@/services/chat.service";
 // local
+import { ChatGroupAbout } from "./about";
 import { ChatFileCard } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath } from "../common/helpers";
@@ -118,6 +119,7 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
       </div>
 
       <div className="vertical-scrollbar flex scrollbar-sm flex-1 flex-col gap-4 overflow-y-auto p-4">
+        {isGroup && <ChatGroupAbout workspaceSlug={workspaceSlug} conversation={conversation} />}
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
             <h4 className="text-12 font-semibold text-tertiary">

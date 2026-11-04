@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import { useSearchParams } from "next/navigation";
-import { PanelRight, Pin, Upload } from "lucide-react";
+import { PanelRight, Pin, Star, Upload } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
@@ -128,6 +128,19 @@ export const ChatThread = observer(function ChatThread(props: Props) {
             <h1 className="truncate text-14 font-medium text-primary">{name}</h1>
             <span className="truncate text-11 text-tertiary">{subtitle}</span>
           </div>
+          <button
+            type="button"
+            aria-pressed={!!conversation.is_starred}
+            aria-label={conversation.is_starred ? t("chat.sidebar.unstar") : t("chat.sidebar.star")}
+            onClick={() =>
+              void chat.conversation
+                .updateMySettings(workspaceSlug, conversation.id, { is_starred: !conversation.is_starred })
+                .catch(() => setToast({ type: TOAST_TYPE.ERROR, title: t("chat.errors.generic") }))
+            }
+            className="flex size-7 items-center justify-center rounded-md text-tertiary hover:bg-layer-transparent-hover"
+          >
+            <Star className={conversation.is_starred ? "size-4 fill-current text-warning-primary" : "size-4"} />
+          </button>
           <IconButton
             icon={Pin}
             variant={sidePanel === "pins" ? "tertiary" : "ghost"}

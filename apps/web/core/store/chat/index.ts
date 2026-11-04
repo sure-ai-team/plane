@@ -16,6 +16,10 @@ import { ChatRootStore } from "./root.store";
 export { ChatRootStore } from "./root.store";
 export type { TFocusRequest, TPinState, TThreadItem, TPendingMessage, TThreadState } from "./message.store";
 export { applyReaction } from "./reactions";
+export { canSearch } from "./search.store";
+export type { TChatSearchFilters } from "./search.store";
+export { defaultNotifyLevel, isQuiet } from "./conversation.store";
+export type { TChatListFilter } from "./conversation.store";
 export type { TUploadItem, TUploadStatus } from "./upload.store";
 
 export const toChatUser = (user: IUser | undefined): TChatUser | null =>

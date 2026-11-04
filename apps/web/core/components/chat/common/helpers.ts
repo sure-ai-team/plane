@@ -4,13 +4,21 @@
  * See the LICENSE file for details.
  */
 
-import type { TChatConversation, TChatMessage, TChatPreview, TChatUser } from "@plane/types";
+import type { TChatConversation, TChatMessage, TChatPreview, TChatSearchResult, TChatUser } from "@plane/types";
 import type { TThreadItem } from "@/store/chat/message.store";
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
 
 export const chatPath = (workspaceSlug: string, conversationId?: string) =>
   conversationId ? `/${workspaceSlug}/chat/${conversationId}` : `/${workspaceSlug}/chat`;
+
+/** The message search page, with its query and filters in the URL so results can be shared. */
+export const chatSearchPath = (workspaceSlug: string, params: Record<string, string | undefined> = {}) => {
+  const search = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) if (value) search.set(key, value);
+  const query = search.toString();
+  return `/${workspaceSlug}/chat/search${query ? `?${query}` : ""}`;
+};
 
 export const userName = (user: TChatUser | null | undefined, t: TTranslate) =>
   user?.display_name || t("chat.thread.deleted_user");
@@ -103,3 +111,32 @@ export const noteToHtml = (note: string): string =>
     .filter(Boolean)
     .map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`)
     .join("");
+
+/** Consecutive results from the same conversation, in result order. */
+export const groupResults = (results: TChatSearchResult[]) => {
+  const groups: Array<{ conversationId: string; items: Array<{ result: TChatSearchResult; index: number }> }> = [];
+  results.forEach((result, index) => {
+    const last = groups[groups.length - 1];
+    if (last && last.conversationId === result.conversation.id) last.items.push({ result, index });
+    else groups.push({ conversationId: result.conversation.id, items: [{ result, index }] });
+  });
+  return groups;
+};
+
+/** Conversation to move to with Alt+↑/↓ (in sidebar order), or the next unread one. */
+export const neighbourConversation = (
+  ordered: TChatConversation[],
+  activeId: string | undefined,
+  step: 1 | -1,
+  unreadOnly = false
+): TChatConversation | undefined => {
+  if (ordered.length === 0) return undefined;
+  const start = activeId ? ordered.findIndex((conversation) => conversation.id === activeId) : -1;
+  for (let offset = 1; offset <= ordered.length; offset += 1) {
+    const index = (start + step * offset + ordered.length * 2) % ordered.length;
+    const candidate = ordered[index];
+    if (candidate.id === activeId) continue;
+    if (!unreadOnly || candidate.unread_count > 0) return candidate;
+  }
+  return undefined;
+};

@@ -4,7 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import { CornerUpLeft, Forward, MoreHorizontal, Pin, PinOff, SmilePlus } from "lucide-react";
 import type { EditorRefApi } from "@plane/editor";
@@ -40,6 +40,8 @@ type Props = {
   showSeenBy: boolean;
   /** Briefly highlighted after a jump (reply, pin, search, link). */
   isHighlighted?: boolean;
+  /** Changes when a shortcut asks this message to enter edit mode (↑ in the composer). */
+  editNonce?: number;
   onReply: (message: TChatMessage) => void;
 };
 
@@ -48,7 +50,17 @@ export const messageLink = (workspaceSlug: string, conversationId: string, messa
   `${chatPath(workspaceSlug, conversationId).replace(/^\//, "")}?m=${messageId}`;
 
 export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
-  const { workspaceSlug, workspaceId, conversation, message, showHeader, showSeenBy, isHighlighted, onReply } = props;
+  const {
+    workspaceSlug,
+    workspaceId,
+    conversation,
+    message,
+    showHeader,
+    showSeenBy,
+    isHighlighted,
+    editNonce = 0,
+    onReply,
+  } = props;
   const { t } = useTranslation();
   const chat = useChat();
   const { data: currentUser } = useUser();
@@ -62,6 +74,15 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const [isForwardOpen, setIsForwardOpen] = useState(false);
 
   const isOwn = !!currentUser && message.sender?.id === currentUser.id;
+
+  useEffect(() => {
+    if (editNonce > 0) {
+      setDraftHtml(message.body_html);
+      setIsEditing(true);
+    }
+    // Only when a new edit request arrives.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editNonce]);
   const isGroupAdmin = conversation.type === "group" && conversation.my_role === 20;
   const canDelete = isOwn || isGroupAdmin;
   const hasBody = !isCommentEmpty(message.body_html);

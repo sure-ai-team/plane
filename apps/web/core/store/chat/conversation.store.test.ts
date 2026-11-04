@@ -86,9 +86,11 @@ describe("ChatConversationStore", () => {
 
   it("rolls back mute when the server refuses", async () => {
     store.upsert(makeConversation());
-    service.updateMember.mockRejectedValueOnce({ error: "x", code: "X" });
+    // Phase 2: mute is notify level "off", saved through conversations/<id>/me/.
+    service.updateMembership.mockRejectedValueOnce({ error: "x", code: "X" });
     await expect(store.setMuted("acme", "conv-1", true)).rejects.toBeTruthy();
     expect(store.getById("conv-1")?.is_muted).toBe(false);
+    expect(service.updateMembership).toHaveBeenCalledWith("acme", "conv-1", { notify_level: "off" });
   });
 
   it("uses the other person's name for direct chats", () => {
