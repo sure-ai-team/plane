@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "Obrolan",
+    "page_label": "{workspace} - Obrolan",
+    "nav": {
+      "rail_label": "Obrolan",
+      "project_chat": "Obrolan"
+    },
+    "sections": {
+      "groups": "Grup",
+      "directs": "Pesan langsung"
+    },
+    "actions": {
+      "new": "Percakapan baru",
+      "new_group": "Grup baru",
+      "new_direct": "Pesan langsung baru",
+      "mute": "Bisukan percakapan",
+      "unmute": "Bunyikan percakapan",
+      "leave": "Keluar dari grup",
+      "delete_group": "Hapus grup",
+      "add_members": "Tambah anggota",
+      "rename": "Ganti nama grup",
+      "details": "Detail percakapan",
+      "hide_details": "Sembunyikan detail"
+    },
+    "status": {
+      "online": "Daring",
+      "offline": "Luring",
+      "connecting": "Menghubungkan…",
+      "reconnecting": "Menghubungkan ulang…",
+      "blocked_disabled": "Obrolan dinonaktifkan untuk instans ini.",
+      "blocked_access": "Anda tidak memiliki akses ke obrolan di ruang kerja ini."
+    },
+    "members": {
+      "count": "{count, plural, other {# anggota}}",
+      "role_admin": "Admin",
+      "role_member": "Anggota",
+      "make_admin": "Jadikan admin",
+      "remove_admin": "Hapus status admin",
+      "remove": "Keluarkan dari grup",
+      "you": "Anda",
+      "only_members_hint": "Hanya anggota ruang kerja ini yang dapat ditambahkan. Tamu tidak dapat dikirimi pesan."
+    },
+    "new_conversation": {
+      "title": "Percakapan baru",
+      "direct": "Pesan langsung",
+      "group": "Grup",
+      "group_name": "Nama grup",
+      "group_name_placeholder": "mis. Rilis aplikasi seluler",
+      "members": "Anggota",
+      "to": "Kepada",
+      "search_members": "Cari anggota",
+      "no_members_found": "Anggota tidak ditemukan",
+      "create_group": "Buat grup",
+      "start": "Mulai percakapan",
+      "cancel": "Batal"
+    },
+    "thread": {
+      "today": "Hari ini",
+      "yesterday": "Kemarin",
+      "new_messages": "Pesan baru",
+      "jump_to_latest": "Lompat ke terbaru",
+      "seen_by": "{count, plural, other {Dilihat oleh #}}",
+      "typing_one": "{name} sedang mengetik…",
+      "typing_two": "{first} dan {second} sedang mengetik…",
+      "typing_many": "Beberapa orang sedang mengetik…",
+      "edited": "diedit",
+      "replying_to": "Membalas {name}",
+      "reply_attachment": "Lampiran",
+      "reply_voice": "Pesan suara",
+      "empty_title": "Belum ada pesan",
+      "empty_body": "Sapa untuk memulai percakapan.",
+      "no_conversation_title": "Pilih percakapan",
+      "no_conversation_body": "Pilih percakapan dari daftar, atau mulai yang baru.",
+      "loading_older": "Memuat pesan lama…",
+      "load_failed": "Tidak dapat memuat pesan.",
+      "retry": "Coba lagi",
+      "deleted_user": "Mantan anggota",
+      "loading_newer": "Memuat pesan yang lebih baru…"
+    },
+    "message": {
+      "reply": "Balas",
+      "edit": "Edit",
+      "delete": "Hapus",
+      "copy_link": "Salin tautan ke pesan",
+      "link_copied": "Tautan disalin",
+      "more": "Tindakan lainnya",
+      "save": "Simpan",
+      "cancel": "Batal",
+      "delete_confirm_title": "Hapus pesan?",
+      "delete_confirm_body": "Tindakan ini menghapus pesan beserta filenya untuk semua orang dan tidak dapat dibatalkan.",
+      "send_failed": "Gagal mengirim",
+      "sending": "Mengirim…",
+      "retry": "Coba lagi",
+      "discard": "Buang",
+      "create_work_item": "Buat item kerja",
+      "no_access": "Anda tidak dapat membuka pesan tersebut."
+    },
+    "system": {
+      "created": "{actor} membuat grup",
+      "member_added": "{actor} menambahkan {name}",
+      "member_removed": "{actor} mengeluarkan {name}",
+      "member_left": "{name} keluar",
+      "renamed": "{actor} mengganti nama grup menjadi \"{name}\"",
+      "icon_changed": "{actor} mengubah ikon grup",
+      "project_linked": "{actor} menautkan grup ke proyek",
+      "pinned": "{actor} menyematkan pesan",
+      "unpinned": "{actor} melepas sematan pesan",
+      "someone": "Seseorang"
+    },
+    "preview": {
+      "you": "Anda",
+      "photo": "Foto",
+      "video": "Video",
+      "voice": "Pesan suara",
+      "file": "File",
+      "attachments": "{count, plural, other {# lampiran}}",
+      "system": "Pembaruan grup",
+      "empty": "Belum ada pesan"
+    },
+    "composer": {
+      "placeholder": "Kirim pesan ke {name}",
+      "send": "Kirim",
+      "editing": "Mengedit pesan",
+      "reply_cancel": "Batalkan balasan",
+      "attach": "Lampirkan file",
+      "waiting_uploads": "Menunggu unggahan…",
+      "remove_failed": "Hapus atau coba lagi file yang gagal terlebih dahulu",
+      "emoji": "Sisipkan emoji",
+      "formatting": "Pemformatan",
+      "emoji_suggestions": "Saran emoji",
+      "suggestion_hint": "↑ ↓ untuk memilih · Enter untuk memakai · Esc untuk menutup"
+    },
+    "delete_group": {
+      "title": "Hapus {name}?",
+      "body": "Semua pesan dan file dalam grup ini akan dihapus untuk semua orang. Tindakan ini tidak dapat dibatalkan.",
+      "confirm": "Hapus grup"
+    },
+    "leave_group": {
+      "title": "Keluar dari {name}?",
+      "body": "Anda tidak akan lagi menerima pesan dari grup ini.",
+      "confirm": "Keluar"
+    },
+    "errors": {
+      "generic": "Terjadi kesalahan. Silakan coba lagi.",
+      "not_found": "Percakapan ini sudah tidak ada, atau Anda bukan anggotanya."
+    },
+    "upload": {
+      "ready": "Siap",
+      "preparing": "Menyiapkan…",
+      "uploading": "Mengunggah {percent}%",
+      "confirming": "Memeriksa…",
+      "failed": "Unggahan gagal",
+      "retry": "Coba lagi",
+      "remove": "Hapus {name}",
+      "too_large": "{name} terlalu besar. Batasnya {limit} MB.",
+      "type_not_allowed": "{name} tidak dapat dibagikan: jenis file ini tidak diizinkan.",
+      "type_mismatch": "File tidak sesuai dengan jenisnya.",
+      "too_many": "Anda dapat melampirkan hingga {max} file per pesan.",
+      "drop_title": "Lepaskan file untuk dibagikan di {name}",
+      "drop_hint": "Gambar hingga {image} MB · video hingga {video} MB · audio hingga {audio} MB · file lain hingga {file} MB",
+      "rejected_title": "Beberapa file tidak ditambahkan"
+    },
+    "media": {
+      "open_image": "Buka gambar {name}",
+      "play_video": "Putar video {name}",
+      "download": "Unduh {name}",
+      "preview_unavailable": "Pratinjau tidak tersedia",
+      "more": "+{count}",
+      "view_all": "Lihat semua ({count})",
+      "filter": "Filter media",
+      "filter_all": "Semua",
+      "filter_image": "Gambar",
+      "filter_video": "Video",
+      "loaded_only": "Menampilkan media dari pesan yang sudah dimuat dalam percakapan ini. Gulir ke atas di obrolan untuk memuat yang lebih lama."
+    },
+    "details": {
+      "members": "Anggota",
+      "media": "Media",
+      "files": "File",
+      "no_media": "Belum ada foto atau video di pesan yang dimuat",
+      "no_files": "Belum ada file di pesan yang dimuat"
+    },
+    "voice": {
+      "record": "Rekam pesan suara",
+      "stop": "Berhenti",
+      "discard": "Buang rekaman",
+      "record_again": "Rekam ulang",
+      "play": "Putar pesan suara",
+      "pause": "Jeda",
+      "position": "Posisi pemutaran",
+      "send": "Kirim",
+      "speed": "Kecepatan pemutaran",
+      "up_to": "hingga {max}",
+      "permission_denied": "Akses mikrofon diblokir. Izinkan di pengaturan browser Anda.",
+      "unsupported": "Perekaman suara tidak didukung di browser ini."
+    },
+    "reactions": {
+      "add": "Tambah reaksi",
+      "react_with": "Bereaksi dengan {emoji}",
+      "chip_label": "{emoji} {count, plural, other {# reaksi}}",
+      "tooltip": "{names} bereaksi dengan {emoji}",
+      "and_others": "{names} dan {count, plural, other {# lainnya}}"
+    },
+    "picker": {
+      "search": "Cari emoji"
+    },
+    "pins": {
+      "title": "Disematkan",
+      "pinned": "Disematkan",
+      "count": "Disematkan · {index} dari {total}",
+      "next": "Pesan sematan berikutnya",
+      "view_all": "Lihat semua",
+      "close": "Tutup pesan sematan",
+      "pin": "Sematkan pesan",
+      "unpin": "Lepas sematan",
+      "pinned_by": "Disematkan oleh {name}",
+      "empty": "Belum ada pesan yang disematkan.",
+      "hint": "Siapa pun dalam percakapan dapat menyematkan pesan. Maksimal 50 sematan per percakapan."
+    },
+    "jump": {
+      "to_message": "Lompat ke pesan",
+      "jump": "Lompat",
+      "highlight": "Melompat ke sini"
+    },
+    "unread": {
+      "divider": "Baru",
+      "divider_label": "Pesan baru",
+      "pill": "{count, plural, other {# pesan baru}} sejak {time}",
+      "jump": "Lompat",
+      "dismiss": "Tutup"
+    },
+    "forward": {
+      "action": "Teruskan",
+      "title": "Teruskan pesan",
+      "to": "Kepada",
+      "search": "Cari percakapan",
+      "no_results": "Tidak ada percakapan yang cocok.",
+      "limit": "Anda dapat meneruskan ke hingga {count} percakapan sekaligus.",
+      "note": "Tambahkan pesan (opsional)",
+      "submit": "{count, plural, other {Kirim ke # percakapan}}",
+      "done": "{count, plural, other {Diteruskan ke # percakapan}}",
+      "from": "Diteruskan dari {name}",
+      "from_conversation": "Diteruskan dari {name} di {conversation}"
+    },
+    "sidebar": {
+      "find": "Cari percakapan",
+      "find_placeholder": "Cari berdasarkan nama",
+      "search_messages_for": "Cari pesan untuk \"{query}\"",
+      "filter": {
+        "label": "Filter percakapan",
+        "all": "Semua",
+        "unread": "{count, plural, =0 {Belum dibaca} other {Belum dibaca #}}",
+        "mentions": "{count, plural, =0 {Sebutan} other {Sebutan #}}"
+      },
+      "starred": "Berbintang",
+      "archived": "Diarsipkan",
+      "archived_empty": "Tidak ada percakapan yang diarsipkan.",
+      "no_unread": "Semua pesan sudah Anda baca.",
+      "no_mentions": "Tidak ada sebutan yang belum dibaca.",
+      "draft": "Draf: {text}",
+      "muted": "Notifikasi nonaktif",
+      "mentions_label": "{count, plural, other {# sebutan belum dibaca}}",
+      "options": "Opsi untuk {name}",
+      "star": "Beri bintang",
+      "unstar": "Hapus bintang",
+      "mark_read": "Tandai sebagai dibaca",
+      "archive": "Arsipkan",
+      "unarchive": "Batalkan arsip",
+      "project_chats": "Obrolan untuk {project}",
+      "show_all": "Tampilkan semua",
+      "project_empty": "Belum ada obrolan grup yang ditautkan ke proyek ini. Tautkan dari detail grup."
+    },
+    "search": {
+      "title": "Cari pesan",
+      "back": "Kembali ke obrolan",
+      "placeholder": "Cari pesan",
+      "clear": "Hapus pencarian",
+      "filter": {
+        "in": "Di percakapan",
+        "in_all": "Di: semua percakapan",
+        "from": "Dari",
+        "from_anyone": "Dari: siapa saja",
+        "has": "Berisi",
+        "has_any": "Berisi: apa saja",
+        "after": "Setelah",
+        "before": "Sebelum"
+      },
+      "has": {
+        "file": "Berisi: file",
+        "image": "Berisi: gambar",
+        "video": "Berisi: video",
+        "voice": "Berisi: pesan suara",
+        "link": "Berisi: tautan",
+        "work_item": "Berisi: item kerja"
+      },
+      "results": "{count, plural, other {# hasil}}",
+      "results_many": "1.000+ hasil",
+      "results_label": "Hasil pencarian",
+      "hint": "Ketik minimal dua karakter, atau pilih filter \"Berisi\".",
+      "empty": "Tidak ada pesan yang cocok dengan pencarian Anda.",
+      "load_more": "Muat lebih banyak",
+      "loading": "Memuat…",
+      "context": "Hasil dalam konteks",
+      "open": "Buka percakapan",
+      "footer": "Hasil hanya mencakup percakapan tempat Anda menjadi anggota. Gunakan ↑ ↓ untuk berpindah antarhasil dan Enter untuk membukanya."
+    },
+    "shortcuts": {
+      "title": "Pintasan keyboard",
+      "previous_next": "Percakapan sebelumnya / berikutnya",
+      "next_unread": "Percakapan belum dibaca berikutnya",
+      "jump_conversation": "Lompat ke percakapan",
+      "search": "Cari pesan",
+      "edit_last": "Edit pesan terakhir Anda (kotak pesan kosong)",
+      "mark_read": "Tandai percakapan sebagai dibaca",
+      "jump_unread": "Lompat ke pesan pertama yang belum dibaca",
+      "new_line": "Baris baru di kotak pesan",
+      "show_shortcuts": "Tampilkan pintasan"
+    },
+    "about": {
+      "title": "Tentang grup ini",
+      "description": "Deskripsi grup",
+      "placeholder": "Untuk apa grup ini?",
+      "empty": "Belum ada deskripsi.",
+      "add": "Tambahkan deskripsi",
+      "edit": "Edit deskripsi",
+      "change_icon": "Klik ikon untuk mengubahnya"
+    },
+    "notify": {
+      "title": "Beri tahu saya tentang",
+      "button_label": "Notifikasi: {level}",
+      "level": {
+        "all": "Semua pesan",
+        "mentions": "Hanya sebutan",
+        "off": "Nonaktif"
+      },
+      "level_description": {
+        "all": "Setiap pesan baru",
+        "mentions": "Saat seseorang menyebut atau membalas Anda",
+        "off": "Tidak ada. Jumlah belum dibaca tetap diperbarui."
+      },
+      "snooze": "Tunda selama",
+      "snooze_1h": "1 jam",
+      "snooze_8h": "8 jam",
+      "snooze_tomorrow": "Hingga besok",
+      "snoozed_short": "Ditunda",
+      "snoozed_until": "Ditunda hingga {time}",
+      "unsnooze": "Matikan",
+      "blocked": "Browser Anda memblokir notifikasi untuk situs ini. Izinkan di pengaturan situs browser (ikon di samping alamat).",
+      "unsupported": "Browser ini tidak dapat menampilkan notifikasi desktop.",
+      "allow": "Izinkan notifikasi desktop",
+      "new_message": "Pesan baru",
+      "sent_photo": "Mengirim foto",
+      "sent_video": "Mengirim video",
+      "sent_voice": "Mengirim pesan suara",
+      "sent_file": "Mengirim file"
+    },
+    "prefs": {
+      "title": "Pengaturan obrolan",
+      "subtitle": "Pengaturan ini berlaku untuk Anda di ruang kerja ini.",
+      "desktop_notifications": "Notifikasi desktop",
+      "desktop_notifications_description": "Tampilkan notifikasi untuk pesan baru saat situs ini terbuka.",
+      "sound": "Suara",
+      "sound_description": "Putar suara singkat untuk setiap notifikasi.",
+      "show_preview": "Tampilkan pratinjau pesan",
+      "show_preview_description": "Sertakan teks pesan dalam notifikasi.",
+      "inbox_mentions": "Obrolan di Inbox",
+      "inbox_mentions_description": "Tambahkan sebutan dan pesan langsung ke Inbox Anda.",
+      "layout": {
+        "title": "Tata letak pesan",
+        "description": "Tampilan pesan dalam percakapan.",
+        "bubbles": "Gelembung",
+        "compact": "Ringkas",
+        "direct_only": "Gunakan gelembung hanya di pesan langsung"
+      },
+      "minimize": {
+        "title": "Obrolan yang diminimalkan",
+        "description": "Tampilan obrolan yang tetap terbuka di halaman lain saat diminimalkan.",
+        "docked": "Tab tertambat",
+        "heads": "Gelembung obrolan"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} menyebut Anda dalam obrolan",
+      "mentioned_in": "{name} menyebut Anda di {conversation}",
+      "direct": "{name} mengirimi Anda pesan"
+    },
+    "slash": {
+      "title": "Perintah",
+      "workitem": "Buat item kerja dan tautkan di sini",
+      "link": "Tautkan item kerja yang sudah ada",
+      "mute": "Bisukan atau bunyikan percakapan ini",
+      "code": "Sisipkan blok kode",
+      "shrug": "Tambahkan ¯\\_(ツ)_/¯",
+      "muted": "Percakapan dibisukan",
+      "unmuted": "Percakapan dibunyikan"
+    },
+    "dock": {
+      "open_full": "Buka di obrolan penuh",
+      "minimize": "Minimalkan",
+      "close": "Tutup",
+      "expand": "Buka {name}",
+      "heads": "Obrolan yang diminimalkan"
+    },
+    "workitem": {
+      "share": "Bagikan ke obrolan",
+      "discuss": "Diskusikan di obrolan",
+      "discuss_hint": "Obrolan terbuka dengan tautan ke item kerja ini yang siap dikirim.",
+      "this_project": "Proyek ini",
+      "shared": "{count, plural, other {Dibagikan ke # percakapan}}",
+      "discussed_in": "{count, plural, other {Didiskusikan di # percakapan}}",
+      "discussed_hint": "Hanya percakapan yang Anda ikuti yang ditampilkan.",
+      "chip": "{key}",
+      "due": "Jatuh tempo {date}",
+      "archived": "Diarsipkan",
+      "sub_items": "{count, plural, other {# sub-item}}"
+    },
+    "mobile": {
+      "back": "Kembali ke percakapan",
+      "close": "Tutup",
+      "message_actions": "Tindakan pesan",
+      "copy_text": "Salin teks"
+    },
+    "states": {
+      "empty_title": "Mengobrol dengan ruang kerja Anda",
+      "empty_body": "Kirim pesan ke rekan tim, atau buat grup untuk proyek atau tim. Bagikan file, pesan suara, dan item kerja.",
+      "new_direct": "Ini adalah awal percakapan Anda dengan {name}.",
+      "new_group": "Ini adalah awal dari {name}.",
+      "say_hi": "👋 Sapa",
+      "offline": "Anda sedang luring. Pesan yang Anda kirim akan terkirim saat Anda terhubung kembali.",
+      "waiting": "Menunggu untuk dikirim",
+      "back_online": "Kembali daring. Memuat semua yang Anda lewatkan."
+    },
+    "a11y": {
+      "new_message": "Pesan baru dari {name}: {text}"
+    }
+  }
+}
