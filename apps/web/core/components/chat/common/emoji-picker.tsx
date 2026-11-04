@@ -19,6 +19,8 @@ type Props = {
   buttonClassName?: string;
   side?: "top" | "bottom";
   align?: "start" | "end";
+  /** Lets a hover-only trigger stay visible while the picker is open (its anchor must not disappear). */
+  onOpenChange?: (isOpen: boolean) => void;
 };
 
 /**
@@ -27,9 +29,13 @@ type Props = {
  * and page logos, so emoji look and search the same across the app.
  */
 export function ChatEmojiPicker(props: Props) {
-  const { children, ariaLabel, onSelect, buttonClassName, side = "top", align = "end" } = props;
+  const { children, ariaLabel, onSelect, buttonClassName, side = "top", align = "end", onOpenChange } = props;
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpenState] = useState(false);
+  const setIsOpen = (open: boolean) => {
+    setIsOpenState(open);
+    onOpenChange?.(open);
+  };
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -38,7 +44,8 @@ export function ChatEmojiPicker(props: Props) {
       </Popover.Button>
       <Popover.Panel
         positionerClassName="z-50"
-        className="h-80 w-80 overflow-hidden rounded-md border-[0.5px] border-strong bg-surface-1 shadow-raised-200"
+        // The emoji list scrolls inside this panel (same setup as the platform's logo picker).
+        className="h-80 w-80 overflow-hidden overflow-y-auto rounded-md border-[0.5px] border-strong bg-surface-1 shadow-raised-200"
         side={side}
         align={align}
         sideOffset={6}

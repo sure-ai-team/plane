@@ -80,6 +80,8 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const [isCreateWorkItemOpen, setIsCreateWorkItemOpen] = useState(false);
   const [isForwardOpen, setIsForwardOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  // The hover toolbar anchors the emoji picker: keep it shown while the picker is open.
+  const [isToolbarPinned, setIsToolbarPinned] = useState(false);
   const pressTimer = useRef<number | null>(null);
   // Touch: long-press opens the action sheet (phones have no hover toolbar).
   const startPress = () => {
@@ -356,7 +358,12 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
       </div>
 
       {!isEditing && (
-        <div className="absolute -top-3 right-3 hidden items-center gap-0.5 rounded-md border border-subtle bg-surface-1 p-0.5 shadow-raised-100 group-focus-within/message:flex group-hover/message:flex">
+        <div
+          className={cn(
+            "absolute -top-3 right-3 hidden items-center gap-0.5 rounded-md border border-subtle bg-surface-1 p-0.5 shadow-raised-100 group-focus-within/message:flex group-hover/message:flex",
+            { flex: isToolbarPinned }
+          )}
+        >
           {QUICK_REACTIONS.map((emoji) => (
             <button
               key={emoji}
@@ -371,6 +378,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           <ChatEmojiPicker
             ariaLabel={t("chat.reactions.add")}
             onSelect={react}
+            onOpenChange={setIsToolbarPinned}
             buttonClassName="flex size-7 items-center justify-center rounded-sm text-secondary hover:bg-layer-transparent-hover"
           >
             <SmilePlus className="size-4" />
