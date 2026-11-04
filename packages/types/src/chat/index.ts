@@ -48,7 +48,9 @@ export type TChatSystemEvent =
   | "member_left"
   | "renamed"
   | "icon_changed"
-  | "project_linked";
+  | "project_linked"
+  | "pinned"
+  | "unpinned";
 
 export type TChatReplyPreview = {
   id: string;
@@ -75,13 +77,119 @@ export type TChatMessage = {
   edited_at: string | null;
   created_at: string;
   seen_by_count: number;
+  // Phase 2. Socket payloads omit `reactions` ("reacted" is per viewer): keep the
+  // local copy and apply `reaction.updated` events instead.
+  reactions?: TChatReactionSummary[];
+  is_pinned?: boolean;
+  work_items?: TChatWorkItemRef[];
+  forwarded_from?: TChatForwardedFrom | null;
 };
+
+export type TChatReactionSummary = {
+  emoji: string;
+  count: number;
+  reacted: boolean;
+  /** Up to 10 people; GET messages/<id>/reactions/ has the full list. */
+  user_ids: string[];
+};
+
+/** Ids only; load details through the work-item APIs (project permissions apply). */
+export type TChatWorkItemRef = {
+  id: string;
+  project_id: string;
+  project_identifier: string;
+  sequence_id: number;
+};
+
+export type TChatForwardedFrom = {
+  sender_id: string | null;
+  sender_name: string | null;
+  sent_at: string | null;
+  /** Null unless the viewer is a member of the source conversation. */
+  conversation_id: string | null;
+  conversation_name: string | null;
+};
+
+export type TChatPinnedMessage = TChatMessage & { pinned_at: string; pinned_by: string | null };
 
 export type TChatMessagePage = {
   results: TChatMessage[];
   has_more: boolean;
   oldest_seq: number | null;
   newest_seq: number | null;
+  /** Only with `around_seq`. */
+  has_before?: boolean;
+  has_after?: boolean;
+};
+
+export type TChatNotifyLevel = "all" | "mentions" | "off";
+
+export type TChatMembershipSettings = {
+  notify_level: TChatNotifyLevel;
+  snoozed_until: string | null;
+  is_starred: boolean;
+  archived_at: string | null;
+  /** Phase 1 field, read-only: notify level "off". */
+  is_muted: boolean;
+};
+
+export type TChatMembershipSettingsPayload = Partial<{
+  notify_level: TChatNotifyLevel;
+  snoozed_until: string | null;
+  is_starred: boolean;
+  archived: boolean;
+}>;
+
+export type TChatPreferences = {
+  desktop_notifications: boolean;
+  sound: boolean;
+  show_preview: boolean;
+  inbox_mentions: boolean;
+  message_layout: "compact" | "bubbles";
+  bubbles_direct_only: boolean;
+  minimize_style: "docked" | "heads";
+};
+
+export type TChatSearchHas = "file" | "image" | "video" | "voice" | "link" | "work_item";
+
+export type TChatSearchQuery = {
+  q?: string;
+  conversation_id?: string;
+  from?: string;
+  has?: TChatSearchHas;
+  after?: string;
+  before?: string;
+  cursor?: string;
+};
+
+export type TChatSearchResult = {
+  conversation: {
+    id: string;
+    type: TChatConversationType;
+    name: string;
+    logo_props: Record<string, unknown>;
+    direct_user: TChatUser | null;
+  };
+  message: { id: string; seq: number; kind: TChatMessageKind; sender: TChatUser | null; created_at: string };
+  /** Escaped text with <mark> around matches; safe to render as HTML. */
+  snippet_html: string;
+  attachment_names: string[];
+};
+
+export type TChatSearchResponse = {
+  results: TChatSearchResult[];
+  next_cursor: string | null;
+  /** First page only; capped at 1001 (show "1,000+"). */
+  total_estimate?: number;
+};
+
+export type TChatForwardPayload = { conversation_ids: string[]; comment_html?: string };
+
+export type TChatWorkItemReference = {
+  conversation_id: string;
+  conversation: TChatSearchResult["conversation"];
+  count: number;
+  latest: { message_id: string; seq: number; sender: TChatUser | null; created_at: string; snippet: string };
 };
 
 export type TChatConversationType = "direct" | "group";
@@ -124,6 +232,12 @@ export type TChatConversation = {
   member_count: number;
   my_role: TChatRole;
   is_muted: boolean;
+  description?: string;
+  notify_level?: TChatNotifyLevel;
+  snoozed_until?: string | null;
+  is_starred?: boolean;
+  archived_at?: string | null;
+  unread_mention_count?: number;
   last_message_seq: number;
   last_read_seq: number;
   unread_count: number;
@@ -136,8 +250,12 @@ export type TChatConversation = {
 };
 
 export type TChatUnreadCount = {
+  /** Leaves out archived conversations and ones set to "off". */
   total: number;
   by_conversation: Record<string, number>;
+  archived_total?: number;
+  mentions_by_conversation?: Record<string, number>;
+  mentions_total?: number;
 };
 
 export type TChatConfig = {
@@ -166,6 +284,7 @@ export type TChatCreateConversationPayload =
 
 export type TChatUpdateConversationPayload = Partial<{
   name: string;
+  description: string;
   logo_props: Record<string, unknown>;
   project_id: string | null;
 }>;
@@ -181,6 +300,7 @@ export type TChatSendMessagePayload = {
 export type TChatMessagePageQuery = {
   before_seq?: number;
   after_seq?: number;
+  around_seq?: number;
   limit?: number;
 };
 
@@ -229,6 +349,7 @@ export type TChatServerEvent =
       d: {
         conversation_id: string;
         name: string;
+        description?: string;
         logo_props: Record<string, unknown>;
         project: TChatProjectLite | null;
       };
@@ -239,7 +360,16 @@ export type TChatServerEvent =
   | { t: "member.removed"; d: { conversation_id: string; user_id: string } }
   | { t: "read.updated"; d: { conversation_id: string; user_id: string; seq: number } }
   | { t: "typing"; d: { conversation_id: string; user_id: string } }
-  | { t: "presence"; d: { user_id: string; online: boolean } };
+  | { t: "presence"; d: { user_id: string; online: boolean } }
+  // Phase 2 (docs/chat/phase-2/03-realtime.md)
+  | {
+      t: "reaction.updated";
+      d: { conversation_id: string; message_id: string; emoji: string; count: number; user_id: string; added: boolean };
+    }
+  | { t: "pin.added"; d: { conversation_id: string; message_id: string; pinned_by: string } }
+  | { t: "pin.removed"; d: { conversation_id: string; message_id: string } }
+  | { t: "membership.updated"; d: TChatMembershipSettings & { conversation_id: string } }
+  | { t: "preferences.updated"; d: TChatPreferences };
 
 export type TChatServerFrame = TChatServerEvent & { ts: number };
 

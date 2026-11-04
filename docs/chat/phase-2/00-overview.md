@@ -32,7 +32,7 @@ Phase 1 decisions still hold (hard delete, members only, no calls, fewer than 50
 ```
 apps/api      new tables (reactions, pins, work-item refs, chat preferences), member fields (notify level,
               snooze, star, archive), search index, ~14 endpoints, Inbox notifications, forward
-apps/live     relays new event types only (no protocol change): reaction.*, pin.*, member.updated
+apps/live     relays new event types only (no protocol change): reaction.*, pin.*, membership.updated, preferences.updated
 apps/web      most of the work: thread interactions, sidebar, search page, composer, notifications,
               dock + bubbles, work-item integration, responsive layouts
 packages/i18n new keys in the "chat" namespace (English; other locales per D22)
@@ -45,16 +45,16 @@ No new services. Search uses Postgres full-text search (P2-D3). Desktop notifica
 
 Integration branch: **`v2-chat`**, cut from `v1-chat` after phase 1 is released (or from `v1-chat` directly if phase 1 is still unreleased; then `v2-chat` merges after `v1-chat`). Every phase 2 PR branches from `v2-chat` and merges back.
 
-| PR  | Title                       | Size | Depends on | Contents                                                                                                      |
-| --- | --------------------------- | ---- | ---------- | ------------------------------------------------------------------------------------------------------------- |
-| 9   | Backend foundations         | L    | —          | Migration `0126_chat_phase2`, all new endpoints and events, search, forward, Inbox hooks, tests               |
-| 10  | Thread interactions         | L    | 9          | Reactions + picker, hover toolbar, pins, reply jump, message links, unread divider, forward UI                |
-| 11  | Sidebar, search, navigation | M–L  | 9          | Sections, filters, star/archive, persisted drafts, search page, Power K, shortcuts                            |
-| 12  | Notifications               | M    | 9          | Per-chat level + snooze UI, preferences, desktop notifications, sound, tab title, Inbox entries               |
-| 13  | Composer                    | M    | 9          | Formatting toolbar, emoji picker + shortcodes, slash commands                                                 |
-| 14  | Minimized chat and bubbles  | M    | 9, 10      | Dock windows, chat heads, bubbles layout, layout preference                                                   |
-| 15  | Work-item integration       | M    | 9, 14      | Work-item refs, rich cards, Share to chat, Discuss in chat (opens the dock), project nav, "Discussed in chat" |
-| 16  | Polish, mobile, release     | M    | all        | Responsive layouts, swipe/long-press, states, a11y audit, media gallery, load + browser matrix                |
+| PR  | Title                       | Size | Depends on | Contents                                                                                                                    |
+| --- | --------------------------- | ---- | ---------- | --------------------------------------------------------------------------------------------------------------------------- |
+| 9   | Backend foundations         | L    | —          | Migrations `0126_chat_phase2` + `0127_chat_search_index`, all new endpoints and events, search, forward, Inbox hooks, tests |
+| 10  | Thread interactions         | L    | 9          | Reactions + picker, hover toolbar, pins, reply jump, message links, unread divider, forward UI                              |
+| 11  | Sidebar, search, navigation | M–L  | 9          | Sections, filters, star/archive, persisted drafts, search page, Power K, shortcuts                                          |
+| 12  | Notifications               | M    | 9          | Per-chat level + snooze UI, preferences, desktop notifications, sound, tab title, Inbox entries                             |
+| 13  | Composer                    | M    | 9          | Formatting toolbar, emoji picker + shortcodes, slash commands                                                               |
+| 14  | Minimized chat and bubbles  | M    | 9, 10      | Dock windows, chat heads, bubbles layout, layout preference                                                                 |
+| 15  | Work-item integration       | M    | 9, 14      | Work-item refs, rich cards, Share to chat, Discuss in chat (opens the dock), project nav, "Discussed in chat"               |
+| 16  | Polish, mobile, release     | M    | all        | Responsive layouts, swipe/long-press, states, a11y audit, media gallery, load + browser matrix                              |
 
 PRs 10–13 can run in parallel once PR 9 merges. Checklists: [09-pr-checklists.md](09-pr-checklists.md).
 

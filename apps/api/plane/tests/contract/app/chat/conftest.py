@@ -156,6 +156,14 @@ def storage(mocker):
     fake.get_object_metadata.side_effect = _head
     fake.samples = {}
     fake.get_object_range.side_effect = lambda key, start=0, end=8191: fake.samples.get(key, PNG_HEADER)
+    fake.copied = []
+
+    def _copy(source, target):
+        fake.copied.append((source, target))
+        fake.objects[target] = fake.objects.get(source, 1)
+        return {"CopyObjectResult": {}}
+
+    fake.copy_object.side_effect = _copy
     mocker.patch("plane.app.views.chat.attachment.S3Storage", return_value=fake)
     return fake
 
@@ -163,6 +171,12 @@ def storage(mocker):
 @pytest.fixture(autouse=True)
 def deletion_task(mocker):
     return mocker.patch("plane.bgtasks.chat_cleanup_task.delete_chat_objects.delay")
+
+
+@pytest.fixture(autouse=True)
+def inbox_task(mocker):
+    """Inbox rows are created by a Celery task; tests call it directly."""
+    return mocker.patch("plane.bgtasks.chat_inbox_task.chat_inbox_notifications.delay")
 
 
 # --------------------------------------------------------------------------- #
@@ -259,3 +273,37 @@ def upload(
     storage.samples[key] = sample
     confirm = client.patch(attachment_url(slug, asset_id), {}, format="json")
     return asset_id, key, confirm
+
+
+def reactions_url(slug, message_id):
+    return f"{base(slug)}/messages/{message_id}/reactions/"
+
+
+def reaction_url(slug, message_id, emoji):
+    from urllib.parse import quote
+
+    return f"{base(slug)}/messages/{message_id}/reactions/{quote(emoji)}/"
+
+
+def pin_url(slug, message_id):
+    return f"{base(slug)}/messages/{message_id}/pin/"
+
+
+def pins_url(slug, conversation_id):
+    return f"{base(slug)}/conversations/{conversation_id}/pins/"
+
+
+def me_url(slug, conversation_id):
+    return f"{base(slug)}/conversations/{conversation_id}/me/"
+
+
+def preferences_url(slug):
+    return f"{base(slug)}/preferences/"
+
+
+def search_url(slug):
+    return f"{base(slug)}/search/"
+
+
+def forward_url(slug, message_id):
+    return f"{base(slug)}/messages/{message_id}/forward/"

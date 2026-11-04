@@ -41,6 +41,12 @@ class ChatEvent:
     MEMBER_UPDATED = "member.updated"
     MEMBER_REMOVED = "member.removed"
     READ_UPDATED = "read.updated"
+    # Phase 2 (docs/chat/phase-2/03-realtime.md)
+    REACTION_UPDATED = "reaction.updated"
+    PIN_ADDED = "pin.added"
+    PIN_REMOVED = "pin.removed"
+    MEMBERSHIP_UPDATED = "membership.updated"  # the caller's own settings; sent to them only
+    PREFERENCES_UPDATED = "preferences.updated"
 
 
 _client = None

@@ -8,20 +8,20 @@ Same tools as phase 1: pytest in Docker (`docker-compose-test.yml`), vitest for 
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `test_chat_reactions.py`       | Add / idempotent add / remove; 20-emoji limit; invalid emoji; system and deleted messages refused; non-member 404; event published                                    |
 | `test_chat_pins.py`            | Pin / unpin; 50 limit; system lines; list order; non-member 404                                                                                                       |
-| `test_chat_member_settings.py` | notify level, snooze, star, archive; `?archived=true`; legacy `is_muted` read; `member.updated` only to self                                                          |
+| `test_chat_member_settings.py` | notify level, snooze, star, archive; `?archived=true`; legacy `is_muted` read; `membership.updated` only to self                                                      |
 | `test_chat_preferences.py`     | Lazy defaults; validation; event                                                                                                                                      |
 | `test_chat_search.py`          | Terms, prefix, phrase, Arabic text; filters (in, from, has, dates); former member and outsider see nothing (P2-S1); snippet escaping (P2-S2); cursor paging; throttle |
 | `test_chat_forward.py`         | Multi-target; files copied (new keys); non-member source/target refused; `forwarded_from` visibility (P2-S3); limits                                                  |
 | `test_chat_around.py`          | `around_seq` window, edges, mutually exclusive params, non-member                                                                                                     |
 | `test_chat_work_item_refs.py`  | Refs extracted on send/edit, removed on edit/delete; `chat-references` endpoint scoping (P2-S5)                                                                       |
 | `test_chat_inbox.py`           | Rows per level; one row per direct conversation; read sync; delete removes rows; snooze                                                                               |
-| Migration                      | `0126_chat_phase2` forwards/backwards; mute → `off` mapping                                                                                                           |
+| Migration                      | `0126`/`0127` forwards/backwards; mute → `off` mapping                                                                                                                |
 
 Unit: emoji validator, tsquery builder, snippet sanitizer, notify-level resolver.
 
 ## Live (PR 9)
 
-`tests/chat/` — the new event types pass through the hub unchanged, and `member.updated` reaches only that user's sockets.
+`tests/chat/` — the new event types pass through the hub unchanged, and `membership.updated` reaches only that user's sockets.
 
 ## Web (PRs 10–16) — vitest
 

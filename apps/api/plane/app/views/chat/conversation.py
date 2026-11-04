@@ -28,15 +28,25 @@ def serialize_membership(membership, user):
     partner = None
     if membership.conversation.type == ConversationType.DIRECT:
         partner = services.direct_partners([conversation_id], user).get(conversation_id)
-    return conversation_data(membership, member_count=counts.get(conversation_id, 0), direct_user=partner)
+    mentions = services.unread_mention_counts(user, [conversation_id])
+    return conversation_data(
+        membership,
+        member_count=counts.get(conversation_id, 0),
+        direct_user=partner,
+        unread_mention_count=mentions.get(conversation_id, 0),
+    )
 
 
 class ChatConversationListEndpoint(ChatBaseEndpoint):
     @allow_permission(CHAT_ROLES, level="WORKSPACE")
     def get(self, request, slug):
-        memberships = list(services.user_memberships(request.user, slug, request.query_params.get("type")))
+        archived = request.query_params.get("archived") in ("1", "true")
+        memberships = list(
+            services.user_memberships(request.user, slug, request.query_params.get("type"), archived=archived)
+        )
         ids = [str(membership.conversation_id) for membership in memberships]
         counts = services.member_counts(ids)
+        mentions = services.unread_mention_counts(request.user, ids)
         direct_ids = [
             str(membership.conversation_id)
             for membership in memberships
@@ -48,6 +58,7 @@ class ChatConversationListEndpoint(ChatBaseEndpoint):
                 membership,
                 member_count=counts.get(str(membership.conversation_id), 0),
                 direct_user=partners.get(str(membership.conversation_id)),
+                unread_mention_count=mentions.get(str(membership.conversation_id), 0),
             )
             for membership in memberships
         ]
@@ -96,7 +107,9 @@ class ChatConversationDetailEndpoint(ChatBaseEndpoint):
     @allow_permission(CHAT_ROLES, level="WORKSPACE")
     def patch(self, request, slug, conversation_id):
         membership = services.get_membership(request.user, conversation_id, slug)
-        allowed = {key: request.data[key] for key in ("name", "logo_props", "project_id") if key in request.data}
+        allowed = {
+            key: request.data[key] for key in ("name", "description", "logo_props", "project_id") if key in request.data
+        }
         conversation = services.update_group(membership, request.user, data=allowed)
         membership.conversation = conversation
         project = conversation.project
@@ -105,6 +118,7 @@ class ChatConversationDetailEndpoint(ChatBaseEndpoint):
             {
                 "conversation_id": str(conversation.id),
                 "name": conversation.name,
+                "description": conversation.description,
                 "logo_props": conversation.logo_props,
                 "project": (
                     {

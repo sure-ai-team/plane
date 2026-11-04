@@ -9,7 +9,7 @@ from rest_framework.response import Response
 # Module imports
 from plane.app.permissions import ROLE, allow_permission
 from plane.app.serializers.chat import member_data
-from plane.db.models import ConversationMember, ConversationRole
+from plane.db.models import ConversationMember, ConversationRole, ConversationType, NotifyLevel
 from plane.utils.chat_events import ChatEvent, publish_on_commit
 
 from . import services
@@ -72,8 +72,15 @@ class ChatMemberDetailEndpoint(ChatBaseEndpoint):
         if "is_muted" in request.data:
             if not is_self:
                 raise services.ChatError(403, "NOT_ALLOWED", "You can only mute a conversation for yourself.")
-            target.is_muted = bool(request.data.get("is_muted"))
-            target.save(update_fields=["is_muted", "updated_at"])
+            # Phase 1 clients: mute maps to notify level "off"; unmute restores the
+            # default level (all for direct chats, mentions for groups).
+            if request.data.get("is_muted"):
+                target.notify_level = NotifyLevel.OFF
+            elif target.notify_level == NotifyLevel.OFF:
+                target.notify_level = (
+                    NotifyLevel.ALL if target.conversation.type == ConversationType.DIRECT else NotifyLevel.MENTIONS
+                )
+            target.save(update_fields=["notify_level", "updated_at"])
             publish_on_commit(
                 ChatEvent.MEMBER_UPDATED,
                 {"conversation_id": str(conversation_id), "member": member_data(target)},

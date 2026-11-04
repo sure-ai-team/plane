@@ -11,15 +11,24 @@ from plane.app.views.chat import (
     ChatConfigEndpoint,
     ChatConversationDetailEndpoint,
     ChatConversationListEndpoint,
+    ChatForwardEndpoint,
     ChatLiveAccessEndpoint,
     ChatLiveMemberIdsEndpoint,
     ChatMemberDetailEndpoint,
     ChatMemberListEndpoint,
+    ChatMembershipSettingsEndpoint,
     ChatMessageDetailEndpoint,
     ChatMessageListEndpoint,
+    ChatPinEndpoint,
+    ChatPinListEndpoint,
+    ChatPreferenceEndpoint,
     ChatPresenceEndpoint,
+    ChatReactionDetailEndpoint,
+    ChatReactionListEndpoint,
     ChatReadEndpoint,
+    ChatSearchEndpoint,
     ChatUnreadCountEndpoint,
+    ChatWorkItemReferencesEndpoint,
 )
 
 PREFIX = "workspaces/<str:slug>/chat"
@@ -66,6 +75,32 @@ urlpatterns = [
     path(f"{PREFIX}/unread-count/", ChatUnreadCountEndpoint.as_view(), name="chat-unread-count"),
     path(f"{PREFIX}/presence/", ChatPresenceEndpoint.as_view(), name="chat-presence"),
     path(f"{PREFIX}/config/", ChatConfigEndpoint.as_view(), name="chat-config"),
+    # Phase 2 (docs/chat/phase-2/02-api-contracts.md)
+    path(
+        f"{PREFIX}/conversations/<uuid:conversation_id>/me/",
+        ChatMembershipSettingsEndpoint.as_view(),
+        name="chat-membership-settings",
+    ),
+    path(f"{PREFIX}/conversations/<uuid:conversation_id>/pins/", ChatPinListEndpoint.as_view(), name="chat-pins"),
+    path(f"{PREFIX}/messages/<uuid:message_id>/pin/", ChatPinEndpoint.as_view(), name="chat-message-pin"),
+    path(
+        f"{PREFIX}/messages/<uuid:message_id>/reactions/",
+        ChatReactionListEndpoint.as_view(),
+        name="chat-message-reactions",
+    ),
+    path(
+        f"{PREFIX}/messages/<uuid:message_id>/reactions/<str:emoji>/",
+        ChatReactionDetailEndpoint.as_view(),
+        name="chat-message-reaction-detail",
+    ),
+    path(f"{PREFIX}/messages/<uuid:message_id>/forward/", ChatForwardEndpoint.as_view(), name="chat-message-forward"),
+    path(f"{PREFIX}/preferences/", ChatPreferenceEndpoint.as_view(), name="chat-preferences"),
+    path(f"{PREFIX}/search/", ChatSearchEndpoint.as_view(), name="chat-search"),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/issues/<uuid:issue_id>/chat-references/",
+        ChatWorkItemReferencesEndpoint.as_view(),
+        name="chat-work-item-references",
+    ),
     # Internal: called by the live server with X-Live-Secret.
     path(
         f"{PREFIX}/live/conversations/<uuid:conversation_id>/member-ids/",
