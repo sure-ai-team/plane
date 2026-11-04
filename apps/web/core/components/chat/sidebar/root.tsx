@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import Link from "next/link";
-import { Archive, ArrowLeft, ChevronDown, Search, SquarePen, Star, TextSearch } from "lucide-react";
+import { Archive, ArrowLeft, ChevronDown, Search, Settings2, SquarePen, Star, TextSearch } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
 import type { TChatConversation } from "@plane/types";
@@ -18,6 +18,7 @@ import { useChat } from "@/hooks/store/use-chat";
 import type { TChatListFilter } from "@/store/chat";
 // local
 import { chatSearchPath } from "../common/helpers";
+import { ChatSettingsModal } from "../modals/chat-settings";
 import { ChatNewConversationModal } from "../modals/new-conversation";
 import { ChatConversationItem } from "./conversation-item";
 
@@ -95,6 +96,7 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNewOpen, setIsNewOpen] = useState(false);
   const [isArchiveOpen, setIsArchiveOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const store = chat.conversation;
 
@@ -148,6 +150,13 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
               aria-label={t("chat.sidebar.find")}
               aria-pressed={isSearchOpen}
               onClick={() => setIsSearchOpen((value) => !value)}
+            />
+            <IconButton
+              icon={Settings2}
+              variant="ghost"
+              size="base"
+              aria-label={t("chat.prefs.title")}
+              onClick={() => setIsSettingsOpen(true)}
             />
             <IconButton
               icon={SquarePen}
@@ -292,6 +301,11 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
       )}
 
       <ChatNewConversationModal workspaceSlug={workspaceSlug} isOpen={isNewOpen} onClose={() => setIsNewOpen(false)} />
+      <ChatSettingsModal
+        workspaceSlug={workspaceSlug}
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </div>
   );
 });

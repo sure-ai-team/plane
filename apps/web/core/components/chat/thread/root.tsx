@@ -25,6 +25,7 @@ import { ChatComposer } from "../composer/root";
 import { ChatDetailsPanel } from "../details/root";
 import { useChatFileIntake } from "../hooks/use-file-intake";
 import { ChatMessageList } from "./message-list";
+import { ChatNotifyLevel } from "./notify-level";
 import { ChatPinnedBar, ChatPinnedPanel } from "./pinned";
 import { ChatTypingIndicator } from "./small-items";
 
@@ -141,6 +142,7 @@ export const ChatThread = observer(function ChatThread(props: Props) {
           >
             <Star className={conversation.is_starred ? "size-4 fill-current text-warning-primary" : "size-4"} />
           </button>
+          <ChatNotifyLevel workspaceSlug={workspaceSlug} conversation={conversation} />
           <IconButton
             icon={Pin}
             variant={sidePanel === "pins" ? "tertiary" : "ghost"}

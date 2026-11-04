@@ -10,6 +10,8 @@ import { Clock } from "lucide-react";
 // plane imports
 import { Avatar, Row } from "@plane/ui";
 import { cn, calculateTimeAgo, renderFormattedDate, renderFormattedTime, getFileURL } from "@plane/utils";
+// components
+import { ChatInboxNotificationItem } from "@/components/chat/inbox-item";
 // hooks
 import { useWorkspaceNotifications } from "@/hooks/store/notifications";
 import { useNotification } from "@/hooks/store/notifications/use-notification";
@@ -64,6 +66,31 @@ export const NotificationItem = observer(function NotificationItem(props: TNotif
       }
     }
   };
+
+  // Chat mentions and direct messages (docs/chat/phase-2/05-notifications.md).
+  if (workspaceSlug && notification?.id && notification.entity_name === "chat_message") {
+    return (
+      <ChatInboxNotificationItem
+        workspaceSlug={workspaceSlug}
+        notification={notification}
+        isSelected={currentSelectedNotificationId === notification.id}
+        onOpen={async () => {
+          setCurrentSelectedNotificationId(notificationId);
+          if (notification.read_at === null) await markNotificationAsRead(workspaceSlug).catch(() => undefined);
+        }}
+        options={
+          <NotificationOption
+            workspaceSlug={workspaceSlug}
+            notificationId={notification.id}
+            isSnoozeStateModalOpen={isSnoozeStateModalOpen}
+            setIsSnoozeStateModalOpen={setIsSnoozeStateModalOpen}
+            customSnoozeModal={customSnoozeModal}
+            setCustomSnoozeModal={setCustomSnoozeModal}
+          />
+        }
+      />
+    );
+  }
 
   if (!workspaceSlug || !notificationId || !notification?.id || !notificationField || !workspace?.id || !projectId)
     return <></>;

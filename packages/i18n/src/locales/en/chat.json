@@ -309,6 +309,52 @@
       "add": "Add a description",
       "edit": "Edit description",
       "change_icon": "Click the icon to change it"
+    },
+    "notify": {
+      "title": "Notify me about",
+      "button_label": "Notifications: {level}",
+      "level": {
+        "all": "All messages",
+        "mentions": "Mentions only",
+        "off": "Off"
+      },
+      "level_description": {
+        "all": "Every new message",
+        "mentions": "When someone mentions you or replies to you",
+        "off": "Nothing. Unread counts still update."
+      },
+      "snooze": "Snooze for",
+      "snooze_1h": "1 hour",
+      "snooze_8h": "8 hours",
+      "snooze_tomorrow": "Until tomorrow",
+      "snoozed_short": "Snoozed",
+      "snoozed_until": "Snoozed until {time}",
+      "unsnooze": "Turn off",
+      "blocked": "Your browser is blocking notifications for this site. Allow them in the browser's site settings (the icon next to the address).",
+      "unsupported": "This browser can't show desktop notifications.",
+      "allow": "Allow desktop notifications",
+      "new_message": "New message",
+      "sent_photo": "Sent a photo",
+      "sent_video": "Sent a video",
+      "sent_voice": "Sent a voice note",
+      "sent_file": "Sent a file"
+    },
+    "prefs": {
+      "title": "Chat settings",
+      "subtitle": "These apply to you in this workspace.",
+      "desktop_notifications": "Desktop notifications",
+      "desktop_notifications_description": "Show a notification for new messages while this site is open.",
+      "sound": "Sound",
+      "sound_description": "Play a short sound with each notification.",
+      "show_preview": "Show message preview",
+      "show_preview_description": "Include the message text in notifications.",
+      "inbox_mentions": "Chat in Inbox",
+      "inbox_mentions_description": "Add mentions and direct messages to your Inbox."
+    },
+    "inbox": {
+      "mentioned": "{name} mentioned you in a chat",
+      "mentioned_in": "{name} mentioned you in {conversation}",
+      "direct": "{name} sent you a message"
     }
   }
 }

@@ -14,6 +14,7 @@
 """
 
 # Python imports
+import html
 import logging
 
 # Django imports
@@ -36,7 +37,9 @@ from plane.db.models import (
 logger = logging.getLogger("plane.worker")
 
 ENTITY_NAME = "chat_message"
+# The Inbox puts rows whose sender contains "mentioned" under its Mentions tab.
 SENDER = "chat"
+SENDER_MENTION = "chat_mentioned"
 SNIPPET_LENGTH = 200
 
 
@@ -64,9 +67,9 @@ def _row_fields(message, receiver_id, kind):
         "entity_name": ENTITY_NAME,
         "title": f"{sender_name} mentioned you" if kind == "mention" else f"{sender_name} sent you a message",
         "message": {"text": text},
-        "message_html": f"<p>{text}</p>" if text else "<p></p>",
+        "message_html": f"<p>{html.escape(text)}</p>" if text else "<p></p>",
         "message_stripped": text,
-        "sender": SENDER,
+        "sender": SENDER_MENTION if kind == "mention" else SENDER,
         "triggered_by_id": message.sender_id,
         "receiver_id": receiver_id,
         "data": {

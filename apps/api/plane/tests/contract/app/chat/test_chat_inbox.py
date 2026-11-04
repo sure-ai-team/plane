@@ -16,7 +16,8 @@ from .conftest import base, me_url, member_url, message_url, read_url, send
 
 
 def mention_html(user, text="look"):
-    return f'<p><mention-component entity_name="user_mention" entity_identifier="{user.id}"></mention-component> {text}</p>'
+    mention = f'<mention-component entity_name="user_mention" entity_identifier="{user.id}"></mention-component>'
+    return f"<p>{mention} {text}</p>"
 
 
 def post(client, slug, conversation_id, body_html):
@@ -88,3 +89,18 @@ class TestInbox:
         alice_client.delete(member_url(workspace.slug, group["id"], alice.id))
         assert not Notification.all_objects.filter(receiver=alice, entity_name="chat_message").exists()
         assert not ConversationMember.objects.get(conversation_id=group["id"], member=alice).is_active
+
+    def test_rows_show_in_the_inbox_tabs(self, owner_client, alice_client, alice, workspace, group, direct):
+        chat_inbox_notifications(
+            post(owner_client, workspace.slug, group["id"], mention_html(alice, "<b>x</b>")).data["id"]
+        )
+        chat_inbox_notifications(send(owner_client, workspace.slug, direct["id"], "hi").data["id"])
+        url = f"/api/workspaces/{workspace.slug}/users/notifications/"
+        mentions = alice_client.get(url + "?mentioned=true").data
+        others = alice_client.get(url).data
+        assert [row["data"]["type"] for row in mentions] == ["mention"]
+        assert [row["data"]["type"] for row in others] == ["direct"]
+        assert "<b>" not in mentions[0]["message_html"]
+        counts = alice_client.get(f"/api/workspaces/{workspace.slug}/users/notifications/unread/").data
+        assert counts["mention_unread_notifications_count"] == 1
+        assert counts["total_unread_notifications_count"] == 1

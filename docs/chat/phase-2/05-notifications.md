@@ -24,14 +24,14 @@ Created in `services.send_message`, after commit, by a Celery task `chat_inbox_n
 4. When the recipient reads past that seq in chat (`read/` endpoint), matching Inbox rows are marked read.
 5. Deleting a message deletes its rows. Leaving or being removed from a conversation deletes your unread rows for it.
 
-The web Inbox list renders `entity_name = "chat_message"` rows with the chat icon. The detail pane shows the message in context with "Open in chat".
+The Inbox list endpoint returns `entity_name` `issue` and `chat_message` rows. Mention rows use `sender = "chat_mentioned"` so they appear under the Inbox's Mentions tab; direct-message rows use `sender = "chat"`. `message_html` is escaped text. The web Inbox renders chat rows with a chat badge; clicking one marks it read and opens the message in chat (`?m=`).
 
 ## Desktop notifications (client)
 
 Decision flow is in `03-realtime.md`. Details:
 
 - Title: `<sender> · <conversation name>` (direct: sender only). Body: the message preview (respecting `show_preview`; otherwise "New message"). Attachments only: "Sent a photo", "Sent a voice note", etc. Icon: the workspace logo.
-- Sound: one short bundled audio file (≤ 20 KB), throttled to one play per 3 s.
+- Sound: a short two-tone chime made with Web Audio (no audio file), throttled to one play per 3 s.
 - Leader tab election via `BroadcastChannel`, so only one tab notifies. If `BroadcastChannel` is unavailable (old Safari), every tab notifies but uses the same `tag`, so the OS collapses them.
 - Permission is requested only from a user gesture (preferences toggle or the one-time prompt in the chat empty state).
 

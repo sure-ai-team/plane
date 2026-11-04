@@ -15,6 +15,8 @@ export type IChatServiceLike = Pick<
   | "listConversations"
   | "updateMembership"
   | "searchMessages"
+  | "getPreferences"
+  | "updatePreferences"
   | "getConversation"
   | "createConversation"
   | "updateConversation"

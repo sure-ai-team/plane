@@ -4,14 +4,18 @@
  * See the LICENSE file for details.
  */
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { observer } from "mobx-react";
 import { useParams } from "next/navigation";
+import { useTranslation } from "@plane/i18n";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
+import { useAppRouter } from "@/hooks/use-app-router";
 // local
+import { chatPath } from "./common/helpers";
 import { useChatAvailability } from "./hooks/use-chat-availability";
+import { useChatTabTitle } from "./hooks/use-chat-tab-title";
 import { prepareChatMedia } from "./media/prepare";
 
 /**
@@ -25,6 +29,28 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
   const { data: currentUser } = useUser();
   const isAvailable = useChatAvailability(slug);
   const userId = currentUser?.id;
+  const { t } = useTranslation();
+  const router = useAppRouter();
+  const routerRef = useRef(router);
+  routerRef.current = router;
+
+  // Desktop notifications use the app's translations and open the message on click.
+  useEffect(() => {
+    chat.setTranslator(t as (key: string, params?: Record<string, unknown>) => string);
+  }, [chat, t]);
+  useEffect(() => {
+    if (!slug) return;
+    chat.notify.setOpenHandler((conversationId, messageId) =>
+      routerRef.current.push(`${chatPath(slug, conversationId)}?m=${messageId}`)
+    );
+    return () => chat.notify.setOpenHandler(null);
+  }, [chat, slug]);
+
+  const conversations = chat.conversation.sorted;
+  useChatTabTitle(
+    isAvailable ? chat.conversation.totalUnread : 0,
+    isAvailable && conversations.some((conversation) => (conversation.unread_mention_count ?? 0) > 0)
+  );
 
   useEffect(() => {
     if (!slug || !userId || !isAvailable) return;

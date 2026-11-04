@@ -37,7 +37,8 @@ def test_link_parsing():
     html = (
         '<a href="https://pm.example.com/acme/browse/mob-7/">x</a>'
         '<a href="/other/browse/MOB-8/">other workspace</a>'
-        '<a href="/acme/projects/11111111-1111-1111-1111-111111111111/issues/22222222-2222-2222-2222-222222222222/">y</a>'
+        '<a href="/acme/projects/11111111-1111-1111-1111-111111111111/'
+        'issues/22222222-2222-2222-2222-222222222222/">y</a>'
         '<a href="/acme/browse/MOB-7">duplicate</a>'
     )
     browse, ids = linked_work_item_keys(html, "acme")
@@ -66,7 +67,10 @@ class TestWorkItemRefs:
         assert not MessageWorkItem.objects.filter(message_id=message["id"]).exists()
 
     def test_unknown_or_foreign_links_ignored(self, owner_client, workspace, group, issue):
-        html = f'<p><a href="/{workspace.slug}/browse/MOB-999/">x</a><a href="/elsewhere/browse/MOB-{issue.sequence_id}/">y</a></p>'
+        html = (
+            f'<p><a href="/{workspace.slug}/browse/MOB-999/">x</a>'
+            f'<a href="/elsewhere/browse/MOB-{issue.sequence_id}/">y</a></p>'
+        )
         message = owner_client.post(messages_url(workspace.slug, group["id"]), {"body_html": html}, format="json").data
         assert message["work_items"] == []
 

@@ -73,7 +73,7 @@ Shown next to the time when `edited_at` is set. The tooltip shows the edit time.
 ### Notifications UI [P2Notify]
 
 - Thread header button with the current level → popover (All / Mentions only / Off + Snooze 1 h / 8 h / until tomorrow 08:00 local).
-- Profile settings → new "Chat" section with the four toggles and the permission banner ("Your browser is blocking notifications" + help link).
+- **Chat settings** dialog (gear in the chat sidebar header) with the four toggles and the permission banner. It lives in chat, not profile settings, because chat preferences are per workspace and profile settings aren't.
 - Inbox: chat rows render with the chat badge, conversation name and snippet. Clicking opens the message in chat.
 - Permission prompt: only after a user action (e.g. turning the toggle on), never on page load.
 

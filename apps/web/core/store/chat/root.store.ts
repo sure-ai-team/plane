@@ -9,6 +9,8 @@ import type { TChatConfig, TChatMessage, TChatServerFrame, TChatUser } from "@pl
 import type { ChatSocket, TChatSocketOptions } from "@/services/chat-socket";
 import { ChatConversationStore } from "./conversation.store";
 import { ChatMessageStore } from "./message.store";
+import { ChatNotifyStore } from "./notify.store";
+import type { TDesktopNotifier, TabLeader } from "./notify.store";
 import type { TSendDraft } from "./message.store";
 import { ChatRealtimeStore } from "./realtime.store";
 import { ChatSearchStore } from "./search.store";
@@ -48,7 +50,14 @@ export type TChatRootDeps = {
   now?: () => number;
   /** Where drafts are kept (P2-D9); `localStorage` in the browser, none in tests by default. */
   storage?: TChatStorage | null;
+  /** Desktop notifications (P2-D4); absent in tests unless a fake is passed. */
+  desktop?: TDesktopNotifier | null;
+  leader?: TabLeader | null;
+  /** Whether this tab is visible (document.visibilityState in the browser). */
+  isVisible?: () => boolean;
 };
+
+type TTranslate = (key: string, params?: Record<string, unknown>) => string;
 
 /**
  * Entry point for workspace chat state (docs/chat/05-frontend.md § Stores).
@@ -65,6 +74,8 @@ export class ChatRootStore {
   readonly upload: ChatUploadStore;
   readonly realtime: ChatRealtimeStore;
   readonly search: ChatSearchStore;
+  readonly notify: ChatNotifyStore;
+  private translate: TTranslate = (key) => key;
   readonly socket: ChatSocket;
 
   private pruneTimer: ReturnType<typeof setInterval> | null = null;
@@ -87,6 +98,7 @@ export class ChatRootStore {
     );
     this.realtime = new ChatRealtimeStore(currentUserId, deps.now);
     this.search = new ChatSearchStore(deps.service);
+    this.notify = new ChatNotifyStore(deps.service, deps.desktop ?? null, deps.leader ?? null, deps.now);
     this.socket = deps.createSocket({
       onFrame: (frame) => this.applyFrame(frame),
       onStatus: (status, closeCode) => this.realtime.setStatus(status, closeCode),
@@ -132,7 +144,9 @@ export class ChatRootStore {
       this.conversation.fetchArchived(workspaceSlug).catch(() => undefined),
       this.loadConfig(),
       this.loadPresence(),
+      this.notify.loadPreferences(workspaceSlug),
     ]);
+    this.notify.start();
     runInAction(() => {
       this.isInitialized = true;
     });
@@ -150,6 +164,7 @@ export class ChatRootStore {
     this.message.reset();
     this.realtime.reset();
     this.search.clear();
+    this.notify.reset();
     if (this.activeConversationId) this.upload.clear(this.activeConversationId);
     this.workspaceSlug = null;
     this.activeConversationId = null;
@@ -262,6 +277,11 @@ export class ChatRootStore {
     }
   }
 
+  /** Lets non-React code (desktop notifications) use the app's translations. */
+  setTranslator(translate: TTranslate) {
+    this.translate = translate;
+  }
+
   // ------------------------------------------------------------------ shortcut requests
 
   requestEditLast(conversationId: string) {
@@ -368,6 +388,9 @@ export class ChatRootStore {
       case "membership.updated":
         this.conversation.applyMembershipUpdate(frame.d);
         return;
+      case "preferences.updated":
+        this.notify.applyPreferences(frame.d);
+        return;
       case "conversation.deleted":
         this.removeConversation(frame.d.conversation_id);
         return;
@@ -416,6 +439,16 @@ export class ChatRootStore {
     if (!this.conversation.applyMessageCreated(message) && slug) {
       void this.conversation.fetchOne(slug, message.conversation_id);
     }
+    const isVisible = this.deps.isVisible ? this.deps.isVisible() : true;
+    this.notify.onMessage(
+      message,
+      {
+        me: this.deps.currentUser()?.id,
+        conversation: this.conversation.getById(message.conversation_id),
+        isConversationOnScreen: isVisible && this.activeConversationId === message.conversation_id,
+      },
+      this.translate
+    );
   }
 
   private removeConversation(conversationId: string) {
