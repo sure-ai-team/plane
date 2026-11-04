@@ -19,6 +19,8 @@ export { ChatRootStore } from "./root.store";
 export type { TFocusRequest, TPinState, TThreadItem, TPendingMessage, TThreadState } from "./message.store";
 export { applyReaction } from "./reactions";
 export { canSearch } from "./search.store";
+export { MAX_EXPANDED } from "./dock.store";
+export type { TDockEntry } from "./dock.store";
 export { notificationContent, shouldNotify, TabLeader } from "./notify.store";
 export type { TNotifyPermission } from "./notify.store";
 export type { TChatSearchFilters } from "./search.store";

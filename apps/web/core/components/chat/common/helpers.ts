@@ -4,7 +4,14 @@
  * See the LICENSE file for details.
  */
 
-import type { TChatConversation, TChatMessage, TChatPreview, TChatSearchResult, TChatUser } from "@plane/types";
+import type {
+  TChatConversation,
+  TChatMessage,
+  TChatPreferences,
+  TChatPreview,
+  TChatSearchResult,
+  TChatUser,
+} from "@plane/types";
 import type { TThreadItem } from "@/store/chat/message.store";
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
@@ -149,4 +156,15 @@ export const snoozeUntil = (preset: "1h" | "8h" | "tomorrow", now: Date = new Da
   tomorrow.setDate(now.getDate() + 1);
   tomorrow.setHours(8, 0, 0, 0);
   return tomorrow.toISOString();
+};
+
+/** Bubbles or compact for a conversation, from my preferences (P2-D11). */
+export const messageLayoutFor = (
+  conversation: Pick<TChatConversation, "type">,
+  preferences: Pick<TChatPreferences, "message_layout" | "bubbles_direct_only"> | null
+): "compact" | "bubbles" => {
+  const layout = preferences?.message_layout ?? "bubbles";
+  const directOnly = preferences?.bubbles_direct_only ?? true;
+  if (layout !== "bubbles") return "compact";
+  return directOnly && conversation.type !== "direct" ? "compact" : "bubbles";
 };

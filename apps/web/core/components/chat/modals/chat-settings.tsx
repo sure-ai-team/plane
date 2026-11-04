@@ -14,6 +14,44 @@ import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 
+type TChoiceProps = {
+  label: string;
+  description: string;
+  value: string;
+  options: Array<{ value: string; label: string }>;
+  onChange: (value: string) => void;
+};
+
+function ChatChoice({ label, description, value, options, onChange }: TChoiceProps) {
+  return (
+    <div className="flex flex-col gap-2 border-t border-subtle pt-3 pb-1">
+      <div className="flex flex-col">
+        <span className="text-13 font-medium text-primary">{label}</span>
+        <span className="text-12 text-tertiary">{description}</span>
+      </div>
+      <div role="radiogroup" aria-label={label} className="flex gap-2">
+        {options.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            role="radio"
+            aria-checked={value === option.value}
+            onClick={() => onChange(option.value)}
+            className={cn(
+              "h-8 flex-1 rounded-md border px-3 text-13 font-medium",
+              value === option.value
+                ? "border-accent-strong bg-accent-subtle text-accent-primary"
+                : "border-subtle text-secondary hover:bg-layer-transparent-hover"
+            )}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 type TToggleKey = "desktop_notifications" | "sound" | "show_preview" | "inbox_mentions";
 const TOGGLES: TToggleKey[] = ["desktop_notifications", "sound", "show_preview", "inbox_mentions"];
 
@@ -94,6 +132,37 @@ export const ChatSettingsModal = observer(function ChatSettingsModal({ workspace
             );
           })}
         </div>
+        <ChatChoice
+          label={t("chat.prefs.layout.title")}
+          description={t("chat.prefs.layout.description")}
+          value={preferences?.message_layout ?? "bubbles"}
+          options={[
+            { value: "bubbles", label: t("chat.prefs.layout.bubbles") },
+            { value: "compact", label: t("chat.prefs.layout.compact") },
+          ]}
+          onChange={(value) => save({ message_layout: value as TChatPreferences["message_layout"] })}
+        />
+        {(preferences?.message_layout ?? "bubbles") === "bubbles" && (
+          <label className="flex items-center gap-2 py-2 text-13 text-secondary">
+            <input
+              type="checkbox"
+              className="size-4"
+              checked={preferences?.bubbles_direct_only ?? true}
+              onChange={(event) => save({ bubbles_direct_only: event.target.checked })}
+            />
+            {t("chat.prefs.layout.direct_only")}
+          </label>
+        )}
+        <ChatChoice
+          label={t("chat.prefs.minimize.title")}
+          description={t("chat.prefs.minimize.description")}
+          value={preferences?.minimize_style ?? "docked"}
+          options={[
+            { value: "docked", label: t("chat.prefs.minimize.docked") },
+            { value: "heads", label: t("chat.prefs.minimize.heads") },
+          ]}
+          onChange={(value) => save({ minimize_style: value as TChatPreferences["minimize_style"] })}
+        />
         {permission === "default" && preferences?.desktop_notifications && (
           <button
             type="button"

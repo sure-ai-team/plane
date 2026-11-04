@@ -87,7 +87,7 @@ Shown next to the time when `edited_at` is set. The tooltip shows the edit time.
 ### Minimized chat (dock) [P2Docked]
 
 - `components/chat/dock/` mounted once in the workspace layout (next to `ChatBootstrap`). Hidden on chat routes and below 768 px.
-- Entry points: "Open in a window" in a conversation's More menu, "Discuss in chat" on work items, clicking a desktop notification while on another page, and the dock launcher.
+- Entry points: the dock launcher, clicking a desktop notification while on another page, and "Discuss in chat" on work items (PR 15). No "Open in a window" on the full chat page: the dock is hidden there.
 - Up to **3 expanded windows** (300 × 460, right-aligned with 12 px gaps). Opening a fourth minimizes the oldest to a tab. Windows show a compact thread (bubbles always), composer with attach and voice, typing indicator, and an "Open in full chat" button.
 - Minimized tab: header only, with unread badge. **Chat heads** (if `minimize_style = heads`): 52 px avatars stacked on the right edge, with unread badge and hover preview. They're draggable vertically, and their position persists.
 - The launcher shows total unread; expanding it gives a compact conversation list.
