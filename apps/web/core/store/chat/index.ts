@@ -9,14 +9,18 @@ import { v4 as uuidv4 } from "uuid";
 import { LIVE_BASE_PATH, LIVE_BASE_URL } from "@plane/constants";
 import type { IUser, TChatUser } from "@plane/types";
 import { ChatService } from "@/services/chat.service";
+import { createBrowserNotifier, createNotifyChannel } from "@/services/chat-notifier";
 import { buildChatSocketUrl, ChatSocket } from "@/services/chat-socket";
 import type { IChatTransport } from "@/services/chat-socket";
+import { TabLeader } from "./notify.store";
 import { ChatRootStore } from "./root.store";
 
 export { ChatRootStore } from "./root.store";
 export type { TFocusRequest, TPinState, TThreadItem, TPendingMessage, TThreadState } from "./message.store";
 export { applyReaction } from "./reactions";
 export { canSearch } from "./search.store";
+export { notificationContent, shouldNotify, TabLeader } from "./notify.store";
+export type { TNotifyPermission } from "./notify.store";
 export type { TChatSearchFilters } from "./search.store";
 export { defaultNotifyLevel, isQuiet } from "./conversation.store";
 export type { TChatListFilter } from "./conversation.store";
@@ -42,6 +46,9 @@ export const createChatRootStore = (getCurrentUser: () => IUser | undefined): Ch
     service: new ChatService(),
     currentUser: () => toChatUser(getCurrentUser()),
     createClientId: () => uuidv4(),
+    desktop: createBrowserNotifier("/favicon/android-chrome-192x192.png"),
+    leader: new TabLeader(createNotifyChannel(), uuidv4()),
+    isVisible: () => typeof document === "undefined" || document.visibilityState === "visible",
     createSocket: (handlers) =>
       new ChatSocket({
         ...handlers,

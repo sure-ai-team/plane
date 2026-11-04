@@ -90,6 +90,8 @@ export const makeService = (): TFakeService => ({
   listConversations: mock<"listConversations">(async () => []),
   getConversation: mock<"getConversation">(),
   updateMembership: mock<"updateMembership">(),
+  getPreferences: mock<"getPreferences">(async () => ({ ...DEFAULT_TEST_PREFERENCES })),
+  updatePreferences: mock<"updatePreferences">(async (_slug, payload) => ({ ...DEFAULT_TEST_PREFERENCES, ...payload })),
   searchMessages: mock<"searchMessages">(async () => ({ results: [], next_cursor: null, total_estimate: 0 })),
   createConversation: mock<"createConversation">(),
   updateConversation: mock<"updateConversation">(),
@@ -132,6 +134,16 @@ export const makeService = (): TFakeService => ({
   cancelUpload: mock<"cancelUpload">(async () => undefined),
   uploadToStorage: mock<"uploadToStorage">(async () => undefined),
 });
+
+export const DEFAULT_TEST_PREFERENCES = {
+  desktop_notifications: true,
+  sound: true,
+  show_preview: true,
+  inbox_mentions: true,
+  message_layout: "bubbles" as const,
+  bubbles_direct_only: true,
+  minimize_style: "docked" as const,
+};
 
 export const flush = async (times = 3) => {
   for (let index = 0; index < times; index += 1) {

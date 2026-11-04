@@ -95,7 +95,7 @@ No schema change. Chat rows use:
 
 - `entity_name = "chat_message"`, `entity_identifier = message.id`, `project = conversation.project` (null allowed).
 - `data = {"conversation_id", "message_id", "seq", "conversation_name", "type": "mention" | "direct"}`.
-- `sender = "chat"`.
+- `sender = "chat_mentioned"` for mentions (the Inbox's Mentions tab matches "mentioned"), `"chat"` for direct messages.
 
 Rows are deleted when the message is deleted (hard delete, in `services.delete_message`).
 

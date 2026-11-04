@@ -71,7 +71,8 @@ class TestMembershipSettings:
         assert counts["total"] == 0
 
     def test_unread_mentions(self, owner_client, alice_client, alice, workspace, group):
-        mention = f'<p><mention-component entity_name="user_mention" entity_identifier="{alice.id}"></mention-component> look</p>'
+        component = f'<mention-component entity_name="user_mention" entity_identifier="{alice.id}"></mention-component>'
+        mention = f"<p>{component} look</p>"
         owner_client.post(
             f"{base(workspace.slug)}/conversations/{group['id']}/messages/", {"body_html": mention}, format="json"
         )

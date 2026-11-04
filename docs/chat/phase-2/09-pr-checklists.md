@@ -41,12 +41,12 @@ Branch `feat/chat-11-sidebar-search`
 
 Branch `feat/chat-12-notifications`
 
-- [ ] Level popover + snooze in the thread header and row menu
-- [ ] Profile → Chat preferences section + permission banner
-- [ ] Desktop notifications with leader tab, sound, preview toggle, click-through
-- [ ] Tab title count + favicon dot
-- [ ] Inbox rendering of `chat_message` rows + detail pane
-- [ ] Decision-table tests
+- [x] Level popover + snooze in the thread header and row menu
+- [x] Chat settings dialog (sidebar gear; per workspace, so not in profile settings) + permission banner
+- [x] Desktop notifications with leader tab, sound, preview toggle, click-through
+- [x] Tab title count + favicon dot
+- [x] Inbox: list endpoint includes `chat_message`; mentions under Mentions (`sender = "chat_mentioned"`); chat card opens the message
+- [x] Decision-table tests
 
 ## PR 13 — Composer (M)
 

@@ -140,3 +140,13 @@ export const neighbourConversation = (
   }
   return undefined;
 };
+
+/** Snooze presets: 1 hour, 8 hours, or until 08:00 tomorrow (local time). */
+export const snoozeUntil = (preset: "1h" | "8h" | "tomorrow", now: Date = new Date()): string => {
+  if (preset === "1h") return new Date(now.getTime() + 3_600_000).toISOString();
+  if (preset === "8h") return new Date(now.getTime() + 8 * 3_600_000).toISOString();
+  const tomorrow = new Date(now);
+  tomorrow.setDate(now.getDate() + 1);
+  tomorrow.setHours(8, 0, 0, 0);
+  return tomorrow.toISOString();
+};

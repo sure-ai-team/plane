@@ -25,6 +25,7 @@ import type {
   TChatForwardPayload,
   TChatMembershipSettings,
   TChatMembershipSettingsPayload,
+  TChatPreferences,
   TChatSearchQuery,
   TChatSearchResponse,
   TChatPinnedMessage,
@@ -72,6 +73,14 @@ export class ChatService extends APIService {
     payload: TChatMembershipSettingsPayload
   ): Promise<TChatMembershipSettings> {
     return this.call(this.patch(`${this.base(workspaceSlug)}/conversations/${conversationId}/me/`, payload));
+  }
+
+  getPreferences(workspaceSlug: string): Promise<TChatPreferences> {
+    return this.call(this.get(`${this.base(workspaceSlug)}/preferences/`));
+  }
+
+  updatePreferences(workspaceSlug: string, payload: Partial<TChatPreferences>): Promise<TChatPreferences> {
+    return this.call(this.patch(`${this.base(workspaceSlug)}/preferences/`, payload));
   }
 
   searchMessages(workspaceSlug: string, query: TChatSearchQuery): Promise<TChatSearchResponse> {
