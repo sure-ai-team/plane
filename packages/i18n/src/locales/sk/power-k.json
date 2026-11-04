@@ -105,7 +105,10 @@
       "open_project_setting": "Otvoriť nastavenie projektu",
       "nav_project_settings": "Prejsť na nastavenia projektu",
       "nav_workspace_active_cycle": "Prejsť na všetky aktívne cykly",
-      "nav_project_overview": "Prejsť na prehľad projektu"
+      "nav_project_overview": "Prejsť na prehľad projektu",
+      "nav_chat": "Prejsť na chat",
+      "open_chat_conversation": "Otvoriť konverzáciu",
+      "search_chat_messages": "Hľadať správy v chate"
     },
     "account_actions": {
       "sign_out": "Odhlásiť sa",
@@ -166,7 +169,8 @@
       "update_theme": "Zmeniť tému",
       "update_timezone": "Zmeniť časové pásmo",
       "update_start_of_week": "Zmeniť prvý deň týždňa",
-      "update_language": "Zmeniť jazyk"
+      "update_language": "Zmeniť jazyk",
+      "open_chat_conversation": "Otvoriť konverzáciu"
     },
     "search_menu": {
       "no_results": "Nenašli sa žiadne výsledky",
