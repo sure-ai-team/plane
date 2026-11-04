@@ -10,6 +10,12 @@ A message links to a work item with an ordinary link to the work item's page:
 absolute; only links into the message's own workspace count. The references are
 stored in ``MessageWorkItem`` so the client can render rich cards and the work
 item page can list the conversations that discuss it.
+
+Plain text counts too: a pasted work-item URL that the editor did not turn into a
+link, and a bare key such as ``MOB-12``. Keys must be upper case (as identifiers
+are) and only resolve when that work item exists in the workspace, so ordinary
+words like ``covid-19`` or ``UTF-8`` (with no ``UTF`` project) never match. Text
+inside code blocks is ignored.
 """
 
 # Python imports
@@ -28,25 +34,49 @@ ISSUE_PATH = re.compile(
 )
 
 
+# A URL or root-relative path written as text; trailing punctuation is trimmed below.
+TEXT_URL = re.compile(r"(?:https?://[^\s/]+)?/[^\s<>\"']+/(?:browse|projects)/[^\s<>\"']+")
+# A bare key: upper-case identifier (as projects use), not part of a longer word or path.
+BARE_KEY = re.compile(r"(?<![\w/-])(?P<identifier>[A-Z][A-Z0-9]{0,11})-(?P<sequence>\d{1,9})(?![\w-])")
+
+
+def _add(items: list, value) -> None:
+    if value not in items:
+        items.append(value)
+
+
+def _match_path(path: str, slug: str, browse_keys: list, issue_ids: list) -> bool:
+    match = BROWSE_PATH.match(path)
+    if match and match.group("slug") == slug:
+        _add(browse_keys, (match.group("identifier").upper(), int(match.group("sequence"))))
+        return True
+    match = ISSUE_PATH.match(path)
+    if match and match.group("slug") == slug:
+        _add(issue_ids, match.group("issue_id").lower())
+        return True
+    return False
+
+
 def linked_work_item_keys(body_html: str, slug: str):
-    """Return ``(browse_keys, issue_ids)`` for links in ``body_html`` that point
-    into workspace ``slug``. ``browse_keys`` are ``(IDENTIFIER, sequence)``."""
-    if not body_html or "href" not in body_html:
+    """Return ``(browse_keys, issue_ids)`` for work items ``body_html`` refers to in
+    workspace ``slug``: links first, then URLs and keys in the text, in order.
+    ``browse_keys`` are ``(IDENTIFIER, sequence)``."""
+    if not body_html:
         return [], []
     browse_keys, issue_ids = [], []
-    for anchor in BeautifulSoup(body_html, "html.parser").find_all("a", href=True):
-        path = urlparse(anchor["href"]).path or ""
-        match = BROWSE_PATH.match(path)
-        if match and match.group("slug") == slug:
-            key = (match.group("identifier").upper(), int(match.group("sequence")))
-            if key not in browse_keys:
-                browse_keys.append(key)
+    soup = BeautifulSoup(body_html, "html.parser")
+    for anchor in soup.find_all("a", href=True):
+        _match_path(urlparse(anchor["href"]).path or "", slug, browse_keys, issue_ids)
+    # Text outside links and code: pasted URLs and bare keys.
+    for node in soup.find_all(string=True):
+        if node.find_parent(["a", "code", "pre"]):
             continue
-        match = ISSUE_PATH.match(path)
-        if match and match.group("slug") == slug:
-            issue_id = match.group("issue_id").lower()
-            if issue_id not in issue_ids:
-                issue_ids.append(issue_id)
+        text = str(node)
+        for url in TEXT_URL.findall(text):
+            _match_path(urlparse(url.rstrip(".,;:!?)]}")).path or "", slug, browse_keys, issue_ids)
+        text = TEXT_URL.sub(" ", text)
+        for match in BARE_KEY.finditer(text):
+            _add(browse_keys, (match.group("identifier"), int(match.group("sequence"))))
     return browse_keys, issue_ids
 
 

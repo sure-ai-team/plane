@@ -19,6 +19,7 @@ export type TChatWorkItemCard = {
   assigneeIds: string[];
   targetDate: string | null;
   subIssuesCount: number;
+  isArchived: boolean;
 };
 
 /** Loads work items through the existing work-item API, which applies project permissions. */
@@ -28,23 +29,31 @@ export type TWorkItemFetcher = (workspaceSlug: string, projectId: string, ids: s
 export type TWorkItemEntry = TChatWorkItemCard | "missing";
 
 export const WORK_ITEM_BATCH_MS = 50;
+/** A card older than this is fetched again the next time it is shown (state, assignee and name change). */
+export const WORK_ITEM_STALE_MS = 60_000;
 
 /** Batches card lookups per project so a thread full of links makes one request per project. */
 export class ChatWorkItemStore {
   items = new Map<string, TWorkItemEntry>();
   private queue = new Map<string, { slug: string; refs: Map<string, TChatWorkItemRef> }>();
-  private requested = new Set<string>();
+  /** When each item was last requested, so stale cards refresh. */
+  private requested = new Map<string, number>();
   private timer: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private readonly fetchItems: TWorkItemFetcher | null) {
+  constructor(
+    private readonly fetchItems: TWorkItemFetcher | null,
+    private readonly now: () => number = Date.now
+  ) {
     makeObservable(this, { items: observable, apply: action, reset: action });
   }
 
   get = (id: string): TWorkItemEntry | undefined => this.items.get(id);
 
   request(workspaceSlug: string, ref: TChatWorkItemRef) {
-    if (!this.fetchItems || this.requested.has(ref.id)) return;
-    this.requested.add(ref.id);
+    if (!this.fetchItems) return;
+    const last = this.requested.get(ref.id);
+    if (last !== undefined && this.now() - last < WORK_ITEM_STALE_MS) return;
+    this.requested.set(ref.id, this.now());
     const batch = this.queue.get(ref.project_id) ?? { slug: workspaceSlug, refs: new Map() };
     batch.refs.set(ref.id, ref);
     this.queue.set(ref.project_id, batch);
@@ -66,7 +75,11 @@ export class ChatWorkItemStore {
           );
           this.apply(refs, issues);
         } catch {
-          this.apply(refs, []);
+          // A failed refresh keeps the card already shown; only first loads fall back to the chip.
+          this.apply(
+            refs.filter((ref) => !this.items.has(ref.id)),
+            []
+          );
         }
       })
     );
@@ -90,6 +103,7 @@ export class ChatWorkItemStore {
               assigneeIds: issue.assignee_ids ?? [],
               targetDate: issue.target_date ?? null,
               subIssuesCount: issue.sub_issues_count ?? 0,
+              isArchived: !!issue.archived_at,
             }
           : "missing"
       );

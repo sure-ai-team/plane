@@ -88,6 +88,8 @@ export class ChatRootStore {
   private pruneTimer: ReturnType<typeof setInterval> | null = null;
   /** Unsent composer text per conversation, persisted per user and workspace (P2-D9). */
   drafts = new Map<string, string>();
+  /** Bumped when a draft is written from outside the composer, so an open composer reloads it. */
+  draftPrefills = new Map<string, number>();
   /** UI requests raised by keyboard shortcuts (consumed by the thread components). */
   editLastRequest: { conversationId: string; nonce: number } | null = null;
   jumpUnreadNonce = 0;
@@ -128,10 +130,12 @@ export class ChatRootStore {
       config: observable.ref,
       isInitialized: observable,
       drafts: observable,
+      draftPrefills: observable,
       editLastRequest: observable.ref,
       jumpUnreadNonce: observable,
       isShortcutsOpen: observable,
       setDraft: action,
+      prefillDraft: action,
       requestEditLast: action,
       clearEditLastRequest: action,
       requestJumpToUnread: action,
@@ -278,6 +282,12 @@ export class ChatRootStore {
     if (html && text) this.drafts.set(conversationId, html);
     else this.drafts.delete(conversationId);
     this.saveDrafts();
+  }
+
+  /** Put text in a conversation's draft from elsewhere (e.g. "Discuss in chat"); an open composer shows it. */
+  prefillDraft(conversationId: string, html: string) {
+    this.setDraft(conversationId, html);
+    this.draftPrefills.set(conversationId, (this.draftPrefills.get(conversationId) ?? 0) + 1);
   }
 
   /** Remove everything chat stored in this browser (drafts, dock state). Called on sign-out (P2-S11/S12). */

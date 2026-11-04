@@ -76,6 +76,9 @@ const WorkItemCard = observer(function WorkItemCard({ workspaceSlug, workItem, t
         <span className="truncate text-13 font-medium">{card.name}</span>
       </span>
       <span className="flex flex-wrap items-center gap-1.5 text-11 text-secondary">
+        {card.isArchived && (
+          <span className="rounded-sm border border-subtle px-1.5 py-0.5">{t("chat.workitem.archived")}</span>
+        )}
         {state && <span className="rounded-sm border border-subtle px-1.5 py-0.5">{state.name}</span>}
         {card.priority && card.priority !== "none" && (
           <span className="flex items-center gap-1 rounded-sm border border-subtle px-1.5 py-0.5 capitalize">

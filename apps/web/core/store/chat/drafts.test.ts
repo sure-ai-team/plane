@@ -34,4 +34,13 @@ describe("composer drafts", () => {
     root.teardown();
     expect(root.getDraft("b")).toBeUndefined();
   });
+
+  it("prefills a draft from outside and signals an open composer to reload it", () => {
+    const root = makeRoot();
+    expect(root.draftPrefills.get("a")).toBeUndefined();
+    root.prefillDraft("a", "<p>MOB-1</p>");
+    root.prefillDraft("a", "<p>MOB-2</p>");
+    expect(root.getDraft("a")).toBe("<p>MOB-2</p>");
+    expect(root.draftPrefills.get("a")).toBe(2);
+  });
 });
