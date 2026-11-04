@@ -16,6 +16,10 @@ export class ChatRealtimeStore {
   typing = new Map<string, Map<string, number>>();
   online = new Set<string>();
   status: TChatSocketStatus = "idle";
+  /** The browser's own network state (navigator.onLine). */
+  isNetworkOnline = true;
+  /** Shown briefly after coming back online. */
+  justReconnected = false;
   closeCode: number | null = null;
 
   constructor(
@@ -27,6 +31,10 @@ export class ChatRealtimeStore {
       online: observable,
       status: observable,
       closeCode: observable,
+      isNetworkOnline: observable,
+      justReconnected: observable,
+      setNetworkOnline: action,
+      setJustReconnected: action,
       setStatus: action,
       setTyping: action,
       clearTyping: action,
@@ -46,6 +54,15 @@ export class ChatRealtimeStore {
   });
 
   isOnline = (userId: string | null | undefined): boolean => !!userId && this.online.has(userId);
+
+  setNetworkOnline(isOnline: boolean) {
+    if (isOnline && !this.isNetworkOnline) this.justReconnected = true;
+    this.isNetworkOnline = isOnline;
+  }
+
+  setJustReconnected(value: boolean) {
+    this.justReconnected = value;
+  }
 
   setStatus(status: TChatSocketStatus, closeCode?: number) {
     this.status = status;

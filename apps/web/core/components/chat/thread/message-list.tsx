@@ -18,6 +18,7 @@ import { useUser } from "@/hooks/store/user";
 import type { TThreadItem } from "@/store/chat";
 // local
 import { dayKey, firstUnreadIndex, startsGroup, timeLabel } from "../common/helpers";
+import { ConversationAvatar } from "../common/avatars";
 import { ChatMessageItem } from "./message-item";
 import { ChatDayDivider, ChatPendingMessage, ChatSystemMessage } from "./small-items";
 
@@ -179,6 +180,39 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
     previousLastKey.current = lastKey;
   }, [rows, isAtBottom]);
 
+  // Screen readers: announce the newest incoming message (one polite announcement at a time).
+  const [announcement, setAnnouncement] = useState("");
+  const lastAnnounced = useRef<string | null>(null);
+  useEffect(() => {
+    lastAnnounced.current = null;
+    setAnnouncement("");
+  }, [conversation.id]);
+  useEffect(() => {
+    const last = rows[rows.length - 1]?.item;
+    if (!last || last.type !== "message") return;
+    const message = last.message;
+    if (lastAnnounced.current === null) {
+      lastAnnounced.current = message.id; // don't announce what was already there on open
+      return;
+    }
+    if (message.id === lastAnnounced.current || message.sender?.id === currentUser?.id || message.kind === "system")
+      return;
+    lastAnnounced.current = message.id;
+    const timer = window.setTimeout(
+      () =>
+        setAnnouncement(
+          t("chat.a11y.new_message", {
+            name: message.sender?.display_name ?? t("chat.system.someone"),
+            text:
+              message.body_stripped?.slice(0, 120) ||
+              t("chat.preview.attachments", { count: message.attachments.length }),
+          })
+        ),
+      400
+    );
+    return () => window.clearTimeout(timer);
+  }, [rows, currentUser?.id, t]);
+
   // Mark read whenever the newest message is on screen and the tab is visible.
   const newestSeq = thread?.newestSeq ?? null;
   const hasMoreAfter = !!thread?.hasMoreAfter;
@@ -235,15 +269,30 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
 
   if (rows.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-1 p-6 text-center">
-        <p className="text-14 font-medium text-primary">{t("chat.thread.empty_title")}</p>
-        <p className="text-13 text-tertiary">{t("chat.thread.empty_body")}</p>
+      <div className="flex flex-1 flex-col items-center justify-center gap-2 p-6 text-center">
+        <ConversationAvatar conversation={conversation} size={48} />
+        <p className="text-16 font-semibold text-primary">{chat.conversation.displayName(conversation)}</p>
+        <p className="max-w-xs text-13 text-tertiary">
+          {conversation.type === "direct"
+            ? t("chat.states.new_direct", { name: chat.conversation.displayName(conversation) })
+            : t("chat.states.new_group", { name: conversation.name })}
+        </p>
+        <button
+          type="button"
+          onClick={() => void chat.send(conversation.id, { body_html: "<p>👋</p>", body_stripped: "👋" })}
+          className="mt-1 h-8 rounded-md border border-subtle px-3 text-13 font-medium text-primary hover:bg-layer-transparent-hover"
+        >
+          {t("chat.states.say_hi")}
+        </button>
       </div>
     );
   }
 
   return (
     <div className="relative min-h-0 flex-1">
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {announcement}
+      </p>
       <Virtuoso
         ref={virtuoso}
         className="vertical-scrollbar scrollbar-sm h-full"

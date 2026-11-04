@@ -67,6 +67,7 @@ export const ChatPendingMessage = observer(function ChatPendingMessage(props: TP
   const { t } = useTranslation();
   const chat = useChat();
   const failed = pending.status === "failed";
+  const queued = pending.status === "queued";
   return (
     <div className={cn("flex gap-2.5 px-3", { "pt-2": showHeader })}>
       <div className="w-7 shrink-0">{showHeader && <ChatUserAvatar user={pending.sender} size={28} />}</div>
@@ -105,7 +106,7 @@ export const ChatPendingMessage = observer(function ChatPendingMessage(props: TP
               </button>
             </>
           ) : (
-            <span className="text-tertiary">{t("chat.message.sending")}</span>
+            <span className="text-tertiary">{queued ? t("chat.states.waiting") : t("chat.message.sending")}</span>
           )}
         </div>
       </div>
@@ -134,9 +135,9 @@ export const ChatTypingIndicator = observer(function ChatTypingIndicator({ conve
   return (
     <div className="flex h-5 items-center gap-1.5 px-4 text-12 text-tertiary" aria-live="polite">
       <span className="flex gap-0.5" aria-hidden>
-        <span className="size-1 animate-bounce rounded-full bg-layer-3 [animation-delay:-0.3s]" />
-        <span className="size-1 animate-bounce rounded-full bg-layer-3 [animation-delay:-0.15s]" />
-        <span className="size-1 animate-bounce rounded-full bg-layer-3" />
+        <span className="size-1 animate-bounce rounded-full bg-layer-3 [animation-delay:-0.3s] motion-reduce:animate-none" />
+        <span className="size-1 animate-bounce rounded-full bg-layer-3 [animation-delay:-0.15s] motion-reduce:animate-none" />
+        <span className="size-1 animate-bounce rounded-full bg-layer-3 motion-reduce:animate-none" />
       </span>
       {text}
     </div>

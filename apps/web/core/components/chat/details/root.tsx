@@ -22,6 +22,7 @@ import { useAppRouter } from "@/hooks/use-app-router";
 import { ChatService } from "@/services/chat.service";
 // local
 import { ChatGroupAbout } from "./about";
+import { ChatMediaGallery } from "./media-gallery";
 import { ChatFileCard } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath } from "../common/helpers";
@@ -57,11 +58,14 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
 
   // Built from the messages loaded in this thread (newest first).
   const items = chat.message.items(conversation.id);
-  const { media, files } = useMemo(() => {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const { media, allMedia, files } = useMemo(() => {
     const all: TChatAttachment[] = [];
     for (const item of items) if (item.type === "message") all.push(...item.message.attachments);
     all.reverse();
+    const visual = all.filter((attachment) => attachment.kind === "image" || attachment.kind === "video");
     return {
+      allMedia: visual,
       media: all
         .filter((attachment) => attachment.kind === "image" || attachment.kind === "video")
         .slice(0, MEDIA_LIMIT),
@@ -171,7 +175,18 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
         </section>
 
         <section className="flex flex-col gap-2">
-          <h4 className="text-12 font-semibold text-tertiary">{t("chat.details.media")}</h4>
+          <div className="flex items-center justify-between">
+            <h4 className="text-12 font-semibold text-tertiary">{t("chat.details.media")}</h4>
+            {allMedia.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setIsGalleryOpen(true)}
+                className="text-12 font-medium text-accent-primary hover:underline"
+              >
+                {t("chat.media.view_all", { count: allMedia.length })}
+              </button>
+            )}
+          </div>
           {media.length === 0 ? (
             <p className="text-12 text-tertiary">{t("chat.details.no_media")}</p>
           ) : (
@@ -212,6 +227,8 @@ export const ChatDetailsPanel = observer(function ChatDetailsPanel(props: Props)
           )}
         </section>
       </div>
+
+      {isGalleryOpen && <ChatMediaGallery attachments={allMedia} isOpen onClose={() => setIsGalleryOpen(false)} />}
 
       {lightboxIndex !== null && (
         <Suspense fallback={null}>

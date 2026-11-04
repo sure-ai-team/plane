@@ -164,7 +164,13 @@
       "play_video": "Play video {name}",
       "download": "Download {name}",
       "preview_unavailable": "Preview unavailable",
-      "more": "+{count}"
+      "more": "+{count}",
+      "view_all": "View all ({count})",
+      "filter": "Filter media",
+      "filter_all": "All",
+      "filter_image": "Images",
+      "filter_video": "Videos",
+      "loaded_only": "Shows media from the messages loaded in this conversation. Scroll up in the chat to load older ones."
     },
     "details": {
       "members": "Members",
@@ -405,6 +411,25 @@
       "chip": "{key}",
       "due": "Due {date}",
       "sub_items": "{count, plural, one {# sub-item} other {# sub-items}}"
+    },
+    "mobile": {
+      "back": "Back to conversations",
+      "close": "Close",
+      "message_actions": "Message actions",
+      "copy_text": "Copy text"
+    },
+    "states": {
+      "empty_title": "Talk with your workspace",
+      "empty_body": "Message a teammate, or start a group for a project or team. Share files, voice notes and work items.",
+      "new_direct": "This is the start of your conversation with {name}.",
+      "new_group": "This is the start of {name}.",
+      "say_hi": "👋 Say hi",
+      "offline": "You're offline. Messages you send will go out when you reconnect.",
+      "waiting": "Waiting to send",
+      "back_online": "Back online. Catching up on anything you missed."
+    },
+    "a11y": {
+      "new_message": "New message from {name}: {text}"
     }
   }
 }

@@ -79,9 +79,10 @@ Branch `feat/chat-15-work-items`
 
 Branch `feat/chat-16-polish-release`
 
-- [ ] Phone layouts, swipe actions, long-press sheet
-- [ ] Skeletons, empty states, offline banner and queued sends
-- [ ] Media gallery view
-- [ ] Accessibility pass
-- [ ] Smoke script extended; load test; manual matrix in `PROGRESS.md`
+- [x] Phone layouts (back button, full-screen details/pins), swipe actions on rows, long-press action sheet
+- [x] Skeletons, empty states (first visit, new conversation + "Say hi"), offline banner, queued sends, "Back online"
+- [x] Media gallery ("View all" in details: All / Images / Videos, lightbox)
+- [x] Accessibility pass (new messages announced politely, reduced motion, keyboard for every action incl. the sheet)
+- [x] Smoke script extended with phase 2 checks
+- [ ] Run the smoke script, the load test and the manual browser matrix (blocked: Docker not responding)
 - [ ] Release notes; merge `v2-chat`

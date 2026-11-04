@@ -2,18 +2,18 @@
 
 ## Status board
 
-| PR  | Title                       | Branch                             | Status      |
-| --- | --------------------------- | ---------------------------------- | ----------- |
-| —   | Mockups                     | design canvas, "Phase 2 — UI & UX" | ✅ done     |
-| —   | Spec docs                   | `docs/chat/phase-2/`               | ✅ done     |
-| 9   | Backend foundations         | `feat/chat-9-backend-foundations`  | ✅ merged   |
-| 10  | Thread interactions         | `feat/chat-10-thread-interactions` | ✅ merged   |
-| 11  | Sidebar, search, navigation | `feat/chat-11-sidebar-search`      | ✅ merged   |
-| 12  | Notifications               | `feat/chat-12-notifications`       | ✅ merged   |
-| 13  | Composer                    | `feat/chat-13-composer`            | ✅ merged   |
-| 14  | Minimized chat and bubbles  | `feat/chat-14-dock-bubbles`        | ✅ merged   |
-| 15  | Work-item integration       | `feat/chat-15-work-items`          | ✅ merged   |
-| 16  | Polish, mobile, release     | `feat/chat-16-polish-release`      | not started |
+| PR  | Title                       | Branch                             | Status                       |
+| --- | --------------------------- | ---------------------------------- | ---------------------------- |
+| —   | Mockups                     | design canvas, "Phase 2 — UI & UX" | ✅ done                      |
+| —   | Spec docs                   | `docs/chat/phase-2/`               | ✅ done                      |
+| 9   | Backend foundations         | `feat/chat-9-backend-foundations`  | ✅ merged                    |
+| 10  | Thread interactions         | `feat/chat-10-thread-interactions` | ✅ merged                    |
+| 11  | Sidebar, search, navigation | `feat/chat-11-sidebar-search`      | ✅ merged                    |
+| 12  | Notifications               | `feat/chat-12-notifications`       | ✅ merged                    |
+| 13  | Composer                    | `feat/chat-13-composer`            | ✅ merged                    |
+| 14  | Minimized chat and bubbles  | `feat/chat-14-dock-bubbles`        | ✅ merged                    |
+| 15  | Work-item integration       | `feat/chat-15-work-items`          | ✅ merged                    |
+| 16  | Polish, mobile, release     | `feat/chat-16-polish-release`      | 🟡 code merged; runs pending |
 
 ## Open questions
 
@@ -39,3 +39,4 @@ All answered on 2026-11-03: the user accepted every default below (decisions P2-
 - **2026-11-04** — PR 13 merged into `v2-chat`: composer formatting toolbar (reuses the comment editor's items), emoji button, `:shortcode` suggestions, slash commands (`/workitem` creates a work item and inserts its link, `/link` picks existing ones workspace-wide, `/mute`, `/code`, `/shrug`); suggestions take ↑ ↓ Enter/Tab Esc before the editor sees them. Web tests 102.
 - **2026-11-04** — PR 14 merged into `v2-chat`: dock on every non-chat page (≥ 768 px): up to 3 windows (bubbles, typing, full composer), minimized tabs or chat heads, launcher with total unread and a quick list; persisted per user + workspace and cleared on sign-out; desktop-notification clicks open a dock window when you're on another page; open windows suppress notifications for their conversation. Bubbles layout (mine on the right) with the Message layout / DMs-only / Minimize style settings. Web tests 108. Deferred: dragging chat heads.
 - **2026-11-04** — PR 15 merged into `v2-chat`: rich work-item cards under messages (state, priority, due date, assignee, sub-items; details through the existing work-item API, batched per project; a plain chip when not visible), Share to chat and Discuss in chat in the work-item header (this project's groups first; Discuss opens a dock window or the chat page with the link ready), "Discussed in chat" above the activity, and a project "Chat" entry that filters chat to the project's groups. Web tests 111.
+- **2026-11-04** — PR 16 code merged into `v2-chat`: phone layout (back button, full-screen details and pins), swipe on rows (Mute / Archive), long-press message sheet, first-visit and new-conversation empty states, offline banner with queued sends that go out on reconnect, media gallery, screen-reader announcements and reduced motion; smoke script extended with reactions, pins, jump, search, forward, settings sync and Inbox checks. Web tests 113. Still to do: run the smoke script, the load test and the browser matrix (Docker Desktop has stopped responding), then release notes and merging `v2-chat`.
