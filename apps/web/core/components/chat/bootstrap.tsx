@@ -40,9 +40,15 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
   }, [chat, t]);
   useEffect(() => {
     if (!slug) return;
-    chat.notify.setOpenHandler((conversationId, messageId) =>
-      routerRef.current.push(`${chatPath(slug, conversationId)}?m=${messageId}`)
-    );
+    chat.notify.setOpenHandler((conversationId, messageId) => {
+      // On other pages, open the conversation in a dock window instead of leaving the page.
+      if (chat.dock.isShown) {
+        chat.dock.open(conversationId);
+        void chat.message.jumpToMessage(slug, conversationId, { messageId }).catch(() => undefined);
+        return;
+      }
+      routerRef.current.push(`${chatPath(slug, conversationId)}?m=${messageId}`);
+    });
     return () => chat.notify.setOpenHandler(null);
   }, [chat, slug]);
 

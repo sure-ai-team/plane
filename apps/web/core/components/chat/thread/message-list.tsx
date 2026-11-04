@@ -41,6 +41,7 @@ type Props = {
   workspaceId: string;
   conversation: TChatConversation;
   onReply: (message: TChatMessage) => void;
+  layout?: "compact" | "bubbles";
 };
 
 const itemTime = (item: TThreadItem) => (item.type === "message" ? item.message.created_at : item.pending.created_at);
@@ -48,7 +49,7 @@ const itemKey = (item: TThreadItem) =>
   item.type === "message" ? item.message.id : `pending-${item.pending.client_id}`;
 
 export const ChatMessageList = observer(function ChatMessageList(props: Props) {
-  const { workspaceSlug, workspaceId, conversation, onReply } = props;
+  const { workspaceSlug, workspaceId, conversation, onReply, layout = "compact" } = props;
   const { t } = useTranslation();
   const chat = useChat();
   const { data: currentUser } = useUser();
@@ -307,6 +308,7 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
                 showSeenBy={row.item.message.id === lastOwnMessageId}
                 isHighlighted={row.item.message.id === highlightedId}
                 editNonce={editTarget?.id === row.item.message.id ? editTarget.nonce : 0}
+                layout={layout}
                 onReply={onReply}
               />
             )}

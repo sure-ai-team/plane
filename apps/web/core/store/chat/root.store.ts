@@ -8,6 +8,7 @@ import { action, makeObservable, observable, runInAction } from "mobx";
 import type { TChatConfig, TChatMessage, TChatServerFrame, TChatUser } from "@plane/types";
 import type { ChatSocket, TChatSocketOptions } from "@/services/chat-socket";
 import { ChatConversationStore } from "./conversation.store";
+import { ChatDockStore } from "./dock.store";
 import { ChatMessageStore } from "./message.store";
 import { ChatNotifyStore } from "./notify.store";
 import type { TDesktopNotifier, TabLeader } from "./notify.store";
@@ -75,6 +76,7 @@ export class ChatRootStore {
   readonly realtime: ChatRealtimeStore;
   readonly search: ChatSearchStore;
   readonly notify: ChatNotifyStore;
+  readonly dock: ChatDockStore;
   private translate: TTranslate = (key) => key;
   readonly socket: ChatSocket;
 
@@ -98,6 +100,7 @@ export class ChatRootStore {
     );
     this.realtime = new ChatRealtimeStore(currentUserId, deps.now);
     this.search = new ChatSearchStore(deps.service);
+    this.dock = new ChatDockStore(() => this.storage);
     this.notify = new ChatNotifyStore(deps.service, deps.desktop ?? null, deps.leader ?? null, deps.now);
     this.socket = deps.createSocket({
       onFrame: (frame) => this.applyFrame(frame),
@@ -136,6 +139,8 @@ export class ChatRootStore {
     runInAction(() => {
       this.workspaceSlug = workspaceSlug;
       this.loadDrafts();
+      const userId = this.deps.currentUser()?.id;
+      this.dock.load(userId ? `${CHAT_STORAGE_PREFIX}dock:${userId}:${workspaceSlug}` : null);
     });
     this.socket.connect(workspaceSlug);
     await Promise.all([
@@ -147,6 +152,7 @@ export class ChatRootStore {
       this.notify.loadPreferences(workspaceSlug),
     ]);
     this.notify.start();
+    runInAction(() => this.dock.retain((id) => !!this.conversation.getById(id)));
     runInAction(() => {
       this.isInitialized = true;
     });
@@ -165,6 +171,7 @@ export class ChatRootStore {
     this.realtime.reset();
     this.search.clear();
     this.notify.reset();
+    this.dock.reset();
     if (this.activeConversationId) this.upload.clear(this.activeConversationId);
     this.workspaceSlug = null;
     this.activeConversationId = null;
@@ -445,13 +452,16 @@ export class ChatRootStore {
       {
         me: this.deps.currentUser()?.id,
         conversation: this.conversation.getById(message.conversation_id),
-        isConversationOnScreen: isVisible && this.activeConversationId === message.conversation_id,
+        isConversationOnScreen:
+          isVisible &&
+          (this.activeConversationId === message.conversation_id || this.dock.isOnScreen(message.conversation_id)),
       },
       this.translate
     );
   }
 
   private removeConversation(conversationId: string) {
+    this.dock.close(conversationId);
     this.conversation.removeLocal(conversationId);
     this.message.dropConversation(conversationId);
     this.upload.clear(conversationId);

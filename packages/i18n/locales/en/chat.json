@@ -353,7 +353,20 @@
       "show_preview": "Show message preview",
       "show_preview_description": "Include the message text in notifications.",
       "inbox_mentions": "Chat in Inbox",
-      "inbox_mentions_description": "Add mentions and direct messages to your Inbox."
+      "inbox_mentions_description": "Add mentions and direct messages to your Inbox.",
+      "layout": {
+        "title": "Message layout",
+        "description": "How messages look in conversations.",
+        "bubbles": "Bubbles",
+        "compact": "Compact",
+        "direct_only": "Use bubbles in direct messages only"
+      },
+      "minimize": {
+        "title": "Minimized chats",
+        "description": "How chats you keep open on other pages look when minimized.",
+        "docked": "Docked tabs",
+        "heads": "Chat heads"
+      }
     },
     "inbox": {
       "mentioned": "{name} mentioned you in a chat",
@@ -369,6 +382,13 @@
       "shrug": "Add ¯\\_(ツ)_/¯",
       "muted": "Conversation muted",
       "unmuted": "Conversation unmuted"
+    },
+    "dock": {
+      "open_full": "Open in full chat",
+      "minimize": "Minimize",
+      "close": "Close",
+      "expand": "Open {name}",
+      "heads": "Minimized chats"
     }
   }
 }

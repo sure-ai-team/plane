@@ -61,10 +61,10 @@ Branch `feat/chat-13-composer`
 
 Branch `feat/chat-14-dock-bubbles`
 
-- [ ] `dock/` windows (max 3), minimized tabs, launcher, chat heads option
-- [ ] Persistence keyed by user + workspace; hidden on chat routes and < 768 px
-- [ ] Bubbles layout with run grouping; preference + DM-only option; dock uses bubbles
-- [ ] Focus management and `Esc`
+- [x] `dock/` windows (max 3), minimized tabs, launcher, chat heads option (heads sit on the right edge; dragging them is deferred)
+- [x] Persistence keyed by user + workspace; hidden on chat routes and < 768 px
+- [x] Bubbles layout with run grouping; preference + DM-only option; dock uses bubbles
+- [x] Focus management and `Esc`
 
 ## PR 15 — Work-item integration (M)
 

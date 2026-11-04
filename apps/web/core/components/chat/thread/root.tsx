@@ -20,7 +20,7 @@ import { useWorkspace } from "@/hooks/store/use-workspace";
 import { useAppRouter } from "@/hooks/use-app-router";
 // local
 import { ConversationAvatar } from "../common/avatars";
-import { chatPath } from "../common/helpers";
+import { chatPath, messageLayoutFor } from "../common/helpers";
 import { ChatComposer } from "../composer/root";
 import { ChatDetailsPanel } from "../details/root";
 import { useChatFileIntake } from "../hooks/use-file-intake";
@@ -190,6 +190,7 @@ export const ChatThread = observer(function ChatThread(props: Props) {
           workspaceId={workspaceId}
           conversation={conversation}
           onReply={setReplyTo}
+          layout={messageLayoutFor(conversation, chat.notify.preferences)}
         />
         <ChatTypingIndicator conversation={conversation} />
         <ChatComposer

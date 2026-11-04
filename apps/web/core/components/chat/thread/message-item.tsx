@@ -42,6 +42,8 @@ type Props = {
   isHighlighted?: boolean;
   /** Changes when a shortcut asks this message to enter edit mode (↑ in the composer). */
   editNonce?: number;
+  /** "bubbles": mine on the right (P2-D11). Defaults to the compact layout. */
+  layout?: "compact" | "bubbles";
   onReply: (message: TChatMessage) => void;
 };
 
@@ -59,6 +61,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
     showSeenBy,
     isHighlighted,
     editNonce = 0,
+    layout = "compact",
     onReply,
   } = props;
   const { t } = useTranslation();
@@ -74,6 +77,18 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const [isForwardOpen, setIsForwardOpen] = useState(false);
 
   const isOwn = !!currentUser && message.sender?.id === currentUser.id;
+  const isBubble = layout === "bubbles";
+  const mine = isBubble && isOwn;
+  // In the compact layout the bubble wrapper is `display: contents`, so nothing changes.
+  const bubbleClass =
+    !isBubble || isEditing
+      ? "contents"
+      : cn(
+          "mt-0.5 flex max-w-[78%] flex-col gap-1 rounded-2xl px-3 py-2",
+          mine
+            ? "rounded-br-md bg-accent-primary text-on-color [&_.ProseMirror]:!text-on-color [&_.text-tertiary]:!text-on-color [&_a]:!text-on-color [&_a]:underline"
+            : "rounded-bl-md bg-layer-1"
+        );
 
   useEffect(() => {
     if (editNonce > 0) {
@@ -173,17 +188,20 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
       className={cn(
         "group/message relative flex gap-2.5 rounded-md px-3 transition-colors duration-700 hover:bg-layer-transparent-hover",
         {
+          "flex-row-reverse": mine,
           "pt-2": showHeader,
           "bg-layer-transparent-hover": isEditing,
           "bg-warning-subtle hover:bg-warning-subtle": isHighlighted,
         }
       )}
     >
-      <div className="w-7 shrink-0">{showHeader && <ChatUserAvatar user={message.sender} size={28} showTooltip />}</div>
-      <div className="min-w-0 flex-1 pb-1">
+      <div className={cn("w-7 shrink-0", { hidden: mine })}>
+        {showHeader && <ChatUserAvatar user={message.sender} size={28} showTooltip />}
+      </div>
+      <div className={cn("min-w-0 flex-1 pb-1", { "flex flex-col": isBubble, "items-end": mine })}>
         {showHeader && (
           <div className="flex items-baseline gap-2">
-            <span className="truncate text-13 font-medium text-primary">{userName(message.sender, tr)}</span>
+            {!mine && <span className="truncate text-13 font-medium text-primary">{userName(message.sender, tr)}</span>}
             <span className="text-11 text-tertiary">{timeLabel(message.created_at)}</span>
             {message.is_pinned && (
               <span className="flex items-center gap-0.5 text-11 text-tertiary">
@@ -197,101 +215,107 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           </div>
         )}
 
-        {message.forwarded_from && (
-          <div className="mt-0.5 flex items-center gap-1 text-11 text-tertiary">
-            <Forward className="size-3 shrink-0" aria-hidden />
-            <span className="truncate">
-              {message.forwarded_from.conversation_name
-                ? t("chat.forward.from_conversation", {
-                    name: message.forwarded_from.sender_name ?? t("chat.system.someone"),
-                    conversation: message.forwarded_from.conversation_name,
-                  })
-                : t("chat.forward.from", { name: message.forwarded_from.sender_name ?? t("chat.system.someone") })}
-            </span>
-          </div>
-        )}
-
-        {message.reply_to && (
-          <button
-            type="button"
-            onClick={jumpToReply}
-            aria-label={t("chat.jump.to_message")}
-            className="mt-1 flex max-w-xl items-center gap-1.5 rounded-sm border-l-2 border-strong bg-layer-1 px-2 py-1 text-left text-12 text-secondary hover:bg-layer-1-hover"
-          >
-            <CornerUpLeft className="size-3 shrink-0" />
-            <span className="truncate">
-              <span className="font-medium text-primary">{userName(message.reply_to.sender, tr)}</span>
-              {" · "}
-              {message.reply_to.body_stripped ||
-                (message.reply_to.kind === "voice" ? t("chat.thread.reply_voice") : t("chat.thread.reply_attachment"))}
-            </span>
-          </button>
-        )}
-
-        {isEditing ? (
-          <div
-            role="group"
-            className="mt-1 flex flex-col gap-2"
-            onKeyDown={(event) => {
-              if (event.key === "Escape") setIsEditing(false);
-            }}
-          >
-            <LiteTextEditor
-              editable
-              ref={editorRef}
-              id={`chat-edit-${message.id}`}
-              workspaceSlug={workspaceSlug}
-              workspaceId={workspaceId}
-              initialValue={message.body_html}
-              value={null}
-              onChange={(_json, html) => setDraftHtml(html)}
-              onEnterKeyPress={() => void save()}
-              variant="none"
-              disabledExtensions={["image"]}
-              uploadFile={async () => ""}
-              duplicateFile={async () => ""}
-              parentClassName="rounded-md border-strong bg-surface-1 p-2"
-              displayConfig={{ fontSize: "small-font" }}
-            />
-            <div className="flex gap-2">
-              <Button variant="primary" size="sm" onClick={() => void save()} loading={isSaving}>
-                {t("chat.message.save")}
-              </Button>
-              <Button variant="secondary" size="sm" onClick={() => setIsEditing(false)}>
-                {t("chat.message.cancel")}
-              </Button>
+        <div className={bubbleClass}>
+          {message.forwarded_from && (
+            <div className="mt-0.5 flex items-center gap-1 text-11 text-tertiary">
+              <Forward className="size-3 shrink-0" aria-hidden />
+              <span className="truncate">
+                {message.forwarded_from.conversation_name
+                  ? t("chat.forward.from_conversation", {
+                      name: message.forwarded_from.sender_name ?? t("chat.system.someone"),
+                      conversation: message.forwarded_from.conversation_name,
+                    })
+                  : t("chat.forward.from", { name: message.forwarded_from.sender_name ?? t("chat.system.someone") })}
+              </span>
             </div>
-          </div>
-        ) : (
-          hasBody && (
-            <div className="flex items-end gap-1">
-              <div className="min-w-0 flex-1">
-                <LiteTextEditor
-                  editable={false}
-                  id={`chat-message-${message.id}`}
-                  initialValue={message.body_html}
-                  workspaceSlug={workspaceSlug}
-                  workspaceId={workspaceId}
-                  containerClassName="!p-0 [&_.ProseMirror]:!min-h-0"
-                  parentClassName="border-none"
-                  displayConfig={{ fontSize: "small-font" }}
-                />
-              </div>
-              {message.edited_at && <span className="shrink-0 text-11 text-tertiary">({t("chat.thread.edited")})</span>}
-            </div>
-          )
-        )}
-
-        <ChatMessageAttachments
-          attachments={message.attachments}
-          renderAudio={(attachment) => (
-            <ChatVoiceNotePlayer
-              src={getFileURL(attachment.url) ?? attachment.url}
-              waveform={attachment.waveform}
-              duration={attachment.duration}
-            />
           )}
-        />
+
+          {message.reply_to && (
+            <button
+              type="button"
+              onClick={jumpToReply}
+              aria-label={t("chat.jump.to_message")}
+              className="mt-1 flex max-w-xl items-center gap-1.5 rounded-sm border-l-2 border-strong bg-layer-1 px-2 py-1 text-left text-12 text-secondary hover:bg-layer-1-hover"
+            >
+              <CornerUpLeft className="size-3 shrink-0" />
+              <span className="truncate">
+                <span className="font-medium text-primary">{userName(message.reply_to.sender, tr)}</span>
+                {" · "}
+                {message.reply_to.body_stripped ||
+                  (message.reply_to.kind === "voice"
+                    ? t("chat.thread.reply_voice")
+                    : t("chat.thread.reply_attachment"))}
+              </span>
+            </button>
+          )}
+
+          {isEditing ? (
+            <div
+              role="group"
+              className="mt-1 flex flex-col gap-2"
+              onKeyDown={(event) => {
+                if (event.key === "Escape") setIsEditing(false);
+              }}
+            >
+              <LiteTextEditor
+                editable
+                ref={editorRef}
+                id={`chat-edit-${message.id}`}
+                workspaceSlug={workspaceSlug}
+                workspaceId={workspaceId}
+                initialValue={message.body_html}
+                value={null}
+                onChange={(_json, html) => setDraftHtml(html)}
+                onEnterKeyPress={() => void save()}
+                variant="none"
+                disabledExtensions={["image"]}
+                uploadFile={async () => ""}
+                duplicateFile={async () => ""}
+                parentClassName="rounded-md border-strong bg-surface-1 p-2"
+                displayConfig={{ fontSize: "small-font" }}
+              />
+              <div className="flex gap-2">
+                <Button variant="primary" size="sm" onClick={() => void save()} loading={isSaving}>
+                  {t("chat.message.save")}
+                </Button>
+                <Button variant="secondary" size="sm" onClick={() => setIsEditing(false)}>
+                  {t("chat.message.cancel")}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            hasBody && (
+              <div className="flex items-end gap-1">
+                <div className="min-w-0 flex-1">
+                  <LiteTextEditor
+                    editable={false}
+                    id={`chat-message-${message.id}`}
+                    initialValue={message.body_html}
+                    workspaceSlug={workspaceSlug}
+                    workspaceId={workspaceId}
+                    containerClassName="!p-0 [&_.ProseMirror]:!min-h-0"
+                    parentClassName="border-none"
+                    displayConfig={{ fontSize: "small-font" }}
+                  />
+                </div>
+                {message.edited_at && (
+                  <span className="shrink-0 text-11 text-tertiary">({t("chat.thread.edited")})</span>
+                )}
+              </div>
+            )
+          )}
+
+          <ChatMessageAttachments
+            attachments={message.attachments}
+            renderAudio={(attachment) => (
+              <ChatVoiceNotePlayer
+                src={getFileURL(attachment.url) ?? attachment.url}
+                waveform={attachment.waveform}
+                duration={attachment.duration}
+              />
+            )}
+          />
+        </div>
 
         <ChatReactions
           workspaceSlug={workspaceSlug}
