@@ -8,7 +8,15 @@
 
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { computedFn } from "mobx-utils";
-import type { TChatApiError, TChatAttachment, TChatMessage, TChatReplyPreview, TChatUser } from "@plane/types";
+import type {
+  TChatApiError,
+  TChatAttachment,
+  TChatMessage,
+  TChatPinnedMessage,
+  TChatReplyPreview,
+  TChatUser,
+} from "@plane/types";
+import { applyReaction } from "./reactions";
 import type { IChatServiceLike } from "./types";
 
 export const PAGE_SIZE = 50;
@@ -21,10 +29,27 @@ export type TThreadState = {
   oldestSeq: number | null;
   newestSeq: number | null;
   hasMoreBefore: boolean;
+  /** True after jumping to an older message: newer messages exist that aren't loaded. */
+  hasMoreAfter: boolean;
   isLoadingInitial: boolean;
   isLoadingOlder: boolean;
+  isLoadingNewer: boolean;
   isLoaded: boolean;
   error: string | null;
+};
+
+export type TPinState = {
+  items: TChatPinnedMessage[];
+  isLoaded: boolean;
+  isLoading: boolean;
+};
+
+/** Ask the list to scroll to a message and highlight it ("jumped here"). */
+export type TFocusRequest = {
+  conversationId: string;
+  messageId: string;
+  seq: number;
+  nonce: number;
 };
 
 export type TPendingStatus = "sending" | "failed";
@@ -56,6 +81,12 @@ export type TSendDraft = {
   attachments?: TChatAttachment[];
 };
 
+/** Socket payloads omit `reactions` (they are per viewer): keep the ones already loaded. */
+const withLocalReactions = (incoming: TChatMessage, current: TChatMessage): TChatMessage =>
+  incoming.reactions === undefined && current.reactions !== undefined
+    ? { ...incoming, reactions: current.reactions }
+    : incoming;
+
 export type TApplyResult = "applied" | "duplicate" | "gap" | "not-loaded";
 
 const emptyThread = (): TThreadState => ({
@@ -63,8 +94,10 @@ const emptyThread = (): TThreadState => ({
   oldestSeq: null,
   newestSeq: null,
   hasMoreBefore: true,
+  hasMoreAfter: false,
   isLoadingInitial: false,
   isLoadingOlder: false,
+  isLoadingNewer: false,
   isLoaded: false,
   error: null,
 });
@@ -74,6 +107,12 @@ export class ChatMessageStore {
   pending = new Map<string, TPendingMessage>();
   /** member id -> last read seq, per conversation (for live "Seen by"). */
   readPositions = new Map<string, Map<string, number>>();
+  /** Pinned messages per conversation (loaded when the pinned bar or panel needs them). */
+  pins = new Map<string, TPinState>();
+  /** Last read seq when the conversation was opened: the "New" divider goes after it. */
+  unreadMarkers = new Map<string, number>();
+  focusRequest: TFocusRequest | null = null;
+  private focusNonce = 0;
 
   constructor(
     private readonly service: IChatServiceLike,
@@ -85,6 +124,13 @@ export class ChatMessageStore {
       threads: observable,
       pending: observable,
       readPositions: observable,
+      pins: observable,
+      unreadMarkers: observable,
+      focusRequest: observable.ref,
+      applyReactionEvent: action,
+      applyPinChanged: action,
+      setUnreadMarker: action,
+      clearFocusRequest: action,
       applyCreated: action,
       applyUpdated: action,
       applyDeleted: action,
@@ -206,7 +252,8 @@ export class ChatMessageStore {
   /** Fetch everything after the newest known message (after a reconnect or a detected gap). */
   async catchUp(workspaceSlug: string, conversationId: string): Promise<number> {
     const thread = this.threads.get(conversationId);
-    if (!thread?.isLoaded) return 0;
+    // A window opened around an older message pages forward on demand instead.
+    if (!thread?.isLoaded || thread.hasMoreAfter) return 0;
     let fetched = 0;
     for (let page = 0; page < MAX_CATCH_UP_PAGES; page += 1) {
       const after = thread.newestSeq ?? 0;
@@ -223,6 +270,108 @@ export class ChatMessageStore {
       if (!result.has_more) break;
     }
     return fetched;
+  }
+
+  /**
+   * Load the page around `seq` (reply jumps, pins, search results, message links).
+   * Replaces the loaded window when the message isn't in it. Returns whether the
+   * message exists.
+   */
+  async loadAround(workspaceSlug: string, conversationId: string, seq: number): Promise<boolean> {
+    const existing = this.threads.get(conversationId);
+    if (existing?.isLoaded && existing.bySeq.has(seq)) return true;
+    const page = await this.service.listMessages(workspaceSlug, conversationId, { around_seq: seq, limit: PAGE_SIZE });
+    runInAction(() => {
+      const thread = this.ensureThread(conversationId);
+      thread.bySeq.clear();
+      thread.oldestSeq = null;
+      thread.newestSeq = null;
+      this.insert(thread, page.results);
+      thread.hasMoreBefore = page.has_before ?? page.has_more;
+      thread.hasMoreAfter = page.has_after ?? false;
+      thread.isLoaded = true;
+      thread.isLoadingInitial = false;
+      thread.error = null;
+    });
+    return page.results.some((message) => message.seq === seq);
+  }
+
+  /** Page forward in a window opened around an older message. */
+  async loadNewer(workspaceSlug: string, conversationId: string): Promise<number> {
+    const thread = this.threads.get(conversationId);
+    if (!thread?.isLoaded || !thread.hasMoreAfter || thread.isLoadingNewer || thread.newestSeq === null) return 0;
+    runInAction(() => {
+      thread.isLoadingNewer = true;
+    });
+    try {
+      const page = await this.service.listMessages(workspaceSlug, conversationId, {
+        after_seq: thread.newestSeq,
+        limit: PAGE_SIZE,
+      });
+      runInAction(() => {
+        this.insert(thread, page.results);
+        thread.hasMoreAfter = page.has_more;
+        this.trimOldest(thread);
+      });
+      return page.results.length;
+    } catch {
+      return 0;
+    } finally {
+      runInAction(() => {
+        thread.isLoadingNewer = false;
+      });
+    }
+  }
+
+  /** Leave a jumped-to window and load the newest messages again. */
+  async jumpToLatest(workspaceSlug: string, conversationId: string): Promise<void> {
+    runInAction(() => {
+      const thread = this.ensureThread(conversationId);
+      Object.assign(thread, { ...emptyThread(), bySeq: thread.bySeq });
+      thread.bySeq.clear();
+    });
+    await this.open(workspaceSlug, conversationId);
+  }
+
+  /**
+   * Scroll to a message by seq or id, loading its page first if needed.
+   * Throws a `NOT_FOUND` error when the message is gone or not accessible.
+   */
+  async jumpToMessage(
+    workspaceSlug: string,
+    conversationId: string,
+    target: { seq?: number; messageId?: string }
+  ): Promise<void> {
+    let { seq, messageId } = target;
+    if (seq === undefined && messageId) {
+      const message = await this.service.getMessage(workspaceSlug, messageId);
+      if (message.conversation_id !== conversationId) {
+        throw { error: "That message isn't in this conversation.", code: "NOT_FOUND" } satisfies TChatApiError;
+      }
+      seq = message.seq;
+    }
+    if (seq === undefined) return;
+    const found = await this.loadAround(workspaceSlug, conversationId, seq);
+    if (!found) throw { error: "That message no longer exists.", code: "NOT_FOUND" } satisfies TChatApiError;
+    const message = this.threads.get(conversationId)?.bySeq.get(seq);
+    runInAction(() => {
+      this.focusNonce += 1;
+      this.focusRequest = {
+        conversationId,
+        messageId: messageId ?? message?.id ?? "",
+        seq: seq as number,
+        nonce: this.focusNonce,
+      };
+    });
+  }
+
+  clearFocusRequest() {
+    this.focusRequest = null;
+  }
+
+  setUnreadMarker(conversationId: string, lastReadSeq: number | null) {
+    if (lastReadSeq === null) this.unreadMarkers.delete(conversationId);
+    else this.unreadMarkers.set(conversationId, lastReadSeq);
   }
 
   // ------------------------------------------------------------------ sending
@@ -301,14 +450,139 @@ export class ChatMessageStore {
     runInAction(() => this.applyDeleted(message.conversation_id, message.seq));
   }
 
+  // ------------------------------------------------------------------ reactions
+
+  private patchMessage(conversationId: string, seq: number, update: (message: TChatMessage) => TChatMessage) {
+    const thread = this.threads.get(conversationId);
+    const current = thread?.bySeq.get(seq);
+    if (thread && current) thread.bySeq.set(seq, update(current));
+  }
+
+  private findMessage(conversationId: string, messageId: string): TChatMessage | undefined {
+    const thread = this.threads.get(conversationId);
+    if (!thread) return undefined;
+    for (const message of thread.bySeq.values()) if (message.id === messageId) return message;
+    return undefined;
+  }
+
+  /** Add or remove my reaction, updating the UI first and rolling back on failure. */
+  async toggleReaction(workspaceSlug: string, message: TChatMessage, emoji: string): Promise<void> {
+    const me = this.currentUser()?.id;
+    if (!me) return;
+    const current = this.findMessage(message.conversation_id, message.id) ?? message;
+    const before = current.reactions ?? [];
+    const added = !before.find((entry) => entry.emoji === emoji)?.reacted;
+    runInAction(() =>
+      this.patchMessage(message.conversation_id, message.seq, (value) => ({
+        ...value,
+        reactions: applyReaction(value.reactions ?? [], { emoji, userId: me, added, isMe: true }),
+      }))
+    );
+    try {
+      if (added) {
+        const summary = await this.service.addReaction(workspaceSlug, message.id, emoji);
+        runInAction(() =>
+          this.patchMessage(message.conversation_id, message.seq, (value) => ({ ...value, reactions: summary }))
+        );
+      } else {
+        await this.service.removeReaction(workspaceSlug, message.id, emoji);
+      }
+    } catch (error) {
+      runInAction(() =>
+        this.patchMessage(message.conversation_id, message.seq, (value) => ({ ...value, reactions: before }))
+      );
+      throw error;
+    }
+  }
+
+  applyReactionEvent(event: {
+    conversation_id: string;
+    message_id: string;
+    emoji: string;
+    count: number;
+    user_id: string;
+    added: boolean;
+  }) {
+    const message = this.findMessage(event.conversation_id, event.message_id);
+    if (!message) return;
+    const isMe = event.user_id === this.currentUser()?.id;
+    this.patchMessage(event.conversation_id, message.seq, (value) => ({
+      ...value,
+      reactions: applyReaction(value.reactions ?? [], {
+        emoji: event.emoji,
+        userId: event.user_id,
+        added: event.added,
+        isMe,
+        count: event.count,
+      }),
+    }));
+  }
+
+  // ------------------------------------------------------------------ pins
+
+  pinState = (conversationId: string): TPinState | undefined => this.pins.get(conversationId);
+
+  async fetchPins(workspaceSlug: string, conversationId: string): Promise<void> {
+    let state = this.pins.get(conversationId);
+    if (!state) {
+      state = observable({ items: [], isLoaded: false, isLoading: false } as TPinState);
+      runInAction(() => this.pins.set(conversationId, state as TPinState));
+    }
+    const pinState = state;
+    runInAction(() => {
+      pinState.isLoading = true;
+    });
+    try {
+      const items = await this.service.listPins(workspaceSlug, conversationId);
+      runInAction(() => {
+        pinState.items = items;
+        pinState.isLoaded = true;
+      });
+    } finally {
+      runInAction(() => {
+        pinState.isLoading = false;
+      });
+    }
+  }
+
+  async pin(workspaceSlug: string, message: TChatMessage): Promise<void> {
+    await this.service.pinMessage(workspaceSlug, message.id);
+    runInAction(() => this.applyPinChanged(message.conversation_id, message.id, true));
+    if (this.pins.get(message.conversation_id)?.isLoaded) await this.fetchPins(workspaceSlug, message.conversation_id);
+  }
+
+  async unpin(workspaceSlug: string, message: TChatMessage): Promise<void> {
+    await this.service.unpinMessage(workspaceSlug, message.id);
+    runInAction(() => this.applyPinChanged(message.conversation_id, message.id, false));
+    if (this.pins.get(message.conversation_id)?.isLoaded) await this.fetchPins(workspaceSlug, message.conversation_id);
+  }
+
+  /** Reflect a pin change on the loaded message and the pinned list. */
+  applyPinChanged(conversationId: string, messageId: string, pinned: boolean) {
+    const message = this.findMessage(conversationId, messageId);
+    if (message) this.patchMessage(conversationId, message.seq, (value) => ({ ...value, is_pinned: pinned }));
+    const state = this.pins.get(conversationId);
+    if (state && !pinned) state.items = state.items.filter((item) => item.id !== messageId);
+  }
+
+  // ------------------------------------------------------------------ forward
+
+  forward(workspaceSlug: string, messageId: string, conversationIds: string[], commentHtml?: string) {
+    return this.service.forwardMessage(workspaceSlug, messageId, {
+      conversation_ids: conversationIds,
+      ...(commentHtml ? { comment_html: commentHtml } : {}),
+    });
+  }
+
   // ------------------------------------------------------------------ socket events
 
   applyCreated(message: TChatMessage): TApplyResult {
     if (message.client_id) this.pending.delete(message.client_id);
     const thread = this.threads.get(message.conversation_id);
-    if (!thread?.isLoaded) return "not-loaded";
-    if (thread.bySeq.has(message.seq)) {
-      thread.bySeq.set(message.seq, message);
+    if (!thread?.isLoaded || thread.hasMoreAfter) return "not-loaded";
+    const existing = thread.bySeq.get(message.seq);
+    if (existing) {
+      thread.bySeq.set(message.seq, withLocalReactions(message, existing));
       return "duplicate";
     }
     const isGap = thread.newestSeq !== null && message.seq > thread.newestSeq + 1;
@@ -323,7 +597,7 @@ export class ChatMessageStore {
     if (!thread || !current) return;
     // Keep the newer edit if events arrive out of order.
     if (current.edited_at && message.edited_at && current.edited_at > message.edited_at) return;
-    thread.bySeq.set(message.seq, message);
+    thread.bySeq.set(message.seq, withLocalReactions(message, current));
   }
 
   applyDeleted(conversationId: string, seq: number) {
@@ -363,6 +637,8 @@ export class ChatMessageStore {
   dropConversation(conversationId: string) {
     this.threads.delete(conversationId);
     this.readPositions.delete(conversationId);
+    this.pins.delete(conversationId);
+    this.unreadMarkers.delete(conversationId);
     for (const [clientId, pending] of this.pending) {
       if (pending.conversation_id === conversationId) this.pending.delete(clientId);
     }
@@ -379,5 +655,8 @@ export class ChatMessageStore {
     this.threads.clear();
     this.pending.clear();
     this.readPositions.clear();
+    this.pins.clear();
+    this.unreadMarkers.clear();
+    this.focusRequest = null;
   }
 }

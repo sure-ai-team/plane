@@ -19,13 +19,13 @@ Branch `feat/chat-9-backend-foundations`
 
 Branch `feat/chat-10-thread-interactions`
 
-- [ ] Reaction chips, quick reactions, shared emoji picker (lazy data)
-- [ ] Hover toolbar: React, Reply, Pin, Forward, Copy link, More
-- [ ] Pinned bar + pinned panel
-- [ ] Reply jump + highlight; message links (`?m=`) with `loadAround`
-- [ ] Unread divider + jump pill + `Shift+J`
-- [ ] Forward dialog + forwarded header; "(edited)"
-- [ ] Store tests; i18n keys
+- [x] Reaction chips, quick reactions, shared emoji picker (the platform's `frimousse` picker via `@plane/propel`'s `EmojiRoot`; its emoji data loads on first open)
+- [x] Hover toolbar: React, Reply, Pin, Forward, Copy link, More
+- [x] Pinned bar + pinned panel
+- [x] Reply jump + highlight; message links (`?m=`) with `loadAround`
+- [x] Unread divider + jump pill (`Shift+J` moves to PR 11 with the other shortcuts)
+- [x] Forward dialog + forwarded header; "(edited)"
+- [x] Store tests; i18n keys
 
 ## PR 11 — Sidebar, search, navigation (M–L)
 

@@ -164,6 +164,11 @@ export class ChatRootStore {
     const slug = this.workspaceSlug;
     if (!slug) return;
     this.setActiveConversation(conversationId);
+    // Where the "New" divider goes: captured before this open marks everything read.
+    const known = this.conversation.getById(conversationId);
+    runInAction(() =>
+      this.message.setUnreadMarker(conversationId, known && known.unread_count > 0 ? known.last_read_seq : null)
+    );
     const [, detail] = await Promise.all([
       this.message.open(slug, conversationId),
       this.conversation.fetchOne(slug, conversationId),
@@ -254,6 +259,17 @@ export class ChatRootStore {
       case "presence":
         this.realtime.setOnline(frame.d.user_id, frame.d.online);
         return;
+      case "reaction.updated":
+        this.message.applyReactionEvent(frame.d);
+        return;
+      case "pin.added":
+      case "pin.removed": {
+        this.message.applyPinChanged(frame.d.conversation_id, frame.d.message_id, frame.t === "pin.added");
+        if (slug && this.message.pinState(frame.d.conversation_id)?.isLoaded) {
+          void this.message.fetchPins(slug, frame.d.conversation_id).catch(() => undefined);
+        }
+        return;
+      }
       default:
         return;
     }

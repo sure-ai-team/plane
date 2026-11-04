@@ -4,23 +4,28 @@
  * See the LICENSE file for details.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { PanelRight, Upload } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { PanelRight, Pin, Upload } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "@plane/i18n";
 import { IconButton } from "@plane/propel/icon-button";
+import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { TChatMessage } from "@plane/types";
 import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
 import { useWorkspace } from "@/hooks/store/use-workspace";
+import { useAppRouter } from "@/hooks/use-app-router";
 // local
 import { ConversationAvatar } from "../common/avatars";
+import { chatPath } from "../common/helpers";
 import { ChatComposer } from "../composer/root";
 import { ChatDetailsPanel } from "../details/root";
 import { useChatFileIntake } from "../hooks/use-file-intake";
 import { ChatMessageList } from "./message-list";
+import { ChatPinnedBar, ChatPinnedPanel } from "./pinned";
 import { ChatTypingIndicator } from "./small-items";
 
 type Props = {
@@ -34,8 +39,12 @@ export const ChatThread = observer(function ChatThread(props: Props) {
   const chat = useChat();
   const { getWorkspaceBySlug } = useWorkspace();
   const [replyTo, setReplyTo] = useState<TChatMessage | null>(null);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [sidePanel, setSidePanel] = useState<"details" | "pins" | null>(null);
   const [isMissing, setIsMissing] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useAppRouter();
+  const linkedMessageId = searchParams.get("m");
+  const handledLink = useRef<string | null>(null);
 
   const workspaceId = getWorkspaceBySlug(workspaceSlug)?.id ?? "";
   const addFiles = useChatFileIntake(conversationId);
@@ -62,6 +71,17 @@ export const ChatThread = observer(function ChatThread(props: Props) {
       chat.setActiveConversation(null);
     };
   }, [chat, conversationId, isReady]);
+
+  // A message link (?m=<id>): once the thread is open, scroll to that message.
+  const isThreadLoaded = !!chat.message.thread(conversationId)?.isLoaded;
+  useEffect(() => {
+    if (!linkedMessageId || !isThreadLoaded || handledLink.current === linkedMessageId) return;
+    handledLink.current = linkedMessageId;
+    void chat.message
+      .jumpToMessage(workspaceSlug, conversationId, { messageId: linkedMessageId })
+      .catch(() => setToast({ type: TOAST_TYPE.ERROR, title: t("chat.message.no_access") }))
+      .finally(() => router.replace(chatPath(workspaceSlug, conversationId)));
+  }, [linkedMessageId, isThreadLoaded, chat, workspaceSlug, conversationId, router, t]);
 
   if (isMissing) {
     return (
@@ -109,14 +129,28 @@ export const ChatThread = observer(function ChatThread(props: Props) {
             <span className="truncate text-11 text-tertiary">{subtitle}</span>
           </div>
           <IconButton
-            icon={PanelRight}
-            variant={isDetailsOpen ? "tertiary" : "ghost"}
+            icon={Pin}
+            variant={sidePanel === "pins" ? "tertiary" : "ghost"}
             size="lg"
-            aria-label={isDetailsOpen ? t("chat.actions.hide_details") : t("chat.actions.details")}
-            aria-pressed={isDetailsOpen}
-            onClick={() => setIsDetailsOpen((value) => !value)}
+            aria-label={t("chat.pins.title")}
+            aria-pressed={sidePanel === "pins"}
+            onClick={() => setSidePanel((value) => (value === "pins" ? null : "pins"))}
+          />
+          <IconButton
+            icon={PanelRight}
+            variant={sidePanel === "details" ? "tertiary" : "ghost"}
+            size="lg"
+            aria-label={sidePanel === "details" ? t("chat.actions.hide_details") : t("chat.actions.details")}
+            aria-pressed={sidePanel === "details"}
+            onClick={() => setSidePanel((value) => (value === "details" ? null : "details"))}
           />
         </header>
+
+        <ChatPinnedBar
+          workspaceSlug={workspaceSlug}
+          conversation={conversation}
+          onOpenPanel={() => setSidePanel("pins")}
+        />
 
         {(status === "reconnecting" || status === "blocked") && (
           <div
@@ -154,9 +188,17 @@ export const ChatThread = observer(function ChatThread(props: Props) {
         />
       </div>
 
-      {isDetailsOpen && (
+      {sidePanel && (
         <div className="hidden h-full w-72 shrink-0 border-l border-subtle lg:block">
-          <ChatDetailsPanel workspaceSlug={workspaceSlug} conversation={conversation} />
+          {sidePanel === "details" ? (
+            <ChatDetailsPanel workspaceSlug={workspaceSlug} conversation={conversation} />
+          ) : (
+            <ChatPinnedPanel
+              workspaceSlug={workspaceSlug}
+              conversation={conversation}
+              onClose={() => setSidePanel(null)}
+            />
+          )}
         </div>
       )}
     </div>

@@ -22,6 +22,9 @@ import type {
   TChatUploadRequest,
   TChatUploadResponse,
   TChatAttachment,
+  TChatForwardPayload,
+  TChatPinnedMessage,
+  TChatReactionSummary,
 } from "@plane/types";
 import { APIService } from "@/services/api.service";
 
@@ -129,6 +132,42 @@ export class ChatService extends APIService {
 
   deleteMessage(workspaceSlug: string, messageId: string): Promise<void> {
     return this.call(this.delete(`${this.base(workspaceSlug)}/messages/${messageId}/`));
+  }
+
+  getMessage(workspaceSlug: string, messageId: string): Promise<TChatMessage> {
+    return this.call(this.get(`${this.base(workspaceSlug)}/messages/${messageId}/`));
+  }
+
+  // ---------------------------------------------------------------- reactions, pins, forward (phase 2)
+
+  addReaction(workspaceSlug: string, messageId: string, emoji: string): Promise<TChatReactionSummary[]> {
+    return this.call(this.post(`${this.base(workspaceSlug)}/messages/${messageId}/reactions/`, { emoji }));
+  }
+
+  removeReaction(workspaceSlug: string, messageId: string, emoji: string): Promise<void> {
+    return this.call(
+      this.delete(`${this.base(workspaceSlug)}/messages/${messageId}/reactions/${encodeURIComponent(emoji)}/`)
+    );
+  }
+
+  listPins(workspaceSlug: string, conversationId: string): Promise<TChatPinnedMessage[]> {
+    return this.call(this.get(`${this.base(workspaceSlug)}/conversations/${conversationId}/pins/`));
+  }
+
+  pinMessage(workspaceSlug: string, messageId: string): Promise<{ message_id: string; is_pinned: boolean }> {
+    return this.call(this.post(`${this.base(workspaceSlug)}/messages/${messageId}/pin/`, {}));
+  }
+
+  unpinMessage(workspaceSlug: string, messageId: string): Promise<void> {
+    return this.call(this.delete(`${this.base(workspaceSlug)}/messages/${messageId}/pin/`));
+  }
+
+  forwardMessage(
+    workspaceSlug: string,
+    messageId: string,
+    payload: TChatForwardPayload
+  ): Promise<{ messages: Array<{ conversation_id: string; id: string; seq: number }> }> {
+    return this.call(this.post(`${this.base(workspaceSlug)}/messages/${messageId}/forward/`, payload));
   }
 
   markRead(

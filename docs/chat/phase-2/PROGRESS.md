@@ -7,7 +7,7 @@
 | —   | Mockups                     | design canvas, "Phase 2 — UI & UX" | ✅ done     |
 | —   | Spec docs                   | `docs/chat/phase-2/`               | ✅ done     |
 | 9   | Backend foundations         | `feat/chat-9-backend-foundations`  | ✅ merged   |
-| 10  | Thread interactions         | `feat/chat-10-thread-interactions` | not started |
+| 10  | Thread interactions         | `feat/chat-10-thread-interactions` | ✅ merged   |
 | 11  | Sidebar, search, navigation | `feat/chat-11-sidebar-search`      | not started |
 | 12  | Notifications               | `feat/chat-12-notifications`       | not started |
 | 13  | Composer                    | `feat/chat-13-composer`            | not started |
@@ -33,3 +33,4 @@ All answered on 2026-11-03: the user accepted every default below (decisions P2-
 - **2026-11-03** — Scope agreed (A–G, in-app + desktop notifications, mockups first). Mockups added as the "Phase 2 — UI & UX" page (11 boards, including minimized chat and bubbles). Spec set written (`00`–`10`, decisions, this file).
 - **2026-11-03** — User accepted all defaults (P2-Q1–Q6); decisions locked. `v2-chat` cut from `v1-chat`.
 - **2026-11-04** — PR 9 built and merged into `v2-chat`: migrations `0126_chat_phase2` + `0127_chat_search_index` (verified forward/reverse/forward on the `surechat` copy's phase 1 data: mute → `off`, groups → `mentions`, messages intact), reactions, pins, per-chat settings, preferences, search, forward with file copies, `around_seq` + single-message GET, work-item references, Inbox task. Backend suite **874 passed** (789 before). Live API check on `surechat`: reactions, pins, search highlight, preferences, unread counts. Spec corrections: work items are referenced by links (no embed node in this editor), separate index migration, event `membership.updated`, socket message payloads omit reactions.
+- **2026-11-04** — PR 10 merged into `v2-chat`: reactions (chips with names, four quick reactions, shared emoji picker), hover toolbar (React, Reply, Pin, Forward, More), pinned bar + panel, reply jump with highlight, message links (`?m=`), loading around an older message with paging forward and "Jump to latest", "New" divider + jump pill, forward dialog and forwarded header. Web tests 64 (51 before), type check and lint clean, production build OK; deployed to the `surechat` copy for browser testing.
