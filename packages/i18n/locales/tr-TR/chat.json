@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "Sohbet",
+    "page_label": "{workspace} - Sohbet",
+    "nav": {
+      "rail_label": "Sohbet",
+      "project_chat": "Sohbet"
+    },
+    "sections": {
+      "groups": "Gruplar",
+      "directs": "Doğrudan mesajlar"
+    },
+    "actions": {
+      "new": "Yeni konuşma",
+      "new_group": "Yeni grup",
+      "new_direct": "Yeni doğrudan mesaj",
+      "mute": "Konuşmayı sessize al",
+      "unmute": "Konuşmanın sesini aç",
+      "leave": "Gruptan ayrıl",
+      "delete_group": "Grubu sil",
+      "add_members": "Üye ekle",
+      "rename": "Grubu yeniden adlandır",
+      "details": "Konuşma ayrıntıları",
+      "hide_details": "Ayrıntıları gizle"
+    },
+    "status": {
+      "online": "Çevrimiçi",
+      "offline": "Çevrimdışı",
+      "connecting": "Bağlanıyor…",
+      "reconnecting": "Yeniden bağlanıyor…",
+      "blocked_disabled": "Sohbet bu örnek için kapalı.",
+      "blocked_access": "Bu çalışma alanında sohbete erişiminiz yok."
+    },
+    "members": {
+      "count": "{count, plural, one {# üye} other {# üye}}",
+      "role_admin": "Yönetici",
+      "role_member": "Üye",
+      "make_admin": "Yönetici yap",
+      "remove_admin": "Yöneticilikten çıkar",
+      "remove": "Gruptan çıkar",
+      "you": "Siz",
+      "only_members_hint": "Yalnızca bu çalışma alanının üyeleri eklenebilir. Misafirlere mesaj gönderilemez."
+    },
+    "new_conversation": {
+      "title": "Yeni konuşma",
+      "direct": "Doğrudan mesaj",
+      "group": "Grup",
+      "group_name": "Grup adı",
+      "group_name_placeholder": "ör. Mobil uygulama sürümü",
+      "members": "Üyeler",
+      "to": "Kime",
+      "search_members": "Üye ara",
+      "no_members_found": "Üye bulunamadı",
+      "create_group": "Grup oluştur",
+      "start": "Konuşma başlat",
+      "cancel": "İptal"
+    },
+    "thread": {
+      "today": "Bugün",
+      "yesterday": "Dün",
+      "new_messages": "Yeni mesajlar",
+      "jump_to_latest": "En yeni mesajlara git",
+      "seen_by": "{count, plural, one {# kişi gördü} other {# kişi gördü}}",
+      "typing_one": "{name} yazıyor…",
+      "typing_two": "{first} ve {second} yazıyor…",
+      "typing_many": "Birkaç kişi yazıyor…",
+      "edited": "düzenlendi",
+      "replying_to": "Yanıtlanan: {name}",
+      "reply_attachment": "Ek",
+      "reply_voice": "Sesli not",
+      "empty_title": "Henüz mesaj yok",
+      "empty_body": "Konuşmayı başlatmak için merhaba deyin.",
+      "no_conversation_title": "Bir konuşma seçin",
+      "no_conversation_body": "Listeden bir konuşma seçin veya yeni bir konuşma başlatın.",
+      "loading_older": "Eski mesajlar yükleniyor…",
+      "load_failed": "Mesajlar yüklenemedi.",
+      "retry": "Tekrar dene",
+      "deleted_user": "Eski üye",
+      "loading_newer": "Yeni mesajlar yükleniyor…"
+    },
+    "message": {
+      "reply": "Yanıtla",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "copy_link": "Mesaj bağlantısını kopyala",
+      "link_copied": "Bağlantı kopyalandı",
+      "more": "Diğer işlemler",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "delete_confirm_title": "Mesaj silinsin mi?",
+      "delete_confirm_body": "Mesaj ve dosyaları herkes için kaldırılır. Bu işlem geri alınamaz.",
+      "send_failed": "Gönderilemedi",
+      "sending": "Gönderiliyor…",
+      "retry": "Yeniden dene",
+      "discard": "Vazgeç",
+      "create_work_item": "İş öğesi oluştur",
+      "no_access": "Bu mesajı açamazsınız."
+    },
+    "system": {
+      "created": "{actor} grubu oluşturdu",
+      "member_added": "{actor}, {name} adlı kişiyi ekledi",
+      "member_removed": "{actor}, {name} adlı kişiyi çıkardı",
+      "member_left": "{name} gruptan ayrıldı",
+      "renamed": "{actor} grubun adını \"{name}\" olarak değiştirdi",
+      "icon_changed": "{actor} grup simgesini değiştirdi",
+      "project_linked": "{actor} grubu bir projeye bağladı",
+      "pinned": "{actor} bir mesajı sabitledi",
+      "unpinned": "{actor} bir mesajın sabitlemesini kaldırdı",
+      "someone": "Biri"
+    },
+    "preview": {
+      "you": "Siz",
+      "photo": "Fotoğraf",
+      "video": "Video",
+      "voice": "Sesli not",
+      "file": "Dosya",
+      "attachments": "{count, plural, one {# ek} other {# ek}}",
+      "system": "Grup güncellemesi",
+      "empty": "Henüz mesaj yok"
+    },
+    "composer": {
+      "placeholder": "Mesaj: {name}",
+      "send": "Gönder",
+      "editing": "Mesaj düzenleniyor",
+      "reply_cancel": "Yanıtı iptal et",
+      "attach": "Dosya ekle",
+      "waiting_uploads": "Yüklemeler bekleniyor…",
+      "remove_failed": "Önce başarısız dosyaları kaldırın veya yeniden deneyin",
+      "emoji": "Emoji ekle",
+      "formatting": "Biçimlendirme",
+      "emoji_suggestions": "Emoji önerileri",
+      "suggestion_hint": "Seçmek için ↑ ↓ · Eklemek için Enter · Kapatmak için Esc"
+    },
+    "delete_group": {
+      "title": "\"{name}\" silinsin mi?",
+      "body": "Bu gruptaki tüm mesajlar ve dosyalar herkes için kaldırılacak. Bu işlem geri alınamaz.",
+      "confirm": "Grubu sil"
+    },
+    "leave_group": {
+      "title": "\"{name}\" grubundan ayrılmak istiyor musunuz?",
+      "body": "Bu gruptan artık mesaj almayacaksınız.",
+      "confirm": "Ayrıl"
+    },
+    "errors": {
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "not_found": "Bu konuşma artık mevcut değil veya bu konuşmanın üyesi değilsiniz."
+    },
+    "upload": {
+      "ready": "Hazır",
+      "preparing": "Hazırlanıyor…",
+      "uploading": "Yükleniyor %{percent}",
+      "confirming": "Kontrol ediliyor…",
+      "failed": "Yükleme başarısız",
+      "retry": "Yeniden dene",
+      "remove": "Kaldır: {name}",
+      "too_large": "{name} çok büyük. Sınır {limit} MB.",
+      "type_not_allowed": "{name} paylaşılamıyor: bu dosya türüne izin verilmiyor.",
+      "type_mismatch": "Dosya, türüyle eşleşmiyor.",
+      "too_many": "Mesaj başına en fazla {max} dosya ekleyebilirsiniz.",
+      "drop_title": "Paylaşmak için dosyaları bırakın: {name}",
+      "drop_hint": "Görseller en fazla {image} MB · videolar en fazla {video} MB · ses dosyaları en fazla {audio} MB · diğer dosyalar en fazla {file} MB",
+      "rejected_title": "Bazı dosyalar eklenmedi"
+    },
+    "media": {
+      "open_image": "Görseli aç: {name}",
+      "play_video": "Videoyu oynat: {name}",
+      "download": "İndir: {name}",
+      "preview_unavailable": "Önizleme kullanılamıyor",
+      "more": "+{count}",
+      "view_all": "Tümünü görüntüle ({count})",
+      "filter": "Medyayı filtrele",
+      "filter_all": "Tümü",
+      "filter_image": "Görseller",
+      "filter_video": "Videolar",
+      "loaded_only": "Bu konuşmada yüklenen mesajlardaki medyayı gösterir. Daha eskilerini yüklemek için sohbette yukarı kaydırın."
+    },
+    "details": {
+      "members": "Üyeler",
+      "media": "Medya",
+      "files": "Dosyalar",
+      "no_media": "Yüklenen mesajlarda henüz fotoğraf veya video yok",
+      "no_files": "Yüklenen mesajlarda henüz dosya yok"
+    },
+    "voice": {
+      "record": "Sesli not kaydet",
+      "stop": "Durdur",
+      "discard": "Kaydı sil",
+      "record_again": "Yeniden kaydet",
+      "play": "Sesli notu oynat",
+      "pause": "Duraklat",
+      "position": "Oynatma konumu",
+      "send": "Gönder",
+      "speed": "Oynatma hızı",
+      "up_to": "en fazla {max}",
+      "permission_denied": "Mikrofon erişimi engellendi. Tarayıcı ayarlarınızdan izin verin.",
+      "unsupported": "Bu tarayıcı ses kaydını desteklemiyor."
+    },
+    "reactions": {
+      "add": "Tepki ekle",
+      "react_with": "Tepki ver: {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# tepki} other {# tepki}}",
+      "tooltip": "{names} {emoji} ile tepki verdi",
+      "and_others": "{names} ve {count, plural, one {# kişi daha} other {# kişi daha}}"
+    },
+    "picker": {
+      "search": "Emoji ara"
+    },
+    "pins": {
+      "title": "Sabitlenenler",
+      "pinned": "Sabitlendi",
+      "count": "Sabitlenen · {index}/{total}",
+      "next": "Sonraki sabitlenmiş mesaj",
+      "view_all": "Tümünü görüntüle",
+      "close": "Sabitlenmiş mesajları kapat",
+      "pin": "Mesajı sabitle",
+      "unpin": "Sabitlemeyi kaldır",
+      "pinned_by": "Sabitleyen: {name}",
+      "empty": "Henüz sabitlenmiş mesaj yok.",
+      "hint": "Konuşmadaki herkes mesaj sabitleyebilir. Konuşma başına en fazla 50 sabitleme yapılabilir."
+    },
+    "jump": {
+      "to_message": "Mesaja git",
+      "jump": "Git",
+      "highlight": "Buraya geldiniz"
+    },
+    "unread": {
+      "divider": "Yeni",
+      "divider_label": "Yeni mesajlar",
+      "pill": "{time} itibarıyla {count, plural, one {# yeni mesaj} other {# yeni mesaj}}",
+      "jump": "Git",
+      "dismiss": "Kapat"
+    },
+    "forward": {
+      "action": "İlet",
+      "title": "Mesajı ilet",
+      "to": "Kime",
+      "search": "Konuşma ara",
+      "no_results": "Eşleşen konuşma yok.",
+      "limit": "Aynı anda en fazla {count} konuşmaya iletebilirsiniz.",
+      "note": "Mesaj ekleyin (isteğe bağlı)",
+      "submit": "{count, plural, one {# konuşmaya gönder} other {# konuşmaya gönder}}",
+      "done": "{count, plural, one {# konuşmaya iletildi} other {# konuşmaya iletildi}}",
+      "from": "İletilen mesajın sahibi: {name}",
+      "from_conversation": "İletilen mesajın sahibi: {name} · Konuşma: {conversation}"
+    },
+    "sidebar": {
+      "find": "Konuşma bul",
+      "find_placeholder": "Ada göre bul",
+      "search_messages_for": "Mesajlarda \"{query}\" ara",
+      "filter": {
+        "label": "Konuşmaları filtrele",
+        "all": "Tümü",
+        "unread": "{count, plural, =0 {Okunmamış} one {Okunmamış #} other {Okunmamış #}}",
+        "mentions": "{count, plural, =0 {Bahsetmeler} one {Bahsetmeler #} other {Bahsetmeler #}}"
+      },
+      "starred": "Favoriler",
+      "archived": "Arşivlenenler",
+      "archived_empty": "Arşivlenmiş konuşma yok.",
+      "no_unread": "Okunmamış mesajınız yok.",
+      "no_mentions": "Okunmamış bahsetme yok.",
+      "draft": "Taslak: {text}",
+      "muted": "Bildirimler kapalı",
+      "mentions_label": "{count, plural, one {# okunmamış bahsetme} other {# okunmamış bahsetme}}",
+      "options": "Seçenekler: {name}",
+      "star": "Favorilere ekle",
+      "unstar": "Favorilerden kaldır",
+      "mark_read": "Okundu olarak işaretle",
+      "archive": "Arşivle",
+      "unarchive": "Arşivden çıkar",
+      "project_chats": "Proje sohbetleri: {project}",
+      "show_all": "Tümünü göster",
+      "project_empty": "Bu projeye henüz bağlı grup sohbeti yok. Bir grubun ayrıntılarından bağlayabilirsiniz."
+    },
+    "search": {
+      "title": "Mesajlarda ara",
+      "back": "Sohbete dön",
+      "placeholder": "Mesajlarda ara",
+      "clear": "Aramayı temizle",
+      "filter": {
+        "in": "Konuşma",
+        "in_all": "Konuşma: tümü",
+        "from": "Gönderen",
+        "from_anyone": "Gönderen: herkes",
+        "has": "İçerir",
+        "has_any": "İçerir: herhangi bir şey",
+        "after": "Sonra",
+        "before": "Önce"
+      },
+      "has": {
+        "file": "İçerir: dosya",
+        "image": "İçerir: görsel",
+        "video": "İçerir: video",
+        "voice": "İçerir: sesli not",
+        "link": "İçerir: bağlantı",
+        "work_item": "İçerir: iş öğesi"
+      },
+      "results": "{count, plural, one {# sonuç} other {# sonuç}}",
+      "results_many": "1.000+ sonuç",
+      "results_label": "Arama sonuçları",
+      "hint": "En az iki karakter yazın veya bir \"İçerir\" filtresi seçin.",
+      "empty": "Aramanızla eşleşen mesaj yok.",
+      "load_more": "Daha fazla yükle",
+      "loading": "Yükleniyor…",
+      "context": "Bağlamında sonuç",
+      "open": "Konuşmayı aç",
+      "footer": "Sonuçlar yalnızca üyesi olduğunuz konuşmaları içerir. Sonuçlar arasında geçiş yapmak için ↑ ↓, açmak için Enter tuşunu kullanın."
+    },
+    "shortcuts": {
+      "title": "Klavye kısayolları",
+      "previous_next": "Önceki / sonraki konuşma",
+      "next_unread": "Sonraki okunmamış konuşma",
+      "jump_conversation": "Bir konuşmaya git",
+      "search": "Mesajlarda ara",
+      "edit_last": "Son mesajınızı düzenleyin (yazma alanı boşken)",
+      "mark_read": "Konuşmayı okundu olarak işaretle",
+      "jump_unread": "İlk okunmamış mesaja git",
+      "new_line": "Yazma alanında yeni satır",
+      "show_shortcuts": "Kısayolları göster"
+    },
+    "about": {
+      "title": "Bu grup hakkında",
+      "description": "Grup açıklaması",
+      "placeholder": "Bu grup ne için?",
+      "empty": "Henüz açıklama yok.",
+      "add": "Açıklama ekle",
+      "edit": "Açıklamayı düzenle",
+      "change_icon": "Değiştirmek için simgeye tıklayın"
+    },
+    "notify": {
+      "title": "Bildirim tercihi",
+      "button_label": "Bildirimler: {level}",
+      "level": {
+        "all": "Tüm mesajlar",
+        "mentions": "Yalnızca bahsetmeler",
+        "off": "Kapalı"
+      },
+      "level_description": {
+        "all": "Her yeni mesaj",
+        "mentions": "Biri sizden bahsettiğinde veya size yanıt verdiğinde",
+        "off": "Hiçbir şey. Okunmamış sayıları güncellenmeye devam eder."
+      },
+      "snooze": "Ertele",
+      "snooze_1h": "1 saat",
+      "snooze_8h": "8 saat",
+      "snooze_tomorrow": "Yarına kadar",
+      "snoozed_short": "Ertelendi",
+      "snoozed_until": "Ertelendi, bitiş: {time}",
+      "unsnooze": "Ertelemeyi kaldır",
+      "blocked": "Tarayıcınız bu site için bildirimleri engelliyor. Tarayıcının site ayarlarından (adresin yanındaki simge) izin verin.",
+      "unsupported": "Bu tarayıcı masaüstü bildirimlerini gösteremiyor.",
+      "allow": "Masaüstü bildirimlerine izin ver",
+      "new_message": "Yeni mesaj",
+      "sent_photo": "Bir fotoğraf gönderdi",
+      "sent_video": "Bir video gönderdi",
+      "sent_voice": "Bir sesli not gönderdi",
+      "sent_file": "Bir dosya gönderdi"
+    },
+    "prefs": {
+      "title": "Sohbet ayarları",
+      "subtitle": "Bu ayarlar bu çalışma alanında yalnızca sizin için geçerlidir.",
+      "desktop_notifications": "Masaüstü bildirimleri",
+      "desktop_notifications_description": "Bu site açıkken yeni mesajlar için bildirim göster.",
+      "sound": "Ses",
+      "sound_description": "Her bildirimde kısa bir ses çal.",
+      "show_preview": "Mesaj önizlemesini göster",
+      "show_preview_description": "Mesaj metnini bildirimlere ekle.",
+      "inbox_mentions": "Gelen Kutusunda sohbet",
+      "inbox_mentions_description": "Bahsetmeleri ve doğrudan mesajları Gelen Kutunuza ekleyin.",
+      "layout": {
+        "title": "Mesaj düzeni",
+        "description": "Mesajların konuşmalarda nasıl görüneceği.",
+        "bubbles": "Baloncuklar",
+        "compact": "Kompakt",
+        "direct_only": "Baloncukları yalnızca doğrudan mesajlarda kullan"
+      },
+      "minimize": {
+        "title": "Küçültülmüş sohbetler",
+        "description": "Diğer sayfalarda açık tuttuğunuz sohbetlerin küçültüldüğünde nasıl görüneceği.",
+        "docked": "Sabit sekmeler",
+        "heads": "Sohbet balonları"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} bir sohbette sizden bahsetti",
+      "mentioned_in": "{name} sizden bahsetti · Konuşma: {conversation}",
+      "direct": "{name} size bir mesaj gönderdi"
+    },
+    "slash": {
+      "title": "Komutlar",
+      "workitem": "Bir iş öğesi oluştur ve buraya bağla",
+      "link": "Mevcut bir iş öğesini bağla",
+      "mute": "Bu konuşmayı sessize al veya sesini aç",
+      "code": "Kod bloğu ekle",
+      "shrug": "¯\\_(ツ)_/¯ ekle",
+      "muted": "Konuşma sessize alındı",
+      "unmuted": "Konuşmanın sesi açıldı"
+    },
+    "dock": {
+      "open_full": "Tam sohbette aç",
+      "minimize": "Küçült",
+      "close": "Kapat",
+      "expand": "Aç: {name}",
+      "heads": "Küçültülmüş sohbetler"
+    },
+    "workitem": {
+      "share": "Sohbette paylaş",
+      "discuss": "Sohbette tartış",
+      "discuss_hint": "Sohbet, bu iş öğesinin bağlantısı gönderilmeye hazır şekilde açılır.",
+      "this_project": "Bu proje",
+      "shared": "{count, plural, one {# konuşmada paylaşıldı} other {# konuşmada paylaşıldı}}",
+      "discussed_in": "{count, plural, one {# konuşmada tartışıldı} other {# konuşmada tartışıldı}}",
+      "discussed_hint": "Yalnızca içinde bulunduğunuz konuşmalar listelenir.",
+      "chip": "{key}",
+      "due": "Bitiş: {date}",
+      "archived": "Arşivlendi",
+      "sub_items": "{count, plural, one {# alt iş öğesi} other {# alt iş öğesi}}"
+    },
+    "mobile": {
+      "back": "Konuşmalara dön",
+      "close": "Kapat",
+      "message_actions": "Mesaj işlemleri",
+      "copy_text": "Metni kopyala"
+    },
+    "states": {
+      "empty_title": "Çalışma alanınızla konuşun",
+      "empty_body": "Bir ekip arkadaşınıza mesaj gönderin veya bir proje ya da ekip için grup başlatın. Dosyaları, sesli notları ve iş öğelerini paylaşın.",
+      "new_direct": "{name} ile konuşmanızın başlangıcı.",
+      "new_group": "\"{name}\" grubunun başlangıcı.",
+      "say_hi": "👋 Merhaba de",
+      "offline": "Çevrimdışısınız. Gönderdiğiniz mesajlar yeniden bağlandığınızda iletilecek.",
+      "waiting": "Gönderilmeyi bekliyor",
+      "back_online": "Yeniden çevrimiçisiniz. Kaçırdıklarınız yükleniyor."
+    },
+    "a11y": {
+      "new_message": "Yeni mesaj — {name}: {text}"
+    }
+  }
+}

@@ -105,7 +105,10 @@
       "open_project_setting": "Відкрити налаштування проєкту",
       "nav_project_settings": "Перейти до налаштувань проєкту",
       "nav_workspace_active_cycle": "Перейти до всіх активних циклів",
-      "nav_project_overview": "Перейти до огляду проєкту"
+      "nav_project_overview": "Перейти до огляду проєкту",
+      "nav_chat": "Перейти до чату",
+      "open_chat_conversation": "Відкрити розмову",
+      "search_chat_messages": "Шукати повідомлення в чаті"
     },
     "account_actions": {
       "sign_out": "Вийти",
@@ -166,7 +169,8 @@
       "update_theme": "Змінити тему",
       "update_timezone": "Змінити часовий пояс",
       "update_start_of_week": "Змінити перший день тижня",
-      "update_language": "Змінити мову"
+      "update_language": "Змінити мову",
+      "open_chat_conversation": "Відкрити розмову"
     },
     "search_menu": {
       "no_results": "Не знайдено результатів",

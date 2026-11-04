@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "Chat",
+    "page_label": "{workspace} - Chat",
+    "nav": {
+      "rail_label": "Chat",
+      "project_chat": "Chat"
+    },
+    "sections": {
+      "groups": "Skupiny",
+      "directs": "Priame správy"
+    },
+    "actions": {
+      "new": "Nová konverzácia",
+      "new_group": "Nová skupina",
+      "new_direct": "Nová priama správa",
+      "mute": "Stlmiť konverzáciu",
+      "unmute": "Zrušiť stlmenie konverzácie",
+      "leave": "Opustiť skupinu",
+      "delete_group": "Odstrániť skupinu",
+      "add_members": "Pridať členov",
+      "rename": "Premenovať skupinu",
+      "details": "Podrobnosti konverzácie",
+      "hide_details": "Skryť podrobnosti"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Pripájanie…",
+      "reconnecting": "Opätovné pripájanie…",
+      "blocked_disabled": "Chat je v tejto inštancii vypnutý.",
+      "blocked_access": "Nemáte prístup k chatu v tomto pracovnom priestore."
+    },
+    "members": {
+      "count": "{count, plural, one {# člen} few {# členovia} many {# člena} other {# členov}}",
+      "role_admin": "Správca",
+      "role_member": "Člen",
+      "make_admin": "Nastaviť ako správcu",
+      "remove_admin": "Odobrať rolu správcu",
+      "remove": "Odobrať zo skupiny",
+      "you": "Vy",
+      "only_members_hint": "Pridať možno iba členov tohto pracovného priestoru. Hosťom nemožno písať správy."
+    },
+    "new_conversation": {
+      "title": "Nová konverzácia",
+      "direct": "Priama správa",
+      "group": "Skupina",
+      "group_name": "Názov skupiny",
+      "group_name_placeholder": "napr. Vydanie mobilnej aplikácie",
+      "members": "Členovia",
+      "to": "Komu",
+      "search_members": "Hľadať členov",
+      "no_members_found": "Nenašli sa žiadni členovia",
+      "create_group": "Vytvoriť skupinu",
+      "start": "Začať konverzáciu",
+      "cancel": "Zrušiť"
+    },
+    "thread": {
+      "today": "Dnes",
+      "yesterday": "Včera",
+      "new_messages": "Nové správy",
+      "jump_to_latest": "Prejsť na najnovšie",
+      "seen_by": "{count, plural, one {Zobrazené: #} few {Zobrazené: #} many {Zobrazené: #} other {Zobrazené: #}}",
+      "typing_one": "{name} píše…",
+      "typing_two": "{first} a {second} píšu…",
+      "typing_many": "Niekoľko ľudí píše…",
+      "edited": "upravené",
+      "replying_to": "Odpoveď pre: {name}",
+      "reply_attachment": "Príloha",
+      "reply_voice": "Hlasová správa",
+      "empty_title": "Zatiaľ žiadne správy",
+      "empty_body": "Pozdravte a začnite konverzáciu.",
+      "no_conversation_title": "Vyberte konverzáciu",
+      "no_conversation_body": "Vyberte konverzáciu zo zoznamu alebo začnite novú.",
+      "loading_older": "Načítavajú sa staršie správy…",
+      "load_failed": "Správy sa nepodarilo načítať.",
+      "retry": "Skúsiť znova",
+      "deleted_user": "Bývalý člen",
+      "loading_newer": "Načítavajú sa novšie správy…"
+    },
+    "message": {
+      "reply": "Odpovedať",
+      "edit": "Upraviť",
+      "delete": "Odstrániť",
+      "copy_link": "Kopírovať odkaz na správu",
+      "link_copied": "Odkaz skopírovaný",
+      "more": "Ďalšie akcie",
+      "save": "Uložiť",
+      "cancel": "Zrušiť",
+      "delete_confirm_title": "Odstrániť správu?",
+      "delete_confirm_body": "Správa a jej súbory sa odstránia pre všetkých. Túto akciu nemožno vrátiť späť.",
+      "send_failed": "Nepodarilo sa odoslať",
+      "sending": "Odosiela sa…",
+      "retry": "Skúsiť znova",
+      "discard": "Zahodiť",
+      "create_work_item": "Vytvoriť pracovnú položku",
+      "no_access": "Túto správu nemôžete otvoriť."
+    },
+    "system": {
+      "created": "{actor} zakladá skupinu",
+      "member_added": "{actor} pridáva do skupiny: {name}",
+      "member_removed": "{actor} odoberá zo skupiny: {name}",
+      "member_left": "{name} opúšťa skupinu",
+      "renamed": "{actor} premenúva skupinu na „{name}“",
+      "icon_changed": "{actor} mení ikonu skupiny",
+      "project_linked": "{actor} prepája skupinu s projektom",
+      "pinned": "{actor} pripína správu",
+      "unpinned": "{actor} odopína správu",
+      "someone": "Niekto"
+    },
+    "preview": {
+      "you": "Vy",
+      "photo": "Fotka",
+      "video": "Video",
+      "voice": "Hlasová správa",
+      "file": "Súbor",
+      "attachments": "{count, plural, one {# príloha} few {# prílohy} many {# prílohy} other {# príloh}}",
+      "system": "Zmena v skupine",
+      "empty": "Zatiaľ žiadne správy"
+    },
+    "composer": {
+      "placeholder": "Správa pre: {name}",
+      "send": "Odoslať",
+      "editing": "Úprava správy",
+      "reply_cancel": "Zrušiť odpoveď",
+      "attach": "Priložiť súbory",
+      "waiting_uploads": "Čaká sa na nahratie…",
+      "remove_failed": "Najprv odoberte alebo znova nahrajte neúspešné súbory",
+      "emoji": "Vložiť emoji",
+      "formatting": "Formátovanie",
+      "emoji_suggestions": "Návrhy emoji",
+      "suggestion_hint": "↑ ↓ výber · Enter potvrdenie · Esc zatvorenie"
+    },
+    "delete_group": {
+      "title": "Odstrániť {name}?",
+      "body": "Všetky správy a súbory v tejto skupine sa odstránia pre všetkých. Túto akciu nemožno vrátiť späť.",
+      "confirm": "Odstrániť skupinu"
+    },
+    "leave_group": {
+      "title": "Opustiť {name}?",
+      "body": "Prestanete dostávať správy z tejto skupiny.",
+      "confirm": "Opustiť"
+    },
+    "errors": {
+      "generic": "Niečo sa pokazilo. Skúste to prosím znova.",
+      "not_found": "Táto konverzácia už neexistuje alebo nie ste jej členom."
+    },
+    "upload": {
+      "ready": "Pripravené",
+      "preparing": "Pripravuje sa…",
+      "uploading": "Nahráva sa {percent} %",
+      "confirming": "Kontroluje sa…",
+      "failed": "Nahratie zlyhalo",
+      "retry": "Skúsiť znova",
+      "remove": "Odobrať {name}",
+      "too_large": "Súbor {name} je príliš veľký. Limit je {limit} MB.",
+      "type_not_allowed": "Súbor {name} nemožno zdieľať: tento typ súboru nie je povolený.",
+      "type_mismatch": "Súbor nezodpovedá svojmu typu.",
+      "too_many": "K jednej správe môžete priložiť najviac {max} súborov.",
+      "drop_title": "Presuňte sem súbory a zdieľajte ich v: {name}",
+      "drop_hint": "Obrázky do {image} MB · videá do {video} MB · zvuk do {audio} MB · ostatné súbory do {file} MB",
+      "rejected_title": "Niektoré súbory sa nepridali"
+    },
+    "media": {
+      "open_image": "Otvoriť obrázok {name}",
+      "play_video": "Prehrať video {name}",
+      "download": "Stiahnuť {name}",
+      "preview_unavailable": "Ukážka nie je k dispozícii",
+      "more": "+{count}",
+      "view_all": "Zobraziť všetko ({count})",
+      "filter": "Filtrovať médiá",
+      "filter_all": "Všetko",
+      "filter_image": "Obrázky",
+      "filter_video": "Videá",
+      "loaded_only": "Zobrazuje médiá zo správ načítaných v tejto konverzácii. Staršie načítate posunutím chatu nahor."
+    },
+    "details": {
+      "members": "Členovia",
+      "media": "Médiá",
+      "files": "Súbory",
+      "no_media": "V načítaných správach zatiaľ nie sú žiadne fotky ani videá",
+      "no_files": "V načítaných správach zatiaľ nie sú žiadne súbory"
+    },
+    "voice": {
+      "record": "Nahrať hlasovú správu",
+      "stop": "Zastaviť",
+      "discard": "Zahodiť nahrávku",
+      "record_again": "Nahrať znova",
+      "play": "Prehrať hlasovú správu",
+      "pause": "Pozastaviť",
+      "position": "Pozícia prehrávania",
+      "send": "Odoslať",
+      "speed": "Rýchlosť prehrávania",
+      "up_to": "max. {max}",
+      "permission_denied": "Prístup k mikrofónu je zablokovaný. Povoľte ho v nastaveniach prehliadača.",
+      "unsupported": "Tento prehliadač nepodporuje nahrávanie hlasu."
+    },
+    "reactions": {
+      "add": "Pridať reakciu",
+      "react_with": "Reagovať pomocou {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# reakcia} few {# reakcie} many {# reakcie} other {# reakcií}}",
+      "tooltip": "{names} – reakcia {emoji}",
+      "and_others": "{names} a {count, plural, one {# ďalší} few {# ďalší} many {# ďalšieho} other {# ďalších}}"
+    },
+    "picker": {
+      "search": "Hľadať emoji"
+    },
+    "pins": {
+      "title": "Pripnuté",
+      "pinned": "Pripnuté",
+      "count": "Pripnuté · {index} z {total}",
+      "next": "Ďalšia pripnutá správa",
+      "view_all": "Zobraziť všetko",
+      "close": "Zavrieť pripnuté správy",
+      "pin": "Pripnúť správu",
+      "unpin": "Odopnúť",
+      "pinned_by": "Pripnul(a): {name}",
+      "empty": "Zatiaľ žiadne pripnuté správy.",
+      "hint": "Pripínať môže ktokoľvek v konverzácii. Najviac 50 pripnutí na konverzáciu."
+    },
+    "jump": {
+      "to_message": "Prejsť na správu",
+      "jump": "Prejsť",
+      "highlight": "Tu"
+    },
+    "unread": {
+      "divider": "Nové",
+      "divider_label": "Nové správy",
+      "pill": "{count, plural, one {# nová správa} few {# nové správy} many {# novej správy} other {# nových správ}} od {time}",
+      "jump": "Prejsť",
+      "dismiss": "Zavrieť"
+    },
+    "forward": {
+      "action": "Preposlať",
+      "title": "Preposlať správu",
+      "to": "Komu",
+      "search": "Hľadať konverzácie",
+      "no_results": "Žiadne konverzácie nezodpovedajú.",
+      "limit": "Naraz môžete preposlať najviac do {count} konverzácií.",
+      "note": "Pridať správu (voliteľné)",
+      "submit": "{count, plural, one {Odoslať do # konverzácie} few {Odoslať do # konverzácií} many {Odoslať do # konverzácie} other {Odoslať do # konverzácií}}",
+      "done": "{count, plural, one {Preposlané do # konverzácie} few {Preposlané do # konverzácií} many {Preposlané do # konverzácie} other {Preposlané do # konverzácií}}",
+      "from": "Preposlané od: {name}",
+      "from_conversation": "Preposlané od: {name} v konverzácii {conversation}"
+    },
+    "sidebar": {
+      "find": "Nájsť konverzáciu",
+      "find_placeholder": "Hľadať podľa názvu",
+      "search_messages_for": "Hľadať správy obsahujúce „{query}“",
+      "filter": {
+        "label": "Filtrovať konverzácie",
+        "all": "Všetky",
+        "unread": "{count, plural, =0 {Neprečítané} one {Neprečítané #} few {Neprečítané #} many {Neprečítané #} other {Neprečítané #}}",
+        "mentions": "{count, plural, =0 {Zmienky} one {Zmienky #} few {Zmienky #} many {Zmienky #} other {Zmienky #}}"
+      },
+      "starred": "S hviezdičkou",
+      "archived": "Archivované",
+      "archived_empty": "Žiadne archivované konverzácie.",
+      "no_unread": "Všetko máte prečítané.",
+      "no_mentions": "Žiadne neprečítané zmienky.",
+      "draft": "Koncept: {text}",
+      "muted": "Oznámenia vypnuté",
+      "mentions_label": "{count, plural, one {# neprečítaná zmienka} few {# neprečítané zmienky} many {# neprečítanej zmienky} other {# neprečítaných zmienok}}",
+      "options": "Možnosti: {name}",
+      "star": "Označiť hviezdičkou",
+      "unstar": "Odobrať hviezdičku",
+      "mark_read": "Označiť ako prečítané",
+      "archive": "Archivovať",
+      "unarchive": "Obnoviť z archívu",
+      "project_chats": "Chaty projektu {project}",
+      "show_all": "Zobraziť všetky",
+      "project_empty": "S týmto projektom zatiaľ nie sú prepojené žiadne skupinové chaty. Prepojte ho v podrobnostiach skupiny."
+    },
+    "search": {
+      "title": "Hľadať správy",
+      "back": "Späť na chat",
+      "placeholder": "Hľadať správy",
+      "clear": "Vymazať hľadanie",
+      "filter": {
+        "in": "V konverzácii",
+        "in_all": "V: všetky konverzácie",
+        "from": "Od",
+        "from_anyone": "Od: ktokoľvek",
+        "has": "Obsahuje",
+        "has_any": "Obsahuje: čokoľvek",
+        "after": "Po",
+        "before": "Pred"
+      },
+      "has": {
+        "file": "Obsahuje: súbor",
+        "image": "Obsahuje: obrázok",
+        "video": "Obsahuje: video",
+        "voice": "Obsahuje: hlasovú správu",
+        "link": "Obsahuje: odkaz",
+        "work_item": "Obsahuje: pracovnú položku"
+      },
+      "results": "{count, plural, one {# výsledok} few {# výsledky} many {# výsledku} other {# výsledkov}}",
+      "results_many": "Viac ako 1 000 výsledkov",
+      "results_label": "Výsledky hľadania",
+      "hint": "Zadajte aspoň dva znaky alebo vyberte filter „Obsahuje“.",
+      "empty": "Hľadaniu nezodpovedajú žiadne správy.",
+      "load_more": "Načítať ďalšie",
+      "loading": "Načítava sa…",
+      "context": "Výsledok v kontexte",
+      "open": "Otvoriť konverzáciu",
+      "footer": "Výsledky zahŕňajú iba konverzácie, ktorých ste členom. Pomocou ↑ ↓ prechádzajte medzi výsledkami a klávesom Enter výsledok otvorte."
+    },
+    "shortcuts": {
+      "title": "Klávesové skratky",
+      "previous_next": "Predchádzajúca / ďalšia konverzácia",
+      "next_unread": "Ďalšia neprečítaná konverzácia",
+      "jump_conversation": "Prejsť na konverzáciu",
+      "search": "Hľadať správy",
+      "edit_last": "Upraviť poslednú správu (prázdne pole správy)",
+      "mark_read": "Označiť konverzáciu ako prečítanú",
+      "jump_unread": "Prejsť na prvú neprečítanú",
+      "new_line": "Nový riadok v poli správy",
+      "show_shortcuts": "Zobraziť skratky"
+    },
+    "about": {
+      "title": "O tejto skupine",
+      "description": "Popis skupiny",
+      "placeholder": "Na čo slúži táto skupina?",
+      "empty": "Zatiaľ bez popisu.",
+      "add": "Pridať popis",
+      "edit": "Upraviť popis",
+      "change_icon": "Kliknutím na ikonu ju zmeníte"
+    },
+    "notify": {
+      "title": "Upozorňovať ma na",
+      "button_label": "Oznámenia: {level}",
+      "level": {
+        "all": "Všetky správy",
+        "mentions": "Iba zmienky",
+        "off": "Vypnuté"
+      },
+      "level_description": {
+        "all": "Každá nová správa",
+        "mentions": "Keď vás niekto spomenie alebo vám odpovie",
+        "off": "Nič. Počty neprečítaných sa budú naďalej aktualizovať."
+      },
+      "snooze": "Odložiť na",
+      "snooze_1h": "1 hodinu",
+      "snooze_8h": "8 hodín",
+      "snooze_tomorrow": "Do zajtra",
+      "snoozed_short": "Odložené",
+      "snoozed_until": "Odložené do {time}",
+      "unsnooze": "Vypnúť",
+      "blocked": "Váš prehliadač blokuje oznámenia z tejto stránky. Povoľte ich v nastaveniach stránky v prehliadači (ikona vedľa adresy).",
+      "unsupported": "Tento prehliadač nedokáže zobrazovať oznámenia na pracovnej ploche.",
+      "allow": "Povoliť oznámenia na pracovnej ploche",
+      "new_message": "Nová správa",
+      "sent_photo": "Posiela fotku",
+      "sent_video": "Posiela video",
+      "sent_voice": "Posiela hlasovú správu",
+      "sent_file": "Posiela súbor"
+    },
+    "prefs": {
+      "title": "Nastavenia chatu",
+      "subtitle": "Platia pre vás v tomto pracovnom priestore.",
+      "desktop_notifications": "Oznámenia na pracovnej ploche",
+      "desktop_notifications_description": "Zobrazovať oznámenie o nových správach, keď je táto stránka otvorená.",
+      "sound": "Zvuk",
+      "sound_description": "Prehrať krátky zvuk pri každom oznámení.",
+      "show_preview": "Zobrazovať ukážku správy",
+      "show_preview_description": "Zahrnúť text správy do oznámení.",
+      "inbox_mentions": "Chat v doručenej pošte",
+      "inbox_mentions_description": "Pridávať zmienky a priame správy do vašej doručenej pošty.",
+      "layout": {
+        "title": "Rozloženie správ",
+        "description": "Ako vyzerajú správy v konverzáciách.",
+        "bubbles": "Bubliny",
+        "compact": "Kompaktné",
+        "direct_only": "Používať bubliny iba v priamych správach"
+      },
+      "minimize": {
+        "title": "Minimalizované chaty",
+        "description": "Ako vyzerajú chaty otvorené na iných stránkach po minimalizovaní.",
+        "docked": "Ukotvené karty",
+        "heads": "Bubliny chatu"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} vás spomína v chate",
+      "mentioned_in": "{name} vás spomína v konverzácii {conversation}",
+      "direct": "{name} vám posiela správu"
+    },
+    "slash": {
+      "title": "Príkazy",
+      "workitem": "Vytvoriť pracovnú položku a vložiť sem odkaz na ňu",
+      "link": "Vložiť odkaz na existujúcu pracovnú položku",
+      "mute": "Stlmiť alebo zrušiť stlmenie tejto konverzácie",
+      "code": "Vložiť blok kódu",
+      "shrug": "Pridať ¯\\_(ツ)_/¯",
+      "muted": "Konverzácia stlmená",
+      "unmuted": "Stlmenie konverzácie zrušené"
+    },
+    "dock": {
+      "open_full": "Otvoriť v úplnom chate",
+      "minimize": "Minimalizovať",
+      "close": "Zavrieť",
+      "expand": "Otvoriť: {name}",
+      "heads": "Minimalizované chaty"
+    },
+    "workitem": {
+      "share": "Zdieľať do chatu",
+      "discuss": "Prebrať v chate",
+      "discuss_hint": "Chat sa otvorí s odkazom na túto pracovnú položku pripraveným na odoslanie.",
+      "this_project": "Tento projekt",
+      "shared": "{count, plural, one {Zdieľané do # konverzácie} few {Zdieľané do # konverzácií} many {Zdieľané do # konverzácie} other {Zdieľané do # konverzácií}}",
+      "discussed_in": "{count, plural, one {Diskutované v # konverzácii} few {Diskutované v # konverzáciách} many {Diskutované v # konverzácie} other {Diskutované v # konverzáciách}}",
+      "discussed_hint": "Zobrazujú sa iba konverzácie, ktorých sa zúčastňujete.",
+      "chip": "{key}",
+      "due": "Termín: {date}",
+      "archived": "Archivované",
+      "sub_items": "{count, plural, one {# podriadená položka} few {# podriadené položky} many {# podriadenej položky} other {# podriadených položiek}}"
+    },
+    "mobile": {
+      "back": "Späť na konverzácie",
+      "close": "Zavrieť",
+      "message_actions": "Akcie správy",
+      "copy_text": "Kopírovať text"
+    },
+    "states": {
+      "empty_title": "Komunikujte s pracovným priestorom",
+      "empty_body": "Napíšte kolegovi alebo založte skupinu pre projekt či tím. Zdieľajte súbory, hlasové správy a pracovné položky.",
+      "new_direct": "Toto je začiatok vašej konverzácie s: {name}.",
+      "new_group": "Toto je začiatok skupiny {name}.",
+      "say_hi": "👋 Pozdraviť",
+      "offline": "Ste offline. Odoslané správy sa doručia po opätovnom pripojení.",
+      "waiting": "Čaká na odoslanie",
+      "back_online": "Opäť online. Načítava sa, čo ste zmeškali."
+    },
+    "a11y": {
+      "new_message": "Nová správa od {name}: {text}"
+    }
+  }
+}

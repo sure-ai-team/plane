@@ -54,7 +54,9 @@ export const ChatAddMembersModal = observer(function ChatAddMembersModal(props: 
     [conversation.members]
   );
 
-  const candidates = useMemo(() => {
+  // Not memoised: the store getters keep the same identity, so a memo would keep a list computed
+  // before members loaded. The observer re-renders when members change.
+  const candidates = (() => {
     const needle = query.trim().toLowerCase();
     return getWorkspaceMemberIds(workspaceSlug)
       .map((id) => getWorkspaceMemberDetails(id))
@@ -67,7 +69,7 @@ export const ChatAddMembersModal = observer(function ChatAddMembersModal(props: 
           !details.member.is_bot
       )
       .filter((details) => !needle || details.member.display_name.toLowerCase().includes(needle));
-  }, [getWorkspaceMemberIds, getWorkspaceMemberDetails, workspaceSlug, existing, query]);
+  })();
 
   const submit = async () => {
     if (selected.length === 0) return;

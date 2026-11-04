@@ -16,7 +16,7 @@ import { cn } from "@plane/utils";
 import { useChat } from "@/hooks/store/use-chat";
 import { defaultNotifyLevel } from "@/store/chat";
 // local
-import { snoozeUntil } from "../common/helpers";
+import { chatDateLocale, snoozeUntil } from "../common/helpers";
 
 const LEVELS: TChatNotifyLevel[] = ["all", "mentions", "off"];
 const ICONS = { all: BellRing, mentions: Bell, off: BellOff };
@@ -88,7 +88,7 @@ export const ChatNotifyLevel = observer(function ChatNotifyLevel({ workspaceSlug
             <div className="flex items-center justify-between gap-2 text-12">
               <span className="text-secondary">
                 {t("chat.notify.snoozed_until", {
-                  time: snoozedUntil.toLocaleString([], {
+                  time: snoozedUntil.toLocaleString(chatDateLocale(), {
                     weekday: "short",
                     hour: "2-digit",
                     minute: "2-digit",

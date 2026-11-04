@@ -105,7 +105,10 @@
       "open_project_setting": "Otwórz ustawienie projektu",
       "nav_project_settings": "Przejdź do ustawień projektu",
       "nav_workspace_active_cycle": "Przejdź do wszystkich aktywnych cykli",
-      "nav_project_overview": "Przejdź do przeglądu projektu"
+      "nav_project_overview": "Przejdź do przeglądu projektu",
+      "nav_chat": "Przejdź do czatu",
+      "open_chat_conversation": "Otwórz rozmowę",
+      "search_chat_messages": "Szukaj wiadomości na czacie"
     },
     "account_actions": {
       "sign_out": "Wyloguj się",
@@ -166,7 +169,8 @@
       "update_theme": "Zmień motyw",
       "update_timezone": "Zmień strefę czasową",
       "update_start_of_week": "Zmień pierwszy dzień tygodnia",
-      "update_language": "Zmień język"
+      "update_language": "Zmień język",
+      "open_chat_conversation": "Otwórz rozmowę"
     },
     "search_menu": {
       "no_results": "Nie znaleziono wyników",

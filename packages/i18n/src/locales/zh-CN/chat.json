@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "聊天",
+    "page_label": "{workspace} - 聊天",
+    "nav": {
+      "rail_label": "聊天",
+      "project_chat": "聊天"
+    },
+    "sections": {
+      "groups": "群组",
+      "directs": "私信"
+    },
+    "actions": {
+      "new": "新建会话",
+      "new_group": "新建群组",
+      "new_direct": "新建私信",
+      "mute": "将会话设为免打扰",
+      "unmute": "取消会话免打扰",
+      "leave": "退出群组",
+      "delete_group": "删除群组",
+      "add_members": "添加成员",
+      "rename": "重命名群组",
+      "details": "会话详情",
+      "hide_details": "隐藏详情"
+    },
+    "status": {
+      "online": "在线",
+      "offline": "离线",
+      "connecting": "正在连接…",
+      "reconnecting": "正在重新连接…",
+      "blocked_disabled": "此实例已关闭聊天功能。",
+      "blocked_access": "您无权在此工作区中使用聊天。"
+    },
+    "members": {
+      "count": "{count, plural, other {# 位成员}}",
+      "role_admin": "管理员",
+      "role_member": "成员",
+      "make_admin": "设为管理员",
+      "remove_admin": "取消管理员",
+      "remove": "从群组中移除",
+      "you": "您",
+      "only_members_hint": "只能添加此工作区的成员。无法向访客发送消息。"
+    },
+    "new_conversation": {
+      "title": "新建会话",
+      "direct": "私信",
+      "group": "群组",
+      "group_name": "群组名称",
+      "group_name_placeholder": "例如：移动应用发布",
+      "members": "成员",
+      "to": "发送给",
+      "search_members": "搜索成员",
+      "no_members_found": "未找到成员",
+      "create_group": "创建群组",
+      "start": "开始会话",
+      "cancel": "取消"
+    },
+    "thread": {
+      "today": "今天",
+      "yesterday": "昨天",
+      "new_messages": "新消息",
+      "jump_to_latest": "跳转到最新消息",
+      "seen_by": "{count, plural, other {# 人已读}}",
+      "typing_one": "{name} 正在输入…",
+      "typing_two": "{first} 和 {second} 正在输入…",
+      "typing_many": "多人正在输入…",
+      "edited": "已编辑",
+      "replying_to": "回复 {name}",
+      "reply_attachment": "附件",
+      "reply_voice": "语音消息",
+      "empty_title": "暂无消息",
+      "empty_body": "打个招呼，开始对话吧。",
+      "no_conversation_title": "选择一个会话",
+      "no_conversation_body": "从列表中选择一个会话，或开始新会话。",
+      "loading_older": "正在加载更早的消息…",
+      "load_failed": "无法加载消息。",
+      "retry": "重试",
+      "deleted_user": "前成员",
+      "loading_newer": "正在加载更新的消息…"
+    },
+    "message": {
+      "reply": "回复",
+      "edit": "编辑",
+      "delete": "删除",
+      "copy_link": "复制消息链接",
+      "link_copied": "链接已复制",
+      "more": "更多操作",
+      "save": "保存",
+      "cancel": "取消",
+      "delete_confirm_title": "删除消息？",
+      "delete_confirm_body": "这将为所有人删除该消息及其文件。此操作无法撤销。",
+      "send_failed": "发送失败",
+      "sending": "正在发送…",
+      "retry": "重试",
+      "discard": "放弃",
+      "create_work_item": "创建工作项",
+      "no_access": "您无法打开该消息。"
+    },
+    "system": {
+      "created": "{actor} 创建了群组",
+      "member_added": "{actor} 添加了 {name}",
+      "member_removed": "{actor} 移除了 {name}",
+      "member_left": "{name} 已退出",
+      "renamed": "{actor} 将群组重命名为“{name}”",
+      "icon_changed": "{actor} 更改了群组图标",
+      "project_linked": "{actor} 将群组关联到了项目",
+      "pinned": "{actor} 置顶了一条消息",
+      "unpinned": "{actor} 取消置顶了一条消息",
+      "someone": "某人"
+    },
+    "preview": {
+      "you": "您",
+      "photo": "图片",
+      "video": "视频",
+      "voice": "语音消息",
+      "file": "文件",
+      "attachments": "{count, plural, other {# 个附件}}",
+      "system": "群组动态",
+      "empty": "暂无消息"
+    },
+    "composer": {
+      "placeholder": "发消息给 {name}",
+      "send": "发送",
+      "editing": "正在编辑消息",
+      "reply_cancel": "取消回复",
+      "attach": "添加附件",
+      "waiting_uploads": "正在等待上传完成…",
+      "remove_failed": "请先移除或重试上传失败的文件",
+      "emoji": "插入表情",
+      "formatting": "格式",
+      "emoji_suggestions": "表情建议",
+      "suggestion_hint": "↑ ↓ 选择 · Enter 确认 · Esc 关闭"
+    },
+    "delete_group": {
+      "title": "删除 {name}？",
+      "body": "此群组中的所有消息和文件将为所有人删除。此操作无法撤销。",
+      "confirm": "删除群组"
+    },
+    "leave_group": {
+      "title": "退出 {name}？",
+      "body": "您将不再收到此群组的消息。",
+      "confirm": "退出"
+    },
+    "errors": {
+      "generic": "出现问题，请重试。",
+      "not_found": "此会话已不存在，或您不是其成员。"
+    },
+    "upload": {
+      "ready": "就绪",
+      "preparing": "正在准备…",
+      "uploading": "正在上传 {percent}%",
+      "confirming": "正在检查…",
+      "failed": "上传失败",
+      "retry": "重试",
+      "remove": "移除 {name}",
+      "too_large": "{name} 过大。上限为 {limit} MB。",
+      "type_not_allowed": "无法分享 {name}：不允许此文件类型。",
+      "type_mismatch": "文件内容与其类型不符。",
+      "too_many": "每条消息最多可附加 {max} 个文件。",
+      "drop_title": "拖放文件以在 {name} 中分享",
+      "drop_hint": "图片最大 {image} MB · 视频最大 {video} MB · 音频最大 {audio} MB · 其他文件最大 {file} MB",
+      "rejected_title": "部分文件未添加"
+    },
+    "media": {
+      "open_image": "打开图片 {name}",
+      "play_video": "播放视频 {name}",
+      "download": "下载 {name}",
+      "preview_unavailable": "无法预览",
+      "more": "+{count}",
+      "view_all": "查看全部（{count}）",
+      "filter": "筛选媒体",
+      "filter_all": "全部",
+      "filter_image": "图片",
+      "filter_video": "视频",
+      "loaded_only": "仅显示此会话中已加载消息里的媒体。在聊天中向上滚动可加载更早的内容。"
+    },
+    "details": {
+      "members": "成员",
+      "media": "媒体",
+      "files": "文件",
+      "no_media": "已加载的消息中暂无图片或视频",
+      "no_files": "已加载的消息中暂无文件"
+    },
+    "voice": {
+      "record": "录制语音消息",
+      "stop": "停止",
+      "discard": "放弃录音",
+      "record_again": "重新录制",
+      "play": "播放语音消息",
+      "pause": "暂停",
+      "position": "播放进度",
+      "send": "发送",
+      "speed": "播放速度",
+      "up_to": "最长 {max}",
+      "permission_denied": "麦克风访问已被阻止。请在浏览器设置中允许访问。",
+      "unsupported": "此浏览器不支持录制语音。"
+    },
+    "reactions": {
+      "add": "添加回应",
+      "react_with": "用 {emoji} 回应",
+      "chip_label": "{emoji} {count, plural, other {# 个回应}}",
+      "tooltip": "{names} 用 {emoji} 回应了",
+      "and_others": "{names} 和其他 {count, plural, other {# 人}}"
+    },
+    "picker": {
+      "search": "搜索表情"
+    },
+    "pins": {
+      "title": "已置顶",
+      "pinned": "已置顶",
+      "count": "已置顶 · 第 {index} 条，共 {total} 条",
+      "next": "下一条置顶消息",
+      "view_all": "查看全部",
+      "close": "关闭置顶消息",
+      "pin": "置顶消息",
+      "unpin": "取消置顶",
+      "pinned_by": "由 {name} 置顶",
+      "empty": "暂无置顶消息。",
+      "hint": "会话中的任何人都可以置顶消息。每个会话最多可置顶 50 条。"
+    },
+    "jump": {
+      "to_message": "跳转到消息",
+      "jump": "跳转",
+      "highlight": "已跳转到此处"
+    },
+    "unread": {
+      "divider": "新",
+      "divider_label": "新消息",
+      "pill": "自 {time} 以来有 {count, plural, other {# 条新消息}}",
+      "jump": "跳转",
+      "dismiss": "忽略"
+    },
+    "forward": {
+      "action": "转发",
+      "title": "转发消息",
+      "to": "发送给",
+      "search": "搜索会话",
+      "no_results": "没有匹配的会话。",
+      "limit": "一次最多可转发到 {count} 个会话。",
+      "note": "添加消息（可选）",
+      "submit": "{count, plural, other {发送到 # 个会话}}",
+      "done": "{count, plural, other {已转发到 # 个会话}}",
+      "from": "转发自 {name}",
+      "from_conversation": "转发自 {conversation} 中的 {name}"
+    },
+    "sidebar": {
+      "find": "查找会话",
+      "find_placeholder": "按名称查找",
+      "search_messages_for": "搜索包含“{query}”的消息",
+      "filter": {
+        "label": "筛选会话",
+        "all": "全部",
+        "unread": "{count, plural, =0 {未读} other {未读 #}}",
+        "mentions": "{count, plural, =0 {提及} other {提及 #}}"
+      },
+      "starred": "已加星标",
+      "archived": "已归档",
+      "archived_empty": "没有已归档的会话。",
+      "no_unread": "您已读完所有消息。",
+      "no_mentions": "没有未读的提及。",
+      "draft": "草稿：{text}",
+      "muted": "通知已关闭",
+      "mentions_label": "{count, plural, other {# 条未读提及}}",
+      "options": "{name} 的选项",
+      "star": "加星标",
+      "unstar": "取消星标",
+      "mark_read": "标记为已读",
+      "archive": "归档",
+      "unarchive": "取消归档",
+      "project_chats": "{project} 的聊天",
+      "show_all": "显示全部",
+      "project_empty": "此项目尚未关联任何群聊。可在群组详情中进行关联。"
+    },
+    "search": {
+      "title": "搜索消息",
+      "back": "返回聊天",
+      "placeholder": "搜索消息",
+      "clear": "清除搜索",
+      "filter": {
+        "in": "所在会话",
+        "in_all": "所在会话：全部会话",
+        "from": "发送者",
+        "from_anyone": "发送者：任何人",
+        "has": "包含",
+        "has_any": "包含：任意内容",
+        "after": "晚于",
+        "before": "早于"
+      },
+      "has": {
+        "file": "包含：文件",
+        "image": "包含：图片",
+        "video": "包含：视频",
+        "voice": "包含：语音消息",
+        "link": "包含：链接",
+        "work_item": "包含：工作项"
+      },
+      "results": "{count, plural, other {# 条结果}}",
+      "results_many": "1,000+ 条结果",
+      "results_label": "搜索结果",
+      "hint": "请至少输入两个字符，或选择“包含”筛选条件。",
+      "empty": "没有与您的搜索匹配的消息。",
+      "load_more": "加载更多",
+      "loading": "正在加载…",
+      "context": "结果上下文",
+      "open": "打开会话",
+      "footer": "结果仅包含您所在的会话。使用 ↑ ↓ 在结果之间移动，按 Enter 打开。"
+    },
+    "shortcuts": {
+      "title": "键盘快捷键",
+      "previous_next": "上一个/下一个会话",
+      "next_unread": "下一个未读会话",
+      "jump_conversation": "跳转到会话",
+      "search": "搜索消息",
+      "edit_last": "编辑您的最后一条消息（输入框为空时）",
+      "mark_read": "将会话标记为已读",
+      "jump_unread": "跳转到第一条未读消息",
+      "new_line": "在输入框中换行",
+      "show_shortcuts": "显示快捷键"
+    },
+    "about": {
+      "title": "关于此群组",
+      "description": "群组描述",
+      "placeholder": "此群组的用途是什么？",
+      "empty": "暂无描述。",
+      "add": "添加描述",
+      "edit": "编辑描述",
+      "change_icon": "点击图标即可更改"
+    },
+    "notify": {
+      "title": "通知我",
+      "button_label": "通知：{level}",
+      "level": {
+        "all": "所有消息",
+        "mentions": "仅提及",
+        "off": "关闭"
+      },
+      "level_description": {
+        "all": "每条新消息",
+        "mentions": "当有人提及或回复您时",
+        "off": "不通知。未读计数仍会更新。"
+      },
+      "snooze": "暂停通知",
+      "snooze_1h": "1 小时",
+      "snooze_8h": "8 小时",
+      "snooze_tomorrow": "直到明天",
+      "snoozed_short": "已暂停",
+      "snoozed_until": "暂停至 {time}",
+      "unsnooze": "取消暂停",
+      "blocked": "您的浏览器已阻止此网站的通知。请在浏览器的网站设置中允许通知（地址栏旁边的图标）。",
+      "unsupported": "此浏览器无法显示桌面通知。",
+      "allow": "允许桌面通知",
+      "new_message": "新消息",
+      "sent_photo": "发送了一张图片",
+      "sent_video": "发送了一个视频",
+      "sent_voice": "发送了一条语音消息",
+      "sent_file": "发送了一个文件"
+    },
+    "prefs": {
+      "title": "聊天设置",
+      "subtitle": "这些设置仅对您在此工作区中生效。",
+      "desktop_notifications": "桌面通知",
+      "desktop_notifications_description": "在此网站打开时，为新消息显示通知。",
+      "sound": "声音",
+      "sound_description": "每次通知时播放简短提示音。",
+      "show_preview": "显示消息预览",
+      "show_preview_description": "在通知中包含消息文本。",
+      "inbox_mentions": "收件箱中的聊天",
+      "inbox_mentions_description": "将提及和私信添加到您的收件箱。",
+      "layout": {
+        "title": "消息布局",
+        "description": "消息在会话中的显示方式。",
+        "bubbles": "气泡",
+        "compact": "紧凑",
+        "direct_only": "仅在私信中使用气泡"
+      },
+      "minimize": {
+        "title": "最小化的聊天",
+        "description": "在其他页面保持打开的聊天在最小化后的显示方式。",
+        "docked": "停靠标签页",
+        "heads": "聊天头像"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} 在聊天中提及了您",
+      "mentioned_in": "{name} 在 {conversation} 中提及了您",
+      "direct": "{name} 给您发送了一条消息"
+    },
+    "slash": {
+      "title": "命令",
+      "workitem": "创建工作项并在此处关联",
+      "link": "关联现有工作项",
+      "mute": "将此会话设为免打扰或取消免打扰",
+      "code": "插入代码块",
+      "shrug": "添加 ¯\\_(ツ)_/¯",
+      "muted": "会话已设为免打扰",
+      "unmuted": "会话已取消免打扰"
+    },
+    "dock": {
+      "open_full": "在完整聊天中打开",
+      "minimize": "最小化",
+      "close": "关闭",
+      "expand": "打开 {name}",
+      "heads": "最小化的聊天"
+    },
+    "workitem": {
+      "share": "分享到聊天",
+      "discuss": "在聊天中讨论",
+      "discuss_hint": "聊天将打开，并已准备好此工作项的链接供您发送。",
+      "this_project": "此项目",
+      "shared": "{count, plural, other {已分享到 # 个会话}}",
+      "discussed_in": "{count, plural, other {在 # 个会话中讨论过}}",
+      "discussed_hint": "仅列出您所在的会话。",
+      "chip": "{key}",
+      "due": "截止 {date}",
+      "archived": "已归档",
+      "sub_items": "{count, plural, other {# 个子项}}"
+    },
+    "mobile": {
+      "back": "返回会话列表",
+      "close": "关闭",
+      "message_actions": "消息操作",
+      "copy_text": "复制文本"
+    },
+    "states": {
+      "empty_title": "与您的工作区成员交流",
+      "empty_body": "给队友发消息，或为项目或团队创建群组。分享文件、语音消息和工作项。",
+      "new_direct": "这是您与 {name} 的会话的开始。",
+      "new_group": "这是 {name} 的开始。",
+      "say_hi": "👋 打个招呼",
+      "offline": "您已离线。重新连接后，您发送的消息将自动发出。",
+      "waiting": "等待发送",
+      "back_online": "已恢复在线。正在同步您错过的内容。"
+    },
+    "a11y": {
+      "new_message": "来自 {name} 的新消息：{text}"
+    }
+  }
+}

@@ -104,6 +104,8 @@
       "renamed": "{actor} renamed the group to \"{name}\"",
       "icon_changed": "{actor} changed the group icon",
       "project_linked": "{actor} linked the group to a project",
+      "pinned": "{actor} pinned a message",
+      "unpinned": "{actor} unpinned a message",
       "someone": "Someone"
     },
     "preview": {

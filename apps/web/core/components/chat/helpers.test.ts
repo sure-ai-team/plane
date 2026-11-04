@@ -6,7 +6,18 @@
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { makeConversation, makeMessage, ME, OTHER } from "@/store/chat/test-utils";
-import { chatPath, dayLabel, previewText, startsGroup } from "./common/helpers";
+import {
+  chatPath,
+  dayLabel,
+  messageSummary,
+  previewText,
+  setChatDateLocale,
+  shortDateLabel,
+  shortenWorkItemUrls,
+  startsGroup,
+  systemMessageText,
+  timeLabel,
+} from "./common/helpers";
 import { VOICE_MIME_TYPES, extensionForMime, pickVoiceMimeType } from "./voice/use-voice-recorder";
 
 const t = (key: string, params?: Record<string, unknown>) => (params ? `${key}:${JSON.stringify(params)}` : key);
@@ -53,6 +64,58 @@ describe("chat helpers", () => {
     const now = new Date("2026-11-03T12:00:00");
     expect(dayLabel("2026-11-03T08:00:00", t, now)).toBe("chat.thread.today");
     expect(dayLabel("2026-11-02T08:00:00", t, now)).toBe("chat.thread.yesterday");
+  });
+});
+
+describe("chat i18n helpers", () => {
+  afterEach(() => setChatDateLocale(undefined));
+
+  it("formats dates in the app language, mapping Plane's ua to uk", () => {
+    setChatDateLocale("de");
+    expect(shortDateLabel("2026-11-06")).toBe("6. Nov. 2026");
+    setChatDateLocale("ua");
+    expect(shortDateLabel("2026-11-06")).toContain("2026");
+    expect(shortDateLabel("2026-11-06")).toMatch(/лист/);
+    setChatDateLocale("en");
+    expect(timeLabel("2026-11-06T15:04:00")).toMatch(/03:04/);
+  });
+
+  it("reads a date-only value as a local date", () => {
+    setChatDateLocale("en");
+    expect(shortDateLabel("2026-01-01")).toBe("Jan 1, 2026");
+    expect(shortDateLabel("not a date")).toBe("not a date");
+  });
+
+  it("shortens work-item URLs to their keys", () => {
+    expect(shortenWorkItemUrls("see http://localhost:8090/acme/browse/mob-12/, thanks")).toBe("see MOB-12, thanks");
+    expect(shortenWorkItemUrls("/acme/browse/WEB-3")).toBe("WEB-3");
+    expect(shortenWorkItemUrls("https://example.com/docs/page")).toBe("https://example.com/docs/page");
+  });
+
+  it("summarises messages without text by what they carry", () => {
+    const image = { id: "a", kind: "image" } as never;
+    expect(messageSummary(makeMessage(1, { body_stripped: "hi" }), t)).toBe("hi");
+    expect(messageSummary(makeMessage(1, { body_stripped: "", attachments: [image] }), t)).toBe("chat.preview.photo");
+    expect(messageSummary(makeMessage(1, { body_stripped: "", attachments: [image, image] }), t)).toBe(
+      'chat.preview.attachments:{"count":2}'
+    );
+    expect(messageSummary(makeMessage(1, { body_stripped: "", kind: "voice", attachments: [] }), t)).toBe(
+      "chat.preview.voice"
+    );
+  });
+
+  it("describes system events with member names", () => {
+    const conversation = makeConversation();
+    const message = makeMessage(1, {
+      kind: "system",
+      meta: { event: "member_added", actor_id: ME.id, user_id: "gone" },
+    });
+    expect(systemMessageText(message, conversation, t)).toContain('"name":"chat.system.someone"');
+    expect(systemMessageText(message, undefined, t)).toContain("chat.system.member_added");
+    const pinned = makeMessage(2, { kind: "system", meta: { event: "pinned", actor_id: ME.id, seq: 1 } });
+    expect(systemMessageText(pinned, undefined, t, ME)).toBe(
+      `chat.system.pinned:{"actor":"${ME.display_name}","name":"chat.system.someone"}`
+    );
   });
 });
 

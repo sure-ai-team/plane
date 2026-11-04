@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "Chat",
+    "page_label": "{workspace} - Chat",
+    "nav": {
+      "rail_label": "Chat",
+      "project_chat": "Chat"
+    },
+    "sections": {
+      "groups": "Skupiny",
+      "directs": "Přímé zprávy"
+    },
+    "actions": {
+      "new": "Nová konverzace",
+      "new_group": "Nová skupina",
+      "new_direct": "Nová přímá zpráva",
+      "mute": "Ztlumit konverzaci",
+      "unmute": "Zrušit ztlumení konverzace",
+      "leave": "Opustit skupinu",
+      "delete_group": "Smazat skupinu",
+      "add_members": "Přidat členy",
+      "rename": "Přejmenovat skupinu",
+      "details": "Podrobnosti konverzace",
+      "hide_details": "Skrýt podrobnosti"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Připojování…",
+      "reconnecting": "Opětovné připojování…",
+      "blocked_disabled": "Chat je v této instanci vypnutý.",
+      "blocked_access": "Nemáte přístup k chatu v tomto pracovním prostoru."
+    },
+    "members": {
+      "count": "{count, plural, one {# člen} few {# členové} many {# člena} other {# členů}}",
+      "role_admin": "Správce",
+      "role_member": "Člen",
+      "make_admin": "Nastavit jako správce",
+      "remove_admin": "Odebrat roli správce",
+      "remove": "Odebrat ze skupiny",
+      "you": "Vy",
+      "only_members_hint": "Přidat lze pouze členy tohoto pracovního prostoru. Hostům nelze psát zprávy."
+    },
+    "new_conversation": {
+      "title": "Nová konverzace",
+      "direct": "Přímá zpráva",
+      "group": "Skupina",
+      "group_name": "Název skupiny",
+      "group_name_placeholder": "např. Vydání mobilní aplikace",
+      "members": "Členové",
+      "to": "Komu",
+      "search_members": "Hledat členy",
+      "no_members_found": "Nebyli nalezeni žádní členové",
+      "create_group": "Vytvořit skupinu",
+      "start": "Zahájit konverzaci",
+      "cancel": "Zrušit"
+    },
+    "thread": {
+      "today": "Dnes",
+      "yesterday": "Včera",
+      "new_messages": "Nové zprávy",
+      "jump_to_latest": "Přejít na nejnovější",
+      "seen_by": "{count, plural, one {Zobrazeno: #} few {Zobrazeno: #} many {Zobrazeno: #} other {Zobrazeno: #}}",
+      "typing_one": "{name} píše…",
+      "typing_two": "{first} a {second} píší…",
+      "typing_many": "Několik lidí píše…",
+      "edited": "upraveno",
+      "replying_to": "Odpověď pro: {name}",
+      "reply_attachment": "Příloha",
+      "reply_voice": "Hlasová zpráva",
+      "empty_title": "Zatím žádné zprávy",
+      "empty_body": "Pozdravte a zahajte konverzaci.",
+      "no_conversation_title": "Vyberte konverzaci",
+      "no_conversation_body": "Vyberte konverzaci ze seznamu nebo zahajte novou.",
+      "loading_older": "Načítání starších zpráv…",
+      "load_failed": "Zprávy se nepodařilo načíst.",
+      "retry": "Zkusit znovu",
+      "deleted_user": "Bývalý člen",
+      "loading_newer": "Načítání novějších zpráv…"
+    },
+    "message": {
+      "reply": "Odpovědět",
+      "edit": "Upravit",
+      "delete": "Smazat",
+      "copy_link": "Kopírovat odkaz na zprávu",
+      "link_copied": "Odkaz zkopírován",
+      "more": "Další akce",
+      "save": "Uložit",
+      "cancel": "Zrušit",
+      "delete_confirm_title": "Smazat zprávu?",
+      "delete_confirm_body": "Zpráva a její soubory budou odstraněny pro všechny. Tuto akci nelze vrátit zpět.",
+      "send_failed": "Nepodařilo se odeslat",
+      "sending": "Odesílání…",
+      "retry": "Zkusit znovu",
+      "discard": "Zahodit",
+      "create_work_item": "Vytvořit pracovní položku",
+      "no_access": "Tuto zprávu nemůžete otevřít."
+    },
+    "system": {
+      "created": "{actor} zakládá skupinu",
+      "member_added": "{actor} přidává do skupiny: {name}",
+      "member_removed": "{actor} odebírá ze skupiny: {name}",
+      "member_left": "{name} opouští skupinu",
+      "renamed": "{actor} přejmenovává skupinu na „{name}“",
+      "icon_changed": "{actor} mění ikonu skupiny",
+      "project_linked": "{actor} propojuje skupinu s projektem",
+      "pinned": "{actor} připíná zprávu",
+      "unpinned": "{actor} odepíná zprávu",
+      "someone": "Někdo"
+    },
+    "preview": {
+      "you": "Vy",
+      "photo": "Fotka",
+      "video": "Video",
+      "voice": "Hlasová zpráva",
+      "file": "Soubor",
+      "attachments": "{count, plural, one {# příloha} few {# přílohy} many {# přílohy} other {# příloh}}",
+      "system": "Změna ve skupině",
+      "empty": "Zatím žádné zprávy"
+    },
+    "composer": {
+      "placeholder": "Zpráva pro: {name}",
+      "send": "Odeslat",
+      "editing": "Úprava zprávy",
+      "reply_cancel": "Zrušit odpověď",
+      "attach": "Přiložit soubory",
+      "waiting_uploads": "Čekání na nahrání…",
+      "remove_failed": "Nejprve odeberte nebo znovu nahrajte neúspěšné soubory",
+      "emoji": "Vložit emoji",
+      "formatting": "Formátování",
+      "emoji_suggestions": "Návrhy emoji",
+      "suggestion_hint": "↑ ↓ výběr · Enter potvrzení · Esc zavření"
+    },
+    "delete_group": {
+      "title": "Smazat {name}?",
+      "body": "Všechny zprávy a soubory v této skupině budou odstraněny pro všechny. Tuto akci nelze vrátit zpět.",
+      "confirm": "Smazat skupinu"
+    },
+    "leave_group": {
+      "title": "Opustit {name}?",
+      "body": "Přestanete dostávat zprávy z této skupiny.",
+      "confirm": "Opustit"
+    },
+    "errors": {
+      "generic": "Něco se pokazilo. Zkuste to prosím znovu.",
+      "not_found": "Tato konverzace již neexistuje nebo nejste jejím členem."
+    },
+    "upload": {
+      "ready": "Připraveno",
+      "preparing": "Příprava…",
+      "uploading": "Nahrávání {percent} %",
+      "confirming": "Kontrola…",
+      "failed": "Nahrání se nezdařilo",
+      "retry": "Zkusit znovu",
+      "remove": "Odebrat {name}",
+      "too_large": "Soubor {name} je příliš velký. Limit je {limit} MB.",
+      "type_not_allowed": "Soubor {name} nelze sdílet: tento typ souboru není povolen.",
+      "type_mismatch": "Soubor neodpovídá svému typu.",
+      "too_many": "K jedné zprávě můžete přiložit nejvýše {max} souborů.",
+      "drop_title": "Přetáhněte soubory a sdílejte je v: {name}",
+      "drop_hint": "Obrázky do {image} MB · videa do {video} MB · zvuk do {audio} MB · ostatní soubory do {file} MB",
+      "rejected_title": "Některé soubory nebyly přidány"
+    },
+    "media": {
+      "open_image": "Otevřít obrázek {name}",
+      "play_video": "Přehrát video {name}",
+      "download": "Stáhnout {name}",
+      "preview_unavailable": "Náhled není k dispozici",
+      "more": "+{count}",
+      "view_all": "Zobrazit vše ({count})",
+      "filter": "Filtrovat média",
+      "filter_all": "Vše",
+      "filter_image": "Obrázky",
+      "filter_video": "Videa",
+      "loaded_only": "Zobrazuje média ze zpráv načtených v této konverzaci. Starší načtete posunutím chatu nahoru."
+    },
+    "details": {
+      "members": "Členové",
+      "media": "Média",
+      "files": "Soubory",
+      "no_media": "V načtených zprávách zatím nejsou žádné fotky ani videa",
+      "no_files": "V načtených zprávách zatím nejsou žádné soubory"
+    },
+    "voice": {
+      "record": "Nahrát hlasovou zprávu",
+      "stop": "Zastavit",
+      "discard": "Zahodit nahrávku",
+      "record_again": "Nahrát znovu",
+      "play": "Přehrát hlasovou zprávu",
+      "pause": "Pozastavit",
+      "position": "Pozice přehrávání",
+      "send": "Odeslat",
+      "speed": "Rychlost přehrávání",
+      "up_to": "max. {max}",
+      "permission_denied": "Přístup k mikrofonu je zablokován. Povolte ho v nastavení prohlížeče.",
+      "unsupported": "Tento prohlížeč nepodporuje nahrávání hlasu."
+    },
+    "reactions": {
+      "add": "Přidat reakci",
+      "react_with": "Reagovat pomocí {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# reakce} few {# reakce} many {# reakce} other {# reakcí}}",
+      "tooltip": "{names} – reakce {emoji}",
+      "and_others": "{names} a {count, plural, one {# další} few {# další} many {# dalšího} other {# dalších}}"
+    },
+    "picker": {
+      "search": "Hledat emoji"
+    },
+    "pins": {
+      "title": "Připnuté",
+      "pinned": "Připnuto",
+      "count": "Připnuto · {index} z {total}",
+      "next": "Další připnutá zpráva",
+      "view_all": "Zobrazit vše",
+      "close": "Zavřít připnuté zprávy",
+      "pin": "Připnout zprávu",
+      "unpin": "Odepnout",
+      "pinned_by": "Připnul(a): {name}",
+      "empty": "Zatím žádné připnuté zprávy.",
+      "hint": "Připínat může kdokoli v konverzaci. Nejvýše 50 připnutí na konverzaci."
+    },
+    "jump": {
+      "to_message": "Přejít na zprávu",
+      "jump": "Přejít",
+      "highlight": "Zde"
+    },
+    "unread": {
+      "divider": "Nové",
+      "divider_label": "Nové zprávy",
+      "pill": "{count, plural, one {# nová zpráva} few {# nové zprávy} many {# nové zprávy} other {# nových zpráv}} od {time}",
+      "jump": "Přejít",
+      "dismiss": "Zavřít"
+    },
+    "forward": {
+      "action": "Přeposlat",
+      "title": "Přeposlat zprávu",
+      "to": "Komu",
+      "search": "Hledat konverzace",
+      "no_results": "Žádné konverzace neodpovídají.",
+      "limit": "Najednou můžete přeposlat do nejvýše {count} konverzací.",
+      "note": "Přidat zprávu (volitelné)",
+      "submit": "{count, plural, one {Odeslat do # konverzace} few {Odeslat do # konverzací} many {Odeslat do # konverzace} other {Odeslat do # konverzací}}",
+      "done": "{count, plural, one {Přeposláno do # konverzace} few {Přeposláno do # konverzací} many {Přeposláno do # konverzace} other {Přeposláno do # konverzací}}",
+      "from": "Přeposláno od: {name}",
+      "from_conversation": "Přeposláno od: {name} v konverzaci {conversation}"
+    },
+    "sidebar": {
+      "find": "Najít konverzaci",
+      "find_placeholder": "Hledat podle názvu",
+      "search_messages_for": "Hledat zprávy obsahující „{query}“",
+      "filter": {
+        "label": "Filtrovat konverzace",
+        "all": "Vše",
+        "unread": "{count, plural, =0 {Nepřečtené} one {Nepřečtené #} few {Nepřečtené #} many {Nepřečtené #} other {Nepřečtené #}}",
+        "mentions": "{count, plural, =0 {Zmínky} one {Zmínky #} few {Zmínky #} many {Zmínky #} other {Zmínky #}}"
+      },
+      "starred": "S hvězdičkou",
+      "archived": "Archivované",
+      "archived_empty": "Žádné archivované konverzace.",
+      "no_unread": "Vše máte přečtené.",
+      "no_mentions": "Žádné nepřečtené zmínky.",
+      "draft": "Koncept: {text}",
+      "muted": "Oznámení vypnuta",
+      "mentions_label": "{count, plural, one {# nepřečtená zmínka} few {# nepřečtené zmínky} many {# nepřečtené zmínky} other {# nepřečtených zmínek}}",
+      "options": "Možnosti: {name}",
+      "star": "Označit hvězdičkou",
+      "unstar": "Odebrat hvězdičku",
+      "mark_read": "Označit jako přečtené",
+      "archive": "Archivovat",
+      "unarchive": "Obnovit z archivu",
+      "project_chats": "Chaty projektu {project}",
+      "show_all": "Zobrazit vše",
+      "project_empty": "K tomuto projektu zatím nejsou propojeny žádné skupinové chaty. Propojte ho v podrobnostech skupiny."
+    },
+    "search": {
+      "title": "Hledat zprávy",
+      "back": "Zpět na chat",
+      "placeholder": "Hledat zprávy",
+      "clear": "Vymazat hledání",
+      "filter": {
+        "in": "V konverzaci",
+        "in_all": "V: všechny konverzace",
+        "from": "Od",
+        "from_anyone": "Od: kdokoli",
+        "has": "Obsahuje",
+        "has_any": "Obsahuje: cokoli",
+        "after": "Po",
+        "before": "Před"
+      },
+      "has": {
+        "file": "Obsahuje: soubor",
+        "image": "Obsahuje: obrázek",
+        "video": "Obsahuje: video",
+        "voice": "Obsahuje: hlasovou zprávu",
+        "link": "Obsahuje: odkaz",
+        "work_item": "Obsahuje: pracovní položku"
+      },
+      "results": "{count, plural, one {# výsledek} few {# výsledky} many {# výsledku} other {# výsledků}}",
+      "results_many": "Více než 1 000 výsledků",
+      "results_label": "Výsledky hledání",
+      "hint": "Zadejte alespoň dva znaky nebo vyberte filtr „Obsahuje“.",
+      "empty": "Hledání neodpovídají žádné zprávy.",
+      "load_more": "Načíst další",
+      "loading": "Načítání…",
+      "context": "Výsledek v kontextu",
+      "open": "Otevřít konverzaci",
+      "footer": "Výsledky zahrnují pouze konverzace, jejichž jste členem. Pomocí ↑ ↓ přecházejte mezi výsledky a klávesou Enter výsledek otevřete."
+    },
+    "shortcuts": {
+      "title": "Klávesové zkratky",
+      "previous_next": "Předchozí / další konverzace",
+      "next_unread": "Další nepřečtená konverzace",
+      "jump_conversation": "Přejít na konverzaci",
+      "search": "Hledat zprávy",
+      "edit_last": "Upravit poslední zprávu (prázdné pole zprávy)",
+      "mark_read": "Označit konverzaci jako přečtenou",
+      "jump_unread": "Přejít na první nepřečtenou",
+      "new_line": "Nový řádek v poli zprávy",
+      "show_shortcuts": "Zobrazit zkratky"
+    },
+    "about": {
+      "title": "O této skupině",
+      "description": "Popis skupiny",
+      "placeholder": "K čemu tato skupina slouží?",
+      "empty": "Zatím bez popisu.",
+      "add": "Přidat popis",
+      "edit": "Upravit popis",
+      "change_icon": "Klikněte na ikonu a změňte ji"
+    },
+    "notify": {
+      "title": "Upozorňovat mě na",
+      "button_label": "Oznámení: {level}",
+      "level": {
+        "all": "Všechny zprávy",
+        "mentions": "Pouze zmínky",
+        "off": "Vypnuto"
+      },
+      "level_description": {
+        "all": "Každá nová zpráva",
+        "mentions": "Když vás někdo zmíní nebo vám odpoví",
+        "off": "Nic. Počty nepřečtených se budou dál aktualizovat."
+      },
+      "snooze": "Odložit na",
+      "snooze_1h": "1 hodinu",
+      "snooze_8h": "8 hodin",
+      "snooze_tomorrow": "Do zítřka",
+      "snoozed_short": "Odloženo",
+      "snoozed_until": "Odloženo do {time}",
+      "unsnooze": "Vypnout",
+      "blocked": "Váš prohlížeč pro tento web blokuje oznámení. Povolte je v nastavení webu v prohlížeči (ikona vedle adresy).",
+      "unsupported": "Tento prohlížeč nemůže zobrazovat oznámení na ploše.",
+      "allow": "Povolit oznámení na ploše",
+      "new_message": "Nová zpráva",
+      "sent_photo": "Posílá fotku",
+      "sent_video": "Posílá video",
+      "sent_voice": "Posílá hlasovou zprávu",
+      "sent_file": "Posílá soubor"
+    },
+    "prefs": {
+      "title": "Nastavení chatu",
+      "subtitle": "Platí pro vás v tomto pracovním prostoru.",
+      "desktop_notifications": "Oznámení na ploše",
+      "desktop_notifications_description": "Zobrazovat oznámení o nových zprávách, když je tento web otevřený.",
+      "sound": "Zvuk",
+      "sound_description": "Přehrát krátký zvuk u každého oznámení.",
+      "show_preview": "Zobrazovat náhled zprávy",
+      "show_preview_description": "Zahrnout text zprávy do oznámení.",
+      "inbox_mentions": "Chat v doručené poště",
+      "inbox_mentions_description": "Přidávat zmínky a přímé zprávy do vaší doručené pošty.",
+      "layout": {
+        "title": "Rozložení zpráv",
+        "description": "Jak zprávy vypadají v konverzacích.",
+        "bubbles": "Bubliny",
+        "compact": "Kompaktní",
+        "direct_only": "Používat bubliny pouze v přímých zprávách"
+      },
+      "minimize": {
+        "title": "Minimalizované chaty",
+        "description": "Jak vypadají chaty otevřené na jiných stránkách po minimalizaci.",
+        "docked": "Ukotvené karty",
+        "heads": "Bubliny chatu"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} vás zmiňuje v chatu",
+      "mentioned_in": "{name} vás zmiňuje v konverzaci {conversation}",
+      "direct": "{name} vám posílá zprávu"
+    },
+    "slash": {
+      "title": "Příkazy",
+      "workitem": "Vytvořit pracovní položku a vložit sem odkaz na ni",
+      "link": "Vložit odkaz na existující pracovní položku",
+      "mute": "Ztlumit nebo zrušit ztlumení této konverzace",
+      "code": "Vložit blok kódu",
+      "shrug": "Přidat ¯\\_(ツ)_/¯",
+      "muted": "Konverzace ztlumena",
+      "unmuted": "Ztlumení konverzace zrušeno"
+    },
+    "dock": {
+      "open_full": "Otevřít v plném chatu",
+      "minimize": "Minimalizovat",
+      "close": "Zavřít",
+      "expand": "Otevřít: {name}",
+      "heads": "Minimalizované chaty"
+    },
+    "workitem": {
+      "share": "Sdílet do chatu",
+      "discuss": "Probrat v chatu",
+      "discuss_hint": "Chat se otevře s odkazem na tuto pracovní položku připraveným k odeslání.",
+      "this_project": "Tento projekt",
+      "shared": "{count, plural, one {Sdíleno do # konverzace} few {Sdíleno do # konverzací} many {Sdíleno do # konverzace} other {Sdíleno do # konverzací}}",
+      "discussed_in": "{count, plural, one {Probíráno v # konverzaci} few {Probíráno v # konverzacích} many {Probíráno v # konverzace} other {Probíráno v # konverzacích}}",
+      "discussed_hint": "Zobrazují se pouze konverzace, kterých se účastníte.",
+      "chip": "{key}",
+      "due": "Termín: {date}",
+      "archived": "Archivováno",
+      "sub_items": "{count, plural, one {# podřízená položka} few {# podřízené položky} many {# podřízené položky} other {# podřízených položek}}"
+    },
+    "mobile": {
+      "back": "Zpět na konverzace",
+      "close": "Zavřít",
+      "message_actions": "Akce zprávy",
+      "copy_text": "Kopírovat text"
+    },
+    "states": {
+      "empty_title": "Komunikujte s pracovním prostorem",
+      "empty_body": "Napište kolegovi nebo založte skupinu pro projekt či tým. Sdílejte soubory, hlasové zprávy a pracovní položky.",
+      "new_direct": "Toto je začátek vaší konverzace s: {name}.",
+      "new_group": "Toto je začátek skupiny {name}.",
+      "say_hi": "👋 Pozdravit",
+      "offline": "Jste offline. Odeslané zprávy se doručí po opětovném připojení.",
+      "waiting": "Čeká na odeslání",
+      "back_online": "Opět online. Načítání zmeškaného."
+    },
+    "a11y": {
+      "new_message": "Nová zpráva od {name}: {text}"
+    }
+  }
+}

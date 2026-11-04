@@ -1,1 +1,438 @@
-{}
+{
+  "chat": {
+    "title": "Trò chuyện",
+    "page_label": "{workspace} - Trò chuyện",
+    "nav": {
+      "rail_label": "Trò chuyện",
+      "project_chat": "Trò chuyện"
+    },
+    "sections": {
+      "groups": "Nhóm",
+      "directs": "Tin nhắn trực tiếp"
+    },
+    "actions": {
+      "new": "Cuộc trò chuyện mới",
+      "new_group": "Nhóm mới",
+      "new_direct": "Tin nhắn trực tiếp mới",
+      "mute": "Tắt tiếng cuộc trò chuyện",
+      "unmute": "Bật tiếng cuộc trò chuyện",
+      "leave": "Rời nhóm",
+      "delete_group": "Xóa nhóm",
+      "add_members": "Thêm thành viên",
+      "rename": "Đổi tên nhóm",
+      "details": "Chi tiết cuộc trò chuyện",
+      "hide_details": "Ẩn chi tiết"
+    },
+    "status": {
+      "online": "Trực tuyến",
+      "offline": "Ngoại tuyến",
+      "connecting": "Đang kết nối…",
+      "reconnecting": "Đang kết nối lại…",
+      "blocked_disabled": "Tính năng trò chuyện đã bị tắt trên phiên bản này.",
+      "blocked_access": "Bạn không có quyền truy cập trò chuyện trong không gian làm việc này."
+    },
+    "members": {
+      "count": "{count, plural, other {# thành viên}}",
+      "role_admin": "Quản trị viên",
+      "role_member": "Thành viên",
+      "make_admin": "Đặt làm quản trị viên",
+      "remove_admin": "Gỡ quyền quản trị viên",
+      "remove": "Xóa khỏi nhóm",
+      "you": "Bạn",
+      "only_members_hint": "Chỉ có thể thêm thành viên của không gian làm việc này. Không thể nhắn tin cho khách."
+    },
+    "new_conversation": {
+      "title": "Cuộc trò chuyện mới",
+      "direct": "Tin nhắn trực tiếp",
+      "group": "Nhóm",
+      "group_name": "Tên nhóm",
+      "group_name_placeholder": "Ví dụ: Phát hành ứng dụng di động",
+      "members": "Thành viên",
+      "to": "Đến",
+      "search_members": "Tìm kiếm thành viên",
+      "no_members_found": "Không tìm thấy thành viên nào",
+      "create_group": "Tạo nhóm",
+      "start": "Bắt đầu trò chuyện",
+      "cancel": "Hủy"
+    },
+    "thread": {
+      "today": "Hôm nay",
+      "yesterday": "Hôm qua",
+      "new_messages": "Tin nhắn mới",
+      "jump_to_latest": "Chuyển đến tin nhắn mới nhất",
+      "seen_by": "{count, plural, other {# người đã xem}}",
+      "typing_one": "{name} đang nhập…",
+      "typing_two": "{first} và {second} đang nhập…",
+      "typing_many": "Nhiều người đang nhập…",
+      "edited": "đã chỉnh sửa",
+      "replying_to": "Đang trả lời {name}",
+      "reply_attachment": "Tệp đính kèm",
+      "reply_voice": "Tin nhắn thoại",
+      "empty_title": "Chưa có tin nhắn nào",
+      "empty_body": "Hãy gửi lời chào để bắt đầu cuộc trò chuyện.",
+      "no_conversation_title": "Chọn một cuộc trò chuyện",
+      "no_conversation_body": "Chọn một cuộc trò chuyện trong danh sách hoặc bắt đầu cuộc trò chuyện mới.",
+      "loading_older": "Đang tải tin nhắn cũ hơn…",
+      "load_failed": "Không thể tải tin nhắn.",
+      "retry": "Thử lại",
+      "deleted_user": "Cựu thành viên",
+      "loading_newer": "Đang tải tin nhắn mới hơn…"
+    },
+    "message": {
+      "reply": "Trả lời",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "copy_link": "Sao chép liên kết đến tin nhắn",
+      "link_copied": "Đã sao chép liên kết",
+      "more": "Thao tác khác",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "delete_confirm_title": "Xóa tin nhắn?",
+      "delete_confirm_body": "Thao tác này sẽ xóa tin nhắn và các tệp của tin nhắn đối với tất cả mọi người. Không thể hoàn tác.",
+      "send_failed": "Không thể gửi",
+      "sending": "Đang gửi…",
+      "retry": "Thử lại",
+      "discard": "Hủy bỏ",
+      "create_work_item": "Tạo mục công việc",
+      "no_access": "Bạn không thể mở tin nhắn đó."
+    },
+    "system": {
+      "created": "{actor} đã tạo nhóm",
+      "member_added": "{actor} đã thêm {name}",
+      "member_removed": "{actor} đã xóa {name}",
+      "member_left": "{name} đã rời nhóm",
+      "renamed": "{actor} đã đổi tên nhóm thành \"{name}\"",
+      "icon_changed": "{actor} đã thay đổi biểu tượng nhóm",
+      "project_linked": "{actor} đã liên kết nhóm với một dự án",
+      "pinned": "{actor} đã ghim một tin nhắn",
+      "unpinned": "{actor} đã bỏ ghim một tin nhắn",
+      "someone": "Ai đó"
+    },
+    "preview": {
+      "you": "Bạn",
+      "photo": "Ảnh",
+      "video": "Video",
+      "voice": "Tin nhắn thoại",
+      "file": "Tệp",
+      "attachments": "{count, plural, other {# tệp đính kèm}}",
+      "system": "Cập nhật nhóm",
+      "empty": "Chưa có tin nhắn nào"
+    },
+    "composer": {
+      "placeholder": "Nhắn tin cho {name}",
+      "send": "Gửi",
+      "editing": "Đang chỉnh sửa tin nhắn",
+      "reply_cancel": "Hủy trả lời",
+      "attach": "Đính kèm tệp",
+      "waiting_uploads": "Đang chờ tải lên…",
+      "remove_failed": "Hãy xóa hoặc thử lại các tệp bị lỗi trước",
+      "emoji": "Chèn emoji",
+      "formatting": "Định dạng",
+      "emoji_suggestions": "Gợi ý emoji",
+      "suggestion_hint": "↑ ↓ để chọn · Enter để xác nhận · Esc để đóng"
+    },
+    "delete_group": {
+      "title": "Xóa {name}?",
+      "body": "Tất cả tin nhắn và tệp trong nhóm này sẽ bị xóa đối với tất cả mọi người. Không thể hoàn tác.",
+      "confirm": "Xóa nhóm"
+    },
+    "leave_group": {
+      "title": "Rời {name}?",
+      "body": "Bạn sẽ không còn nhận được tin nhắn từ nhóm này.",
+      "confirm": "Rời nhóm"
+    },
+    "errors": {
+      "generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "not_found": "Cuộc trò chuyện này không còn tồn tại hoặc bạn không phải là thành viên."
+    },
+    "upload": {
+      "ready": "Sẵn sàng",
+      "preparing": "Đang chuẩn bị…",
+      "uploading": "Đang tải lên {percent}%",
+      "confirming": "Đang kiểm tra…",
+      "failed": "Tải lên thất bại",
+      "retry": "Thử lại",
+      "remove": "Xóa {name}",
+      "too_large": "{name} quá lớn. Giới hạn là {limit} MB.",
+      "type_not_allowed": "Không thể chia sẻ {name}: loại tệp này không được phép.",
+      "type_mismatch": "Tệp không khớp với loại của nó.",
+      "too_many": "Bạn có thể đính kèm tối đa {max} tệp cho mỗi tin nhắn.",
+      "drop_title": "Thả tệp để chia sẻ trong {name}",
+      "drop_hint": "Hình ảnh tối đa {image} MB · video tối đa {video} MB · âm thanh tối đa {audio} MB · tệp khác tối đa {file} MB",
+      "rejected_title": "Một số tệp chưa được thêm"
+    },
+    "media": {
+      "open_image": "Mở hình ảnh {name}",
+      "play_video": "Phát video {name}",
+      "download": "Tải xuống {name}",
+      "preview_unavailable": "Không có bản xem trước",
+      "more": "+{count}",
+      "view_all": "Xem tất cả ({count})",
+      "filter": "Lọc phương tiện",
+      "filter_all": "Tất cả",
+      "filter_image": "Hình ảnh",
+      "filter_video": "Video",
+      "loaded_only": "Hiển thị phương tiện từ các tin nhắn đã tải trong cuộc trò chuyện này. Cuộn lên trong cuộc trò chuyện để tải các tin nhắn cũ hơn."
+    },
+    "details": {
+      "members": "Thành viên",
+      "media": "Phương tiện",
+      "files": "Tệp",
+      "no_media": "Chưa có ảnh hoặc video nào trong các tin nhắn đã tải",
+      "no_files": "Chưa có tệp nào trong các tin nhắn đã tải"
+    },
+    "voice": {
+      "record": "Ghi tin nhắn thoại",
+      "stop": "Dừng",
+      "discard": "Hủy bản ghi",
+      "record_again": "Ghi lại",
+      "play": "Phát tin nhắn thoại",
+      "pause": "Tạm dừng",
+      "position": "Vị trí phát",
+      "send": "Gửi",
+      "speed": "Tốc độ phát",
+      "up_to": "tối đa {max}",
+      "permission_denied": "Quyền truy cập micrô đã bị chặn. Hãy cho phép trong cài đặt trình duyệt của bạn.",
+      "unsupported": "Trình duyệt này không hỗ trợ ghi âm."
+    },
+    "reactions": {
+      "add": "Thêm biểu cảm",
+      "react_with": "Bày tỏ cảm xúc bằng {emoji}",
+      "chip_label": "{emoji} {count, plural, other {# biểu cảm}}",
+      "tooltip": "{names} đã bày tỏ cảm xúc bằng {emoji}",
+      "and_others": "{names} và {count, plural, other {# người khác}}"
+    },
+    "picker": {
+      "search": "Tìm kiếm emoji"
+    },
+    "pins": {
+      "title": "Đã ghim",
+      "pinned": "Đã ghim",
+      "count": "Đã ghim · {index}/{total}",
+      "next": "Tin nhắn đã ghim tiếp theo",
+      "view_all": "Xem tất cả",
+      "close": "Đóng tin nhắn đã ghim",
+      "pin": "Ghim tin nhắn",
+      "unpin": "Bỏ ghim",
+      "pinned_by": "Được ghim bởi {name}",
+      "empty": "Chưa có tin nhắn nào được ghim.",
+      "hint": "Bất kỳ ai trong cuộc trò chuyện đều có thể ghim. Tối đa 50 tin nhắn được ghim mỗi cuộc trò chuyện."
+    },
+    "jump": {
+      "to_message": "Chuyển đến tin nhắn",
+      "jump": "Chuyển đến",
+      "highlight": "Đã chuyển đến đây"
+    },
+    "unread": {
+      "divider": "Mới",
+      "divider_label": "Tin nhắn mới",
+      "pill": "{count, plural, other {# tin nhắn mới}} kể từ {time}",
+      "jump": "Chuyển đến",
+      "dismiss": "Bỏ qua"
+    },
+    "forward": {
+      "action": "Chuyển tiếp",
+      "title": "Chuyển tiếp tin nhắn",
+      "to": "Đến",
+      "search": "Tìm kiếm cuộc trò chuyện",
+      "no_results": "Không có cuộc trò chuyện nào phù hợp.",
+      "limit": "Bạn có thể chuyển tiếp đến tối đa {count} cuộc trò chuyện cùng lúc.",
+      "note": "Thêm tin nhắn (không bắt buộc)",
+      "submit": "{count, plural, other {Gửi đến # cuộc trò chuyện}}",
+      "done": "{count, plural, other {Đã chuyển tiếp đến # cuộc trò chuyện}}",
+      "from": "Được chuyển tiếp từ {name}",
+      "from_conversation": "Được chuyển tiếp từ {name} trong {conversation}"
+    },
+    "sidebar": {
+      "find": "Tìm cuộc trò chuyện",
+      "find_placeholder": "Tìm theo tên",
+      "search_messages_for": "Tìm kiếm tin nhắn cho \"{query}\"",
+      "filter": {
+        "label": "Lọc cuộc trò chuyện",
+        "all": "Tất cả",
+        "unread": "{count, plural, =0 {Chưa đọc} other {Chưa đọc #}}",
+        "mentions": "{count, plural, =0 {Đề cập} other {Đề cập #}}"
+      },
+      "starred": "Đã gắn sao",
+      "archived": "Đã lưu trữ",
+      "archived_empty": "Không có cuộc trò chuyện nào được lưu trữ.",
+      "no_unread": "Bạn đã xem hết tin nhắn.",
+      "no_mentions": "Không có đề cập nào chưa đọc.",
+      "draft": "Bản nháp: {text}",
+      "muted": "Đã tắt thông báo",
+      "mentions_label": "{count, plural, other {# đề cập chưa đọc}}",
+      "options": "Tùy chọn cho {name}",
+      "star": "Gắn sao",
+      "unstar": "Bỏ gắn sao",
+      "mark_read": "Đánh dấu đã đọc",
+      "archive": "Lưu trữ",
+      "unarchive": "Bỏ lưu trữ",
+      "project_chats": "Trò chuyện của {project}",
+      "show_all": "Hiển thị tất cả",
+      "project_empty": "Chưa có cuộc trò chuyện nhóm nào được liên kết với dự án này. Hãy liên kết từ phần chi tiết của một nhóm."
+    },
+    "search": {
+      "title": "Tìm kiếm tin nhắn",
+      "back": "Quay lại trò chuyện",
+      "placeholder": "Tìm kiếm tin nhắn",
+      "clear": "Xóa tìm kiếm",
+      "filter": {
+        "in": "Trong cuộc trò chuyện",
+        "in_all": "Trong: tất cả cuộc trò chuyện",
+        "from": "Từ",
+        "from_anyone": "Từ: bất kỳ ai",
+        "has": "Có",
+        "has_any": "Có: bất kỳ",
+        "after": "Sau",
+        "before": "Trước"
+      },
+      "has": {
+        "file": "Có: tệp",
+        "image": "Có: hình ảnh",
+        "video": "Có: video",
+        "voice": "Có: tin nhắn thoại",
+        "link": "Có: liên kết",
+        "work_item": "Có: mục công việc"
+      },
+      "results": "{count, plural, other {# kết quả}}",
+      "results_many": "Hơn 1.000 kết quả",
+      "results_label": "Kết quả tìm kiếm",
+      "hint": "Nhập ít nhất hai ký tự hoặc chọn bộ lọc \"Có\".",
+      "empty": "Không có tin nhắn nào phù hợp với tìm kiếm của bạn.",
+      "load_more": "Tải thêm",
+      "loading": "Đang tải…",
+      "context": "Kết quả trong ngữ cảnh",
+      "open": "Mở cuộc trò chuyện",
+      "footer": "Kết quả chỉ bao gồm các cuộc trò chuyện mà bạn là thành viên. Dùng ↑ ↓ để di chuyển giữa các kết quả và Enter để mở."
+    },
+    "shortcuts": {
+      "title": "Phím tắt",
+      "previous_next": "Cuộc trò chuyện trước / tiếp theo",
+      "next_unread": "Cuộc trò chuyện chưa đọc tiếp theo",
+      "jump_conversation": "Chuyển đến một cuộc trò chuyện",
+      "search": "Tìm kiếm tin nhắn",
+      "edit_last": "Chỉnh sửa tin nhắn cuối cùng của bạn (khi ô soạn thảo trống)",
+      "mark_read": "Đánh dấu cuộc trò chuyện là đã đọc",
+      "jump_unread": "Chuyển đến tin nhắn chưa đọc đầu tiên",
+      "new_line": "Xuống dòng trong ô soạn thảo",
+      "show_shortcuts": "Hiển thị phím tắt"
+    },
+    "about": {
+      "title": "Giới thiệu về nhóm này",
+      "description": "Mô tả nhóm",
+      "placeholder": "Nhóm này dùng để làm gì?",
+      "empty": "Chưa có mô tả.",
+      "add": "Thêm mô tả",
+      "edit": "Chỉnh sửa mô tả",
+      "change_icon": "Nhấp vào biểu tượng để thay đổi"
+    },
+    "notify": {
+      "title": "Thông báo cho tôi về",
+      "button_label": "Thông báo: {level}",
+      "level": {
+        "all": "Tất cả tin nhắn",
+        "mentions": "Chỉ khi được đề cập",
+        "off": "Tắt"
+      },
+      "level_description": {
+        "all": "Mọi tin nhắn mới",
+        "mentions": "Khi ai đó đề cập đến bạn hoặc trả lời bạn",
+        "off": "Không thông báo. Số tin nhắn chưa đọc vẫn được cập nhật."
+      },
+      "snooze": "Tạm hoãn trong",
+      "snooze_1h": "1 giờ",
+      "snooze_8h": "8 giờ",
+      "snooze_tomorrow": "Đến ngày mai",
+      "snoozed_short": "Đã tạm hoãn",
+      "snoozed_until": "Đã tạm hoãn đến {time}",
+      "unsnooze": "Tắt",
+      "blocked": "Trình duyệt của bạn đang chặn thông báo từ trang web này. Hãy cho phép trong cài đặt trang web của trình duyệt (biểu tượng bên cạnh thanh địa chỉ).",
+      "unsupported": "Trình duyệt này không thể hiển thị thông báo trên máy tính.",
+      "allow": "Cho phép thông báo trên máy tính",
+      "new_message": "Tin nhắn mới",
+      "sent_photo": "Đã gửi một ảnh",
+      "sent_video": "Đã gửi một video",
+      "sent_voice": "Đã gửi một tin nhắn thoại",
+      "sent_file": "Đã gửi một tệp"
+    },
+    "prefs": {
+      "title": "Cài đặt trò chuyện",
+      "subtitle": "Các cài đặt này chỉ áp dụng cho bạn trong không gian làm việc này.",
+      "desktop_notifications": "Thông báo trên máy tính",
+      "desktop_notifications_description": "Hiển thị thông báo khi có tin nhắn mới trong lúc trang web này đang mở.",
+      "sound": "Âm thanh",
+      "sound_description": "Phát một âm thanh ngắn với mỗi thông báo.",
+      "show_preview": "Hiển thị bản xem trước tin nhắn",
+      "show_preview_description": "Đưa nội dung tin nhắn vào thông báo.",
+      "inbox_mentions": "Trò chuyện trong Hộp thư đến",
+      "inbox_mentions_description": "Thêm các đề cập và tin nhắn trực tiếp vào Hộp thư đến của bạn.",
+      "layout": {
+        "title": "Bố cục tin nhắn",
+        "description": "Cách tin nhắn hiển thị trong các cuộc trò chuyện.",
+        "bubbles": "Bong bóng",
+        "compact": "Thu gọn",
+        "direct_only": "Chỉ dùng bong bóng trong tin nhắn trực tiếp"
+      },
+      "minimize": {
+        "title": "Cuộc trò chuyện thu nhỏ",
+        "description": "Cách các cuộc trò chuyện bạn để mở trên các trang khác hiển thị khi được thu nhỏ.",
+        "docked": "Thẻ cố định",
+        "heads": "Bong bóng trò chuyện"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} đã đề cập đến bạn trong một cuộc trò chuyện",
+      "mentioned_in": "{name} đã đề cập đến bạn trong {conversation}",
+      "direct": "{name} đã gửi cho bạn một tin nhắn"
+    },
+    "slash": {
+      "title": "Lệnh",
+      "workitem": "Tạo mục công việc và liên kết tại đây",
+      "link": "Liên kết một mục công việc hiện có",
+      "mute": "Tắt hoặc bật tiếng cuộc trò chuyện này",
+      "code": "Chèn khối mã",
+      "shrug": "Thêm ¯\\_(ツ)_/¯",
+      "muted": "Đã tắt tiếng cuộc trò chuyện",
+      "unmuted": "Đã bật tiếng cuộc trò chuyện"
+    },
+    "dock": {
+      "open_full": "Mở trong trang trò chuyện đầy đủ",
+      "minimize": "Thu nhỏ",
+      "close": "Đóng",
+      "expand": "Mở {name}",
+      "heads": "Cuộc trò chuyện thu nhỏ"
+    },
+    "workitem": {
+      "share": "Chia sẻ vào trò chuyện",
+      "discuss": "Thảo luận trong trò chuyện",
+      "discuss_hint": "Trò chuyện sẽ mở ra với liên kết đến mục công việc này, sẵn sàng để gửi.",
+      "this_project": "Dự án này",
+      "shared": "{count, plural, other {Đã chia sẻ vào # cuộc trò chuyện}}",
+      "discussed_in": "{count, plural, other {Được thảo luận trong # cuộc trò chuyện}}",
+      "discussed_hint": "Chỉ liệt kê các cuộc trò chuyện mà bạn tham gia.",
+      "chip": "{key}",
+      "due": "Hạn {date}",
+      "archived": "Đã lưu trữ",
+      "sub_items": "{count, plural, other {# mục con}}"
+    },
+    "mobile": {
+      "back": "Quay lại danh sách cuộc trò chuyện",
+      "close": "Đóng",
+      "message_actions": "Thao tác với tin nhắn",
+      "copy_text": "Sao chép văn bản"
+    },
+    "states": {
+      "empty_title": "Trò chuyện với mọi người trong không gian làm việc",
+      "empty_body": "Nhắn tin cho đồng đội hoặc tạo nhóm cho một dự án hay một đội. Chia sẻ tệp, tin nhắn thoại và mục công việc.",
+      "new_direct": "Đây là khởi đầu cuộc trò chuyện của bạn với {name}.",
+      "new_group": "Đây là khởi đầu của {name}.",
+      "say_hi": "👋 Gửi lời chào",
+      "offline": "Bạn đang ngoại tuyến. Tin nhắn bạn gửi sẽ được gửi đi khi bạn kết nối lại.",
+      "waiting": "Đang chờ gửi",
+      "back_online": "Đã trực tuyến trở lại. Đang cập nhật những gì bạn đã bỏ lỡ."
+    },
+    "a11y": {
+      "new_message": "Tin nhắn mới từ {name}: {text}"
+    }
+  }
+}

@@ -15,7 +15,7 @@ import type { TPendingMessage } from "@/store/chat";
 // local
 import { ChatMessageAttachments } from "../attachments/message-attachments";
 import { ChatUserAvatar } from "../common/avatars";
-import { dayLabel, timeLabel, userName } from "../common/helpers";
+import { dayLabel, systemMessageText, timeLabel, userName } from "../common/helpers";
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
 
@@ -32,28 +32,37 @@ export function ChatDayDivider({ iso }: { iso: string }) {
   );
 }
 
-type TSystemProps = { message: TChatMessage; conversation: TChatConversation };
+type TSystemProps = { workspaceSlug: string; message: TChatMessage; conversation: TChatConversation };
 
 /** "Sara added Omar", "Group renamed to …" */
-export const ChatSystemMessage = observer(function ChatSystemMessage({ message, conversation }: TSystemProps) {
+export const ChatSystemMessage = observer(function ChatSystemMessage(props: TSystemProps) {
+  const { workspaceSlug, message, conversation } = props;
   const { t } = useTranslation();
+  const chat = useChat();
   const tr = t as TTranslate;
-  const nameOf = (userId: unknown) => {
-    if (typeof userId !== "string") return t("chat.system.someone");
-    const member = conversation.members?.find((item) => item.member.id === userId)?.member;
-    if (member) return member.display_name;
-    if (conversation.direct_user?.id === userId) return conversation.direct_user.display_name;
-    return t("chat.system.someone");
-  };
-  const event = message.meta?.event ?? "created";
-  const text = tr(`chat.system.${event}`, {
-    actor: nameOf(message.meta?.actor_id),
-    name: event === "renamed" || event === "created" ? String(message.meta?.name ?? "") : nameOf(message.meta?.user_id),
-  });
+  const text = systemMessageText(message, conversation, tr);
+  // "Sara pinned a message" links to the message it is about.
+  const targetSeq = message.meta?.event === "pinned" && typeof message.meta.seq === "number" ? message.meta.seq : null;
   return (
     <div className="flex justify-center px-3 py-1.5 text-12 text-tertiary">
       <span>
         {text} · {timeLabel(message.created_at)}
+        {targetSeq !== null && (
+          <>
+            {" · "}
+            <button
+              type="button"
+              className="font-medium text-accent-primary hover:underline"
+              onClick={() =>
+                void chat.message
+                  .jumpToMessage(workspaceSlug, conversation.id, { seq: targetSeq })
+                  .catch(() => undefined)
+              }
+            >
+              {t("chat.jump.jump")}
+            </button>
+          </>
+        )}
       </span>
     </div>
   );
