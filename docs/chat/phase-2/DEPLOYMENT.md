@@ -7,7 +7,7 @@ How to upgrade a stack running chat phase 1 (`v1-chat`) to phase 2 (`v2-chat`). 
 ## 1. Before you start
 
 - **Back up the database.** The two migrations below add tables, columns and an index. Both reverse cleanly, but back up anyway.
-- **Give the API enough workers.** `GUNICORN_WORKERS` in `apps/api/.env` defaults to 2. That is too few for a busy chat: in the load test (§ 4) 2 workers put message delivery at 2.5 s p95; 8 workers brought it to 135 ms. Use roughly one worker per CPU core you can spare for the API (8 on the test machine).
+- **Give the API enough workers.** Set `GUNICORN_WORKERS=auto` in `apps/api/.env` (existing installs have `2` there, copied from the old `.env.example`). `auto` gives the API half the CPU cores, between 2 and 16, and no more than half the memory at 200 MB per worker; the API log says what it picked ("Starting gunicorn with N workers"). A number still pins the count. Why: in the load test (§ 4) 2 workers put message delivery at 2.5 s p95; 8 workers (what `auto` picks on a 16-core host) brought it to 135 ms. If the API runs on its own host, pin it to the number of cores instead.
 - Nothing else new is required in `.env`. Optional rate limits (defaults shown): `CHAT_REACT_RATE=60/minute`, `CHAT_SEARCH_RATE=30/minute`, `CHAT_PIN_RATE=20/minute`.
 
 ## 2. Deploy
