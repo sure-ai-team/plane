@@ -22,14 +22,29 @@ DEFAULT_PAGE = 50
 MAX_PAGE = 100
 
 
-def full_message_data(message, read_positions=None):
+def full_message_data(message, viewer=None, read_positions=None):
     assets = list(FileAsset.objects.filter(chat_message=message).select_related("workspace").order_by("created_at"))
     mentions = [
         str(user_id) for user_id in MessageMention.objects.filter(message=message).values_list("user_id", flat=True)
     ]
     if read_positions is None:
         read_positions = services.read_positions(message.conversation_id)
-    return message_data(message, assets=assets, mentions=mentions, read_positions=read_positions)
+    extras = services.message_extras([message], viewer).get(str(message.id), {})
+    return message_data(message, assets=assets, mentions=mentions, read_positions=read_positions, **extras)
+
+
+def page_data(rows, assets, mentions, positions, viewer) -> list:
+    extras = services.message_extras(rows, viewer)
+    return [
+        message_data(
+            message,
+            assets=assets.get(str(message.id), []),
+            mentions=mentions.get(str(message.id), []),
+            read_positions=positions,
+            **extras.get(str(message.id), {}),
+        )
+        for message in rows
+    ]
 
 
 def get_message(user, slug, message_id):
@@ -55,34 +70,28 @@ class ChatMessageListEndpoint(ChatBaseEndpoint):
         services.get_membership(request.user, conversation_id, slug)
         before_seq = self.int_param(request.query_params.get("before_seq"), "before_seq", minimum=0)
         after_seq = self.int_param(request.query_params.get("after_seq"), "after_seq", minimum=0)
-        if before_seq is not None and after_seq is not None:
-            raise services.ChatError(400, "INVALID_PARAM", "Use either before_seq or after_seq, not both.")
+        around_seq = self.int_param(request.query_params.get("around_seq"), "around_seq", minimum=1)
+        if sum(value is not None for value in (before_seq, after_seq, around_seq)) > 1:
+            raise services.ChatError(400, "INVALID_PARAM", "Use only one of before_seq, after_seq or around_seq.")
         limit = self.int_param(
             request.query_params.get("limit"), "limit", minimum=1, maximum=MAX_PAGE, default=DEFAULT_PAGE
         )
 
         rows, has_more, assets, mentions = services.messages_page(
-            conversation_id, before_seq=before_seq, after_seq=after_seq, limit=limit
+            conversation_id, before_seq=before_seq, after_seq=after_seq, around_seq=around_seq, limit=limit
         )
         positions = services.read_positions(conversation_id)
-        results = [
-            message_data(
-                message,
-                assets=assets.get(str(message.id), []),
-                mentions=mentions.get(str(message.id), []),
-                read_positions=positions,
-            )
-            for message in rows
-        ]
-        return Response(
-            {
-                "results": results,
-                "has_more": has_more,
-                "oldest_seq": rows[0].seq if rows else None,
-                "newest_seq": rows[-1].seq if rows else None,
-            },
-            status=status.HTTP_200_OK,
-        )
+        data = {
+            "results": page_data(rows, assets, mentions, positions, request.user),
+            "oldest_seq": rows[0].seq if rows else None,
+            "newest_seq": rows[-1].seq if rows else None,
+        }
+        if around_seq is not None:
+            data["has_before"], data["has_after"] = has_more
+            data["has_more"] = has_more[0]
+        else:
+            data["has_more"] = has_more
+        return Response(data, status=status.HTTP_200_OK)
 
     @allow_permission(CHAT_ROLES, level="WORKSPACE")
     def post(self, request, slug, conversation_id):
@@ -99,13 +108,20 @@ class ChatMessageListEndpoint(ChatBaseEndpoint):
             max_files=get_chat_config().max_files_per_message,
         )
         message = Message.objects.select_related("sender", "reply_to__sender").get(id=result.message.id)
-        data = full_message_data(message)
+        data = full_message_data(message, request.user)
         if result.created:
-            services.publish(ChatEvent.MESSAGE_CREATED, {"message": data}, conversation_id, slug)
+            services.publish_message(ChatEvent.MESSAGE_CREATED, message, data, conversation_id, slug)
         return Response(data, status=status.HTTP_201_CREATED if result.created else status.HTTP_200_OK)
 
 
 class ChatMessageDetailEndpoint(ChatBaseEndpoint):
+    @allow_permission(CHAT_ROLES, level="WORKSPACE")
+    def get(self, request, slug, message_id):
+        """One message, for message links (``?m=<id>``): the client reads ``seq``
+        and loads the page around it (phase 2 P2-D7)."""
+        message, _ = get_message(request.user, slug, message_id)
+        return Response(full_message_data(message, request.user), status=status.HTTP_200_OK)
+
     @allow_permission(CHAT_ROLES, level="WORKSPACE")
     def patch(self, request, slug, message_id):
         message, _ = get_message(request.user, slug, message_id)
@@ -114,8 +130,8 @@ class ChatMessageDetailEndpoint(ChatBaseEndpoint):
         payload = self.validated(MessageUpdateSerializer(data=request.data))
         services.edit_message(message, body_html=payload["body_html"], body_json=payload.get("body_json"))
         message = Message.objects.select_related("sender", "reply_to__sender").get(id=message.id)
-        data = full_message_data(message)
-        services.publish(ChatEvent.MESSAGE_UPDATED, {"message": data}, message.conversation_id, slug)
+        data = full_message_data(message, request.user)
+        services.publish_message(ChatEvent.MESSAGE_UPDATED, message, data, message.conversation_id, slug)
         return Response(data, status=status.HTTP_200_OK)
 
     @allow_permission(CHAT_ROLES, level="WORKSPACE")

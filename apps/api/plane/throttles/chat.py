@@ -15,3 +15,15 @@ class ChatUploadThrottle(UserRateThrottle):
 
 class ChatReadThrottle(UserRateThrottle):
     scope = "chat_read"
+
+
+class ChatReactThrottle(UserRateThrottle):
+    scope = "chat_react"
+
+
+class ChatSearchThrottle(UserRateThrottle):
+    scope = "chat_search"
+
+
+class ChatPinThrottle(UserRateThrottle):
+    scope = "chat_pin"

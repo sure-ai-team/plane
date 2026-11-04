@@ -104,7 +104,7 @@ Shown next to the time when `edited_at` is set. The tooltip shows the edit time.
 
 - **Rich card**: state icon, identifier, title, then chips for state, priority, due date and assignee, plus sub-item progress. Data comes from a `workItemCache` that batches by project through the existing issue APIs. If you can't view the project: a plain "Work item" chip with no details.
 - **Share to chat**: a button in the work-item header → dialog (To: up to 5 conversations, optional note, card preview) → sends a message with the embed.
-- **Discuss in chat**: opens a dock window with a picker. The project-linked groups come first, or "New group for this project". The composer is prefilled with the work-item embed.
+- **Discuss in chat**: opens a dock window with a picker. The project-linked groups come first, or "New group for this project". The composer is prefilled with a link to the work item (rendered as a card).
 - **Project navigation**: a "Chat" entry under the project (after Intake). It lists project-linked groups you belong to, with unread badges, and opens them in the full chat page.
 - **"Discussed in chat"** section on the work-item page (`chat-references` endpoint). It's collapsed when empty, and only lists conversations you're in.
 

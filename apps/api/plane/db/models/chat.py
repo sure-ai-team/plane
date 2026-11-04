@@ -15,6 +15,8 @@ import uuid
 
 # Django imports
 from django.conf import settings
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVector
 from django.db import models
 from django.db.models import Q
 
@@ -57,6 +59,32 @@ class SystemEvent(models.TextChoices):
     RENAMED = "renamed", "Renamed"
     ICON_CHANGED = "icon_changed", "Icon changed"
     PROJECT_LINKED = "project_linked", "Project linked"
+    PINNED = "pinned", "Pinned"
+    UNPINNED = "unpinned", "Unpinned"
+
+
+class NotifyLevel(models.TextChoices):
+    """Per-member notification level (docs/chat/phase-2/DECISIONS.md P2-D4)."""
+
+    ALL = "all", "All messages"
+    MENTIONS = "mentions", "Mentions only"
+    OFF = "off", "Off"
+
+
+class MessageLayout(models.TextChoices):
+    COMPACT = "compact", "Compact"
+    BUBBLES = "bubbles", "Bubbles"
+
+
+class MinimizeStyle(models.TextChoices):
+    DOCKED = "docked", "Docked tabs"
+    HEADS = "heads", "Chat heads"
+
+
+SEARCH_CONFIG = "simple"  # same treatment for Arabic and English text (P2-D3)
+MAX_REACTIONS_PER_MESSAGE = 20
+MAX_PINS_PER_CONVERSATION = 50
+MAX_WORK_ITEM_REFS_PER_MESSAGE = 10
 
 
 def build_direct_key(user_a_id, user_b_id) -> str:
@@ -70,6 +98,7 @@ class Conversation(ChatBaseModel):
     type = models.CharField(max_length=10, choices=ConversationType.choices)
     name = models.CharField(max_length=255, blank=True, default="")
     logo_props = models.JSONField(default=dict, blank=True)
+    description = models.TextField(blank=True, default="")
     project = models.ForeignKey(
         "db.Project",
         on_delete=models.SET_NULL,
@@ -115,7 +144,10 @@ class ConversationMember(ChatBaseModel):
     workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="chat_memberships")
     role = models.PositiveSmallIntegerField(choices=ConversationRole.choices, default=ConversationRole.MEMBER)
     last_read_seq = models.PositiveBigIntegerField(default=0)
-    is_muted = models.BooleanField(default=False)
+    notify_level = models.CharField(max_length=10, choices=NotifyLevel.choices, default=NotifyLevel.ALL)
+    snoozed_until = models.DateTimeField(null=True, blank=True)
+    is_starred = models.BooleanField(default=False)
+    archived_at = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     joined_at = models.DateTimeField(auto_now_add=True)
     left_at = models.DateTimeField(null=True, blank=True)
@@ -130,7 +162,18 @@ class ConversationMember(ChatBaseModel):
         indexes = [
             models.Index(fields=["member", "is_active"], name="chat_member_active"),
             models.Index(fields=["workspace", "member", "is_active"], name="chat_member_ws_active"),
+            models.Index(fields=["member", "workspace", "is_active", "archived_at"], name="chat_member_sidebar"),
         ]
+
+    @property
+    def is_muted(self) -> bool:
+        """Phase 1 field, kept readable for one release (= notify level "off")."""
+        return self.notify_level == NotifyLevel.OFF
+
+    def is_snoozed(self, now=None) -> bool:
+        from django.utils import timezone
+
+        return bool(self.snoozed_until and self.snoozed_until > (now or timezone.now()))
 
 
 class Message(ChatBaseModel):
@@ -174,6 +217,7 @@ class Message(ChatBaseModel):
         ]
         indexes = [
             models.Index(fields=["conversation", "-seq"], name="chat_msg_conv_seq_desc"),
+            GinIndex(SearchVector("body_stripped", config=SEARCH_CONFIG), name="chat_msg_search_idx"),
         ]
 
 
@@ -191,4 +235,85 @@ class MessageMention(ChatBaseModel):
         ]
         indexes = [
             models.Index(fields=["user", "-created_at"], name="chat_mention_user_created"),
+        ]
+
+
+class MessageReaction(ChatBaseModel):
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name="reactions")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="chat_reactions")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="chat_reactions")
+    emoji = models.CharField(max_length=32)
+
+    class Meta:
+        verbose_name = "Chat Message Reaction"
+        verbose_name_plural = "Chat Message Reactions"
+        db_table = "chat_message_reactions"
+        constraints = [
+            models.UniqueConstraint(fields=["message", "user", "emoji"], name="chat_unique_reaction"),
+        ]
+        indexes = [
+            models.Index(fields=["message", "emoji"], name="chat_reaction_msg_emoji"),
+        ]
+
+
+class MessagePin(ChatBaseModel):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name="pins")
+    message = models.OneToOneField(Message, on_delete=models.CASCADE, related_name="pin")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="chat_pins")
+    pinned_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="chat_pins",
+    )
+
+    class Meta:
+        verbose_name = "Chat Message Pin"
+        verbose_name_plural = "Chat Message Pins"
+        db_table = "chat_message_pins"
+        indexes = [
+            models.Index(fields=["conversation", "-created_at"], name="chat_pin_conv_created"),
+        ]
+
+
+class MessageWorkItem(ChatBaseModel):
+    """A work item a message links to (P2-D13), for cards and "Discussed in chat"."""
+
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name="work_items")
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name="work_item_refs")
+    issue = models.ForeignKey("db.Issue", on_delete=models.CASCADE, related_name="chat_refs")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="chat_work_item_refs")
+
+    class Meta:
+        verbose_name = "Chat Message Work Item"
+        verbose_name_plural = "Chat Message Work Items"
+        db_table = "chat_message_work_items"
+        constraints = [
+            models.UniqueConstraint(fields=["message", "issue"], name="chat_unique_work_item_ref"),
+        ]
+        indexes = [
+            models.Index(fields=["issue", "-created_at"], name="chat_work_item_issue_created"),
+        ]
+
+
+class ChatPreference(ChatBaseModel):
+    """Per-user, per-workspace chat settings (docs/chat/phase-2/01-data-model.md)."""
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="chat_preferences")
+    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="chat_preferences")
+    desktop_notifications = models.BooleanField(default=True)
+    sound = models.BooleanField(default=True)
+    show_preview = models.BooleanField(default=True)
+    inbox_mentions = models.BooleanField(default=True)
+    message_layout = models.CharField(max_length=10, choices=MessageLayout.choices, default=MessageLayout.BUBBLES)
+    bubbles_direct_only = models.BooleanField(default=True)
+    minimize_style = models.CharField(max_length=10, choices=MinimizeStyle.choices, default=MinimizeStyle.DOCKED)
+
+    class Meta:
+        verbose_name = "Chat Preference"
+        verbose_name_plural = "Chat Preferences"
+        db_table = "chat_preferences"
+        constraints = [
+            models.UniqueConstraint(fields=["user", "workspace"], name="chat_unique_preference"),
         ]

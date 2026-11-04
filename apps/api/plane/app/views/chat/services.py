@@ -16,7 +16,7 @@ from dataclasses import dataclass
 
 # Django imports
 from django.db import IntegrityError, transaction
-from django.db.models import Count, Exists, OuterRef
+from django.db.models import Count, Exists, F, OuterRef
 from django.utils import timezone
 
 # Third party imports
@@ -32,12 +32,16 @@ from plane.db.models import (
     Message,
     MessageKind,
     MessageMention,
+    MessagePin,
+    MessageReaction,
+    NotifyLevel,
     SystemEvent,
     Workspace,
     WorkspaceMember,
     build_direct_key,
 )
 from plane.utils.chat_events import publish_on_commit
+from plane.utils.chat_work_items import sync_message_work_items, work_item_refs
 from plane.utils.chat_media import KIND_AUDIO
 from plane.utils.content_validator import validate_html_content
 from plane.utils.html_processor import strip_tags
@@ -45,6 +49,7 @@ from plane.utils.html_processor import strip_tags
 CHAT_WORKSPACE_ROLES = (20, 15)  # admin, member; guests are excluded (D3)
 PREVIEW_TEXT_LENGTH = 140
 MAX_BODY_HTML_BYTES = 200 * 1024
+MAX_DESCRIPTION_LENGTH = 500
 
 
 class ChatError(Exception):
@@ -243,6 +248,7 @@ def send_message(
     client_id=None,
     attachment_ids=None,
     max_files: int = 10,
+    meta=None,
 ) -> SendResult:
     conversation = membership.conversation
     attachment_ids = [str(asset_id) for asset_id in (attachment_ids or [])]
@@ -315,6 +321,7 @@ def send_message(
                 body_stripped=stripped,
                 reply_to=reply_to,
                 client_id=client_id,
+                meta=meta if isinstance(meta, dict) else {},
                 created_by=sender,
             )
 
@@ -331,6 +338,9 @@ def send_message(
                     ],
                     ignore_conflicts=True,
                 )
+
+            sync_message_work_items(message, conversation.workspace.slug)
+            schedule_inbox_notifications(message.id)
 
             # The sender has read their own message.
             ConversationMember.objects.filter(id=membership.id, last_read_seq__lt=message.seq).update(
@@ -371,7 +381,10 @@ def edit_message(message: Message, *, body_html: str, body_json=None) -> Message
             ignore_conflicts=True,
         )
 
-        conversation = Conversation.objects.select_for_update().get(id=message.conversation_id)
+        conversation = (
+            Conversation.objects.select_for_update().select_related("workspace").get(id=message.conversation_id)
+        )
+        sync_message_work_items(message, conversation.workspace.slug)
         if conversation.last_message_seq == message.seq:
             kinds = list(message.assets.values_list("attributes__kind", flat=True))
             conversation.last_message_preview = build_preview(message, kinds)
@@ -398,6 +411,12 @@ def schedule_object_deletion(keys):
     transaction.on_commit(lambda: delete_chat_objects.delay(list(keys)))
 
 
+def schedule_inbox_notifications(message_id):
+    from plane.bgtasks.chat_inbox_task import chat_inbox_notifications
+
+    transaction.on_commit(lambda: chat_inbox_notifications.delay(str(message_id)))
+
+
 def delete_message(message: Message):
     """Permanently delete a message and its files (D2)."""
     with transaction.atomic():
@@ -405,6 +424,9 @@ def delete_message(message: Message):
         conversation = Conversation.objects.select_for_update().get(id=message.conversation_id)
         was_last = conversation.last_message_seq == message.seq
         message_id, seq = str(message.id), message.seq
+        from plane.bgtasks.chat_inbox_task import delete_message_notifications
+
+        delete_message_notifications([message.id])
         message.delete()
         if was_last:
             latest = Message.objects.filter(conversation=conversation).order_by("-seq").first()
@@ -424,6 +446,9 @@ def delete_conversation(conversation: Conversation):
     """Permanently delete a conversation, its messages and its files (D2)."""
     with transaction.atomic():
         keys = collect_object_keys(FileAsset.objects.filter(chat_conversation=conversation))
+        from plane.bgtasks.chat_inbox_task import delete_conversation_notifications
+
+        delete_conversation_notifications(conversation.id)
         conversation.delete()
         schedule_object_deletion(keys)
 
@@ -434,6 +459,9 @@ def mark_read(membership: ConversationMember, seq: int) -> int:
     updated = ConversationMember.objects.filter(id=membership.id, last_read_seq__lt=target).update(last_read_seq=target)
     if updated:
         membership.last_read_seq = target
+        from plane.bgtasks.chat_inbox_task import mark_inbox_read
+
+        mark_inbox_read(membership.member_id, conversation.id, target)
     return membership.last_read_seq
 
 
@@ -506,6 +534,7 @@ def create_group(workspace: Workspace, user, *, name, logo_props=None, project_i
                 member_id=user.id,
                 workspace=workspace,
                 role=ConversationRole.ADMIN,
+                notify_level=NotifyLevel.MENTIONS,
                 created_by=user,
             )
         ] + [
@@ -514,6 +543,7 @@ def create_group(workspace: Workspace, user, *, name, logo_props=None, project_i
                 member_id=member_id,
                 workspace=workspace,
                 role=ConversationRole.MEMBER,
+                notify_level=NotifyLevel.MENTIONS,
                 created_by=user,
             )
             for member_id in other_ids
@@ -536,7 +566,11 @@ def add_members(membership: ConversationMember, actor, member_ids) -> list:
             row, made = ConversationMember.objects.get_or_create(
                 conversation=conversation,
                 member_id=member_id,
-                defaults={"workspace_id": conversation.workspace_id, "created_by": actor},
+                defaults={
+                    "workspace_id": conversation.workspace_id,
+                    "notify_level": NotifyLevel.MENTIONS,
+                    "created_by": actor,
+                },
             )
             if made:
                 added.append(row)
@@ -581,6 +615,9 @@ def remove_member(membership: ConversationMember, actor, target: ConversationMem
         target.is_active = False
         target.left_at = timezone.now()
         target.save(update_fields=["is_active", "left_at", "updated_at"])
+        from plane.bgtasks.chat_inbox_task import delete_conversation_notifications
+
+        delete_conversation_notifications(conversation.id, user_id=target.member_id, unread_only=True)
         event = SystemEvent.MEMBER_LEFT if leaving else SystemEvent.MEMBER_REMOVED
         create_system_message(conversation.id, actor, event, user_id=str(target.member_id))
     return {"promoted": promoted}
@@ -624,6 +661,11 @@ def update_group(membership: ConversationMember, actor, *, data: dict) -> Conver
             if logo_props != conversation.logo_props:
                 conversation.logo_props = logo_props
                 events.append((SystemEvent.ICON_CHANGED, {}))
+        if "description" in data:
+            description = (data.get("description") or "").strip()
+            if len(description) > MAX_DESCRIPTION_LENGTH:
+                raise ChatError(400, "DESCRIPTION_TOO_LONG", "The description is too long.")
+            conversation.description = description
         if "project_id" in data:
             project_id = data.get("project_id") or None
             if (
@@ -637,7 +679,7 @@ def update_group(membership: ConversationMember, actor, *, data: dict) -> Conver
                 conversation.project_id = project_id
                 if project_id:
                     events.append((SystemEvent.PROJECT_LINKED, {"project_id": str(project_id)}))
-        conversation.save(update_fields=["name", "logo_props", "project_id", "updated_at"])
+        conversation.save(update_fields=["name", "description", "logo_props", "project_id", "updated_at"])
         for event, meta in events:
             create_system_message(conversation.id, actor, event, **meta)
     conversation.refresh_from_db()
@@ -668,7 +710,9 @@ def direct_partners(conversation_ids, user) -> dict:
     return {str(row.conversation_id): row.member for row in rows}
 
 
-def user_memberships(user, slug, conversation_type=None):
+def user_memberships(user, slug, conversation_type=None, archived=None):
+    """The caller's active memberships. ``archived``: None = all, False = not
+    archived (the sidebar), True = archived only."""
     queryset = (
         ConversationMember.objects.filter(member=user, is_active=True, conversation__workspace__slug=slug)
         .filter(active_workspace_member_q())
@@ -676,18 +720,53 @@ def user_memberships(user, slug, conversation_type=None):
     )
     if conversation_type in (ConversationType.DIRECT, ConversationType.GROUP):
         queryset = queryset.filter(conversation__type=conversation_type)
+    if archived is True:
+        queryset = queryset.filter(archived_at__isnull=False)
+    elif archived is False:
+        queryset = queryset.filter(archived_at__isnull=True)
     return queryset.order_by("-conversation__last_message_at", "-conversation__created_at")[:500]
 
 
+def unread_mention_counts(user, conversation_ids) -> dict:
+    """Unread messages that mention ``user``, per conversation."""
+    if not conversation_ids:
+        return {}
+    rows = (
+        MessageMention.objects.filter(
+            user=user,
+            message__conversation_id__in=conversation_ids,
+            message__conversation__members__member=user,
+            message__conversation__members__is_active=True,
+            message__seq__gt=F("message__conversation__members__last_read_seq"),
+        )
+        .values("message__conversation_id")
+        .annotate(total=Count("id"))
+    )
+    return {str(row["message__conversation_id"]): row["total"] for row in rows}
+
+
 def unread_counts(user, slug) -> dict:
+    """``total`` drives the app badge and tab title: it leaves out archived
+    conversations and ones set to "off" (05-notifications.md)."""
     total = 0
+    archived_total = 0
     by_conversation = {}
-    for membership in user_memberships(user, slug):
+    memberships = list(user_memberships(user, slug))
+    for membership in memberships:
         unread = max(0, membership.conversation.last_message_seq - membership.last_read_seq)
         by_conversation[str(membership.conversation_id)] = unread
-        if not membership.is_muted:
+        if membership.archived_at:
+            archived_total += unread
+        elif membership.notify_level != NotifyLevel.OFF:
             total += unread
-    return {"total": total, "by_conversation": by_conversation}
+    mentions = unread_mention_counts(user, list(by_conversation))
+    return {
+        "total": total,
+        "archived_total": archived_total,
+        "by_conversation": by_conversation,
+        "mentions_by_conversation": mentions,
+        "mentions_total": sum(mentions.values()),
+    }
 
 
 def read_positions(conversation_id) -> list:
@@ -698,9 +777,19 @@ def read_positions(conversation_id) -> list:
     ]
 
 
-def messages_page(conversation_id, *, before_seq=None, after_seq=None, limit=50):
+def messages_page(conversation_id, *, before_seq=None, after_seq=None, around_seq=None, limit=50):
+    """One page of messages plus attachments and mentions. With ``around_seq``
+    the page is centred on that message and ``has_more`` is ``(has_before, has_after)``."""
     queryset = Message.objects.filter(conversation_id=conversation_id).select_related("sender", "reply_to__sender")
-    if after_seq is not None:
+    if around_seq is not None:
+        before_count = limit // 2
+        older = list(queryset.filter(seq__lt=around_seq).order_by("-seq")[: before_count + 1])
+        has_before = len(older) > before_count
+        newer = list(queryset.filter(seq__gte=around_seq).order_by("seq")[: limit - before_count + 1])
+        has_after = len(newer) > limit - before_count
+        rows = list(reversed(older[:before_count])) + newer[: limit - before_count]
+        has_more = (has_before, has_after)
+    elif after_seq is not None:
         rows = list(queryset.filter(seq__gt=after_seq).order_by("seq")[: limit + 1])
         has_more = len(rows) > limit
         rows = rows[:limit]
@@ -722,6 +811,108 @@ def messages_page(conversation_id, *, before_seq=None, after_seq=None, limit=50)
     ):
         mentions.setdefault(str(message_id), []).append(str(user_id))
     return rows, has_more, assets, mentions
+
+
+def reaction_summaries(message_ids, viewer_id) -> dict:
+    """``{message_id: [{"emoji", "count", "reacted", "user_ids"}]}`` in order of the
+    first reaction with each emoji; ``user_ids`` lists up to 10 people."""
+    summaries = {}
+    viewer = str(viewer_id) if viewer_id else None
+    rows = (
+        MessageReaction.objects.filter(message_id__in=message_ids)
+        .order_by("created_at")
+        .values_list("message_id", "emoji", "user_id")
+    )
+    for message_id, emoji, user_id in rows:
+        per_message = summaries.setdefault(str(message_id), {})
+        entry = per_message.setdefault(emoji, {"emoji": emoji, "count": 0, "reacted": False, "user_ids": []})
+        entry["count"] += 1
+        if str(user_id) == viewer:
+            entry["reacted"] = True
+        if len(entry["user_ids"]) < 10:
+            entry["user_ids"].append(str(user_id))
+    return {message_id: list(entries.values()) for message_id, entries in summaries.items()}
+
+
+def forward_sources(messages, viewer) -> tuple:
+    """Source conversations of forwarded messages that ``viewer`` belongs to,
+    and their names (P2-D6)."""
+    source_ids = {
+        (message.meta or {}).get("forwarded_from", {}).get("conversation_id")
+        for message in messages
+        if (message.meta or {}).get("forwarded_from")
+    } - {None}
+    if not source_ids or viewer is None:
+        return set(), {}
+    rows = (
+        active_members_for_user(viewer)
+        .filter(conversation_id__in=source_ids)
+        .values_list("conversation_id", "conversation__name", "conversation__type")
+    )
+    visible, names = set(), {}
+    for conversation_id, name, conversation_type in rows:
+        visible.add(str(conversation_id))
+        names[str(conversation_id)] = name if conversation_type == ConversationType.GROUP else ""
+    return visible, names
+
+
+def active_members_for_user(user):
+    return ConversationMember.objects.filter(member=user, is_active=True).filter(active_workspace_member_q())
+
+
+def message_extras(messages, viewer) -> dict:
+    """Per-message keyword arguments for ``message_data``: reactions, pin state,
+    work-item refs and the viewer's view of the forward source."""
+    from plane.app.serializers.chat import forwarded_data
+
+    message_ids = [message.id for message in messages]
+    if not message_ids:
+        return {}
+    reactions = reaction_summaries(message_ids, getattr(viewer, "id", None))
+    pinned = {
+        str(message_id)
+        for message_id in MessagePin.objects.filter(message_id__in=message_ids).values_list("message_id", flat=True)
+    }
+    refs = work_item_refs(message_ids)
+    visible, names = forward_sources(messages, viewer)
+    extras = {}
+    for message in messages:
+        key = str(message.id)
+        extras[key] = {
+            "reactions": reactions.get(key, []),
+            "is_pinned": key in pinned,
+            "work_items": refs.get(key, []),
+            "forwarded_from": forwarded_data(message, viewer_source_ids=visible, source_names=names),
+        }
+    return extras
+
+
+def publish_message(event: str, message: Message, data: dict, conversation_id, slug):
+    """Publish a message event. A forwarded message names its source conversation
+    only for recipients who are members of it, so those get their own payload."""
+    # "reacted" in a reaction summary is per viewer, so socket payloads leave
+    # reactions out; clients keep theirs and apply reaction.updated events.
+    data = {key: value for key, value in data.items() if key != "reactions"}
+    source_id = ((message.meta or {}).get("forwarded_from") or {}).get("conversation_id")
+    recipients = set(recipient_ids(conversation_id))
+    if not source_id:
+        publish_on_commit(event, {"message": data}, recipients, slug)
+        return
+    from plane.app.serializers.chat import forwarded_data
+
+    insiders = recipients & set(recipient_ids(source_id))
+    outsiders = recipients - insiders
+    if outsiders:
+        plain = {**data, "forwarded_from": forwarded_data(message)}
+        publish_on_commit(event, {"message": plain}, outsiders, slug)
+    if insiders:
+        source = Conversation.objects.filter(id=source_id).values_list("name", "type").first()
+        name = source[0] if source and source[1] == ConversationType.GROUP else ""
+        full = {
+            **data,
+            "forwarded_from": forwarded_data(message, viewer_source_ids={source_id}, source_names={source_id: name}),
+        }
+        publish_on_commit(event, {"message": full}, insiders, slug)
 
 
 def publish(event: str, data: dict, conversation_id, slug, extra_recipients=()):

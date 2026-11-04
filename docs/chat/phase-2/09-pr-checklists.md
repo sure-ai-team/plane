@@ -6,14 +6,14 @@ Integration branch `v2-chat`. Branches `feat/chat-<n>-<slug>`. Each PR ticks its
 
 Branch `feat/chat-9-backend-foundations`
 
-- [ ] Models + migration `0126_chat_phase2` per `01` (concurrent GIN index, mute data migration, reversible)
-- [ ] Serializers: reactions summary, `is_pinned`, `forwarded_from` (per viewer), `work_items`, member settings, preferences
-- [ ] Endpoints per `02`: `around_seq`, reactions, pins, `conversations/<id>/me/`, `?archived=true`, group description/logo, preferences, search, forward, `chat-references`
-- [ ] `services`: work-item ref extraction on send/edit; pin system lines; Inbox Celery task + read sync + delete cleanup
-- [ ] `publish_chat_event` per-user payload hook; new events per `03`; live `types.ts` updated
-- [ ] Throttles `chat_react`, `chat_search`, `chat_pin`
-- [ ] Tests in `08` § Backend and § Live; `07` checklist ticked
-- [ ] `packages/types` updated
+- [x] Models + migrations `0126_chat_phase2` and `0127_chat_search_index` per `01` (concurrent GIN index, mute data migration, reversible)
+- [x] Serializers: reactions summary, `is_pinned`, `forwarded_from` (per viewer), `work_items`, member settings, preferences
+- [x] Endpoints per `02`: `around_seq`, reactions, pins, `conversations/<id>/me/`, `?archived=true`, group description/logo, preferences, search, forward, `chat-references`
+- [x] `services`: work-item ref extraction on send/edit; pin system lines; Inbox Celery task + read sync + delete cleanup
+- [x] Per-recipient payloads for forwarded messages (`services.publish_message`); new events per `03`; the live server relays any event type, so it needed no change
+- [x] Throttles `chat_react`, `chat_search`, `chat_pin`
+- [x] Tests in `08` § Backend and § Live; `07` checklist ticked
+- [x] `packages/types` updated
 
 ## PR 10 — Thread interactions (L)
 

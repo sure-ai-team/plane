@@ -7,7 +7,7 @@ The live server stays a delivery hub. It relays any frame Django publishes to `c
 | `reaction.updated`     | All active members              | `{ conversation_id, message_id, emoji, count, user_id, added: bool }`       | Patch the message's reaction summary                              |
 | `pin.added`            | All active members              | `{ conversation_id, message_id, pinned_by }`                                | Update pinned bar/panel; system line arrives as `message.created` |
 | `pin.removed`          | All active members              | `{ conversation_id, message_id }`                                           | Same                                                              |
-| `member.updated`       | **Only that member** (all tabs) | `{ conversation_id, notify_level, snoozed_until, is_starred, archived_at }` | Sync personal settings across tabs and devices                    |
+| `membership.updated`   | **Only that member** (all tabs) | `{ conversation_id, notify_level, snoozed_until, is_starred, archived_at }` | Sync personal settings across tabs and devices                    |
 | `preferences.updated`  | That user                       | Full `ChatPreference`                                                       | Layout and notification settings update live                      |
 | `conversation.updated` | All active members (exists)     | Adds `description`, `logo_props`                                            | Header and details panel                                          |
 

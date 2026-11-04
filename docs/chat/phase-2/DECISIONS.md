@@ -69,7 +69,7 @@ Format as in `docs/chat/DECISIONS.md`. All decisions below were locked on 2026-1
 
 ## P2-D13 — Structured work-item references — Locked
 
-**Decision:** on send/edit, extract work-item embeds/links (same workspace) into `MessageWorkItem`. Cards fetch details through existing issue APIs, so project permissions apply. "Discussed in chat" lists only the viewer's conversations.
+**Decision:** on send/edit, extract links to work items in the same workspace (`/<slug>/browse/<PROJECT>-<n>/`; the editor has no work-item embed node) into `MessageWorkItem`. Cards fetch details through existing issue APIs, so project permissions apply. "Discussed in chat" lists only the viewer's conversations.
 **Why:** enables rich cards, the details tab and reverse lookup without leaking private projects.
 
 ## P2-D14 — Deferred to a later phase — Locked

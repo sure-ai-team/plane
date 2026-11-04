@@ -1,6 +1,6 @@
 # 01 — Data model changes
 
-One migration: **`0126_chat_phase2`**. All new chat models inherit `ChatBaseModel` (hard delete, D2). Everything cascades from `Message` or `Conversation`, so phase 1's delete paths keep working.
+Two migrations: **`0126_chat_phase2`** (schema and data) and **`0127_chat_search_index`** (the search index, built concurrently in a non-atomic migration so a failure there can't leave 0126 half-applied). All new chat models inherit `ChatBaseModel` (hard delete, D2). Everything cascades from `Message` or `Conversation`, so phase 1's delete paths keep working.
 
 ## New tables
 
@@ -31,7 +31,7 @@ One migration: **`0126_chat_phase2`**. All new chat models inherit `ChatBaseMode
 
 ### `MessageWorkItem`
 
-Structured link from a message to a work item, extracted on send/edit (P2-D13).
+Structured link from a message to a work item, extracted on send/edit (P2-D13). This edition's editor has no work-item embed node, so a reference is an ordinary link to `/<slug>/browse/<PROJECT>-<n>/` (or `/<slug>/projects/<id>/issues/<id>/`), relative or absolute, into the same workspace (`plane/utils/chat_work_items.py`).
 
 | Field          | Type                                        | Notes                                |
 | -------------- | ------------------------------------------- | ------------------------------------ |
@@ -105,6 +105,7 @@ Add `pinned` and `unpinned` ("Sara pinned a message"). Reactions produce no syst
 
 ## Migration notes
 
-- Order: add fields → data migration for `notify_level` → remove `is_muted` → create tables → create GIN index (`AddIndexConcurrently`, non-atomic migration) so large message tables don't lock.
+- `0126` order: create tables → add fields → data migration for `notify_level` → remove `is_muted`.
+- `0127`: GIN index with `AddIndexConcurrently` (`atomic = False`) so large message tables don't lock.
 - Reverse: recreate `is_muted` from `notify_level == "off"`, drop the rest.
 - Test the migration forwards and backwards in the Docker suite (as with `0125_chat`).

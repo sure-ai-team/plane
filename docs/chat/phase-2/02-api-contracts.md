@@ -8,6 +8,10 @@ Prefix as in phase 1: `/api/workspaces/<slug>/chat/`. Same auth, `ChatBaseEndpoi
 
 New `around_seq` parameter (mutually exclusive with `before_seq` / `after_seq`). Returns up to `limit` messages centred on `seq = n`, plus `has_before` / `has_after`. Used by reply jump, pinned "Jump", search "Jump" and message links.
 
+### `GET messages/<id>/`
+
+One message (full payload). Used to resolve a message link (`?m=<id>`) to its `seq` before `around_seq`. 404 for non-members.
+
 ### Message payload additions
 
 ```json
@@ -25,7 +29,8 @@ New `around_seq` parameter (mutually exclusive with `before_seq` / `after_seq`).
 ```
 
 - `reactions` is ordered by first reaction time. `user_ids` is capped at 10; the full list comes from the reactions endpoint.
-- `forwarded_from.conversation_*` is null unless the viewer is a member of the source conversation (P2-D6).
+- `forwarded_from.conversation_*` is null unless the viewer is a member of the source conversation (P2-D6). The raw source lives in `meta.forwarded_from` on the server and is stripped from `meta` in responses.
+- Socket `message.created` / `message.updated` payloads **omit `reactions`** (the `reacted` flag is per viewer). Clients keep their local reactions and apply `reaction.updated`.
 - `work_items` carries ids only. The client fetches details through existing work-item APIs, which apply project permissions (P2-D13).
 
 ### `POST messages/<id>/forward/` [chat_send]
@@ -118,7 +123,7 @@ Conversation list payload gains `notify_level`, `snoozed_until`, `is_starred`, `
 
 ### Share to chat
 
-The client calls `POST conversations/<id>/messages/` with a work-item embed in `body_html` (one call per target, max 5). No new endpoint.
+The client calls `POST conversations/<id>/messages/` with a link to the work item (`<a href="/<slug>/browse/MOB-142/">`) in `body_html` (one call per target, max 5). No new endpoint. The client renders such links as rich cards.
 
 ## Inbox
 
