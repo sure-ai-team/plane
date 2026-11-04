@@ -1,4 +1,6 @@
 # Seed the isolated "surechat" smoke-test stack (run with: python manage.py shell < seed.py).
+import os
+
 from plane.db.models import Profile, User, Workspace, WorkspaceMember
 from plane.license.models import Instance
 
@@ -21,7 +23,8 @@ for name in ("alice", "bob", "carol", "guest"):
     users[name] = user
 
 workspace, _ = Workspace.objects.get_or_create(
-    slug="chat-smoke", defaults={"name": "Chat Smoke", "owner": users["alice"]}
+    slug=os.environ.get("SMOKE_SLUG", "chat-smoke"),
+    defaults={"name": "Chat Smoke", "owner": users["alice"]},
 )
 for name, role in (("alice", 20), ("bob", 15), ("carol", 15), ("guest", 5)):
     WorkspaceMember.objects.update_or_create(
