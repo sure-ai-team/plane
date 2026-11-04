@@ -410,6 +410,7 @@
       "discussed_hint": "Only conversations you're in are listed.",
       "chip": "{key}",
       "due": "Due {date}",
+      "archived": "Archived",
       "sub_items": "{count, plural, one {# sub-item} other {# sub-items}}"
     },
     "mobile": {

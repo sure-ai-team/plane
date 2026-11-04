@@ -89,6 +89,17 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
   // The composer is keyed by conversation, so this restores the draft on switch.
   const [initialHtml] = useState(() => chat.getDraft(conversation.id) ?? EMPTY_HTML);
   const [html, setHtml] = useState(initialHtml);
+  // A draft written from outside (e.g. "Discuss in chat") while this composer is already open.
+  const prefill = chat.draftPrefills.get(conversation.id) ?? 0;
+  const [seenPrefill, setSeenPrefill] = useState(prefill);
+  useEffect(() => {
+    if (prefill === seenPrefill) return;
+    setSeenPrefill(prefill);
+    const draft = chat.getDraft(conversation.id) ?? EMPTY_HTML;
+    editorRef.current?.setEditorValue(draft, true);
+    editorRef.current?.focus("end");
+    setHtml(draft);
+  }, [prefill, seenPrefill, chat, conversation.id]);
   const [isRecording, setIsRecording] = useState(false);
   const addFiles = useChatFileIntake(conversation.id);
 
@@ -130,9 +141,10 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
       return !value;
     });
 
+  // Inserts at the cursor (or the last place it was, when a picker or modal took focus).
+  // `insertText` only replaces a non-empty selection, so it silently did nothing here.
   const insert = (content: string) => {
-    editorRef.current?.insertText(content);
-    editorRef.current?.focus("end");
+    editorRef.current?.setEditorValueAtCursorPosition(content);
   };
 
   const replaceToken = (token: string, replacement: string) => {
@@ -177,14 +189,16 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
             name: item.name,
           })
         )
-        .join(" ")
+        .join(" ") + "&nbsp;"
     );
   };
 
   const linkCreatedWorkItem = async (issue: TIssue) => {
     const identifier = issue.project_id ? getPartialProjectById(issue.project_id)?.identifier : undefined;
     if (identifier && issue.sequence_id) {
-      insert(workItemLinkHtml(workspaceSlug, { identifier, sequenceId: issue.sequence_id, name: issue.name }));
+      insert(
+        `${workItemLinkHtml(workspaceSlug, { identifier, sequenceId: issue.sequence_id, name: issue.name })}&nbsp;`
+      );
     }
   };
   const hasReadyFiles = chat.upload.canSend(conversation.id);

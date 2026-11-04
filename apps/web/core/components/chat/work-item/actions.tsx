@@ -142,7 +142,7 @@ export const ChatWorkItemActions = observer(function ChatWorkItemActions(props: 
   const discuss = (conversationId: string) => {
     // Start the reply with a link to the work item, then open the chat.
     const existing = chat.getDraft(conversationId) ?? "";
-    chat.setDraft(conversationId, `<p>${link}</p>${existing === "<p></p>" ? "" : existing}`);
+    chat.prefillDraft(conversationId, `<p>${link}</p>${existing === "<p></p>" ? "" : existing}`);
     close();
     if (chat.dock.isShown) chat.dock.open(conversationId);
     else router.push(chatPath(workspaceSlug, conversationId));

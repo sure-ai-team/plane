@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { LIVE_BASE_PATH, LIVE_BASE_URL } from "@plane/constants";
 import type { IUser, TChatUser } from "@plane/types";
 import { ChatService } from "@/services/chat.service";
-import { IssueService } from "@/services/issue";
+import { IssueArchiveService, IssueService } from "@/services/issue";
 import { createBrowserNotifier, createNotifyChannel } from "@/services/chat-notifier";
 import { buildChatSocketUrl, ChatSocket } from "@/services/chat-socket";
 import type { IChatTransport } from "@/services/chat-socket";
@@ -45,6 +45,20 @@ export const toChatUser = (user: IUser | undefined): TChatUser | null =>
     : null;
 
 const workItemService = new IssueService();
+const archivedWorkItemService = new IssueArchiveService();
+
+/** Cards load through the normal list API, which skips archived items; those are looked up one by one
+ * through the archive API (same project permissions), so they show as archived rather than missing. */
+const fetchWorkItems = async (workspaceSlug: string, projectId: string, ids: string[]) => {
+  const issues = await workItemService.retrieveIssues(workspaceSlug, projectId, ids);
+  const found = new Set(issues.map((issue) => issue.id));
+  const archived = await Promise.all(
+    ids
+      .filter((id) => !found.has(id))
+      .map((id) => archivedWorkItemService.retrieveArchivedIssue(workspaceSlug, projectId, id).catch(() => null))
+  );
+  return [...issues, ...archived.filter((issue): issue is NonNullable<typeof issue> => !!issue?.id)];
+};
 
 /** Production wiring: real REST service and a partysocket connection to the live server. */
 export const createChatRootStore = (getCurrentUser: () => IUser | undefined): ChatRootStore =>
@@ -55,7 +69,7 @@ export const createChatRootStore = (getCurrentUser: () => IUser | undefined): Ch
     desktop: createBrowserNotifier("/favicon/android-chrome-192x192.png"),
     leader: new TabLeader(createNotifyChannel(), uuidv4()),
     isVisible: () => typeof document === "undefined" || document.visibilityState === "visible",
-    fetchWorkItems: (workspaceSlug, projectId, ids) => workItemService.retrieveIssues(workspaceSlug, projectId, ids),
+    fetchWorkItems,
     createSocket: (handlers) =>
       new ChatSocket({
         ...handlers,

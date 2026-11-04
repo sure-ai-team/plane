@@ -46,9 +46,36 @@ def test_link_parsing():
     assert ids == ["22222222-2222-2222-2222-222222222222"]
 
 
+@pytest.mark.unit
+def test_text_keys_and_urls():
+    html = (
+        "<p>MOB-3 and WEB-12, again MOB-3. Pasted https://pm.example.com/acme/browse/API-4/, "
+        "other workspace /zzz/browse/MOB-9/</p>"
+        "<p>not keys: mob-5, covid-19x, x-MOB-6, MOB-7-b, /path/MOB-8</p>"
+        "<pre><code>CODE-1</code></pre><p><code>CODE-2</code></p>"
+        '<p><a href="/acme/browse/LINK-1/">TEXT-1 in a link</a></p>'
+    )
+    browse, ids = linked_work_item_keys(html, "acme")
+    assert browse == [("LINK", 1), ("API", 4), ("MOB", 3), ("WEB", 12)]
+    assert ids == []
+
+
 @pytest.mark.contract
 @pytest.mark.django_db
 class TestWorkItemRefs:
+    def test_bare_key_and_pasted_url_create_refs(self, owner_client, workspace, group, issue):
+        key = f"MOB-{issue.sequence_id}"
+        for body in (f"<p>Looking at {key} now</p>", f"<p>http://localhost/{workspace.slug}/browse/{key}/</p>"):
+            message = owner_client.post(
+                messages_url(workspace.slug, group["id"]), {"body_html": body}, format="json"
+            ).data
+            assert [ref["id"] for ref in message["work_items"]] == [str(issue.id)]
+        # A key with no matching work item is just text.
+        message = owner_client.post(
+            messages_url(workspace.slug, group["id"]), {"body_html": "<p>UTF-8 and MOB-999</p>"}, format="json"
+        ).data
+        assert message["work_items"] == []
+
     def test_refs_extracted_on_send_and_edit(self, owner_client, workspace, group, issue):
         message = owner_client.post(
             messages_url(workspace.slug, group["id"]), {"body_html": link(workspace, issue)}, format="json"
