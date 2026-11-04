@@ -122,7 +122,11 @@
       "reply_cancel": "Cancel reply",
       "attach": "Attach files",
       "waiting_uploads": "Waiting for uploads…",
-      "remove_failed": "Remove or retry the failed files first"
+      "remove_failed": "Remove or retry the failed files first",
+      "emoji": "Insert emoji",
+      "formatting": "Formatting",
+      "emoji_suggestions": "Emoji suggestions",
+      "suggestion_hint": "↑ ↓ to choose · Enter to pick · Esc to close"
     },
     "delete_group": {
       "title": "Delete {name}?",
@@ -355,6 +359,16 @@
       "mentioned": "{name} mentioned you in a chat",
       "mentioned_in": "{name} mentioned you in {conversation}",
       "direct": "{name} sent you a message"
+    },
+    "slash": {
+      "title": "Commands",
+      "workitem": "Create a work item and link it here",
+      "link": "Link an existing work item",
+      "mute": "Mute or unmute this conversation",
+      "code": "Insert a code block",
+      "shrug": "Add ¯\\_(ツ)_/¯",
+      "muted": "Conversation muted",
+      "unmuted": "Conversation unmuted"
     }
   }
 }

@@ -52,10 +52,10 @@ Branch `feat/chat-12-notifications`
 
 Branch `feat/chat-13-composer`
 
-- [ ] Formatting toolbar on `LiteTextEditor`
-- [ ] Emoji button + `:shortcode` suggestions
-- [ ] Slash commands `/workitem`, `/link`, `/mute`, `/code`, `/shrug`
-- [ ] Rendering check for lists, quotes and code blocks in both layouts
+- [x] Formatting toolbar on `LiteTextEditor` (the comment editor's own items and commands; toggled with the Aa button, remembered)
+- [x] Emoji button (shared picker) + `:shortcode` suggestions (built-in list of common names; ↑ ↓ Enter/Tab Esc)
+- [x] Slash commands `/workitem` (create + insert link), `/link` (workspace-wide work-item picker), `/mute`, `/code`, `/shrug`
+- [x] Lists, quotes and code blocks render in the compact layout (bubbles layout checked in PR 14)
 
 ## PR 14 — Minimized chat and bubbles (M)
 
