@@ -18,7 +18,8 @@ import websocket
 
 BASE = os.environ.get("BASE", "http://proxy")
 ORIGIN = os.environ.get("ORIGIN", "http://localhost:8090")
-SLUG = "chat-smoke"
+# A separate workspace per run keeps manual test data untouched.
+SLUG = os.environ.get("SMOKE_SLUG", "chat-smoke")
 PASSWORD = "ChatSmoke#2026-x"
 API = f"{BASE}/api/workspaces/{SLUG}/chat"
 
