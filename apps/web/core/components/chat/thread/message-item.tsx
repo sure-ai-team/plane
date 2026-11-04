@@ -27,6 +27,7 @@ import { ChatMessageAttachments } from "../attachments/message-attachments";
 import { ChatEmojiPicker } from "../common/emoji-picker";
 import { ChatForwardModal } from "../modals/forward";
 import { ChatReactions, QUICK_REACTIONS } from "./reactions";
+import { ChatWorkItemCards } from "./work-item-cards";
 import { ChatVoiceNotePlayer } from "../voice/voice-note-player";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath, timeLabel, userName } from "../common/helpers";
@@ -314,6 +315,11 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
                 duration={attachment.duration}
               />
             )}
+          />
+          <ChatWorkItemCards
+            workspaceSlug={workspaceSlug}
+            workItems={message.work_items}
+            tone={mine ? "inverse" : "default"}
           />
         </div>
 

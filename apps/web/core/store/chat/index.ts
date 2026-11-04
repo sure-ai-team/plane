@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { LIVE_BASE_PATH, LIVE_BASE_URL } from "@plane/constants";
 import type { IUser, TChatUser } from "@plane/types";
 import { ChatService } from "@/services/chat.service";
+import { IssueService } from "@/services/issue";
 import { createBrowserNotifier, createNotifyChannel } from "@/services/chat-notifier";
 import { buildChatSocketUrl, ChatSocket } from "@/services/chat-socket";
 import type { IChatTransport } from "@/services/chat-socket";
@@ -20,6 +21,7 @@ export type { TFocusRequest, TPinState, TThreadItem, TPendingMessage, TThreadSta
 export { applyReaction } from "./reactions";
 export { canSearch } from "./search.store";
 export { MAX_EXPANDED } from "./dock.store";
+export type { TChatWorkItemCard, TWorkItemEntry } from "./work-items.store";
 export type { TDockEntry } from "./dock.store";
 export { notificationContent, shouldNotify, TabLeader } from "./notify.store";
 export type { TNotifyPermission } from "./notify.store";
@@ -42,6 +44,8 @@ export const toChatUser = (user: IUser | undefined): TChatUser | null =>
       }
     : null;
 
+const workItemService = new IssueService();
+
 /** Production wiring: real REST service and a partysocket connection to the live server. */
 export const createChatRootStore = (getCurrentUser: () => IUser | undefined): ChatRootStore =>
   new ChatRootStore({
@@ -51,6 +55,7 @@ export const createChatRootStore = (getCurrentUser: () => IUser | undefined): Ch
     desktop: createBrowserNotifier("/favicon/android-chrome-192x192.png"),
     leader: new TabLeader(createNotifyChannel(), uuidv4()),
     isVisible: () => typeof document === "undefined" || document.visibilityState === "visible",
+    fetchWorkItems: (workspaceSlug, projectId, ids) => workItemService.retrieveIssues(workspaceSlug, projectId, ids),
     createSocket: (handlers) =>
       new ChatSocket({
         ...handlers,

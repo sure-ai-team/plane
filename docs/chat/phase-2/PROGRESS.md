@@ -12,7 +12,7 @@
 | 12  | Notifications               | `feat/chat-12-notifications`       | ✅ merged   |
 | 13  | Composer                    | `feat/chat-13-composer`            | ✅ merged   |
 | 14  | Minimized chat and bubbles  | `feat/chat-14-dock-bubbles`        | ✅ merged   |
-| 15  | Work-item integration       | `feat/chat-15-work-items`          | not started |
+| 15  | Work-item integration       | `feat/chat-15-work-items`          | ✅ merged   |
 | 16  | Polish, mobile, release     | `feat/chat-16-polish-release`      | not started |
 
 ## Open questions
@@ -38,3 +38,4 @@ All answered on 2026-11-03: the user accepted every default below (decisions P2-
 - **2026-11-04** — PR 12 merged into `v2-chat`: per-chat level (All / Mentions only / Off) + snooze in the thread header; Chat settings dialog (desktop notifications, sound, preview, chat in Inbox) with the browser-permission banner; desktop notifications decided client-side (one leader tab via BroadcastChannel, tagged per conversation, click opens the message), Web Audio chime; unread count in the tab title and a favicon dot for mentions; chat rows in the Inbox (backend list now includes `chat_message`; mentions use `sender = "chat_mentioned"`; `message_html` escaped). Web tests 96, backend inbox tests 8.
 - **2026-11-04** — PR 13 merged into `v2-chat`: composer formatting toolbar (reuses the comment editor's items), emoji button, `:shortcode` suggestions, slash commands (`/workitem` creates a work item and inserts its link, `/link` picks existing ones workspace-wide, `/mute`, `/code`, `/shrug`); suggestions take ↑ ↓ Enter/Tab Esc before the editor sees them. Web tests 102.
 - **2026-11-04** — PR 14 merged into `v2-chat`: dock on every non-chat page (≥ 768 px): up to 3 windows (bubbles, typing, full composer), minimized tabs or chat heads, launcher with total unread and a quick list; persisted per user + workspace and cleared on sign-out; desktop-notification clicks open a dock window when you're on another page; open windows suppress notifications for their conversation. Bubbles layout (mine on the right) with the Message layout / DMs-only / Minimize style settings. Web tests 108. Deferred: dragging chat heads.
+- **2026-11-04** — PR 15 merged into `v2-chat`: rich work-item cards under messages (state, priority, due date, assignee, sub-items; details through the existing work-item API, batched per project; a plain chip when not visible), Share to chat and Discuss in chat in the work-item header (this project's groups first; Discuss opens a dock window or the chat page with the link ready), "Discussed in chat" above the activity, and a project "Chat" entry that filters chat to the project's groups. Web tests 111.

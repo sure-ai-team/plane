@@ -168,3 +168,9 @@ export const messageLayoutFor = (
   if (layout !== "bubbles") return "compact";
   return directOnly && conversation.type !== "direct" ? "compact" : "bubbles";
 };
+
+/** This project's group chats first, then the rest, newest activity first within each. */
+export const orderForProject = (conversations: TChatConversation[], projectId: string): TChatConversation[] => [
+  ...conversations.filter((conversation) => conversation.project?.id === projectId),
+  ...conversations.filter((conversation) => conversation.project?.id !== projectId),
+];
