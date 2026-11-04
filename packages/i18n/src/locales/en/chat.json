@@ -74,13 +74,14 @@
       "loading_older": "Loading older messages…",
       "load_failed": "Couldn't load messages.",
       "retry": "Try again",
-      "deleted_user": "Former member"
+      "deleted_user": "Former member",
+      "loading_newer": "Loading newer messages…"
     },
     "message": {
       "reply": "Reply",
       "edit": "Edit",
       "delete": "Delete",
-      "copy_link": "Copy link",
+      "copy_link": "Copy link to message",
       "link_copied": "Link copied",
       "more": "More actions",
       "save": "Save",
@@ -91,7 +92,8 @@
       "sending": "Sending…",
       "retry": "Retry",
       "discard": "Discard",
-      "create_work_item": "Create work item"
+      "create_work_item": "Create work item",
+      "no_access": "You can't open that message."
     },
     "system": {
       "created": "{actor} created the group",
@@ -179,6 +181,54 @@
       "up_to": "up to {max}",
       "permission_denied": "Microphone access is blocked. Allow it in your browser settings.",
       "unsupported": "Voice recording isn't supported in this browser."
+    },
+    "reactions": {
+      "add": "Add reaction",
+      "react_with": "React with {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# reaction} other {# reactions}}",
+      "tooltip": "{names} reacted with {emoji}",
+      "and_others": "{names} and {count, plural, one {# other} other {# others}}"
+    },
+    "picker": {
+      "search": "Search emoji"
+    },
+    "pins": {
+      "title": "Pinned",
+      "pinned": "Pinned",
+      "count": "Pinned · {index} of {total}",
+      "next": "Next pinned message",
+      "view_all": "View all",
+      "close": "Close pinned messages",
+      "pin": "Pin message",
+      "unpin": "Unpin",
+      "pinned_by": "Pinned by {name}",
+      "empty": "No pinned messages yet.",
+      "hint": "Anyone in the conversation can pin. Up to 50 pins per conversation."
+    },
+    "jump": {
+      "to_message": "Jump to message",
+      "jump": "Jump",
+      "highlight": "Jumped here"
+    },
+    "unread": {
+      "divider": "New",
+      "divider_label": "New messages",
+      "pill": "{count, plural, one {# new message} other {# new messages}} since {time}",
+      "jump": "Jump",
+      "dismiss": "Dismiss"
+    },
+    "forward": {
+      "action": "Forward",
+      "title": "Forward message",
+      "to": "To",
+      "search": "Search conversations",
+      "no_results": "No conversations match.",
+      "limit": "You can forward to up to {count} conversations at once.",
+      "note": "Add a message (optional)",
+      "submit": "{count, plural, one {Send to # conversation} other {Send to # conversations}}",
+      "done": "{count, plural, one {Forwarded to # conversation} other {Forwarded to # conversations}}",
+      "from": "Forwarded from {name}",
+      "from_conversation": "Forwarded from {name} in {conversation}"
     }
   }
 }

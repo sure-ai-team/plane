@@ -14,7 +14,8 @@ import type { IChatTransport } from "@/services/chat-socket";
 import { ChatRootStore } from "./root.store";
 
 export { ChatRootStore } from "./root.store";
-export type { TThreadItem, TPendingMessage, TThreadState } from "./message.store";
+export type { TFocusRequest, TPinState, TThreadItem, TPendingMessage, TThreadState } from "./message.store";
+export { applyReaction } from "./reactions";
 export type { TUploadItem, TUploadStatus } from "./upload.store";
 
 export const toChatUser = (user: IUser | undefined): TChatUser | null =>

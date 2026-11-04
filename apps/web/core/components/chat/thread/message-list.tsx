@@ -4,9 +4,9 @@
  * See the LICENSE file for details.
  */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ArrowUp, X } from "lucide-react";
 import { Virtuoso } from "react-virtuoso";
 import type { VirtuosoHandle } from "react-virtuoso";
 import { useTranslation } from "@plane/i18n";
@@ -17,19 +17,23 @@ import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
 import type { TThreadItem } from "@/store/chat";
 // local
-import { dayKey, startsGroup } from "../common/helpers";
+import { dayKey, firstUnreadIndex, startsGroup, timeLabel } from "../common/helpers";
 import { ChatMessageItem } from "./message-item";
 import { ChatDayDivider, ChatPendingMessage, ChatSystemMessage } from "./small-items";
 
 /** Virtuoso needs a stable, large starting index so older pages can be prepended. */
 const START_INDEX = 1_000_000;
 const SKELETON_WIDTHS = ["40%", "57%", "74%", "46%", "63%"];
+/** How long a jumped-to message stays highlighted. */
+export const HIGHLIGHT_MS = 2_500;
 
 type TRow = {
   key: string;
   item: TThreadItem;
   showDay: string | null;
   showHeader: boolean;
+  /** The "New" divider goes above this row (first message after the last read one). */
+  showUnread: boolean;
 };
 
 type Props = {
@@ -54,9 +58,42 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
   const [firstItemIndex, setFirstItemIndex] = useState(START_INDEX);
   const previousFirstKey = useRef<string | null>(null);
   const previousLastKey = useRef<string | null>(null);
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
+  const [isDividerVisible, setIsDividerVisible] = useState(false);
+  const [isPillDismissed, setIsPillDismissed] = useState(false);
+  const dividerObserver = useRef<IntersectionObserver | null>(null);
 
   const thread = chat.message.thread(conversation.id);
   const items = chat.message.items(conversation.id);
+  const marker = chat.message.unreadMarkers.get(conversation.id);
+  const unreadIndex = useMemo(() => firstUnreadIndex(items, marker, currentUser?.id), [items, marker, currentUser?.id]);
+  const unreadCount = useMemo(
+    () =>
+      unreadIndex < 0
+        ? 0
+        : items
+            .slice(unreadIndex)
+            .filter((item) => item.type === "message" && item.message.sender?.id !== currentUser?.id).length,
+    [items, unreadIndex, currentUser?.id]
+  );
+
+  useEffect(() => {
+    setIsPillDismissed(false);
+    setHighlightedId(null);
+  }, [conversation.id]);
+
+  // The pill shows while the "New" divider is off screen.
+  const dividerRef = useCallback((node: HTMLDivElement | null) => {
+    dividerObserver.current?.disconnect();
+    dividerObserver.current = null;
+    if (!node) {
+      setIsDividerVisible(false);
+      return;
+    }
+    const intersection = new IntersectionObserver(([entry]) => setIsDividerVisible(entry.isIntersecting));
+    intersection.observe(node);
+    dividerObserver.current = intersection;
+  }, []);
 
   const rows: TRow[] = useMemo(() => {
     const result: TRow[] = [];
@@ -74,10 +111,29 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
         showHeader = !previousMessage || previousMessage.sender?.id !== item.pending.sender?.id || !!showDay;
       }
       previousDay = day;
-      result.push({ key: itemKey(item), item, showDay, showHeader });
+      const showUnread = result.length === unreadIndex;
+      result.push({ key: itemKey(item), item, showDay, showHeader: showHeader || showUnread, showUnread });
     }
     return result;
-  }, [items]);
+  }, [items, unreadIndex]);
+
+  // Scroll to a message someone jumped to (reply quote, pin, search, link) and highlight it.
+  const focusRequest = chat.message.focusRequest;
+  useEffect(() => {
+    if (!focusRequest || focusRequest.conversationId !== conversation.id) return;
+    const index = rows.findIndex(
+      (row) =>
+        row.item.type === "message" &&
+        (row.item.message.id === focusRequest.messageId || row.item.message.seq === focusRequest.seq)
+    );
+    if (index < 0) return;
+    const row = rows[index];
+    virtuoso.current?.scrollToIndex({ index, align: "center", behavior: "auto" });
+    setHighlightedId(row.item.type === "message" ? row.item.message.id : null);
+    chat.message.clearFocusRequest();
+    const timer = window.setTimeout(() => setHighlightedId(null), HIGHLIGHT_MS);
+    return () => window.clearTimeout(timer);
+  }, [focusRequest, rows, conversation.id, chat.message]);
 
   // The newest message I sent: the only one that shows "Seen by".
   const lastOwnMessageId = useMemo(() => {
@@ -104,8 +160,10 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
 
   // Mark read whenever the newest message is on screen and the tab is visible.
   const newestSeq = thread?.newestSeq ?? null;
+  const hasMoreAfter = !!thread?.hasMoreAfter;
   useEffect(() => {
-    if (!isAtBottom || newestSeq === null) return;
+    // In a window opened around an older message, the bottom isn't the newest message.
+    if (!isAtBottom || newestSeq === null || hasMoreAfter) return;
     const markIfVisible = () => {
       if (document.visibilityState === "visible") void chat.markRead(conversation.id);
     };
@@ -115,7 +173,13 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
       window.clearTimeout(timer);
       document.removeEventListener("visibilitychange", markIfVisible);
     };
-  }, [isAtBottom, newestSeq, chat, conversation.id]);
+  }, [isAtBottom, newestSeq, hasMoreAfter, chat, conversation.id]);
+
+  const jumpToLatest = async () => {
+    setHasNewBelow(false);
+    if (hasMoreAfter) await chat.message.jumpToLatest(workspaceSlug, conversation.id);
+    virtuoso.current?.scrollToIndex({ index: "LAST", behavior: "smooth" });
+  };
 
   if (!thread || thread.isLoadingInitial) {
     return (
@@ -166,13 +230,16 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
         firstItemIndex={firstItemIndex}
         initialTopMostItemIndex={rows.length - 1}
         computeItemKey={(_index, row) => row.key}
-        followOutput={(atBottom) => (atBottom ? "smooth" : false)}
+        followOutput={(atBottom) => (atBottom && !hasMoreAfter ? "smooth" : false)}
         atBottomStateChange={(atBottom) => {
           setIsAtBottom(atBottom);
           if (atBottom) setHasNewBelow(false);
         }}
         atBottomThreshold={48}
         startReached={() => void chat.message.loadOlder(workspaceSlug, conversation.id)}
+        endReached={() => {
+          if (hasMoreAfter) void chat.message.loadNewer(workspaceSlug, conversation.id);
+        }}
         increaseViewportBy={{ top: 600, bottom: 300 }}
         components={{
           Header: () =>
@@ -181,11 +248,27 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
             ) : (
               <div className="h-3" />
             ),
-          Footer: () => <div className="h-2" />,
+          Footer: () =>
+            thread.isLoadingNewer ? (
+              <p className="py-3 text-center text-12 text-tertiary">{t("chat.thread.loading_newer")}</p>
+            ) : (
+              <div className="h-2" />
+            ),
         }}
         itemContent={(_index, row) => (
           <div>
             {row.showDay && <ChatDayDivider iso={row.showDay} />}
+            {row.showUnread && (
+              <div
+                ref={dividerRef}
+                role="separator"
+                aria-label={t("chat.unread.divider_label")}
+                className="flex items-center gap-2.5 px-3 py-2 text-11 font-semibold tracking-wide text-danger-primary uppercase"
+              >
+                <span className="h-px flex-1 bg-danger-subtle" />
+                {t("chat.unread.divider")}
+              </div>
+            )}
             {row.item.type === "pending" ? (
               <ChatPendingMessage
                 workspaceSlug={workspaceSlug}
@@ -202,23 +285,48 @@ export const ChatMessageList = observer(function ChatMessageList(props: Props) {
                 message={row.item.message}
                 showHeader={row.showHeader}
                 showSeenBy={row.item.message.id === lastOwnMessageId}
+                isHighlighted={row.item.message.id === highlightedId}
                 onReply={onReply}
               />
             )}
           </div>
         )}
       />
-      {hasNewBelow && !isAtBottom && (
+      {unreadIndex >= 0 && unreadCount > 0 && !isDividerVisible && !isPillDismissed && (
+        <div className="absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-0.5 rounded-full bg-accent-primary py-0.5 pr-0.5 pl-3 text-12 font-medium text-on-color shadow-raised-200">
+          <span>
+            {t("chat.unread.pill", {
+              count: unreadCount,
+              time:
+                rows[unreadIndex]?.item.type === "message" ? timeLabel(rows[unreadIndex].item.message.created_at) : "",
+            })}
+          </span>
+          <button
+            type="button"
+            onClick={() => virtuoso.current?.scrollToIndex({ index: unreadIndex, align: "start", behavior: "smooth" })}
+            className="ml-2 flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-1 font-semibold hover:bg-white/30"
+          >
+            <ArrowUp className="size-3" />
+            {t("chat.unread.jump")}
+          </button>
+          <button
+            type="button"
+            aria-label={t("chat.unread.dismiss")}
+            onClick={() => setIsPillDismissed(true)}
+            className="flex size-6 items-center justify-center rounded-full hover:bg-white/20"
+          >
+            <X className="size-3.5" />
+          </button>
+        </div>
+      )}
+      {(hasMoreAfter || (hasNewBelow && !isAtBottom)) && (
         <button
           type="button"
-          onClick={() => {
-            virtuoso.current?.scrollToIndex({ index: "LAST", behavior: "smooth" });
-            setHasNewBelow(false);
-          }}
+          onClick={() => void jumpToLatest()}
           className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-accent-primary px-3 py-1.5 text-12 font-medium text-on-color shadow-raised-200"
         >
           <ArrowDown className="size-3.5" />
-          {t("chat.thread.new_messages")}
+          {hasMoreAfter ? t("chat.thread.jump_to_latest") : t("chat.thread.new_messages")}
         </button>
       )}
     </div>

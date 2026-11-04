@@ -5,6 +5,7 @@
  */
 
 import type { TChatConversation, TChatMessage, TChatPreview, TChatUser } from "@plane/types";
+import type { TThreadItem } from "@/store/chat/message.store";
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
 
@@ -78,3 +79,27 @@ export const startsGroup = (message: TChatMessage, previous: TChatMessage | unde
   if (dayKey(message.created_at) !== dayKey(previous.created_at)) return true;
   return new Date(message.created_at).getTime() - new Date(previous.created_at).getTime() > GROUP_WINDOW_MS;
 };
+
+/** Index of the first message after `marker` sent by someone else, or -1. */
+export const firstUnreadIndex = (
+  items: TThreadItem[],
+  marker: number | undefined,
+  currentUserId: string | undefined
+): number => {
+  if (marker === undefined) return -1;
+  return items.findIndex(
+    (item) => item.type === "message" && item.message.seq > marker && item.message.sender?.id !== currentUserId
+  );
+};
+
+export const escapeHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** A plain-text note becomes paragraphs of escaped text. */
+export const noteToHtml = (note: string): string =>
+  note
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
+    .map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`)
+    .join("");

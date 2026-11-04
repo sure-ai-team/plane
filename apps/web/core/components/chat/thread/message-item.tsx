@@ -6,7 +6,7 @@
 
 import { useRef, useState } from "react";
 import { observer } from "mobx-react";
-import { CornerUpLeft, MoreHorizontal } from "lucide-react";
+import { CornerUpLeft, Forward, MoreHorizontal, Pin, PinOff, SmilePlus } from "lucide-react";
 import type { EditorRefApi } from "@plane/editor";
 import { useTranslation } from "@plane/i18n";
 import { Button } from "@plane/propel/button";
@@ -24,6 +24,9 @@ import { useChat } from "@/hooks/store/use-chat";
 import { useUser } from "@/hooks/store/user";
 // local
 import { ChatMessageAttachments } from "../attachments/message-attachments";
+import { ChatEmojiPicker } from "../common/emoji-picker";
+import { ChatForwardModal } from "../modals/forward";
+import { ChatReactions, QUICK_REACTIONS } from "./reactions";
 import { ChatVoiceNotePlayer } from "../voice/voice-note-player";
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath, timeLabel, userName } from "../common/helpers";
@@ -35,11 +38,17 @@ type Props = {
   message: TChatMessage;
   showHeader: boolean;
   showSeenBy: boolean;
+  /** Briefly highlighted after a jump (reply, pin, search, link). */
+  isHighlighted?: boolean;
   onReply: (message: TChatMessage) => void;
 };
 
+/** Link to one message: opening it scrolls there (docs/chat/phase-2/DECISIONS.md P2-D7). */
+export const messageLink = (workspaceSlug: string, conversationId: string, messageId: string) =>
+  `${chatPath(workspaceSlug, conversationId).replace(/^\//, "")}?m=${messageId}`;
+
 export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
-  const { workspaceSlug, workspaceId, conversation, message, showHeader, showSeenBy, onReply } = props;
+  const { workspaceSlug, workspaceId, conversation, message, showHeader, showSeenBy, isHighlighted, onReply } = props;
   const { t } = useTranslation();
   const chat = useChat();
   const { data: currentUser } = useUser();
@@ -50,6 +59,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isCreateWorkItemOpen, setIsCreateWorkItemOpen] = useState(false);
+  const [isForwardOpen, setIsForwardOpen] = useState(false);
 
   const isOwn = !!currentUser && message.sender?.id === currentUser.id;
   const isGroupAdmin = conversation.type === "group" && conversation.my_role === 20;
@@ -68,6 +78,23 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const showError = (error: unknown) =>
+    setToast({ type: TOAST_TYPE.ERROR, title: t("chat.errors.generic"), message: (error as TChatApiError)?.error });
+
+  const react = (emoji: string) => void chat.message.toggleReaction(workspaceSlug, message, emoji).catch(showError);
+
+  const togglePin = () =>
+    void (
+      message.is_pinned ? chat.message.unpin(workspaceSlug, message) : chat.message.pin(workspaceSlug, message)
+    ).catch(showError);
+
+  const jumpToReply = () => {
+    if (!message.reply_to) return;
+    void chat.message
+      .jumpToMessage(workspaceSlug, conversation.id, { seq: message.reply_to.seq })
+      .catch(() => setToast({ type: TOAST_TYPE.ERROR, title: t("chat.message.no_access") }));
   };
 
   const remove = async () => {
@@ -106,7 +133,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
       icon: LinkIcon,
       shouldRender: true,
       action: () =>
-        void copyUrlToClipboard(chatPath(workspaceSlug, conversation.id).replace(/^\//, "")).then(() =>
+        void copyUrlToClipboard(messageLink(workspaceSlug, conversation.id, message.id)).then(() =>
           setToast({ type: TOAST_TYPE.SUCCESS, title: t("chat.message.link_copied") })
         ),
     },
@@ -122,10 +149,14 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
 
   return (
     <div
-      className={cn("group/message relative flex gap-2.5 rounded-md px-3 hover:bg-layer-transparent-hover", {
-        "pt-2": showHeader,
-        "bg-layer-transparent-hover": isEditing,
-      })}
+      className={cn(
+        "group/message relative flex gap-2.5 rounded-md px-3 transition-colors duration-700 hover:bg-layer-transparent-hover",
+        {
+          "pt-2": showHeader,
+          "bg-layer-transparent-hover": isEditing,
+          "bg-warning-subtle hover:bg-warning-subtle": isHighlighted,
+        }
+      )}
     >
       <div className="w-7 shrink-0">{showHeader && <ChatUserAvatar user={message.sender} size={28} showTooltip />}</div>
       <div className="min-w-0 flex-1 pb-1">
@@ -133,11 +164,39 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           <div className="flex items-baseline gap-2">
             <span className="truncate text-13 font-medium text-primary">{userName(message.sender, tr)}</span>
             <span className="text-11 text-tertiary">{timeLabel(message.created_at)}</span>
+            {message.is_pinned && (
+              <span className="flex items-center gap-0.5 text-11 text-tertiary">
+                <Pin className="size-3" aria-hidden />
+                {t("chat.pins.pinned")}
+              </span>
+            )}
+            {isHighlighted && (
+              <span className="text-11 font-medium text-warning-primary">{t("chat.jump.highlight")}</span>
+            )}
+          </div>
+        )}
+
+        {message.forwarded_from && (
+          <div className="mt-0.5 flex items-center gap-1 text-11 text-tertiary">
+            <Forward className="size-3 shrink-0" aria-hidden />
+            <span className="truncate">
+              {message.forwarded_from.conversation_name
+                ? t("chat.forward.from_conversation", {
+                    name: message.forwarded_from.sender_name ?? t("chat.system.someone"),
+                    conversation: message.forwarded_from.conversation_name,
+                  })
+                : t("chat.forward.from", { name: message.forwarded_from.sender_name ?? t("chat.system.someone") })}
+            </span>
           </div>
         )}
 
         {message.reply_to && (
-          <div className="mt-1 flex max-w-xl items-center gap-1.5 rounded-sm border-l-2 border-strong bg-layer-1 px-2 py-1 text-12 text-secondary">
+          <button
+            type="button"
+            onClick={jumpToReply}
+            aria-label={t("chat.jump.to_message")}
+            className="mt-1 flex max-w-xl items-center gap-1.5 rounded-sm border-l-2 border-strong bg-layer-1 px-2 py-1 text-left text-12 text-secondary hover:bg-layer-1-hover"
+          >
             <CornerUpLeft className="size-3 shrink-0" />
             <span className="truncate">
               <span className="font-medium text-primary">{userName(message.reply_to.sender, tr)}</span>
@@ -145,7 +204,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
               {message.reply_to.body_stripped ||
                 (message.reply_to.kind === "voice" ? t("chat.thread.reply_voice") : t("chat.thread.reply_attachment"))}
             </span>
-          </div>
+          </button>
         )}
 
         {isEditing ? (
@@ -213,6 +272,13 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
           )}
         />
 
+        <ChatReactions
+          workspaceSlug={workspaceSlug}
+          conversation={conversation}
+          message={message}
+          currentUserId={currentUser?.id}
+        />
+
         {showSeenBy && message.seen_by_count > 0 && (
           <div className="mt-0.5 text-11 text-tertiary">
             {t("chat.thread.seen_by", { count: message.seen_by_count })}
@@ -222,12 +288,45 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
 
       {!isEditing && (
         <div className="absolute -top-3 right-3 hidden items-center gap-0.5 rounded-md border border-subtle bg-surface-1 p-0.5 shadow-raised-100 group-focus-within/message:flex group-hover/message:flex">
+          {QUICK_REACTIONS.map((emoji) => (
+            <button
+              key={emoji}
+              type="button"
+              aria-label={t("chat.reactions.react_with", { emoji })}
+              onClick={() => react(emoji)}
+              className="text-15 flex size-7 items-center justify-center rounded-sm hover:bg-layer-transparent-hover"
+            >
+              {emoji}
+            </button>
+          ))}
+          <ChatEmojiPicker
+            ariaLabel={t("chat.reactions.add")}
+            onSelect={react}
+            buttonClassName="flex size-7 items-center justify-center rounded-sm text-secondary hover:bg-layer-transparent-hover"
+          >
+            <SmilePlus className="size-4" />
+          </ChatEmojiPicker>
+          <span className="mx-0.5 h-4 w-px bg-layer-3" aria-hidden />
           <IconButton
             icon={CornerUpLeft}
             variant="ghost"
             size="base"
             aria-label={t("chat.message.reply")}
             onClick={() => onReply(message)}
+          />
+          <IconButton
+            icon={message.is_pinned ? PinOff : Pin}
+            variant="ghost"
+            size="base"
+            aria-label={message.is_pinned ? t("chat.pins.unpin") : t("chat.pins.pin")}
+            onClick={togglePin}
+          />
+          <IconButton
+            icon={Forward}
+            variant="ghost"
+            size="base"
+            aria-label={t("chat.forward.action")}
+            onClick={() => setIsForwardOpen(true)}
           />
           {menuItems.length > 0 && (
             <CustomMenu
@@ -261,6 +360,15 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
             description_html: message.body_html,
             ...(conversation.project ? { project_id: conversation.project.id } : {}),
           }}
+        />
+      )}
+
+      {isForwardOpen && (
+        <ChatForwardModal
+          workspaceSlug={workspaceSlug}
+          message={message}
+          isOpen
+          onClose={() => setIsForwardOpen(false)}
         />
       )}
 
