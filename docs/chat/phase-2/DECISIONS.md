@@ -75,3 +75,8 @@ Format as in `docs/chat/DECISIONS.md`. All decisions below were locked on 2026-1
 ## P2-D14 — Deferred to a later phase — Locked
 
 Web push without an open tab, email digests, link previews, video conversion, custom status, `/remind`, side threads.
+
+## P2-D15 — Every member is visible to every member — Locked
+
+**Decision:** chat shows all active admins and members of the workspace as a quick-start **People** list in the sidebar (people you have no direct chat with yet, 8 shown, "Show all" expands) and in New conversation. There is no per-team or per-project visibility setting. Guests, deactivated users, bots and yourself are excluded.
+**Why:** the user ruled out privacy between teams on 2026-11-08. Chat is already workspace-wide, so a setting would add complexity for a case that doesn't exist.

@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Знайти розмову",
       "find_placeholder": "Пошук за іменем",
+      "people": "Люди",
+      "people_message": "Написати {name}",
+      "people_show_all": "Показати всіх ({count})",
+      "people_show_fewer": "Показати менше",
       "search_messages_for": "Шукати «{query}» у повідомленнях",
       "filter": {
         "label": "Фільтр розмов",

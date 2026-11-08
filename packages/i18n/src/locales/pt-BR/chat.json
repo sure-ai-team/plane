@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Encontrar uma conversa",
       "find_placeholder": "Encontrar por nome",
+      "people": "Pessoas",
+      "people_message": "Enviar mensagem para {name}",
+      "people_show_all": "Mostrar todas ({count})",
+      "people_show_fewer": "Mostrar menos",
       "search_messages_for": "Pesquisar mensagens por \"{query}\"",
       "filter": {
         "label": "Filtrar conversas",

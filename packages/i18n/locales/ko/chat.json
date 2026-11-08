@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "대화 찾기",
       "find_placeholder": "이름으로 찾기",
+      "people": "사람",
+      "people_message": "{name}에게 메시지 보내기",
+      "people_show_all": "모두 보기({count})",
+      "people_show_fewer": "간단히 보기",
       "search_messages_for": "\"{query}\"(으)로 메시지 검색",
       "filter": {
         "label": "대화 필터",

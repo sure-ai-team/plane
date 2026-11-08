@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Unterhaltung finden",
       "find_placeholder": "Nach Namen suchen",
+      "people": "Personen",
+      "people_message": "{name} schreiben",
+      "people_show_all": "Alle {count} anzeigen",
+      "people_show_fewer": "Weniger anzeigen",
       "search_messages_for": "Nachrichten nach „{query}“ durchsuchen",
       "filter": {
         "label": "Unterhaltungen filtern",

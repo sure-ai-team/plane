@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Nájsť konverzáciu",
       "find_placeholder": "Hľadať podľa názvu",
+      "people": "Ľudia",
+      "people_message": "Napísať používateľovi {name}",
+      "people_show_all": "Zobraziť všetkých ({count})",
+      "people_show_fewer": "Zobraziť menej",
       "search_messages_for": "Hľadať správy obsahujúce „{query}“",
       "filter": {
         "label": "Filtrovať konverzácie",

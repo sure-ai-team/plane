@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Najít konverzaci",
       "find_placeholder": "Hledat podle názvu",
+      "people": "Lidé",
+      "people_message": "Napsat uživateli {name}",
+      "people_show_all": "Zobrazit všechny ({count})",
+      "people_show_fewer": "Zobrazit méně",
       "search_messages_for": "Hledat zprávy obsahující „{query}“",
       "filter": {
         "label": "Filtrovat konverzace",

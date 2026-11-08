@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Cari percakapan",
       "find_placeholder": "Cari berdasarkan nama",
+      "people": "Orang",
+      "people_message": "Kirim pesan ke {name}",
+      "people_show_all": "Tampilkan semua ({count})",
+      "people_show_fewer": "Tampilkan lebih sedikit",
       "search_messages_for": "Cari pesan untuk \"{query}\"",
       "filter": {
         "label": "Filter percakapan",

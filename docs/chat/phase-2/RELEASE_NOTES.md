@@ -15,6 +15,7 @@ Chat in the SURE Project Management Platform now does a lot more than send messa
 ## Find things
 
 - **Search messages** across every conversation you're in: filter by conversation, sender, date, or what a message has (file, image, video, voice note, link, work item). Results show surrounding messages; open one to jump to it.
+- **People list.** Everyone in the workspace is listed under **People** in the chat sidebar. Click a name to start a direct chat.
 - **Sidebar filters and sections.** All / Unread / Mentions, plus Starred, Groups and Direct messages sections. Star the chats you use most; archive the ones you're done with.
 - **Power K.** "Go to chat" (`G` then `T`), "Open a conversation" (`O` then `T`) and "Search chat messages".
 - **Keyboard shortcuts.** Press `?` in chat for the full list.

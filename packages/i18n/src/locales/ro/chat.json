@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Găsește o conversație",
       "find_placeholder": "Găsește după nume",
+      "people": "Persoane",
+      "people_message": "Scrie-i lui {name}",
+      "people_show_all": "Arată toate ({count})",
+      "people_show_fewer": "Arată mai puține",
       "search_messages_for": "Caută mesaje pentru „{query}”",
       "filter": {
         "label": "Filtrează conversațiile",

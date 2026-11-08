@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Найти беседу",
       "find_placeholder": "Поиск по имени",
+      "people": "Люди",
+      "people_message": "Написать {name}",
+      "people_show_all": "Показать всех ({count})",
+      "people_show_fewer": "Показать меньше",
       "search_messages_for": "Искать «{query}» в сообщениях",
       "filter": {
         "label": "Фильтр бесед",
