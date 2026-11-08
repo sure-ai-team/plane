@@ -110,6 +110,8 @@ class TestPreferences:
         assert response.data == {
             "desktop_notifications": True,
             "sound": True,
+            "sound_tone": "chime",
+            "sound_volume": 60,
             "show_preview": True,
             "inbox_mentions": True,
             "message_layout": "bubbles",
@@ -128,6 +130,15 @@ class TestPreferences:
     def test_validation(self, alice_client, workspace):
         response = alice_client.patch(preferences_url(workspace.slug), {"minimize_style": "floating"}, format="json")
         assert response.status_code == 400
+        for bad in ({"sound_tone": "siren"}, {"sound_volume": 101}, {"sound_volume": -1}):
+            assert alice_client.patch(preferences_url(workspace.slug), bad, format="json").status_code == 400
+
+    def test_sound_choice_saved(self, alice_client, workspace):
+        response = alice_client.patch(
+            preferences_url(workspace.slug), {"sound_tone": "ringtone", "sound_volume": 100}, format="json"
+        )
+        assert response.status_code == 200
+        assert (response.data["sound_tone"], response.data["sound_volume"]) == ("ringtone", 100)
 
     def test_guest_refused(self, guest_client, workspace):
         assert guest_client.get(preferences_url(workspace.slug)).status_code == 403

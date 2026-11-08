@@ -23,7 +23,7 @@ Chat in the SURE Project Management Platform now does a lot more than send messa
 ## Stay on top without the noise
 
 - **Per-chat notifications:** All messages, Mentions only, or Off, plus snooze for 1 hour, 8 hours or until tomorrow.
-- **Desktop notifications and sound** (Chat settings, the gear in the chat sidebar). Only one browser tab notifies, and clicking a notification opens the message.
+- **Desktop notifications and sound** (Chat settings, the gear in the chat sidebar). Pick a tone (Chime, Ding, Pop, Marimba or Ringtone) and a volume, play it, and send yourself a test notification. The sound rings even if the browser blocks notifications. Only one browser tab notifies, and clicking a notification opens the message. Both work while the browser is open, in any tab or minimized.
 - **Unread count in the tab title** and a dot on the tab icon when someone mentions you.
 - **Chat in Inbox.** Mentions and direct messages also appear in your Inbox (turn this off in Chat settings).
 

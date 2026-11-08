@@ -5,7 +5,7 @@
  */
 
 import { observer } from "mobx-react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Bell, Play } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
 import type { TChatApiError, TChatPreferences } from "@plane/types";
@@ -13,6 +13,7 @@ import { EModalPosition, EModalWidth, ModalCore } from "@plane/ui";
 import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
+import { CHAT_TONES } from "@/services/chat-sounds";
 
 type TChoiceProps = {
   label: string;
@@ -95,6 +96,18 @@ export const ChatSettingsModal = observer(function ChatSettingsModal({ workspace
             <span>{t("chat.notify.blocked")}</span>
           </div>
         )}
+        {permission === "default" && preferences?.desktop_notifications && (
+          <div className="mt-3 flex items-center justify-between gap-3 rounded-md bg-accent-subtle px-3 py-2">
+            <span className="text-12 text-accent-primary">{t("chat.notify.allow_prompt")}</span>
+            <button
+              type="button"
+              onClick={() => void chat.notify.requestPermission()}
+              className="h-7 shrink-0 rounded-md bg-accent-primary px-3 text-12 font-medium text-on-color hover:opacity-90"
+            >
+              {t("chat.notify.allow")}
+            </button>
+          </div>
+        )}
         {permission === "unsupported" && (
           <p className="mt-3 rounded-md bg-layer-1 px-3 py-2 text-12 text-tertiary">{t("chat.notify.unsupported")}</p>
         )}
@@ -132,6 +145,76 @@ export const ChatSettingsModal = observer(function ChatSettingsModal({ workspace
             );
           })}
         </div>
+        {(preferences?.sound ?? true) && (
+          <div className="flex flex-col gap-3 border-b border-subtle pt-1 pb-4">
+            <label className="flex items-center gap-3">
+              <span className="w-24 shrink-0 text-12 font-medium text-secondary">{t("chat.prefs.sound_tone")}</span>
+              <select
+                value={preferences?.sound_tone ?? "chime"}
+                onChange={(event) => {
+                  const tone = event.target.value as TChatPreferences["sound_tone"];
+                  save({ sound_tone: tone });
+                  chat.notify.playTone({ sound_tone: tone });
+                }}
+                className="h-8 flex-1 rounded-md border border-strong bg-surface-1 px-2 text-13 text-primary focus:border-accent-strong focus:outline-none"
+              >
+                {CHAT_TONES.map((tone) => (
+                  <option key={tone} value={tone}>
+                    {t(`chat.prefs.tones.${tone}`)}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => chat.notify.playTone()}
+                className="flex h-8 shrink-0 items-center gap-1.5 rounded-md border border-subtle px-3 text-13 font-medium text-secondary hover:bg-layer-transparent-hover"
+              >
+                <Play className="size-3.5" aria-hidden />
+                {t("chat.prefs.sound_play")}
+              </button>
+            </label>
+            <label className="flex items-center gap-3">
+              <span className="w-24 shrink-0 text-12 font-medium text-secondary">{t("chat.prefs.sound_volume")}</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={preferences?.sound_volume ?? 60}
+                aria-valuetext={`${preferences?.sound_volume ?? 60}%`}
+                onChange={(event) =>
+                  chat.notify.applyPreferences({
+                    ...(preferences as TChatPreferences),
+                    sound_volume: Number(event.target.value),
+                  })
+                }
+                onPointerUp={(event) => {
+                  const volume = Number((event.target as HTMLInputElement).value);
+                  save({ sound_volume: volume });
+                  chat.notify.playTone({ sound_volume: volume });
+                }}
+                onKeyUp={(event) => {
+                  const volume = Number((event.target as HTMLInputElement).value);
+                  save({ sound_volume: volume });
+                  chat.notify.playTone({ sound_volume: volume });
+                }}
+                className="flex-1 accent-[var(--background-color-accent-primary,#3f76ff)]"
+              />
+              <span className="w-9 shrink-0 text-right text-12 text-tertiary">{preferences?.sound_volume ?? 60}%</span>
+            </label>
+          </div>
+        )}
+        <div className="flex items-center justify-between gap-3 border-b border-subtle py-3">
+          <span className="text-12 text-tertiary">{t("chat.prefs.test_description")}</span>
+          <button
+            type="button"
+            onClick={() => chat.notify.sendTest(t)}
+            className="flex h-8 shrink-0 items-center gap-1.5 rounded-md border border-subtle px-3 text-13 font-medium text-secondary hover:bg-layer-transparent-hover"
+          >
+            <Bell className="size-3.5" aria-hidden />
+            {t("chat.prefs.test")}
+          </button>
+        </div>
         <ChatChoice
           label={t("chat.prefs.layout.title")}
           description={t("chat.prefs.layout.description")}
@@ -163,15 +246,6 @@ export const ChatSettingsModal = observer(function ChatSettingsModal({ workspace
           ]}
           onChange={(value) => save({ minimize_style: value as TChatPreferences["minimize_style"] })}
         />
-        {permission === "default" && preferences?.desktop_notifications && (
-          <button
-            type="button"
-            onClick={() => void chat.notify.requestPermission()}
-            className="mt-2 self-start text-12 font-medium text-accent-primary hover:underline"
-          >
-            {t("chat.notify.allow")}
-          </button>
-        )}
       </div>
     </ModalCore>
   );

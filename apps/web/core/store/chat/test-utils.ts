@@ -138,6 +138,8 @@ export const makeService = (): TFakeService => ({
 export const DEFAULT_TEST_PREFERENCES = {
   desktop_notifications: true,
   sound: true,
+  sound_tone: "chime" as const,
+  sound_volume: 60,
   show_preview: true,
   inbox_mentions: true,
   message_layout: "bubbles" as const,

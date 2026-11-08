@@ -31,7 +31,7 @@ The Inbox list endpoint returns `entity_name` `issue` and `chat_message` rows. M
 Decision flow is in `03-realtime.md`. Details:
 
 - Title: `<sender> · <conversation name>` (direct: sender only). Body: the message preview (respecting `show_preview`; otherwise "New message"). Attachments only: "Sent a photo", "Sent a voice note", etc. Icon: the workspace logo.
-- Sound: a short two-tone chime made with Web Audio (no audio file), throttled to one play per 3 s.
+- Sound: the tone and volume chosen in Chat settings (Chime, Ding, Pop, Marimba or Ringtone), made with Web Audio (no audio file), throttled to one play per 3 s. It follows the same rules as the notification but needs neither browser permission nor the **Desktop notifications** switch, only **Sound**. Audio unlocks on the first click or key press on the page (P2-D16).
 - Leader tab election via `BroadcastChannel`, so only one tab notifies. If `BroadcastChannel` is unavailable (old Safari), every tab notifies but uses the same `tag`, so the OS collapses them.
 - Permission is requested only from a user gesture (preferences toggle or the one-time prompt in the chat empty state).
 

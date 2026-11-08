@@ -114,6 +114,7 @@ from .chat import (
     MessageWorkItem,
     MinimizeStyle,
     NotifyLevel,
+    SoundTone,
     SystemEvent,
     build_direct_key,
 )
