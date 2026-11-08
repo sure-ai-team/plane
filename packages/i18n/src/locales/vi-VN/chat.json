@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Tìm cuộc trò chuyện",
       "find_placeholder": "Tìm theo tên",
+      "people": "Mọi người",
+      "people_message": "Nhắn tin cho {name}",
+      "people_show_all": "Hiện tất cả ({count})",
+      "people_show_fewer": "Thu gọn",
       "search_messages_for": "Tìm kiếm tin nhắn cho \"{query}\"",
       "filter": {
         "label": "Lọc cuộc trò chuyện",

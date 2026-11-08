@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Konuşma bul",
       "find_placeholder": "Ada göre bul",
+      "people": "Kişiler",
+      "people_message": "{name} kişisine mesaj gönder",
+      "people_show_all": "Tümünü göster ({count})",
+      "people_show_fewer": "Daha az göster",
       "search_messages_for": "Mesajlarda \"{query}\" ara",
       "filter": {
         "label": "Konuşmaları filtrele",

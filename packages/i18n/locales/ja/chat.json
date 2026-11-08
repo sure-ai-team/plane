@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "会話を探す",
       "find_placeholder": "名前で検索",
+      "people": "メンバー",
+      "people_message": "{name} にメッセージを送る",
+      "people_show_all": "すべて表示（{count}）",
+      "people_show_fewer": "表示を減らす",
       "search_messages_for": "「{query}」でメッセージを検索",
       "filter": {
         "label": "会話をフィルター",

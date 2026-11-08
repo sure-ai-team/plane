@@ -23,6 +23,7 @@ import { chatPath, chatSearchPath } from "../common/helpers";
 import { ChatSettingsModal } from "../modals/chat-settings";
 import { ChatNewConversationModal } from "../modals/new-conversation";
 import { ChatConversationItem } from "./conversation-item";
+import { ChatPeopleSection } from "./people-section";
 
 type Props = {
   workspaceSlug: string;
@@ -271,16 +272,19 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
             )}
           </div>
         ) : isEmpty ? (
-          <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <p className="text-13 text-secondary">{t("chat.thread.no_conversation_body")}</p>
-            <button
-              type="button"
-              className="text-13 font-medium text-accent-primary hover:underline"
-              onClick={() => setIsNewOpen(true)}
-            >
-              {t("chat.actions.new")}
-            </button>
-          </div>
+          <>
+            <div className="flex flex-col items-center gap-2 px-4 py-6 text-center">
+              <p className="text-13 text-secondary">{t("chat.thread.no_conversation_body")}</p>
+              <button
+                type="button"
+                className="text-13 font-medium text-accent-primary hover:underline"
+                onClick={() => setIsNewOpen(true)}
+              >
+                {t("chat.actions.new")}
+              </button>
+            </div>
+            <ChatPeopleSection workspaceSlug={workspaceSlug} />
+          </>
         ) : isFilteredEmpty ? (
           <p className="px-2 py-6 text-center text-13 text-tertiary">
             {store.filter === "mentions" ? t("chat.sidebar.no_mentions") : t("chat.sidebar.no_unread")}
@@ -309,6 +313,7 @@ export const ChatSidebar = observer(function ChatSidebar(props: Props) {
               workspaceSlug={workspaceSlug}
               activeConversationId={activeConversationId}
             />
+            {store.filter === "all" && <ChatPeopleSection workspaceSlug={workspaceSlug} />}
           </>
         )}
       </div>

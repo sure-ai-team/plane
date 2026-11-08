@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "查找会话",
       "find_placeholder": "按名称查找",
+      "people": "成员",
+      "people_message": "给 {name} 发消息",
+      "people_show_all": "显示全部（{count}）",
+      "people_show_fewer": "收起",
       "search_messages_for": "搜索包含“{query}”的消息",
       "filter": {
         "label": "筛选会话",

@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Znajdź rozmowę",
       "find_placeholder": "Szukaj po nazwie",
+      "people": "Osoby",
+      "people_message": "Napisz do {name}",
+      "people_show_all": "Pokaż wszystkie ({count})",
+      "people_show_fewer": "Pokaż mniej",
       "search_messages_for": "Szukaj wiadomości z frazą „{query}”",
       "filter": {
         "label": "Filtruj rozmowy",

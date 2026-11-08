@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "尋找對話",
       "find_placeholder": "依名稱尋找",
+      "people": "成員",
+      "people_message": "傳訊息給 {name}",
+      "people_show_all": "顯示全部（{count}）",
+      "people_show_fewer": "收合",
       "search_messages_for": "搜尋包含「{query}」的訊息",
       "filter": {
         "label": "篩選對話",

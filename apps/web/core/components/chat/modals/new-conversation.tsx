@@ -15,12 +15,11 @@ import { EModalPosition, EModalWidth, ModalCore } from "@plane/ui";
 import { cn } from "@plane/utils";
 // hooks
 import { useChat } from "@/hooks/store/use-chat";
-import { useMember } from "@/hooks/store/use-member";
-import { useUser } from "@/hooks/store/user";
 import { useAppRouter } from "@/hooks/use-app-router";
 // local
 import { ChatUserAvatar } from "../common/avatars";
 import { chatPath } from "../common/helpers";
+import { useChatPeople } from "../hooks/use-chat-people";
 
 type TMode = "direct" | "group";
 
@@ -32,17 +31,11 @@ type Props = {
   initialMode?: TMode;
 };
 
-const CHAT_ROLES = new Set([15, 20]);
-
 export const ChatNewConversationModal = observer(function ChatNewConversationModal(props: Props) {
   const { workspaceSlug, isOpen, onClose, initialMode = "direct" } = props;
   const { t } = useTranslation();
   const chat = useChat();
   const router = useAppRouter();
-  const { data: currentUser } = useUser();
-  const {
-    workspace: { getWorkspaceMemberIds, getWorkspaceMemberDetails },
-  } = useMember();
 
   const [mode, setMode] = useState<TMode>(initialMode);
   const [name, setName] = useState("");
@@ -59,26 +52,15 @@ export const ChatNewConversationModal = observer(function ChatNewConversationMod
     }
   }, [isOpen, initialMode]);
 
-  // Not memoised: the store getters keep the same identity, so a memo would keep a list computed
-  // before members loaded. The observer re-renders when members change.
+  const people = useChatPeople(workspaceSlug);
   const candidates = (() => {
     const needle = query.trim().toLowerCase();
-    return getWorkspaceMemberIds(workspaceSlug)
-      .map((id) => getWorkspaceMemberDetails(id))
-      .filter((details): details is NonNullable<typeof details> => !!details)
-      .filter(
-        (details) =>
-          details.member.id !== currentUser?.id &&
-          details.is_active !== false &&
-          CHAT_ROLES.has(Number(details.role)) &&
-          !details.member.is_bot
-      )
-      .filter((details) => {
-        if (!needle) return true;
-        const haystack =
-          `${details.member.display_name} ${details.member.first_name ?? ""} ${details.member.last_name ?? ""}`.toLowerCase();
-        return haystack.includes(needle);
-      });
+    if (!needle) return people;
+    return people.filter((details) =>
+      `${details.member.display_name} ${details.member.first_name ?? ""} ${details.member.last_name ?? ""}`
+        .toLowerCase()
+        .includes(needle)
+    );
   })();
 
   const toggle = (userId: string) => {

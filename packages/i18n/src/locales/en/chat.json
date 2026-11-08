@@ -246,6 +246,10 @@
     "sidebar": {
       "find": "Find a conversation",
       "find_placeholder": "Find by name",
+      "people": "People",
+      "people_message": "Message {name}",
+      "people_show_all": "Show all {count}",
+      "people_show_fewer": "Show fewer",
       "search_messages_for": "Search messages for \"{query}\"",
       "filter": {
         "label": "Filter conversations",
