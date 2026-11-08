@@ -29,6 +29,10 @@ export const previewFromMessage = (message: TChatMessage): TChatPreview => ({
   attachment_kinds: message.attachments.map((attachment) => attachment.kind),
 });
 
+/** Groups always list; a direct chat lists once it has a message. */
+const isListed = (conversation: TChatConversation) =>
+  conversation.type !== "direct" || conversation.last_message_seq > 0 || !!conversation.last_message_at;
+
 const sortKey = (conversation: TChatConversation) => conversation.last_message_at ?? conversation.created_at;
 const bySortKey = (a: TChatConversation, b: TChatConversation) => sortKey(b).localeCompare(sortKey(a));
 
@@ -90,9 +94,13 @@ export class ChatConversationStore {
 
   // ------------------------------------------------------------------ getters
 
-  /** Every non-archived conversation, newest activity first. */
+  /**
+   * Every non-archived conversation worth listing, newest activity first. A direct chat nobody
+   * has written in yet stays out of the list, like WhatsApp or Slack: opening someone from People
+   * creates the conversation, but it only joins the sidebar (for both people) once a message exists.
+   */
   get sorted(): TChatConversation[] {
-    return Array.from(this.byId.values()).sort(bySortKey);
+    return Array.from(this.byId.values()).filter(isListed).sort(bySortKey);
   }
 
   /** `sorted` narrowed by the sidebar filter (All / Unread / Mentions). */

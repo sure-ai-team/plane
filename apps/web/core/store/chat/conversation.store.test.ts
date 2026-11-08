@@ -30,6 +30,21 @@ describe("ChatConversationStore", () => {
     expect(store.directs.map((conversation) => conversation.id)).toEqual(["b"]);
   });
 
+  it("keeps a direct chat out of the list until someone writes in it", async () => {
+    service.listConversations.mockResolvedValueOnce([
+      makeConversation({ id: "empty-dm", type: "direct", last_message_seq: 0, last_message_at: null }),
+      makeConversation({ id: "empty-group", type: "group", last_message_seq: 0, last_message_at: null }),
+    ]);
+    await store.fetchAll("acme");
+    expect(store.sorted.map((conversation) => conversation.id)).toEqual(["empty-group"]);
+    expect(store.directs).toEqual([]);
+    // the conversation is still known, so opening it and sending works
+    expect(store.getById("empty-dm")).toBeDefined();
+
+    store.applyMessageCreated(makeMessage(1, { conversation_id: "empty-dm" }));
+    expect(store.directs.map((conversation) => conversation.id)).toEqual(["empty-dm"]);
+  });
+
   it("drops conversations the server no longer returns", async () => {
     store.upsert(makeConversation({ id: "gone" }));
     service.listConversations.mockResolvedValueOnce([makeConversation({ id: "kept" })]);
