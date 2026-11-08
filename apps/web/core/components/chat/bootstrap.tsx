@@ -13,6 +13,7 @@ import { useChat } from "@/hooks/store/use-chat";
 import { useMember } from "@/hooks/store/use-member";
 import { useUser } from "@/hooks/store/user";
 import { useAppRouter } from "@/hooks/use-app-router";
+import { unlockChatAudio } from "@/services/chat-sounds";
 // local
 import { chatPath, setChatDateLocale } from "./common/helpers";
 import { useChatAvailability } from "./hooks/use-chat-availability";
@@ -36,6 +37,9 @@ export const ChatBootstrap = observer(function ChatBootstrap() {
   const router = useAppRouter();
   const routerRef = useRef(router);
   routerRef.current = router;
+
+  // Browsers keep audio locked until the first click or key press; unlock it so the first ring plays.
+  useEffect(() => unlockChatAudio(), []);
 
   // Desktop notifications use the app's translations and open the message on click.
   useEffect(() => {

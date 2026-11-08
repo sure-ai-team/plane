@@ -21,13 +21,14 @@ export type TNotifyContext = {
   permission: TNotifyPermission;
 };
 
-/** Whether a new message should raise a desktop notification (docs/chat/phase-2/03-realtime.md). */
-export const shouldNotify = (message: TChatMessage, context: TNotifyContext): boolean => {
-  const { me, conversation, preferences } = context;
+/**
+ * Whether a new message deserves any alert at all, by conversation level, snooze and what is on
+ * screen (docs/chat/phase-2/03-realtime.md). The desktop notification and the sound both start here.
+ */
+export const isAlertWorthy = (message: TChatMessage, context: TNotifyContext): boolean => {
+  const { me, conversation } = context;
   if (!me || !conversation || message.kind === "system") return false;
   if (message.sender?.id === me) return false;
-  if (context.permission !== "granted") return false;
-  if (preferences && !preferences.desktop_notifications) return false;
   if (context.isConversationOnScreen) return false;
   if (conversation.snoozed_until && new Date(conversation.snoozed_until).getTime() > context.now) return false;
   const level = conversation.notify_level ?? (conversation.is_muted ? "off" : "all");
@@ -37,6 +38,17 @@ export const shouldNotify = (message: TChatMessage, context: TNotifyContext): bo
   }
   return true;
 };
+
+/** A desktop notification also needs the browser's permission and the user's switch. */
+export const shouldNotify = (message: TChatMessage, context: TNotifyContext): boolean => {
+  if (context.permission !== "granted") return false;
+  if (context.preferences && !context.preferences.desktop_notifications) return false;
+  return isAlertWorthy(message, context);
+};
+
+/** The sound rings on its own switch: it does not need notification permission. */
+export const shouldPlaySound = (message: TChatMessage, context: TNotifyContext): boolean =>
+  (context.preferences?.sound ?? true) && isAlertWorthy(message, context);
 
 type TTranslate = (key: string, params?: Record<string, unknown>) => string;
 
@@ -126,7 +138,7 @@ export type TDesktopNotifier = {
   permission: () => TNotifyPermission;
   requestPermission: () => Promise<TNotifyPermission>;
   show: (notification: { title: string; body: string; tag: string; onClick: () => void }) => void;
-  playSound: () => void;
+  playSound: (tone: TChatPreferences["sound_tone"], volume: number) => void;
 };
 
 export const SOUND_THROTTLE_MS = 3_000;
@@ -209,23 +221,44 @@ export class ChatNotifyStore {
       permission: this.desktop.permission(),
       now: this.now(),
     };
-    if (!shouldNotify(message, full)) return false;
+    const notify = shouldNotify(message, full);
+    const ring = shouldPlaySound(message, full);
+    if (!notify && !ring) return false;
     if (this.leader && !this.leader.isLeader()) return false;
     const conversation = context.conversation;
-    const { title, body } = notificationContent(message, conversation, this.preferences, t);
-    this.desktop.show({
-      title,
-      body,
-      // One notification per conversation: a newer message replaces the older one.
-      tag: `chat-${conversation.id}`,
-      onClick: () => this.openHandler?.(conversation.id, message.id),
-    });
-    const wantsSound = this.preferences?.sound ?? true;
-    if (wantsSound && this.now() - this.lastSoundAt >= SOUND_THROTTLE_MS) {
-      this.lastSoundAt = this.now();
-      this.desktop.playSound();
+    if (notify) {
+      const { title, body } = notificationContent(message, conversation, this.preferences, t);
+      this.desktop.show({
+        title,
+        body,
+        // One notification per conversation: a newer message replaces the older one.
+        tag: `chat-${conversation.id}`,
+        onClick: () => this.openHandler?.(conversation.id, message.id),
+      });
     }
-    return true;
+    if (ring && this.now() - this.lastSoundAt >= SOUND_THROTTLE_MS) {
+      this.lastSoundAt = this.now();
+      this.playTone();
+    }
+    return notify;
+  }
+
+  /** The user's chosen tone at their chosen volume. Also used by the settings Play button. */
+  playTone(overrides?: Partial<Pick<TChatPreferences, "sound_tone" | "sound_volume">>) {
+    const tone = overrides?.sound_tone ?? this.preferences?.sound_tone ?? "chime";
+    const volume = overrides?.sound_volume ?? this.preferences?.sound_volume ?? 60;
+    this.desktop?.playSound(tone, volume);
+  }
+
+  /** A real notification plus the tone, so the user can check both from settings. */
+  sendTest(t: TTranslate): void {
+    this.desktop?.show({
+      title: t("chat.notify.test_title"),
+      body: t("chat.notify.test_body"),
+      tag: "chat-test",
+      onClick: () => undefined,
+    });
+    if (this.preferences?.sound ?? true) this.playTone();
   }
 
   start() {

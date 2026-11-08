@@ -8,7 +8,14 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TChatConversation } from "@plane/types";
 import { snoozeUntil } from "@/components/chat/common/helpers";
 import { titleWithCount } from "@/components/chat/hooks/use-chat-tab-title";
-import { ChatNotifyStore, LEADER_TIMEOUT_MS, TabLeader, notificationContent, shouldNotify } from "./notify.store";
+import {
+  ChatNotifyStore,
+  LEADER_TIMEOUT_MS,
+  TabLeader,
+  notificationContent,
+  shouldNotify,
+  shouldPlaySound,
+} from "./notify.store";
 import type { TDesktopNotifier, TNotifyContext } from "./notify.store";
 import { ChatRootStore } from "./root.store";
 import { DEFAULT_TEST_PREFERENCES, ME, OTHER, makeConversation, makeMessage, makeService } from "./test-utils";
@@ -109,6 +116,78 @@ describe("TabLeader", () => {
     now = LEADER_TIMEOUT_MS + 1;
     expect(leader.isLeader()).toBe(true);
     expect(new TabLeader(null, "solo").isLeader()).toBe(true);
+  });
+});
+
+describe("sound is independent of desktop notifications", () => {
+  const message = makeMessage(5, { sender: OTHER });
+
+  it("rings without notification permission or the desktop switch", () => {
+    expect(shouldNotify(message, context({ permission: "denied" }))).toBe(false);
+    expect(shouldPlaySound(message, context({ permission: "denied" }))).toBe(true);
+    const off = { ...DEFAULT_TEST_PREFERENCES, desktop_notifications: false };
+    expect(shouldPlaySound(message, context({ preferences: off }))).toBe(true);
+  });
+
+  it("stays quiet when sound is off, the chat is open, snoozed, muted or your own", () => {
+    expect(shouldPlaySound(message, context({ preferences: { ...DEFAULT_TEST_PREFERENCES, sound: false } }))).toBe(
+      false
+    );
+    expect(shouldPlaySound(message, context({ isConversationOnScreen: true }))).toBe(false);
+    expect(shouldPlaySound(message, context({ conversation: makeConversation({ notify_level: "off" }) }))).toBe(false);
+    expect(shouldPlaySound(makeMessage(6, { sender: ME }), context())).toBe(false);
+    const snoozed = makeConversation({ notify_level: "all", snoozed_until: "2026-11-04T11:00:00Z" });
+    expect(shouldPlaySound(message, context({ conversation: snoozed }))).toBe(false);
+  });
+
+  it("follows the conversation level: mentions-only rings only for mentions", () => {
+    const groupConversation = makeConversation({ notify_level: "mentions" });
+    expect(shouldPlaySound(message, context({ conversation: groupConversation }))).toBe(false);
+    expect(
+      shouldPlaySound(
+        makeMessage(7, { sender: OTHER, mentions: [ME.id] }),
+        context({ conversation: groupConversation })
+      )
+    ).toBe(true);
+  });
+
+  it("the store plays the chosen tone and volume even when notifications are blocked", () => {
+    const playSound = vi.fn();
+    const show = vi.fn();
+    const desktop: TDesktopNotifier = {
+      permission: () => "denied",
+      requestPermission: async () => "denied",
+      show,
+      playSound,
+    };
+    const store = new ChatNotifyStore(makeService(), desktop, null, () => 10_000);
+    store.applyPreferences({ ...DEFAULT_TEST_PREFERENCES, sound_tone: "ringtone", sound_volume: 90 });
+    const rang = store.onMessage(
+      makeMessage(2, { sender: OTHER }),
+      { me: ME.id, conversation: makeConversation({ notify_level: "all" }), isConversationOnScreen: false },
+      t
+    );
+    expect(rang).toBe(false);
+    expect(show).not.toHaveBeenCalled();
+    expect(playSound).toHaveBeenCalledWith("ringtone", 90);
+  });
+
+  it("the settings Play and Test buttons use the saved tone", () => {
+    const playSound = vi.fn();
+    const show = vi.fn();
+    const desktop: TDesktopNotifier = {
+      permission: () => "granted",
+      requestPermission: async () => "granted",
+      show,
+      playSound,
+    };
+    const store = new ChatNotifyStore(makeService(), desktop, null);
+    store.applyPreferences({ ...DEFAULT_TEST_PREFERENCES, sound_tone: "pop", sound_volume: 30 });
+    store.playTone({ sound_tone: "ding" });
+    expect(playSound).toHaveBeenLastCalledWith("ding", 30);
+    store.sendTest(t);
+    expect(show).toHaveBeenCalledTimes(1);
+    expect(playSound).toHaveBeenLastCalledWith("pop", 30);
   });
 });
 

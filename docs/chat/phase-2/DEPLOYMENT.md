@@ -18,10 +18,10 @@ docker compose build api migrator worker beat-worker web
 docker compose up -d
 ```
 
-| Image                              | Why it needs rebuilding                                                                                                                    |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| api, migrator, worker, beat-worker | Migrations `0126`, `0127`; reactions, pins, forward, search, preferences, work-item references; Celery task `chat_inbox_task` (Inbox rows) |
-| web                                | All phase 2 screens and the chat translations                                                                                              |
+| Image                              | Why it needs rebuilding                                                                                                                            |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| api, migrator, worker, beat-worker | Migrations `0126`, `0127`, `0128`; reactions, pins, forward, search, preferences, work-item references; Celery task `chat_inbox_task` (Inbox rows) |
+| web                                | All phase 2 screens and the chat translations                                                                                                      |
 
 `live`, `admin` and `proxy` have no changes since phase 1 and don't need rebuilding. The live server relays the new event types as they are.
 
@@ -32,10 +32,12 @@ docker compose up -d
 | `0126_chat_phase2`       | Adds reactions, pins, message work-item links and chat preferences; adds per-member notify level, snooze, starred and archived; adds message `meta`. Converts phase 1 data: muted chats become notify level **Off**, groups default to **Mentions only**, direct chats to **All**. Messages are untouched. | Seconds                                                     |
 | `0127_chat_search_index` | Builds the full-text search index with `CREATE INDEX CONCURRENTLY` (non-atomic migration, no table lock).                                                                                                                                                                                                  | Grows with message count; chat stays usable while it builds |
 
-Check both applied:
+`0128_chat_sound_tone` adds the notification tone and volume to chat preferences (a fast column add).
+
+Check they applied:
 
 ```bash
-docker compose logs migrator | grep -E "0126_chat_phase2|0127_chat_search_index"
+docker compose logs migrator | grep -E "0126_chat_phase2|0127_chat_search_index|0128_chat_sound_tone"
 ```
 
 If `0127` is interrupted, Postgres can leave an invalid index behind. Drop it and run `migrate` again:

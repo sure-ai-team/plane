@@ -80,3 +80,8 @@ Web push without an open tab, email digests, link previews, video conversion, cu
 
 **Decision:** chat shows all active admins and members of the workspace as a quick-start **People** list in the sidebar (people you have no direct chat with yet, 8 shown, "Show all" expands) and in New conversation. There is no per-team or per-project visibility setting. Guests, deactivated users, bots and yourself are excluded.
 **Why:** the user ruled out privacy between teams on 2026-11-08. Chat is already workspace-wide, so a setting would add complexity for a case that doesn't exist.
+
+## P2-D16 — The sound rings on its own switch, with a chosen tone — Locked
+
+**Decision:** the message sound no longer depends on desktop-notification permission. It rings when the same rules as a notification allow it (conversation level, snooze, not on screen, not your own message), if **Sound** is on. Users pick one of 5 built-in tones (Chime, Ding, Pop, Marimba, Ringtone) and a volume in Chat settings (`sound_tone`, `sound_volume`, migration `0128`). Tones are synthesised with Web Audio; no audio files. Browsers keep audio locked until the first click or key press, so the page unlocks it on the first one. Settings has Play and "Send a test notification" buttons.
+**Why:** the user asked for a ringtone they can turn on or off, and for being alerted even when the browser blocks notifications. Web push while the browser is closed stays deferred (P2-D14).

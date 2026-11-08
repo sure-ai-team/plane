@@ -143,6 +143,8 @@ export type TChatMembershipSettingsPayload = Partial<{
 export type TChatPreferences = {
   desktop_notifications: boolean;
   sound: boolean;
+  sound_tone: "chime" | "ding" | "pop" | "marimba" | "ringtone";
+  sound_volume: number;
   show_preview: boolean;
   inbox_mentions: boolean;
   message_layout: "compact" | "bubbles";

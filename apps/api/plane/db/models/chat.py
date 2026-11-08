@@ -81,6 +81,14 @@ class MinimizeStyle(models.TextChoices):
     HEADS = "heads", "Chat heads"
 
 
+class SoundTone(models.TextChoices):
+    CHIME = "chime", "Chime"
+    DING = "ding", "Ding"
+    POP = "pop", "Pop"
+    MARIMBA = "marimba", "Marimba"
+    RINGTONE = "ringtone", "Ringtone"
+
+
 SEARCH_CONFIG = "simple"  # same treatment for Arabic and English text (P2-D3)
 MAX_REACTIONS_PER_MESSAGE = 20
 MAX_PINS_PER_CONVERSATION = 50
@@ -304,6 +312,8 @@ class ChatPreference(ChatBaseModel):
     workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="chat_preferences")
     desktop_notifications = models.BooleanField(default=True)
     sound = models.BooleanField(default=True)
+    sound_tone = models.CharField(max_length=10, choices=SoundTone.choices, default=SoundTone.CHIME)
+    sound_volume = models.PositiveSmallIntegerField(default=60)  # 0-100
     show_preview = models.BooleanField(default=True)
     inbox_mentions = models.BooleanField(default=True)
     message_layout = models.CharField(max_length=10, choices=MessageLayout.choices, default=MessageLayout.BUBBLES)

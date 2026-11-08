@@ -13,7 +13,7 @@ REST and socket payloads are identical.
 from rest_framework import serializers
 
 # Module imports
-from plane.db.models import ConversationType, MessageKind, MessageLayout, MinimizeStyle, NotifyLevel
+from plane.db.models import ConversationType, MessageKind, MessageLayout, MinimizeStyle, NotifyLevel, SoundTone
 from plane.utils.chat_media import KIND_AUDIO, KIND_IMAGE, KIND_VIDEO
 
 from .user import UserLiteSerializer
@@ -177,6 +177,8 @@ def preference_data(preference) -> dict:
     return {
         "desktop_notifications": preference.desktop_notifications,
         "sound": preference.sound,
+        "sound_tone": preference.sound_tone,
+        "sound_volume": preference.sound_volume,
         "show_preview": preference.show_preview,
         "inbox_mentions": preference.inbox_mentions,
         "message_layout": preference.message_layout,
@@ -250,6 +252,8 @@ class MemberSettingsSerializer(serializers.Serializer):
 class PreferenceSerializer(serializers.Serializer):
     desktop_notifications = serializers.BooleanField(required=False)
     sound = serializers.BooleanField(required=False)
+    sound_tone = serializers.ChoiceField(choices=SoundTone.choices, required=False)
+    sound_volume = serializers.IntegerField(min_value=0, max_value=100, required=False)
     show_preview = serializers.BooleanField(required=False)
     inbox_mentions = serializers.BooleanField(required=False)
     message_layout = serializers.ChoiceField(choices=MessageLayout.choices, required=False)
