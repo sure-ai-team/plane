@@ -26,6 +26,7 @@ import { ChatUploadTray } from "../attachments/upload-tray";
 import { ChatEmojiPicker } from "../common/emoji-picker";
 import { userName } from "../common/helpers";
 import { useChatFileIntake } from "../hooks/use-file-intake";
+import { useLatestCallback } from "../hooks/use-latest";
 import { ChatVoiceRecorder } from "../voice/voice-recorder";
 import { ChatFormatToolbar } from "./format-toolbar";
 import {
@@ -236,6 +237,12 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
     });
   };
 
+  // The editor keeps the Enter handler from the render that created it; without this,
+  // Enter re-sent that render's text (e.g. a restored draft) over and over.
+  const onEnter = useLatestCallback(() => {
+    if (!isSuggesting) send();
+  });
+
   return (
     <div className="flex flex-col gap-1 px-4 pb-1">
       <div className="rounded-lg border border-strong bg-surface-1 focus-within:border-accent-strong">
@@ -344,9 +351,7 @@ export const ChatComposer = observer(function ChatComposer(props: Props) {
                   chat.setDraft(conversation.id, isCommentEmpty(nextHtml) ? null : nextHtml);
                   if (!isCommentEmpty(nextHtml)) chat.sendTyping(conversation.id);
                 }}
-                onEnterKeyPress={() => {
-                  if (!isSuggesting) send();
-                }}
+                onEnterKeyPress={onEnter}
                 variant="none"
                 disabledExtensions={["image"]}
                 uploadFile={async () => ""}

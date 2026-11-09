@@ -30,6 +30,7 @@ import { ChatReactions, QUICK_REACTIONS } from "./reactions";
 import { ChatWorkItemCards } from "./work-item-cards";
 import { ChatVoiceNotePlayer } from "../voice/voice-note-player";
 import { ChatUserAvatar } from "../common/avatars";
+import { useLatestCallback } from "../hooks/use-latest";
 import { chatPath, timeLabel, userName } from "../common/helpers";
 
 type Props = {
@@ -138,6 +139,9 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
       setIsSaving(false);
     }
   };
+
+  // The editor keeps the Enter handler from its first render, which would save the original text.
+  const onEnterSave = useLatestCallback(() => void save());
 
   const showError = (error: unknown) =>
     setToast({ type: TOAST_TYPE.ERROR, title: t("chat.errors.generic"), message: (error as TChatApiError)?.error });
@@ -293,7 +297,7 @@ export const ChatMessageItem = observer(function ChatMessageItem(props: Props) {
                 initialValue={message.body_html}
                 value={null}
                 onChange={(_json, html) => setDraftHtml(html)}
-                onEnterKeyPress={() => void save()}
+                onEnterKeyPress={onEnterSave}
                 variant="none"
                 disabledExtensions={["image"]}
                 uploadFile={async () => ""}
