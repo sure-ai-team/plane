@@ -1,0 +1,457 @@
+{
+  "chat": {
+    "title": "聊天",
+    "page_label": "{workspace} - 聊天",
+    "nav": {
+      "rail_label": "聊天",
+      "project_chat": "聊天"
+    },
+    "sections": {
+      "groups": "群組",
+      "directs": "私人訊息"
+    },
+    "actions": {
+      "new": "新增對話",
+      "new_group": "新增群組",
+      "new_direct": "新增私人訊息",
+      "mute": "將對話設為靜音",
+      "unmute": "取消對話靜音",
+      "leave": "退出群組",
+      "delete_group": "刪除群組",
+      "add_members": "新增成員",
+      "rename": "重新命名群組",
+      "details": "對話詳細資料",
+      "hide_details": "隱藏詳細資料"
+    },
+    "status": {
+      "online": "線上",
+      "offline": "離線",
+      "connecting": "正在連線…",
+      "reconnecting": "正在重新連線…",
+      "blocked_disabled": "此執行個體已關閉聊天功能。",
+      "blocked_access": "您沒有權限在此工作區使用聊天。"
+    },
+    "members": {
+      "count": "{count, plural, other {# 位成員}}",
+      "role_admin": "管理員",
+      "role_member": "成員",
+      "make_admin": "設為管理員",
+      "remove_admin": "移除管理員身分",
+      "remove": "從群組中移除",
+      "you": "您",
+      "only_members_hint": "只能新增此工作區的成員。無法傳送訊息給訪客。"
+    },
+    "new_conversation": {
+      "title": "新增對話",
+      "direct": "私人訊息",
+      "group": "群組",
+      "group_name": "群組名稱",
+      "group_name_placeholder": "例如：行動應用程式發布",
+      "members": "成員",
+      "to": "傳送給",
+      "search_members": "搜尋成員",
+      "no_members_found": "找不到成員",
+      "create_group": "建立群組",
+      "start": "開始對話",
+      "cancel": "取消"
+    },
+    "thread": {
+      "today": "今天",
+      "yesterday": "昨天",
+      "new_messages": "新訊息",
+      "jump_to_latest": "跳至最新訊息",
+      "seen_by": "{count, plural, other {# 人已讀}}",
+      "typing_one": "{name} 正在輸入…",
+      "typing_two": "{first} 和 {second} 正在輸入…",
+      "typing_many": "多人正在輸入…",
+      "edited": "已編輯",
+      "replying_to": "回覆 {name}",
+      "reply_attachment": "附件",
+      "reply_voice": "語音訊息",
+      "empty_title": "尚無訊息",
+      "empty_body": "打聲招呼，開始對話吧。",
+      "no_conversation_title": "選擇一個對話",
+      "no_conversation_body": "從清單中選擇一個對話，或開始新的對話。",
+      "loading_older": "正在載入較早的訊息…",
+      "load_failed": "無法載入訊息。",
+      "retry": "再試一次",
+      "deleted_user": "前成員",
+      "loading_newer": "正在載入較新的訊息…"
+    },
+    "message": {
+      "reply": "回覆",
+      "edit": "編輯",
+      "delete": "刪除",
+      "copy_link": "複製訊息連結",
+      "link_copied": "已複製連結",
+      "more": "更多動作",
+      "save": "儲存",
+      "cancel": "取消",
+      "delete_confirm_title": "要刪除訊息嗎？",
+      "delete_confirm_body": "這會為所有人移除此訊息及其檔案。此動作無法復原。",
+      "send_failed": "無法傳送",
+      "sending": "正在傳送…",
+      "retry": "重試",
+      "discard": "捨棄",
+      "create_work_item": "建立工作事項",
+      "no_access": "您無法開啟該訊息。"
+    },
+    "system": {
+      "created": "{actor} 建立了群組",
+      "member_added": "{actor} 新增了 {name}",
+      "member_removed": "{actor} 移除了 {name}",
+      "member_left": "{name} 已退出",
+      "renamed": "{actor} 將群組重新命名為「{name}」",
+      "icon_changed": "{actor} 變更了群組圖示",
+      "project_linked": "{actor} 將群組連結至專案",
+      "pinned": "{actor} 釘選了一則訊息",
+      "unpinned": "{actor} 取消釘選了一則訊息",
+      "someone": "某人"
+    },
+    "preview": {
+      "you": "您",
+      "photo": "相片",
+      "video": "影片",
+      "voice": "語音訊息",
+      "file": "檔案",
+      "attachments": "{count, plural, other {# 個附件}}",
+      "system": "群組動態",
+      "empty": "尚無訊息"
+    },
+    "composer": {
+      "placeholder": "傳送訊息給 {name}",
+      "send": "傳送",
+      "editing": "正在編輯訊息",
+      "reply_cancel": "取消回覆",
+      "attach": "附加檔案",
+      "waiting_uploads": "正在等待上傳完成…",
+      "remove_failed": "請先移除或重試上傳失敗的檔案",
+      "emoji": "插入表情符號",
+      "formatting": "格式",
+      "emoji_suggestions": "表情符號建議",
+      "suggestion_hint": "↑ ↓ 選擇 · Enter 確認 · Esc 關閉"
+    },
+    "delete_group": {
+      "title": "要刪除 {name} 嗎？",
+      "body": "此群組中的所有訊息和檔案將為所有人移除。此動作無法復原。",
+      "confirm": "刪除群組"
+    },
+    "leave_group": {
+      "title": "要退出 {name} 嗎？",
+      "body": "您將不會再收到此群組的訊息。",
+      "confirm": "退出"
+    },
+    "errors": {
+      "generic": "發生錯誤，請再試一次。",
+      "not_found": "此對話已不存在，或您不是其成員。"
+    },
+    "upload": {
+      "ready": "就緒",
+      "preparing": "正在準備…",
+      "uploading": "正在上傳 {percent}%",
+      "confirming": "正在檢查…",
+      "failed": "上傳失敗",
+      "retry": "重試",
+      "remove": "移除 {name}",
+      "too_large": "{name} 太大。上限為 {limit} MB。",
+      "type_not_allowed": "無法分享 {name}：不允許此檔案類型。",
+      "type_mismatch": "檔案內容與其類型不符。",
+      "too_many": "每則訊息最多可附加 {max} 個檔案。",
+      "drop_title": "拖放檔案以在 {name} 中分享",
+      "drop_hint": "圖片最大 {image} MB · 影片最大 {video} MB · 音訊最大 {audio} MB · 其他檔案最大 {file} MB",
+      "rejected_title": "部分檔案未新增"
+    },
+    "media": {
+      "open_image": "開啟圖片 {name}",
+      "play_video": "播放影片 {name}",
+      "download": "下載 {name}",
+      "preview_unavailable": "無法預覽",
+      "more": "+{count}",
+      "view_all": "檢視全部（{count}）",
+      "filter": "篩選媒體",
+      "filter_all": "全部",
+      "filter_image": "圖片",
+      "filter_video": "影片",
+      "loaded_only": "僅顯示此對話中已載入訊息裡的媒體。在聊天中向上捲動即可載入較早的內容。"
+    },
+    "details": {
+      "members": "成員",
+      "media": "媒體",
+      "files": "檔案",
+      "no_media": "已載入的訊息中尚無相片或影片",
+      "no_files": "已載入的訊息中尚無檔案"
+    },
+    "voice": {
+      "record": "錄製語音訊息",
+      "stop": "停止",
+      "discard": "捨棄錄音",
+      "record_again": "重新錄製",
+      "play": "播放語音訊息",
+      "pause": "暫停",
+      "position": "播放位置",
+      "send": "傳送",
+      "speed": "播放速度",
+      "up_to": "最長 {max}",
+      "permission_denied": "麥克風存取權已遭封鎖。請在瀏覽器設定中允許存取。",
+      "unsupported": "此瀏覽器不支援錄製語音。"
+    },
+    "reactions": {
+      "add": "新增反應",
+      "react_with": "以 {emoji} 回應",
+      "chip_label": "{emoji} {count, plural, other {# 個反應}}",
+      "tooltip": "{names} 以 {emoji} 回應",
+      "and_others": "{names} 和其他 {count, plural, other {# 人}}"
+    },
+    "picker": {
+      "search": "搜尋表情符號"
+    },
+    "pins": {
+      "title": "已釘選",
+      "pinned": "已釘選",
+      "count": "已釘選 · 第 {index} 則，共 {total} 則",
+      "next": "下一則釘選訊息",
+      "view_all": "檢視全部",
+      "close": "關閉釘選訊息",
+      "pin": "釘選訊息",
+      "unpin": "取消釘選",
+      "pinned_by": "由 {name} 釘選",
+      "empty": "尚無釘選訊息。",
+      "hint": "對話中的任何人都可以釘選訊息。每個對話最多可釘選 50 則。"
+    },
+    "jump": {
+      "to_message": "跳至訊息",
+      "jump": "跳至",
+      "highlight": "已跳至此處"
+    },
+    "unread": {
+      "divider": "新",
+      "divider_label": "新訊息",
+      "pill": "自 {time} 起有 {count, plural, other {# 則新訊息}}",
+      "jump": "跳至",
+      "dismiss": "關閉"
+    },
+    "forward": {
+      "action": "轉寄",
+      "title": "轉寄訊息",
+      "to": "傳送給",
+      "search": "搜尋對話",
+      "no_results": "沒有符合的對話。",
+      "limit": "一次最多可轉寄至 {count} 個對話。",
+      "note": "新增訊息（選填）",
+      "submit": "{count, plural, other {傳送至 # 個對話}}",
+      "done": "{count, plural, other {已轉寄至 # 個對話}}",
+      "from": "轉寄自 {name}",
+      "from_conversation": "轉寄自 {conversation} 中的 {name}"
+    },
+    "sidebar": {
+      "find": "尋找對話",
+      "find_placeholder": "依名稱尋找",
+      "people": "成員",
+      "people_message": "傳訊息給 {name}",
+      "people_show_all": "顯示全部（{count}）",
+      "people_show_fewer": "收合",
+      "search_messages_for": "搜尋包含「{query}」的訊息",
+      "filter": {
+        "label": "篩選對話",
+        "all": "全部",
+        "unread": "{count, plural, =0 {未讀} other {未讀 #}}",
+        "mentions": "{count, plural, =0 {提及} other {提及 #}}"
+      },
+      "starred": "已加星號",
+      "archived": "已封存",
+      "archived_empty": "沒有已封存的對話。",
+      "no_unread": "您已讀完所有訊息。",
+      "no_mentions": "沒有未讀的提及。",
+      "draft": "草稿：{text}",
+      "muted": "通知已關閉",
+      "mentions_label": "{count, plural, other {# 則未讀提及}}",
+      "options": "{name} 的選項",
+      "star": "加上星號",
+      "unstar": "移除星號",
+      "mark_read": "標示為已讀",
+      "archive": "封存",
+      "unarchive": "取消封存",
+      "project_chats": "{project} 的聊天",
+      "show_all": "顯示全部",
+      "project_empty": "此專案尚未連結任何群組聊天。可從群組的詳細資料中進行連結。"
+    },
+    "search": {
+      "title": "搜尋訊息",
+      "back": "返回聊天",
+      "placeholder": "搜尋訊息",
+      "clear": "清除搜尋",
+      "filter": {
+        "in": "所在對話",
+        "in_all": "所在對話：所有對話",
+        "from": "寄件者",
+        "from_anyone": "寄件者：任何人",
+        "has": "包含",
+        "has_any": "包含：任何內容",
+        "after": "晚於",
+        "before": "早於"
+      },
+      "has": {
+        "file": "包含：檔案",
+        "image": "包含：圖片",
+        "video": "包含：影片",
+        "voice": "包含：語音訊息",
+        "link": "包含：連結",
+        "work_item": "包含：工作事項"
+      },
+      "results": "{count, plural, other {# 筆結果}}",
+      "results_many": "1,000+ 筆結果",
+      "results_label": "搜尋結果",
+      "hint": "請至少輸入兩個字元，或選擇「包含」篩選條件。",
+      "empty": "沒有符合搜尋條件的訊息。",
+      "load_more": "載入更多",
+      "loading": "正在載入…",
+      "context": "結果上下文",
+      "open": "開啟對話",
+      "footer": "結果僅包含您所在的對話。使用 ↑ ↓ 在結果之間移動，按 Enter 開啟。"
+    },
+    "shortcuts": {
+      "title": "鍵盤快速鍵",
+      "previous_next": "上一個/下一個對話",
+      "next_unread": "下一個未讀對話",
+      "jump_conversation": "跳至對話",
+      "search": "搜尋訊息",
+      "edit_last": "編輯您的最後一則訊息（輸入框為空時）",
+      "mark_read": "將對話標示為已讀",
+      "jump_unread": "跳至第一則未讀訊息",
+      "new_line": "在輸入框中換行",
+      "show_shortcuts": "顯示快速鍵"
+    },
+    "about": {
+      "title": "關於此群組",
+      "description": "群組說明",
+      "placeholder": "此群組的用途是什麼？",
+      "empty": "尚無說明。",
+      "add": "新增說明",
+      "edit": "編輯說明",
+      "change_icon": "按一下圖示即可變更"
+    },
+    "notify": {
+      "title": "通知我",
+      "button_label": "通知：{level}",
+      "level": {
+        "all": "所有訊息",
+        "mentions": "僅限提及",
+        "off": "關閉"
+      },
+      "level_description": {
+        "all": "每則新訊息",
+        "mentions": "當有人提及或回覆您時",
+        "off": "不通知。未讀計數仍會更新。"
+      },
+      "snooze": "暫停通知",
+      "snooze_1h": "1 小時",
+      "snooze_8h": "8 小時",
+      "snooze_tomorrow": "直到明天",
+      "snoozed_short": "已暫停",
+      "snoozed_until": "暫停至 {time}",
+      "unsnooze": "取消暫停",
+      "blocked": "您的瀏覽器已封鎖此網站的通知。請在瀏覽器的網站設定中允許通知（網址列旁的圖示）。",
+      "unsupported": "此瀏覽器無法顯示桌面通知。",
+      "allow": "允許桌面通知",
+      "allow_prompt": "允許通知，以便在此分頁不在前景時收到提醒。",
+      "test_title": "測試通知",
+      "test_body": "新訊息會這樣顯示並發出提示音。",
+      "new_message": "新訊息",
+      "sent_photo": "傳送了一張相片",
+      "sent_video": "傳送了一部影片",
+      "sent_voice": "傳送了一則語音訊息",
+      "sent_file": "傳送了一個檔案"
+    },
+    "prefs": {
+      "title": "聊天設定",
+      "subtitle": "這些設定僅對您在此工作區中生效。",
+      "desktop_notifications": "桌面通知",
+      "desktop_notifications_description": "在此網站開啟時，為新訊息顯示通知。",
+      "sound": "音效",
+      "sound_description": "每次通知時播放簡短音效。",
+      "sound_tone": "提示音",
+      "sound_volume": "音量",
+      "sound_play": "播放",
+      "tones": {
+        "chime": "風鈴",
+        "ding": "叮",
+        "pop": "啵",
+        "marimba": "馬林巴",
+        "ringtone": "鈴聲"
+      },
+      "test": "傳送測試通知",
+      "test_description": "查看新訊息的顯示效果與提示音。",
+      "show_preview": "顯示訊息預覽",
+      "show_preview_description": "在通知中包含訊息文字。",
+      "inbox_mentions": "收件匣中的聊天",
+      "inbox_mentions_description": "將提及和私人訊息新增至您的收件匣。",
+      "layout": {
+        "title": "訊息版面配置",
+        "description": "訊息在對話中的顯示方式。",
+        "bubbles": "泡泡",
+        "compact": "精簡",
+        "direct_only": "僅在私人訊息中使用泡泡"
+      },
+      "minimize": {
+        "title": "最小化的聊天",
+        "description": "在其他頁面保持開啟的聊天在最小化後的顯示方式。",
+        "docked": "停駐分頁",
+        "heads": "聊天大頭貼"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} 在聊天中提及了您",
+      "mentioned_in": "{name} 在 {conversation} 中提及了您",
+      "direct": "{name} 傳送了一則訊息給您"
+    },
+    "slash": {
+      "title": "指令",
+      "workitem": "建立工作事項並在此處連結",
+      "link": "連結現有的工作事項",
+      "mute": "將此對話設為靜音或取消靜音",
+      "code": "插入程式碼區塊",
+      "shrug": "新增 ¯\\_(ツ)_/¯",
+      "muted": "對話已設為靜音",
+      "unmuted": "對話已取消靜音"
+    },
+    "dock": {
+      "open_full": "在完整聊天中開啟",
+      "minimize": "最小化",
+      "close": "關閉",
+      "expand": "開啟 {name}",
+      "heads": "最小化的聊天"
+    },
+    "workitem": {
+      "share": "分享至聊天",
+      "discuss": "在聊天中討論",
+      "discuss_hint": "聊天將會開啟，並已備妥此工作事項的連結供您傳送。",
+      "this_project": "此專案",
+      "shared": "{count, plural, other {已分享至 # 個對話}}",
+      "discussed_in": "{count, plural, other {已在 # 個對話中討論}}",
+      "discussed_hint": "僅列出您所在的對話。",
+      "chip": "{key}",
+      "due": "到期日 {date}",
+      "archived": "已封存",
+      "sub_items": "{count, plural, other {# 個子項目}}"
+    },
+    "mobile": {
+      "back": "返回對話清單",
+      "close": "關閉",
+      "message_actions": "訊息動作",
+      "copy_text": "複製文字"
+    },
+    "states": {
+      "empty_title": "與您的工作區成員交流",
+      "empty_body": "傳送訊息給團隊成員，或為專案或團隊建立群組。分享檔案、語音訊息和工作事項。",
+      "new_direct": "這是您與 {name} 對話的開始。",
+      "new_group": "這是 {name} 的開始。",
+      "say_hi": "👋 打聲招呼",
+      "offline": "您目前離線。重新連線後，您傳送的訊息就會送出。",
+      "waiting": "等待傳送",
+      "back_online": "已恢復連線。正在同步您錯過的內容。"
+    },
+    "a11y": {
+      "new_message": "來自 {name} 的新訊息：{text}"
+    }
+  }
+}

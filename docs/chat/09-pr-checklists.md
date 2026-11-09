@@ -1,0 +1,113 @@
+# 09 — PR checklists (definition of done)
+
+Branch naming: `feat/chat-<n>-<slug>` (use the `branch-name` skill). PR title prefix per repo convention (`create-pull-request` skill). Each PR links back to this folder and ticks its list in the description.
+
+## PR 1 — Backend core (L)
+
+Branch `feat/chat-1-backend-core`
+
+- [x] `db/models/chat.py` per `01` (ChatBaseModel, 4 models, enums, constraints, indexes); exported in `db/models/__init__.py`
+- [x] `FileAsset`: `CHAT_ATTACHMENT`, `chat_message`, `chat_conversation`, `asset_url` branch
+- [x] Migration `0125_chat` applies and reverses cleanly
+- [x] `app/serializers/chat.py` producing exactly the shapes in `02`
+- [x] `app/views/chat/` + `app/urls/chat.py` — every endpoint in `02`, including attachments and `member-ids`
+- [x] `app/views/chat/services.py`: `send_message`, `get_membership_or_403`, preview builder, mention parser
+- [x] `plane/utils/chat_events.py` `publish_chat_event` (pipeline, on_commit)
+- [x] `plane/utils/chat_config.py` with defaults (config page itself is PR 2)
+- [x] `throttles/chat.py` + rates registered
+- [x] `bgtasks/chat_cleanup_task.py`: `delete_chat_objects`, `purge_orphan_chat_uploads`; beat schedule (membership deactivation dropped, D15)
+- [x] **S1 fix** in `asset/v2.py` (both endpoints) + regression test
+- [x] `filetype` in `requirements/base.txt`
+- [x] All tests in `08` § Backend (unit + contract) green in Docker; the end-to-end flow lives in the contract tests rather than a separate smoke file
+- [x] `07` per-PR checklist ticked
+- [x] `PROGRESS.md` updated
+
+## PR 2 — Superadmin config (S)
+
+Branch `feat/chat-2-superadmin-config`
+
+- [x] Keys seeded in `configure_instance.py` per `06`
+- [x] Cache + invalidation on the config PATCH (no signal needed)
+- [x] `ChatBaseEndpoint` returns 404 `CHAT_DISABLED` for every chat view (done in PR 1); live server honours it in PR 3
+- [x] Public instance payload exposes `config.chat`
+- [x] Admin page `/superadmin/chat/` with validation and toast; sidebar entry
+- [x] English copy (admin app has no i18n)
+- [x] `contract/app/test_chat_config_admin.py` green
+- [x] `PROGRESS.md` updated
+
+## PR 3 — Real-time (M)
+
+Branch `feat/chat-3-realtime`
+
+- [x] `controllers/chat.controller.ts` + `chat/{registry,redis-bridge,presence,typing}.ts` per `03`
+- [x] Registered in `CONTROLLERS`; health endpoint extended
+- [x] Origin check, per-user socket cap, membership re-check timer
+- [x] `member-ids` call uses `X-Live-Secret`
+- [x] Vitest suites in `08` § Live server green
+- [ ] Manual: two browsers exchange messages; presence and typing visible (needs the web UI from PR 5; covered by unit tests with a fake Redis until then)
+- [x] `PROGRESS.md` updated
+
+## PR 4 — Web data layer (M)
+
+Branch `feat/chat-4-web-data-layer`
+
+- [x] `packages/types/src/chat/*` (shapes = `02` + `03`)
+- [x] `chat.service.ts`, `chat-socket.ts` (partysocket, catch-up, ping/pong)
+- [x] Four stores registered on `RootStore`; `applyEvent` router
+- [x] Vitest suites in `08` § Web green
+- [x] Catalog entries: `partysocket` 1.3.0 added; `vitest` (already in the catalog) added to `apps/web`. `react-virtuoso`, `wavesurfer.js` and `yet-another-react-lightbox` are added in the PRs that use them
+- [x] `PROGRESS.md` updated
+
+## PR 5 — Chat UI: text (M)
+
+Branch `feat/chat-5-ui-text`
+
+- [x] Routes + `(chat)/layout.tsx`; gated by `CHAT_ENABLED` and role
+- [x] App rail item with badge (`AppSidebarItem.badge`)
+- [x] Sidebar (groups, directs, quick links, footer)
+- [x] Thread: header, Virtuoso list, day dividers, grouping, system messages, "new messages" pill, mark-read hook
+- [x] Composer (text only): editor wrapper, mention + work-item pickers, Enter/Shift+Enter
+- [x] Message hover toolbar: Reply, Edit, Delete, Copy link (Create work item deferred to PR 8)
+- [x] New-conversation modal, members modal, delete-group modal, details panel (members tab)
+- [x] Chat components in `apps/web/core/components/chat/` (D21: not in shared packages, so no stories)
+- [x] `chat.json` (en) in **both** locale trees; empty `{}` for the other 18 locales until the translation PR (D22). No Arabic locale exists in the platform
+- [ ] Visual check against the mockups in a running app (needs a deployed build; RTL n/a until an RTL locale exists)
+- [x] `PROGRESS.md` updated
+
+## PR 6 — Attachments UI (M)
+
+Branch `feat/chat-6-ui-attachments`
+
+- [x] `upload.store` wired to composer; paste + drop; tray with progress/cancel/retry/errors
+- [x] `image-thumb.ts`, `video-poster.ts`
+- [x] Attachment grid, file card, video tile, upload tray in `apps/web` (D21, no stories)
+- [x] Lightbox (lazy) with zoom + video
+- [x] Details panel: media + files sections (from loaded messages)
+- [x] Client-side size pre-check from `config.chat`
+- [ ] Manual matrix rows for images/video/files in all four browsers (needs a deployed build)
+- [x] `PROGRESS.md` updated
+
+## PR 7 — Voice notes (S)
+
+Branch `feat/chat-7-voice-notes`
+
+- [x] Voice recorder and player in `apps/web` (native MediaRecorder + Web Audio, D23; no stories, D21)
+- [x] `waveform.ts`; MIME preference incl. Safari `audio/mp4`
+- [x] Hard stop at `CHAT_MAX_VOICE_SECONDS`; permission-denied toast
+- [x] Single-player-at-a-time; playback rates
+- [ ] Manual matrix voice rows in all four browsers (needs a deployed build; Safari on a Mac/iPhone)
+- [x] `PROGRESS.md` updated
+
+## PR 8 — Hardening (S)
+
+Branch `feat/chat-8-hardening`
+
+- [x] Load test script (`apps/live/loadtest/chat.js`, k6); [ ] results recorded in `PROGRESS.md` (run on staging)
+- [x] Proxy reviewed: uploads to the bucket were capped at 5 MB by `request_body`. Fixed with a separate `UPLOAD_SIZE_LIMIT` for the bucket (validated with `caddy adapt`); `reverse_proxy` passes `Range` through. [ ] Live `curl -r 0-1023` check on staging
+- [x] Deferred PR 5 items: "Create work item from message" (prefilled issue modal), composer drafts per conversation
+- [x] `DEPLOYMENT.md`: deploy steps, smoke test, rollback, test-stack MinIO override
+- [ ] Full manual matrix in `08` completed and recorded (needs a deployed build)
+- [ ] `07` release gate completed (needs a deployed build)
+- [ ] `pnpm audit --prod`, `pip-audit`
+- [x] `README.md` (repo) feature list mentions Chat; [ ] `00-overview.md` status → "shipped" after the release gate
+- [x] `PROGRESS.md` updated

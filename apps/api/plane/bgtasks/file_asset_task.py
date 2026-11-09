@@ -23,4 +23,7 @@ def delete_unuploaded_file_asset():
     FileAsset.objects.filter(
         Q(created_at__lt=timezone.now() - timedelta(days=int(os.environ.get("UNUPLOADED_ASSET_DELETE_DAYS", "7"))))
         & Q(is_uploaded=False)
+    ).exclude(
+        # Chat attachments are hard-deleted by chat_cleanup_task.purge_orphan_chat_uploads.
+        entity_type=FileAsset.EntityTypeContext.CHAT_ATTACHMENT
     ).delete()

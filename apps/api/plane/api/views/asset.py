@@ -435,7 +435,9 @@ class GenericAssetEndpoint(BaseAPIView):
             workspace = Workspace.objects.get(slug=slug)
 
             # Get the asset
-            asset = FileAsset.objects.get(id=asset_id, workspace_id=workspace.id, is_deleted=False)
+            asset = FileAsset.objects.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES).get(
+                id=asset_id, workspace_id=workspace.id, is_deleted=False
+            )
 
             # Check if the asset exists and is uploaded
             if not asset.is_uploaded:
@@ -618,7 +620,9 @@ class GenericAssetEndpoint(BaseAPIView):
         and trigger metadata extraction.
         """
         try:
-            asset = FileAsset.objects.get(id=asset_id, workspace__slug=slug, is_deleted=False)
+            asset = FileAsset.objects.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES).get(
+                id=asset_id, workspace__slug=slug, is_deleted=False
+            )
 
             # Update is_uploaded status
             asset.is_uploaded = request.data.get("is_uploaded", asset.is_uploaded)

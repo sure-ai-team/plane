@@ -1,0 +1,457 @@
+{
+  "chat": {
+    "title": "チャット",
+    "page_label": "{workspace} - チャット",
+    "nav": {
+      "rail_label": "チャット",
+      "project_chat": "チャット"
+    },
+    "sections": {
+      "groups": "グループ",
+      "directs": "ダイレクトメッセージ"
+    },
+    "actions": {
+      "new": "新しい会話",
+      "new_group": "新しいグループ",
+      "new_direct": "新しいダイレクトメッセージ",
+      "mute": "会話をミュート",
+      "unmute": "会話のミュートを解除",
+      "leave": "グループから退出",
+      "delete_group": "グループを削除",
+      "add_members": "メンバーを追加",
+      "rename": "グループ名を変更",
+      "details": "会話の詳細",
+      "hide_details": "詳細を非表示"
+    },
+    "status": {
+      "online": "オンライン",
+      "offline": "オフライン",
+      "connecting": "接続中…",
+      "reconnecting": "再接続中…",
+      "blocked_disabled": "このインスタンスではチャットが無効になっています。",
+      "blocked_access": "このワークスペースのチャットにアクセスする権限がありません。"
+    },
+    "members": {
+      "count": "{count, plural, other {メンバー # 人}}",
+      "role_admin": "管理者",
+      "role_member": "メンバー",
+      "make_admin": "管理者にする",
+      "remove_admin": "管理者から外す",
+      "remove": "グループから削除",
+      "you": "あなた",
+      "only_members_hint": "このワークスペースのメンバーのみ追加できます。ゲストにはメッセージを送信できません。"
+    },
+    "new_conversation": {
+      "title": "新しい会話",
+      "direct": "ダイレクトメッセージ",
+      "group": "グループ",
+      "group_name": "グループ名",
+      "group_name_placeholder": "例：モバイルアプリのリリース",
+      "members": "メンバー",
+      "to": "宛先",
+      "search_members": "メンバーを検索",
+      "no_members_found": "メンバーが見つかりません",
+      "create_group": "グループを作成",
+      "start": "会話を開始",
+      "cancel": "キャンセル"
+    },
+    "thread": {
+      "today": "今日",
+      "yesterday": "昨日",
+      "new_messages": "新着メッセージ",
+      "jump_to_latest": "最新のメッセージへ移動",
+      "seen_by": "{count, plural, other {既読 #}}",
+      "typing_one": "{name}が入力中…",
+      "typing_two": "{first}と{second}が入力中…",
+      "typing_many": "複数の人が入力中…",
+      "edited": "編集済み",
+      "replying_to": "{name}に返信中",
+      "reply_attachment": "添付ファイル",
+      "reply_voice": "ボイスメモ",
+      "empty_title": "まだメッセージはありません",
+      "empty_body": "あいさつして会話を始めましょう。",
+      "no_conversation_title": "会話を選択",
+      "no_conversation_body": "一覧から会話を選択するか、新しい会話を開始してください。",
+      "loading_older": "以前のメッセージを読み込み中…",
+      "load_failed": "メッセージを読み込めませんでした。",
+      "retry": "再試行",
+      "deleted_user": "元メンバー",
+      "loading_newer": "新しいメッセージを読み込み中…"
+    },
+    "message": {
+      "reply": "返信",
+      "edit": "編集",
+      "delete": "削除",
+      "copy_link": "メッセージへのリンクをコピー",
+      "link_copied": "リンクをコピーしました",
+      "more": "その他の操作",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "delete_confirm_title": "メッセージを削除しますか？",
+      "delete_confirm_body": "このメッセージと添付ファイルが全員に対して削除されます。この操作は元に戻せません。",
+      "send_failed": "送信できませんでした",
+      "sending": "送信中…",
+      "retry": "再試行",
+      "discard": "破棄",
+      "create_work_item": "作業項目を作成",
+      "no_access": "このメッセージを開くことはできません。"
+    },
+    "system": {
+      "created": "{actor}がグループを作成しました",
+      "member_added": "{actor}が{name}を追加しました",
+      "member_removed": "{actor}が{name}を削除しました",
+      "member_left": "{name}が退出しました",
+      "renamed": "{actor}がグループ名を「{name}」に変更しました",
+      "icon_changed": "{actor}がグループのアイコンを変更しました",
+      "project_linked": "{actor}がグループをプロジェクトにリンクしました",
+      "pinned": "{actor}がメッセージをピン留めしました",
+      "unpinned": "{actor}がメッセージのピン留めを解除しました",
+      "someone": "誰か"
+    },
+    "preview": {
+      "you": "あなた",
+      "photo": "写真",
+      "video": "動画",
+      "voice": "ボイスメモ",
+      "file": "ファイル",
+      "attachments": "{count, plural, other {添付ファイル # 件}}",
+      "system": "グループの更新",
+      "empty": "まだメッセージはありません"
+    },
+    "composer": {
+      "placeholder": "{name}にメッセージを送信",
+      "send": "送信",
+      "editing": "メッセージを編集中",
+      "reply_cancel": "返信をキャンセル",
+      "attach": "ファイルを添付",
+      "waiting_uploads": "アップロードの完了を待っています…",
+      "remove_failed": "先に失敗したファイルを削除するか、再試行してください",
+      "emoji": "絵文字を挿入",
+      "formatting": "書式",
+      "emoji_suggestions": "絵文字の候補",
+      "suggestion_hint": "↑ ↓ で選択 · Enter で決定 · Esc で閉じる"
+    },
+    "delete_group": {
+      "title": "{name}を削除しますか？",
+      "body": "このグループのすべてのメッセージとファイルが全員に対して削除されます。この操作は元に戻せません。",
+      "confirm": "グループを削除"
+    },
+    "leave_group": {
+      "title": "{name}から退出しますか？",
+      "body": "このグループのメッセージを受信しなくなります。",
+      "confirm": "退出"
+    },
+    "errors": {
+      "generic": "問題が発生しました。もう一度お試しください。",
+      "not_found": "この会話は存在しないか、あなたはメンバーではありません。"
+    },
+    "upload": {
+      "ready": "準備完了",
+      "preparing": "準備中…",
+      "uploading": "アップロード中 {percent}%",
+      "confirming": "確認中…",
+      "failed": "アップロードに失敗しました",
+      "retry": "再試行",
+      "remove": "{name}を削除",
+      "too_large": "{name}のサイズが大きすぎます。上限は {limit} MB です。",
+      "type_not_allowed": "{name}は共有できません：このファイル形式は許可されていません。",
+      "type_mismatch": "ファイルの内容が形式と一致しません。",
+      "too_many": "1 つのメッセージに添付できるファイルは最大 {max} 個です。",
+      "drop_title": "ファイルをドロップして{name}で共有",
+      "drop_hint": "画像は最大 {image} MB · 動画は最大 {video} MB · 音声は最大 {audio} MB · その他のファイルは最大 {file} MB",
+      "rejected_title": "一部のファイルを追加できませんでした"
+    },
+    "media": {
+      "open_image": "画像 {name} を開く",
+      "play_video": "動画 {name} を再生",
+      "download": "{name}をダウンロード",
+      "preview_unavailable": "プレビューを表示できません",
+      "more": "+{count}",
+      "view_all": "すべて表示（{count}）",
+      "filter": "メディアをフィルター",
+      "filter_all": "すべて",
+      "filter_image": "画像",
+      "filter_video": "動画",
+      "loaded_only": "この会話で読み込まれたメッセージのメディアを表示しています。古いメディアを読み込むには、チャットを上にスクロールしてください。"
+    },
+    "details": {
+      "members": "メンバー",
+      "media": "メディア",
+      "files": "ファイル",
+      "no_media": "読み込まれたメッセージに写真や動画はまだありません",
+      "no_files": "読み込まれたメッセージにファイルはまだありません"
+    },
+    "voice": {
+      "record": "ボイスメモを録音",
+      "stop": "停止",
+      "discard": "録音を破棄",
+      "record_again": "もう一度録音",
+      "play": "ボイスメモを再生",
+      "pause": "一時停止",
+      "position": "再生位置",
+      "send": "送信",
+      "speed": "再生速度",
+      "up_to": "最大 {max}",
+      "permission_denied": "マイクへのアクセスがブロックされています。ブラウザーの設定で許可してください。",
+      "unsupported": "このブラウザーは音声録音に対応していません。"
+    },
+    "reactions": {
+      "add": "リアクションを追加",
+      "react_with": "{emoji} でリアクション",
+      "chip_label": "{emoji} {count, plural, other {リアクション # 件}}",
+      "tooltip": "{names}が {emoji} でリアクションしました",
+      "and_others": "{names}、他 {count, plural, other {# 人}}"
+    },
+    "picker": {
+      "search": "絵文字を検索"
+    },
+    "pins": {
+      "title": "ピン留め",
+      "pinned": "ピン留め済み",
+      "count": "ピン留め · {index}/{total}",
+      "next": "次のピン留めメッセージ",
+      "view_all": "すべて表示",
+      "close": "ピン留めメッセージを閉じる",
+      "pin": "メッセージをピン留め",
+      "unpin": "ピン留めを解除",
+      "pinned_by": "{name}がピン留め",
+      "empty": "ピン留めされたメッセージはまだありません。",
+      "hint": "会話の参加者は誰でもピン留めできます。1 つの会話につき最大 50 件までです。"
+    },
+    "jump": {
+      "to_message": "メッセージへ移動",
+      "jump": "移動",
+      "highlight": "ここへ移動しました"
+    },
+    "unread": {
+      "divider": "新着",
+      "divider_label": "新着メッセージ",
+      "pill": "{time} 以降の{count, plural, other {新着メッセージ # 件}}",
+      "jump": "移動",
+      "dismiss": "閉じる"
+    },
+    "forward": {
+      "action": "転送",
+      "title": "メッセージを転送",
+      "to": "宛先",
+      "search": "会話を検索",
+      "no_results": "一致する会話はありません。",
+      "limit": "一度に転送できる会話は最大 {count} 件です。",
+      "note": "メッセージを追加（任意）",
+      "submit": "{count, plural, other {# 件の会話に送信}}",
+      "done": "{count, plural, other {# 件の会話に転送しました}}",
+      "from": "{name}から転送",
+      "from_conversation": "{conversation}の{name}から転送"
+    },
+    "sidebar": {
+      "find": "会話を探す",
+      "find_placeholder": "名前で検索",
+      "people": "メンバー",
+      "people_message": "{name} にメッセージを送る",
+      "people_show_all": "すべて表示（{count}）",
+      "people_show_fewer": "表示を減らす",
+      "search_messages_for": "「{query}」でメッセージを検索",
+      "filter": {
+        "label": "会話をフィルター",
+        "all": "すべて",
+        "unread": "{count, plural, =0 {未読} other {未読 #}}",
+        "mentions": "{count, plural, =0 {メンション} other {メンション #}}"
+      },
+      "starred": "スター付き",
+      "archived": "アーカイブ済み",
+      "archived_empty": "アーカイブされた会話はありません。",
+      "no_unread": "すべて既読です。",
+      "no_mentions": "未読のメンションはありません。",
+      "draft": "下書き：{text}",
+      "muted": "通知オフ",
+      "mentions_label": "{count, plural, other {未読のメンション # 件}}",
+      "options": "{name}のオプション",
+      "star": "スターを付ける",
+      "unstar": "スターを外す",
+      "mark_read": "既読にする",
+      "archive": "アーカイブ",
+      "unarchive": "アーカイブを解除",
+      "project_chats": "{project}のチャット",
+      "show_all": "すべて表示",
+      "project_empty": "このプロジェクトにリンクされたグループチャットはまだありません。グループの詳細からリンクしてください。"
+    },
+    "search": {
+      "title": "メッセージを検索",
+      "back": "チャットに戻る",
+      "placeholder": "メッセージを検索",
+      "clear": "検索をクリア",
+      "filter": {
+        "in": "会話",
+        "in_all": "会話：すべての会話",
+        "from": "送信者",
+        "from_anyone": "送信者：全員",
+        "has": "含む",
+        "has_any": "含む：すべて",
+        "after": "以降",
+        "before": "以前"
+      },
+      "has": {
+        "file": "含む：ファイル",
+        "image": "含む：画像",
+        "video": "含む：動画",
+        "voice": "含む：ボイスメモ",
+        "link": "含む：リンク",
+        "work_item": "含む：作業項目"
+      },
+      "results": "{count, plural, other {# 件の結果}}",
+      "results_many": "1,000 件以上の結果",
+      "results_label": "検索結果",
+      "hint": "2 文字以上入力するか、「含む」フィルターを選択してください。",
+      "empty": "検索に一致するメッセージはありません。",
+      "load_more": "さらに読み込む",
+      "loading": "読み込み中…",
+      "context": "前後のメッセージ",
+      "open": "会話を開く",
+      "footer": "検索結果には、参加している会話のみが含まれます。↑ ↓ で結果を移動し、Enter で開きます。"
+    },
+    "shortcuts": {
+      "title": "キーボードショートカット",
+      "previous_next": "前 / 次の会話",
+      "next_unread": "次の未読の会話",
+      "jump_conversation": "会話へ移動",
+      "search": "メッセージを検索",
+      "edit_last": "最後のメッセージを編集（入力欄が空のとき）",
+      "mark_read": "会話を既読にする",
+      "jump_unread": "最初の未読へ移動",
+      "new_line": "入力欄で改行",
+      "show_shortcuts": "ショートカットを表示"
+    },
+    "about": {
+      "title": "このグループについて",
+      "description": "グループの説明",
+      "placeholder": "このグループの目的は何ですか？",
+      "empty": "説明はまだありません。",
+      "add": "説明を追加",
+      "edit": "説明を編集",
+      "change_icon": "アイコンをクリックして変更"
+    },
+    "notify": {
+      "title": "通知の対象",
+      "button_label": "通知：{level}",
+      "level": {
+        "all": "すべてのメッセージ",
+        "mentions": "メンションのみ",
+        "off": "オフ"
+      },
+      "level_description": {
+        "all": "すべての新着メッセージ",
+        "mentions": "誰かがあなたをメンションしたとき、またはあなたに返信したとき",
+        "off": "通知しません。未読数は引き続き更新されます。"
+      },
+      "snooze": "スヌーズ期間",
+      "snooze_1h": "1 時間",
+      "snooze_8h": "8 時間",
+      "snooze_tomorrow": "明日まで",
+      "snoozed_short": "スヌーズ中",
+      "snoozed_until": "{time} までスヌーズ中",
+      "unsnooze": "解除",
+      "blocked": "お使いのブラウザーがこのサイトからの通知をブロックしています。ブラウザーのサイト設定（アドレスの横にあるアイコン）で許可してください。",
+      "unsupported": "このブラウザーではデスクトップ通知を表示できません。",
+      "allow": "デスクトップ通知を許可",
+      "allow_prompt": "このタブが前面にないときも通知を受け取るには、通知を許可してください。",
+      "test_title": "テスト通知",
+      "test_body": "新しいメッセージはこのように表示され、鳴ります。",
+      "new_message": "新着メッセージ",
+      "sent_photo": "写真を送信しました",
+      "sent_video": "動画を送信しました",
+      "sent_voice": "ボイスメモを送信しました",
+      "sent_file": "ファイルを送信しました"
+    },
+    "prefs": {
+      "title": "チャットの設定",
+      "subtitle": "これらの設定は、このワークスペースでのあなたにのみ適用されます。",
+      "desktop_notifications": "デスクトップ通知",
+      "desktop_notifications_description": "このサイトを開いている間、新着メッセージの通知を表示します。",
+      "sound": "サウンド",
+      "sound_description": "通知のたびに短いサウンドを再生します。",
+      "sound_tone": "通知音",
+      "sound_volume": "音量",
+      "sound_play": "再生",
+      "tones": {
+        "chime": "チャイム",
+        "ding": "ディン",
+        "pop": "ポップ",
+        "marimba": "マリンバ",
+        "ringtone": "着信音"
+      },
+      "test": "テスト通知を送信",
+      "test_description": "新しいメッセージの表示と音を確認します。",
+      "show_preview": "メッセージのプレビューを表示",
+      "show_preview_description": "通知にメッセージの本文を含めます。",
+      "inbox_mentions": "受信トレイにチャットを表示",
+      "inbox_mentions_description": "メンションとダイレクトメッセージを受信トレイに追加します。",
+      "layout": {
+        "title": "メッセージのレイアウト",
+        "description": "会話でのメッセージの表示方法です。",
+        "bubbles": "吹き出し",
+        "compact": "コンパクト",
+        "direct_only": "ダイレクトメッセージでのみ吹き出しを使用"
+      },
+      "minimize": {
+        "title": "最小化したチャット",
+        "description": "他のページで開いたままにしているチャットを最小化したときの表示方法です。",
+        "docked": "ドッキングされたタブ",
+        "heads": "チャットヘッド"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name}がチャットであなたをメンションしました",
+      "mentioned_in": "{name}が{conversation}であなたをメンションしました",
+      "direct": "{name}からメッセージが届きました"
+    },
+    "slash": {
+      "title": "コマンド",
+      "workitem": "作業項目を作成してここにリンク",
+      "link": "既存の作業項目をリンク",
+      "mute": "この会話をミュート / ミュート解除",
+      "code": "コードブロックを挿入",
+      "shrug": "¯\\_(ツ)_/¯ を追加",
+      "muted": "会話をミュートしました",
+      "unmuted": "会話のミュートを解除しました"
+    },
+    "dock": {
+      "open_full": "チャット画面で開く",
+      "minimize": "最小化",
+      "close": "閉じる",
+      "expand": "{name}を開く",
+      "heads": "最小化したチャット"
+    },
+    "workitem": {
+      "share": "チャットで共有",
+      "discuss": "チャットで話し合う",
+      "discuss_hint": "この作業項目へのリンクが入力された状態でチャットが開きます。",
+      "this_project": "このプロジェクト",
+      "shared": "{count, plural, other {# 件の会話で共有しました}}",
+      "discussed_in": "{count, plural, other {# 件の会話で話題になっています}}",
+      "discussed_hint": "参加している会話のみが表示されます。",
+      "chip": "{key}",
+      "due": "期限 {date}",
+      "archived": "アーカイブ済み",
+      "sub_items": "{count, plural, other {サブ作業項目 # 件}}"
+    },
+    "mobile": {
+      "back": "会話一覧に戻る",
+      "close": "閉じる",
+      "message_actions": "メッセージの操作",
+      "copy_text": "テキストをコピー"
+    },
+    "states": {
+      "empty_title": "ワークスペースのメンバーと会話しましょう",
+      "empty_body": "チームメイトにメッセージを送るか、プロジェクトやチームのグループを作成しましょう。ファイル、ボイスメモ、作業項目を共有できます。",
+      "new_direct": "{name}との会話の始まりです。",
+      "new_group": "{name}の始まりです。",
+      "say_hi": "👋 あいさつする",
+      "offline": "オフラインです。送信したメッセージは再接続時に送信されます。",
+      "waiting": "送信待ち",
+      "back_online": "オンラインに戻りました。見逃したメッセージを取得しています。"
+    },
+    "a11y": {
+      "new_message": "{name}からの新着メッセージ：{text}"
+    }
+  }
+}

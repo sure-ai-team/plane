@@ -105,7 +105,10 @@
       "open_project_setting": "打开项目设置",
       "nav_project_settings": "转到项目设置",
       "nav_workspace_active_cycle": "转到所有活动周期",
-      "nav_project_overview": "转到项目概览"
+      "nav_project_overview": "转到项目概览",
+      "nav_chat": "转到聊天",
+      "open_chat_conversation": "打开会话",
+      "search_chat_messages": "搜索聊天消息"
     },
     "account_actions": {
       "sign_out": "退出登录",
@@ -166,7 +169,8 @@
       "update_theme": "更改主题",
       "update_timezone": "更改时区",
       "update_start_of_week": "更改一周的第一天",
-      "update_language": "更改语言"
+      "update_language": "更改语言",
+      "open_chat_conversation": "打开会话"
     },
     "search_menu": {
       "no_results": "未找到结果",

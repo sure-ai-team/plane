@@ -35,6 +35,7 @@ export type TPowerKPageType =
   | "open-project-module"
   | "open-project-view"
   | "open-project-setting"
+  | "open-chat-conversation"
   // work item context based actions
   | "update-work-item-state"
   | "update-work-item-priority"

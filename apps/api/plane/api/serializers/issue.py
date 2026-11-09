@@ -678,6 +678,8 @@ class IssueAttachmentSerializer(BaseSerializer):
         model = FileAsset
         fields = "__all__"
         read_only_fields = [
+            "chat_conversation",
+            "chat_message",
             "id",
             "workspace",
             "project",

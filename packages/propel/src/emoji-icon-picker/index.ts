@@ -5,6 +5,8 @@
  */
 
 export * from "./emoji-picker";
+// Emoji-only picker body (search, skin tones, categories) for embedding in other popovers.
+export { EmojiRoot } from "./emoji/emoji";
 export * from "./helper";
 export * from "./logo";
 export * from "./lucide-icons";

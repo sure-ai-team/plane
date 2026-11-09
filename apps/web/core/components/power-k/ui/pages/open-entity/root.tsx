@@ -5,6 +5,7 @@
  */
 
 // local imports
+import { PowerKOpenChatConversationMenu } from "./chat-conversations-menu";
 import { PowerKOpenProjectCyclesMenu } from "./project-cycles-menu";
 import { PowerKOpenProjectModulesMenu } from "./project-modules-menu";
 import { PowerKOpenProjectSettingsMenu } from "./project-settings-menu";
@@ -21,6 +22,7 @@ export function PowerKOpenEntityPages(props: TPowerKOpenEntityActionsProps) {
     <>
       {activePage === "open-workspace" && <PowerKOpenWorkspaceMenu handleSelect={handleSelection} />}
       {activePage === "open-project" && <PowerKOpenProjectMenu handleSelect={handleSelection} />}
+      {activePage === "open-chat-conversation" && <PowerKOpenChatConversationMenu handleSelect={handleSelection} />}
       {activePage === "open-workspace-setting" && (
         <PowerKOpenWorkspaceSettingsMenu context={context} handleSelect={handleSelection} />
       )}

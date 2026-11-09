@@ -1,0 +1,457 @@
+{
+  "chat": {
+    "title": "Czat",
+    "page_label": "{workspace} - Czat",
+    "nav": {
+      "rail_label": "Czat",
+      "project_chat": "Czat"
+    },
+    "sections": {
+      "groups": "Grupy",
+      "directs": "Wiadomości bezpośrednie"
+    },
+    "actions": {
+      "new": "Nowa rozmowa",
+      "new_group": "Nowa grupa",
+      "new_direct": "Nowa wiadomość bezpośrednia",
+      "mute": "Wycisz rozmowę",
+      "unmute": "Wyłącz wyciszenie rozmowy",
+      "leave": "Opuść grupę",
+      "delete_group": "Usuń grupę",
+      "add_members": "Dodaj członków",
+      "rename": "Zmień nazwę grupy",
+      "details": "Szczegóły rozmowy",
+      "hide_details": "Ukryj szczegóły"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Łączenie…",
+      "reconnecting": "Ponowne łączenie…",
+      "blocked_disabled": "Czat jest wyłączony w tej instancji.",
+      "blocked_access": "Nie masz dostępu do czatu w tej przestrzeni roboczej."
+    },
+    "members": {
+      "count": "{count, plural, one {# członek} few {# członkowie} many {# członków} other {# członka}}",
+      "role_admin": "Administrator",
+      "role_member": "Członek",
+      "make_admin": "Nadaj uprawnienia administratora",
+      "remove_admin": "Odbierz uprawnienia administratora",
+      "remove": "Usuń z grupy",
+      "you": "Ty",
+      "only_members_hint": "Można dodawać tylko członków tej przestrzeni roboczej. Do gości nie można pisać."
+    },
+    "new_conversation": {
+      "title": "Nowa rozmowa",
+      "direct": "Wiadomość bezpośrednia",
+      "group": "Grupa",
+      "group_name": "Nazwa grupy",
+      "group_name_placeholder": "np. Wydanie aplikacji mobilnej",
+      "members": "Członkowie",
+      "to": "Do",
+      "search_members": "Szukaj członków",
+      "no_members_found": "Nie znaleziono członków",
+      "create_group": "Utwórz grupę",
+      "start": "Rozpocznij rozmowę",
+      "cancel": "Anuluj"
+    },
+    "thread": {
+      "today": "Dzisiaj",
+      "yesterday": "Wczoraj",
+      "new_messages": "Nowe wiadomości",
+      "jump_to_latest": "Przejdź do najnowszych",
+      "seen_by": "{count, plural, one {Wyświetlone przez #} few {Wyświetlone przez #} many {Wyświetlone przez #} other {Wyświetlone przez #}}",
+      "typing_one": "{name} pisze…",
+      "typing_two": "{first} i {second} piszą…",
+      "typing_many": "Kilka osób pisze…",
+      "edited": "edytowano",
+      "replying_to": "Odpowiedź do: {name}",
+      "reply_attachment": "Załącznik",
+      "reply_voice": "Notatka głosowa",
+      "empty_title": "Brak wiadomości",
+      "empty_body": "Przywitaj się, aby rozpocząć rozmowę.",
+      "no_conversation_title": "Wybierz rozmowę",
+      "no_conversation_body": "Wybierz rozmowę z listy lub rozpocznij nową.",
+      "loading_older": "Wczytywanie starszych wiadomości…",
+      "load_failed": "Nie udało się wczytać wiadomości.",
+      "retry": "Spróbuj ponownie",
+      "deleted_user": "Były członek",
+      "loading_newer": "Wczytywanie nowszych wiadomości…"
+    },
+    "message": {
+      "reply": "Odpowiedz",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "copy_link": "Kopiuj link do wiadomości",
+      "link_copied": "Skopiowano link",
+      "more": "Więcej akcji",
+      "save": "Zapisz",
+      "cancel": "Anuluj",
+      "delete_confirm_title": "Usunąć wiadomość?",
+      "delete_confirm_body": "Wiadomość i jej pliki zostaną usunięte dla wszystkich. Tej operacji nie można cofnąć.",
+      "send_failed": "Nie udało się wysłać",
+      "sending": "Wysyłanie…",
+      "retry": "Ponów",
+      "discard": "Odrzuć",
+      "create_work_item": "Utwórz element pracy",
+      "no_access": "Nie możesz otworzyć tej wiadomości."
+    },
+    "system": {
+      "created": "{actor} tworzy grupę",
+      "member_added": "{actor} dodaje do grupy: {name}",
+      "member_removed": "{actor} usuwa z grupy: {name}",
+      "member_left": "{name} opuszcza grupę",
+      "renamed": "{actor} zmienia nazwę grupy na „{name}”",
+      "icon_changed": "{actor} zmienia ikonę grupy",
+      "project_linked": "{actor} łączy grupę z projektem",
+      "pinned": "{actor} przypina wiadomość",
+      "unpinned": "{actor} odpina wiadomość",
+      "someone": "Ktoś"
+    },
+    "preview": {
+      "you": "Ty",
+      "photo": "Zdjęcie",
+      "video": "Wideo",
+      "voice": "Notatka głosowa",
+      "file": "Plik",
+      "attachments": "{count, plural, one {# załącznik} few {# załączniki} many {# załączników} other {# załącznika}}",
+      "system": "Aktualizacja grupy",
+      "empty": "Brak wiadomości"
+    },
+    "composer": {
+      "placeholder": "Napisz do: {name}",
+      "send": "Wyślij",
+      "editing": "Edytowanie wiadomości",
+      "reply_cancel": "Anuluj odpowiedź",
+      "attach": "Załącz pliki",
+      "waiting_uploads": "Oczekiwanie na przesłanie plików…",
+      "remove_failed": "Najpierw usuń lub ponów nieudane pliki",
+      "emoji": "Wstaw emoji",
+      "formatting": "Formatowanie",
+      "emoji_suggestions": "Sugestie emoji",
+      "suggestion_hint": "↑ ↓ – wybór · Enter – zatwierdzenie · Esc – zamknięcie"
+    },
+    "delete_group": {
+      "title": "Usunąć {name}?",
+      "body": "Wszystkie wiadomości i pliki w tej grupie zostaną usunięte dla wszystkich. Tej operacji nie można cofnąć.",
+      "confirm": "Usuń grupę"
+    },
+    "leave_group": {
+      "title": "Opuścić {name}?",
+      "body": "Nie będziesz już otrzymywać wiadomości z tej grupy.",
+      "confirm": "Opuść"
+    },
+    "errors": {
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
+      "not_found": "Ta rozmowa już nie istnieje lub nie jesteś jej członkiem."
+    },
+    "upload": {
+      "ready": "Gotowe",
+      "preparing": "Przygotowywanie…",
+      "uploading": "Przesyłanie {percent}%",
+      "confirming": "Sprawdzanie…",
+      "failed": "Przesyłanie nie powiodło się",
+      "retry": "Ponów",
+      "remove": "Usuń {name}",
+      "too_large": "Plik {name} jest za duży. Limit wynosi {limit} MB.",
+      "type_not_allowed": "Nie można udostępnić pliku {name}: ten typ pliku jest niedozwolony.",
+      "type_mismatch": "Plik nie odpowiada swojemu typowi.",
+      "too_many": "Do jednej wiadomości możesz załączyć maksymalnie {max} plików.",
+      "drop_title": "Upuść pliki, aby udostępnić je w: {name}",
+      "drop_hint": "Obrazy do {image} MB · wideo do {video} MB · audio do {audio} MB · inne pliki do {file} MB",
+      "rejected_title": "Niektóre pliki nie zostały dodane"
+    },
+    "media": {
+      "open_image": "Otwórz obraz {name}",
+      "play_video": "Odtwórz wideo {name}",
+      "download": "Pobierz {name}",
+      "preview_unavailable": "Podgląd niedostępny",
+      "more": "+{count}",
+      "view_all": "Pokaż wszystko ({count})",
+      "filter": "Filtruj multimedia",
+      "filter_all": "Wszystko",
+      "filter_image": "Obrazy",
+      "filter_video": "Wideo",
+      "loaded_only": "Pokazuje multimedia z wiadomości wczytanych w tej rozmowie. Przewiń czat w górę, aby wczytać starsze."
+    },
+    "details": {
+      "members": "Członkowie",
+      "media": "Multimedia",
+      "files": "Pliki",
+      "no_media": "Brak zdjęć i filmów we wczytanych wiadomościach",
+      "no_files": "Brak plików we wczytanych wiadomościach"
+    },
+    "voice": {
+      "record": "Nagraj notatkę głosową",
+      "stop": "Zatrzymaj",
+      "discard": "Odrzuć nagranie",
+      "record_again": "Nagraj ponownie",
+      "play": "Odtwórz notatkę głosową",
+      "pause": "Wstrzymaj",
+      "position": "Pozycja odtwarzania",
+      "send": "Wyślij",
+      "speed": "Szybkość odtwarzania",
+      "up_to": "maks. {max}",
+      "permission_denied": "Dostęp do mikrofonu jest zablokowany. Zezwól na niego w ustawieniach przeglądarki.",
+      "unsupported": "Ta przeglądarka nie obsługuje nagrywania głosu."
+    },
+    "reactions": {
+      "add": "Dodaj reakcję",
+      "react_with": "Zareaguj: {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# reakcja} few {# reakcje} many {# reakcji} other {# reakcji}}",
+      "tooltip": "{names} – reakcja {emoji}",
+      "and_others": "{names} i {count, plural, one {# inna osoba} few {# inne osoby} many {# innych osób} other {# innej osoby}}"
+    },
+    "picker": {
+      "search": "Szukaj emoji"
+    },
+    "pins": {
+      "title": "Przypięte",
+      "pinned": "Przypięte",
+      "count": "Przypięte · {index} z {total}",
+      "next": "Następna przypięta wiadomość",
+      "view_all": "Pokaż wszystkie",
+      "close": "Zamknij przypięte wiadomości",
+      "pin": "Przypnij wiadomość",
+      "unpin": "Odepnij",
+      "pinned_by": "Przypięta przez: {name}",
+      "empty": "Brak przypiętych wiadomości.",
+      "hint": "Każdy uczestnik rozmowy może przypinać wiadomości. Maksymalnie 50 przypięć na rozmowę."
+    },
+    "jump": {
+      "to_message": "Przejdź do wiadomości",
+      "jump": "Przejdź",
+      "highlight": "Tutaj"
+    },
+    "unread": {
+      "divider": "Nowe",
+      "divider_label": "Nowe wiadomości",
+      "pill": "{count, plural, one {# nowa wiadomość} few {# nowe wiadomości} many {# nowych wiadomości} other {# nowej wiadomości}} od {time}",
+      "jump": "Przejdź",
+      "dismiss": "Zamknij"
+    },
+    "forward": {
+      "action": "Przekaż dalej",
+      "title": "Przekaż wiadomość",
+      "to": "Do",
+      "search": "Szukaj rozmów",
+      "no_results": "Brak pasujących rozmów.",
+      "limit": "Jednorazowo możesz przekazać wiadomość do maksymalnie {count} rozmów.",
+      "note": "Dodaj wiadomość (opcjonalnie)",
+      "submit": "{count, plural, one {Wyślij do # rozmowy} few {Wyślij do # rozmów} many {Wyślij do # rozmów} other {Wyślij do # rozmowy}}",
+      "done": "{count, plural, one {Przekazano do # rozmowy} few {Przekazano do # rozmów} many {Przekazano do # rozmów} other {Przekazano do # rozmowy}}",
+      "from": "Przekazano od: {name}",
+      "from_conversation": "Przekazano od: {name} w rozmowie {conversation}"
+    },
+    "sidebar": {
+      "find": "Znajdź rozmowę",
+      "find_placeholder": "Szukaj po nazwie",
+      "people": "Osoby",
+      "people_message": "Napisz do {name}",
+      "people_show_all": "Pokaż wszystkie ({count})",
+      "people_show_fewer": "Pokaż mniej",
+      "search_messages_for": "Szukaj wiadomości z frazą „{query}”",
+      "filter": {
+        "label": "Filtruj rozmowy",
+        "all": "Wszystkie",
+        "unread": "{count, plural, =0 {Nieprzeczytane} one {Nieprzeczytane #} few {Nieprzeczytane #} many {Nieprzeczytane #} other {Nieprzeczytane #}}",
+        "mentions": "{count, plural, =0 {Wzmianki} one {Wzmianki #} few {Wzmianki #} many {Wzmianki #} other {Wzmianki #}}"
+      },
+      "starred": "Oznaczone gwiazdką",
+      "archived": "Zarchiwizowane",
+      "archived_empty": "Brak zarchiwizowanych rozmów.",
+      "no_unread": "Wszystko przeczytane.",
+      "no_mentions": "Brak nieprzeczytanych wzmianek.",
+      "draft": "Szkic: {text}",
+      "muted": "Powiadomienia wyłączone",
+      "mentions_label": "{count, plural, one {# nieprzeczytana wzmianka} few {# nieprzeczytane wzmianki} many {# nieprzeczytanych wzmianek} other {# nieprzeczytanej wzmianki}}",
+      "options": "Opcje: {name}",
+      "star": "Oznacz gwiazdką",
+      "unstar": "Usuń gwiazdkę",
+      "mark_read": "Oznacz jako przeczytane",
+      "archive": "Archiwizuj",
+      "unarchive": "Przywróć z archiwum",
+      "project_chats": "Czaty projektu {project}",
+      "show_all": "Pokaż wszystkie",
+      "project_empty": "Z tym projektem nie połączono jeszcze żadnych czatów grupowych. Połącz czat w szczegółach grupy."
+    },
+    "search": {
+      "title": "Szukaj wiadomości",
+      "back": "Wróć do czatu",
+      "placeholder": "Szukaj wiadomości",
+      "clear": "Wyczyść wyszukiwanie",
+      "filter": {
+        "in": "W rozmowie",
+        "in_all": "W: wszystkie rozmowy",
+        "from": "Od",
+        "from_anyone": "Od: dowolna osoba",
+        "has": "Zawiera",
+        "has_any": "Zawiera: cokolwiek",
+        "after": "Po",
+        "before": "Przed"
+      },
+      "has": {
+        "file": "Zawiera: plik",
+        "image": "Zawiera: obraz",
+        "video": "Zawiera: wideo",
+        "voice": "Zawiera: notatkę głosową",
+        "link": "Zawiera: link",
+        "work_item": "Zawiera: element pracy"
+      },
+      "results": "{count, plural, one {# wynik} few {# wyniki} many {# wyników} other {# wyniku}}",
+      "results_many": "Ponad 1000 wyników",
+      "results_label": "Wyniki wyszukiwania",
+      "hint": "Wpisz co najmniej dwa znaki lub wybierz filtr „Zawiera”.",
+      "empty": "Brak wiadomości pasujących do wyszukiwania.",
+      "load_more": "Wczytaj więcej",
+      "loading": "Wczytywanie…",
+      "context": "Wynik w kontekście",
+      "open": "Otwórz rozmowę",
+      "footer": "Wyniki obejmują tylko rozmowy, których jesteś członkiem. Użyj ↑ ↓, aby przechodzić między wynikami, i Enter, aby otworzyć wynik."
+    },
+    "shortcuts": {
+      "title": "Skróty klawiszowe",
+      "previous_next": "Poprzednia / następna rozmowa",
+      "next_unread": "Następna nieprzeczytana rozmowa",
+      "jump_conversation": "Przejdź do rozmowy",
+      "search": "Szukaj wiadomości",
+      "edit_last": "Edytuj ostatnią wiadomość (puste pole wiadomości)",
+      "mark_read": "Oznacz rozmowę jako przeczytaną",
+      "jump_unread": "Przejdź do pierwszej nieprzeczytanej",
+      "new_line": "Nowy wiersz w polu wiadomości",
+      "show_shortcuts": "Pokaż skróty"
+    },
+    "about": {
+      "title": "O tej grupie",
+      "description": "Opis grupy",
+      "placeholder": "Do czego służy ta grupa?",
+      "empty": "Brak opisu.",
+      "add": "Dodaj opis",
+      "edit": "Edytuj opis",
+      "change_icon": "Kliknij ikonę, aby ją zmienić"
+    },
+    "notify": {
+      "title": "Powiadamiaj mnie o",
+      "button_label": "Powiadomienia: {level}",
+      "level": {
+        "all": "Wszystkie wiadomości",
+        "mentions": "Tylko wzmianki",
+        "off": "Wyłączone"
+      },
+      "level_description": {
+        "all": "Każda nowa wiadomość",
+        "mentions": "Gdy ktoś Cię wspomni lub Ci odpowie",
+        "off": "Nic. Liczniki nieprzeczytanych nadal się aktualizują."
+      },
+      "snooze": "Wstrzymaj na",
+      "snooze_1h": "1 godzinę",
+      "snooze_8h": "8 godzin",
+      "snooze_tomorrow": "Do jutra",
+      "snoozed_short": "Wstrzymane",
+      "snoozed_until": "Wstrzymane do {time}",
+      "unsnooze": "Wyłącz",
+      "blocked": "Twoja przeglądarka blokuje powiadomienia z tej witryny. Zezwól na nie w ustawieniach witryny w przeglądarce (ikona obok adresu).",
+      "unsupported": "Ta przeglądarka nie może wyświetlać powiadomień na pulpicie.",
+      "allow": "Zezwól na powiadomienia na pulpicie",
+      "allow_prompt": "Zezwól na powiadomienia, aby dostawać alerty, gdy ta karta nie jest na wierzchu.",
+      "test_title": "Powiadomienie testowe",
+      "test_body": "Tak będą wyglądać i brzmieć nowe wiadomości.",
+      "new_message": "Nowa wiadomość",
+      "sent_photo": "Wysłano zdjęcie",
+      "sent_video": "Wysłano wideo",
+      "sent_voice": "Wysłano notatkę głosową",
+      "sent_file": "Wysłano plik"
+    },
+    "prefs": {
+      "title": "Ustawienia czatu",
+      "subtitle": "Dotyczą Ciebie w tej przestrzeni roboczej.",
+      "desktop_notifications": "Powiadomienia na pulpicie",
+      "desktop_notifications_description": "Pokazuj powiadomienie o nowych wiadomościach, gdy ta witryna jest otwarta.",
+      "sound": "Dźwięk",
+      "sound_description": "Odtwarzaj krótki dźwięk przy każdym powiadomieniu.",
+      "sound_tone": "Dźwięk",
+      "sound_volume": "Głośność",
+      "sound_play": "Odtwórz",
+      "tones": {
+        "chime": "Dzwonek",
+        "ding": "Ding",
+        "pop": "Pop",
+        "marimba": "Marimba",
+        "ringtone": "Dzwonek połączenia"
+      },
+      "test": "Wyślij powiadomienie testowe",
+      "test_description": "Sprawdź, jak wygląda i brzmi nowa wiadomość.",
+      "show_preview": "Pokazuj podgląd wiadomości",
+      "show_preview_description": "Dołączaj treść wiadomości do powiadomień.",
+      "inbox_mentions": "Czat w skrzynce odbiorczej",
+      "inbox_mentions_description": "Dodawaj wzmianki i wiadomości bezpośrednie do skrzynki odbiorczej.",
+      "layout": {
+        "title": "Układ wiadomości",
+        "description": "Wygląd wiadomości w rozmowach.",
+        "bubbles": "Dymki",
+        "compact": "Kompaktowy",
+        "direct_only": "Używaj dymków tylko w wiadomościach bezpośrednich"
+      },
+      "minimize": {
+        "title": "Zminimalizowane czaty",
+        "description": "Wygląd czatów otwartych na innych stronach po zminimalizowaniu.",
+        "docked": "Zadokowane karty",
+        "heads": "Ikony czatu"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} wspomina Cię na czacie",
+      "mentioned_in": "{name} wspomina Cię w rozmowie {conversation}",
+      "direct": "{name} wysyła Ci wiadomość"
+    },
+    "slash": {
+      "title": "Polecenia",
+      "workitem": "Utwórz element pracy i dodaj tu link do niego",
+      "link": "Dodaj link do istniejącego elementu pracy",
+      "mute": "Wycisz lub wyłącz wyciszenie tej rozmowy",
+      "code": "Wstaw blok kodu",
+      "shrug": "Dodaj ¯\\_(ツ)_/¯",
+      "muted": "Rozmowa wyciszona",
+      "unmuted": "Wyciszenie rozmowy wyłączone"
+    },
+    "dock": {
+      "open_full": "Otwórz w pełnym widoku czatu",
+      "minimize": "Minimalizuj",
+      "close": "Zamknij",
+      "expand": "Otwórz: {name}",
+      "heads": "Zminimalizowane czaty"
+    },
+    "workitem": {
+      "share": "Udostępnij na czacie",
+      "discuss": "Omów na czacie",
+      "discuss_hint": "Czat otworzy się z gotowym do wysłania linkiem do tego elementu pracy.",
+      "this_project": "Ten projekt",
+      "shared": "{count, plural, one {Udostępniono w # rozmowie} few {Udostępniono w # rozmowach} many {Udostępniono w # rozmowach} other {Udostępniono w # rozmowy}}",
+      "discussed_in": "{count, plural, one {Omawiany w # rozmowie} few {Omawiany w # rozmowach} many {Omawiany w # rozmowach} other {Omawiany w # rozmowy}}",
+      "discussed_hint": "Wyświetlane są tylko rozmowy, w których uczestniczysz.",
+      "chip": "{key}",
+      "due": "Termin: {date}",
+      "archived": "Zarchiwizowany",
+      "sub_items": "{count, plural, one {# podrzędny element} few {# podrzędne elementy} many {# podrzędnych elementów} other {# podrzędnego elementu}}"
+    },
+    "mobile": {
+      "back": "Wróć do rozmów",
+      "close": "Zamknij",
+      "message_actions": "Akcje wiadomości",
+      "copy_text": "Kopiuj tekst"
+    },
+    "states": {
+      "empty_title": "Rozmawiaj z przestrzenią roboczą",
+      "empty_body": "Napisz do członka zespołu lub utwórz grupę dla projektu albo zespołu. Udostępniaj pliki, notatki głosowe i elementy pracy.",
+      "new_direct": "To początek Twojej rozmowy z: {name}.",
+      "new_group": "To początek grupy {name}.",
+      "say_hi": "👋 Przywitaj się",
+      "offline": "Jesteś offline. Wysłane wiadomości zostaną dostarczone po ponownym połączeniu.",
+      "waiting": "Oczekuje na wysłanie",
+      "back_online": "Ponownie online. Nadrabianie zaległości."
+    },
+    "a11y": {
+      "new_message": "Nowa wiadomość od {name}: {text}"
+    }
+  }
+}

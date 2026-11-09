@@ -25,7 +25,7 @@ class FileAssetEndpoint(BaseAPIView):
 
     def get(self, request, workspace_id, asset_key):
         asset_key = str(workspace_id) + "/" + asset_key
-        files = FileAsset.objects.filter(asset=asset_key)
+        files = FileAsset.objects.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES).filter(asset=asset_key)
         if files.exists():
             serializer = FileAssetSerializer(files, context={"request": request}, many=True)
             return Response({"data": serializer.data, "status": True}, status=status.HTTP_200_OK)
@@ -47,7 +47,7 @@ class FileAssetEndpoint(BaseAPIView):
 
     def delete(self, request, workspace_id, asset_key):
         asset_key = str(workspace_id) + "/" + asset_key
-        file_asset = FileAsset.objects.get(asset=asset_key)
+        file_asset = FileAsset.objects.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES).get(asset=asset_key)
         file_asset.is_deleted = True
         file_asset.save(update_fields=["is_deleted"])
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -58,7 +58,7 @@ class FileAssetViewSet(BaseViewSet):
 
     def restore(self, request, workspace_id, asset_key):
         asset_key = str(workspace_id) + "/" + asset_key
-        file_asset = FileAsset.objects.get(asset=asset_key)
+        file_asset = FileAsset.objects.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES).get(asset=asset_key)
         file_asset.is_deleted = False
         file_asset.save(update_fields=["is_deleted"])
         return Response(status=status.HTTP_204_NO_CONTENT)

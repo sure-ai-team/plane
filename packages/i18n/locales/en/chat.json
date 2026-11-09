@@ -1,0 +1,457 @@
+{
+  "chat": {
+    "title": "Chat",
+    "page_label": "{workspace} - Chat",
+    "nav": {
+      "rail_label": "Chat",
+      "project_chat": "Chat"
+    },
+    "sections": {
+      "groups": "Groups",
+      "directs": "Direct messages"
+    },
+    "actions": {
+      "new": "New conversation",
+      "new_group": "New group",
+      "new_direct": "New direct message",
+      "mute": "Mute conversation",
+      "unmute": "Unmute conversation",
+      "leave": "Leave group",
+      "delete_group": "Delete group",
+      "add_members": "Add members",
+      "rename": "Rename group",
+      "details": "Conversation details",
+      "hide_details": "Hide details"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "connecting": "Connecting…",
+      "reconnecting": "Reconnecting…",
+      "blocked_disabled": "Chat is turned off for this instance.",
+      "blocked_access": "You don't have access to chat in this workspace."
+    },
+    "members": {
+      "count": "{count, plural, one {# member} other {# members}}",
+      "role_admin": "Admin",
+      "role_member": "Member",
+      "make_admin": "Make admin",
+      "remove_admin": "Remove admin",
+      "remove": "Remove from group",
+      "you": "You",
+      "only_members_hint": "Only members of this workspace can be added. Guests can't be messaged."
+    },
+    "new_conversation": {
+      "title": "New conversation",
+      "direct": "Direct message",
+      "group": "Group",
+      "group_name": "Group name",
+      "group_name_placeholder": "e.g. Mobile app release",
+      "members": "Members",
+      "to": "To",
+      "search_members": "Search members",
+      "no_members_found": "No members found",
+      "create_group": "Create group",
+      "start": "Start conversation",
+      "cancel": "Cancel"
+    },
+    "thread": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "new_messages": "New messages",
+      "jump_to_latest": "Jump to latest",
+      "seen_by": "{count, plural, one {Seen by #} other {Seen by #}}",
+      "typing_one": "{name} is typing…",
+      "typing_two": "{first} and {second} are typing…",
+      "typing_many": "Several people are typing…",
+      "edited": "edited",
+      "replying_to": "Replying to {name}",
+      "reply_attachment": "Attachment",
+      "reply_voice": "Voice note",
+      "empty_title": "No messages yet",
+      "empty_body": "Say hello to get the conversation started.",
+      "no_conversation_title": "Pick a conversation",
+      "no_conversation_body": "Choose a conversation from the list, or start a new one.",
+      "loading_older": "Loading older messages…",
+      "load_failed": "Couldn't load messages.",
+      "retry": "Try again",
+      "deleted_user": "Former member",
+      "loading_newer": "Loading newer messages…"
+    },
+    "message": {
+      "reply": "Reply",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copy_link": "Copy link to message",
+      "link_copied": "Link copied",
+      "more": "More actions",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete_confirm_title": "Delete message?",
+      "delete_confirm_body": "This removes the message and its files for everyone. This can't be undone.",
+      "send_failed": "Couldn't send",
+      "sending": "Sending…",
+      "retry": "Retry",
+      "discard": "Discard",
+      "create_work_item": "Create work item",
+      "no_access": "You can't open that message."
+    },
+    "system": {
+      "created": "{actor} created the group",
+      "member_added": "{actor} added {name}",
+      "member_removed": "{actor} removed {name}",
+      "member_left": "{name} left",
+      "renamed": "{actor} renamed the group to \"{name}\"",
+      "icon_changed": "{actor} changed the group icon",
+      "project_linked": "{actor} linked the group to a project",
+      "pinned": "{actor} pinned a message",
+      "unpinned": "{actor} unpinned a message",
+      "someone": "Someone"
+    },
+    "preview": {
+      "you": "You",
+      "photo": "Photo",
+      "video": "Video",
+      "voice": "Voice note",
+      "file": "File",
+      "attachments": "{count, plural, one {# attachment} other {# attachments}}",
+      "system": "Group update",
+      "empty": "No messages yet"
+    },
+    "composer": {
+      "placeholder": "Message {name}",
+      "send": "Send",
+      "editing": "Editing message",
+      "reply_cancel": "Cancel reply",
+      "attach": "Attach files",
+      "waiting_uploads": "Waiting for uploads…",
+      "remove_failed": "Remove or retry the failed files first",
+      "emoji": "Insert emoji",
+      "formatting": "Formatting",
+      "emoji_suggestions": "Emoji suggestions",
+      "suggestion_hint": "↑ ↓ to choose · Enter to pick · Esc to close"
+    },
+    "delete_group": {
+      "title": "Delete {name}?",
+      "body": "All messages and files in this group will be removed for everyone. This can't be undone.",
+      "confirm": "Delete group"
+    },
+    "leave_group": {
+      "title": "Leave {name}?",
+      "body": "You'll stop receiving messages from this group.",
+      "confirm": "Leave"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "not_found": "This conversation no longer exists, or you're not a member."
+    },
+    "upload": {
+      "ready": "Ready",
+      "preparing": "Preparing…",
+      "uploading": "Uploading {percent}%",
+      "confirming": "Checking…",
+      "failed": "Upload failed",
+      "retry": "Retry",
+      "remove": "Remove {name}",
+      "too_large": "{name} is too large. The limit is {limit} MB.",
+      "type_not_allowed": "{name} can't be shared: this file type isn't allowed.",
+      "type_mismatch": "The file doesn't match its type.",
+      "too_many": "You can attach up to {max} files per message.",
+      "drop_title": "Drop files to share in {name}",
+      "drop_hint": "Images up to {image} MB · videos up to {video} MB · audio up to {audio} MB · other files up to {file} MB",
+      "rejected_title": "Some files weren't added"
+    },
+    "media": {
+      "open_image": "Open image {name}",
+      "play_video": "Play video {name}",
+      "download": "Download {name}",
+      "preview_unavailable": "Preview unavailable",
+      "more": "+{count}",
+      "view_all": "View all ({count})",
+      "filter": "Filter media",
+      "filter_all": "All",
+      "filter_image": "Images",
+      "filter_video": "Videos",
+      "loaded_only": "Shows media from the messages loaded in this conversation. Scroll up in the chat to load older ones."
+    },
+    "details": {
+      "members": "Members",
+      "media": "Media",
+      "files": "Files",
+      "no_media": "No photos or videos in the loaded messages yet",
+      "no_files": "No files in the loaded messages yet"
+    },
+    "voice": {
+      "record": "Record voice note",
+      "stop": "Stop",
+      "discard": "Discard recording",
+      "record_again": "Record again",
+      "play": "Play voice note",
+      "pause": "Pause",
+      "position": "Playback position",
+      "send": "Send",
+      "speed": "Playback speed",
+      "up_to": "up to {max}",
+      "permission_denied": "Microphone access is blocked. Allow it in your browser settings.",
+      "unsupported": "Voice recording isn't supported in this browser."
+    },
+    "reactions": {
+      "add": "Add reaction",
+      "react_with": "React with {emoji}",
+      "chip_label": "{emoji} {count, plural, one {# reaction} other {# reactions}}",
+      "tooltip": "{names} reacted with {emoji}",
+      "and_others": "{names} and {count, plural, one {# other} other {# others}}"
+    },
+    "picker": {
+      "search": "Search emoji"
+    },
+    "pins": {
+      "title": "Pinned",
+      "pinned": "Pinned",
+      "count": "Pinned · {index} of {total}",
+      "next": "Next pinned message",
+      "view_all": "View all",
+      "close": "Close pinned messages",
+      "pin": "Pin message",
+      "unpin": "Unpin",
+      "pinned_by": "Pinned by {name}",
+      "empty": "No pinned messages yet.",
+      "hint": "Anyone in the conversation can pin. Up to 50 pins per conversation."
+    },
+    "jump": {
+      "to_message": "Jump to message",
+      "jump": "Jump",
+      "highlight": "Jumped here"
+    },
+    "unread": {
+      "divider": "New",
+      "divider_label": "New messages",
+      "pill": "{count, plural, one {# new message} other {# new messages}} since {time}",
+      "jump": "Jump",
+      "dismiss": "Dismiss"
+    },
+    "forward": {
+      "action": "Forward",
+      "title": "Forward message",
+      "to": "To",
+      "search": "Search conversations",
+      "no_results": "No conversations match.",
+      "limit": "You can forward to up to {count} conversations at once.",
+      "note": "Add a message (optional)",
+      "submit": "{count, plural, one {Send to # conversation} other {Send to # conversations}}",
+      "done": "{count, plural, one {Forwarded to # conversation} other {Forwarded to # conversations}}",
+      "from": "Forwarded from {name}",
+      "from_conversation": "Forwarded from {name} in {conversation}"
+    },
+    "sidebar": {
+      "find": "Find a conversation",
+      "find_placeholder": "Find by name",
+      "people": "People",
+      "people_message": "Message {name}",
+      "people_show_all": "Show all {count}",
+      "people_show_fewer": "Show fewer",
+      "search_messages_for": "Search messages for \"{query}\"",
+      "filter": {
+        "label": "Filter conversations",
+        "all": "All",
+        "unread": "{count, plural, =0 {Unread} other {Unread #}}",
+        "mentions": "{count, plural, =0 {Mentions} other {Mentions #}}"
+      },
+      "starred": "Starred",
+      "archived": "Archived",
+      "archived_empty": "No archived conversations.",
+      "no_unread": "You're all caught up.",
+      "no_mentions": "No unread mentions.",
+      "draft": "Draft: {text}",
+      "muted": "Notifications off",
+      "mentions_label": "{count, plural, one {# unread mention} other {# unread mentions}}",
+      "options": "Options for {name}",
+      "star": "Star",
+      "unstar": "Unstar",
+      "mark_read": "Mark as read",
+      "archive": "Archive",
+      "unarchive": "Unarchive",
+      "project_chats": "Chats for {project}",
+      "show_all": "Show all",
+      "project_empty": "No group chats are linked to this project yet. Link one from a group's details."
+    },
+    "search": {
+      "title": "Search messages",
+      "back": "Back to chat",
+      "placeholder": "Search messages",
+      "clear": "Clear search",
+      "filter": {
+        "in": "In conversation",
+        "in_all": "In: all conversations",
+        "from": "From",
+        "from_anyone": "From: anyone",
+        "has": "Has",
+        "has_any": "Has: anything",
+        "after": "After",
+        "before": "Before"
+      },
+      "has": {
+        "file": "Has: file",
+        "image": "Has: image",
+        "video": "Has: video",
+        "voice": "Has: voice note",
+        "link": "Has: link",
+        "work_item": "Has: work item"
+      },
+      "results": "{count, plural, one {# result} other {# results}}",
+      "results_many": "1,000+ results",
+      "results_label": "Search results",
+      "hint": "Type at least two characters, or pick a \"Has\" filter.",
+      "empty": "No messages match your search.",
+      "load_more": "Load more",
+      "loading": "Loading…",
+      "context": "Result in context",
+      "open": "Open conversation",
+      "footer": "Results only include conversations you're a member of. Use ↑ ↓ to move between results and Enter to open one."
+    },
+    "shortcuts": {
+      "title": "Keyboard shortcuts",
+      "previous_next": "Previous / next conversation",
+      "next_unread": "Next unread conversation",
+      "jump_conversation": "Jump to a conversation",
+      "search": "Search messages",
+      "edit_last": "Edit your last message (empty composer)",
+      "mark_read": "Mark conversation as read",
+      "jump_unread": "Jump to first unread",
+      "new_line": "New line in the composer",
+      "show_shortcuts": "Show shortcuts"
+    },
+    "about": {
+      "title": "About this group",
+      "description": "Group description",
+      "placeholder": "What is this group for?",
+      "empty": "No description yet.",
+      "add": "Add a description",
+      "edit": "Edit description",
+      "change_icon": "Click the icon to change it"
+    },
+    "notify": {
+      "title": "Notify me about",
+      "button_label": "Notifications: {level}",
+      "level": {
+        "all": "All messages",
+        "mentions": "Mentions only",
+        "off": "Off"
+      },
+      "level_description": {
+        "all": "Every new message",
+        "mentions": "When someone mentions you or replies to you",
+        "off": "Nothing. Unread counts still update."
+      },
+      "snooze": "Snooze for",
+      "snooze_1h": "1 hour",
+      "snooze_8h": "8 hours",
+      "snooze_tomorrow": "Until tomorrow",
+      "snoozed_short": "Snoozed",
+      "snoozed_until": "Snoozed until {time}",
+      "unsnooze": "Turn off",
+      "blocked": "Your browser is blocking notifications for this site. Allow them in the browser's site settings (the icon next to the address).",
+      "unsupported": "This browser can't show desktop notifications.",
+      "allow": "Allow desktop notifications",
+      "allow_prompt": "Allow notifications to be alerted when this tab isn't in front.",
+      "test_title": "Test notification",
+      "test_body": "This is how new messages will look and sound.",
+      "new_message": "New message",
+      "sent_photo": "Sent a photo",
+      "sent_video": "Sent a video",
+      "sent_voice": "Sent a voice note",
+      "sent_file": "Sent a file"
+    },
+    "prefs": {
+      "title": "Chat settings",
+      "subtitle": "These apply to you in this workspace.",
+      "desktop_notifications": "Desktop notifications",
+      "desktop_notifications_description": "Show a notification for new messages while this site is open.",
+      "sound": "Sound",
+      "sound_description": "Play a short sound with each notification.",
+      "sound_tone": "Tone",
+      "sound_volume": "Volume",
+      "sound_play": "Play",
+      "tones": {
+        "chime": "Chime",
+        "ding": "Ding",
+        "pop": "Pop",
+        "marimba": "Marimba",
+        "ringtone": "Ringtone"
+      },
+      "test": "Send a test notification",
+      "test_description": "Check how a new message looks and sounds.",
+      "show_preview": "Show message preview",
+      "show_preview_description": "Include the message text in notifications.",
+      "inbox_mentions": "Chat in Inbox",
+      "inbox_mentions_description": "Add mentions and direct messages to your Inbox.",
+      "layout": {
+        "title": "Message layout",
+        "description": "How messages look in conversations.",
+        "bubbles": "Bubbles",
+        "compact": "Compact",
+        "direct_only": "Use bubbles in direct messages only"
+      },
+      "minimize": {
+        "title": "Minimized chats",
+        "description": "How chats you keep open on other pages look when minimized.",
+        "docked": "Docked tabs",
+        "heads": "Chat heads"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name} mentioned you in a chat",
+      "mentioned_in": "{name} mentioned you in {conversation}",
+      "direct": "{name} sent you a message"
+    },
+    "slash": {
+      "title": "Commands",
+      "workitem": "Create a work item and link it here",
+      "link": "Link an existing work item",
+      "mute": "Mute or unmute this conversation",
+      "code": "Insert a code block",
+      "shrug": "Add ¯\\_(ツ)_/¯",
+      "muted": "Conversation muted",
+      "unmuted": "Conversation unmuted"
+    },
+    "dock": {
+      "open_full": "Open in full chat",
+      "minimize": "Minimize",
+      "close": "Close",
+      "expand": "Open {name}",
+      "heads": "Minimized chats"
+    },
+    "workitem": {
+      "share": "Share to chat",
+      "discuss": "Discuss in chat",
+      "discuss_hint": "The chat opens with a link to this work item ready to send.",
+      "this_project": "This project",
+      "shared": "{count, plural, one {Shared to # conversation} other {Shared to # conversations}}",
+      "discussed_in": "{count, plural, one {Discussed in # conversation} other {Discussed in # conversations}}",
+      "discussed_hint": "Only conversations you're in are listed.",
+      "chip": "{key}",
+      "due": "Due {date}",
+      "archived": "Archived",
+      "sub_items": "{count, plural, one {# sub-item} other {# sub-items}}"
+    },
+    "mobile": {
+      "back": "Back to conversations",
+      "close": "Close",
+      "message_actions": "Message actions",
+      "copy_text": "Copy text"
+    },
+    "states": {
+      "empty_title": "Talk with your workspace",
+      "empty_body": "Message a teammate, or start a group for a project or team. Share files, voice notes and work items.",
+      "new_direct": "This is the start of your conversation with {name}.",
+      "new_group": "This is the start of {name}.",
+      "say_hi": "👋 Say hi",
+      "offline": "You're offline. Messages you send will go out when you reconnect.",
+      "waiting": "Waiting to send",
+      "back_online": "Back online. Catching up on anything you missed."
+    },
+    "a11y": {
+      "new_message": "New message from {name}: {text}"
+    }
+  }
+}
