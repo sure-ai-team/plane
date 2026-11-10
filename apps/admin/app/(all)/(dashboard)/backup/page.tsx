@@ -5,7 +5,7 @@
  */
 
 import { useState } from "react";
-import { CalendarClock, HardDrive, History, ShieldCheck } from "lucide-react";
+import { CalendarClock, HardDrive, History, LifeBuoy, ShieldCheck } from "lucide-react";
 // plane imports
 import { Tabs } from "@plane/propel/tabs";
 // components
@@ -15,10 +15,11 @@ import type { Route } from "./+types/page";
 // local
 import { BackupDestinations } from "./destinations";
 import { BackupOverview } from "./overview";
+import { BackupRecovery } from "./recovery";
 import { BackupScheduleForm } from "./schedule-form";
 import { BackupSnapshots } from "./snapshots";
 
-export type TBackupTab = "overview" | "backups" | "schedule" | "destinations";
+export type TBackupTab = "overview" | "backups" | "schedule" | "destinations" | "recovery";
 
 function BackupPage(_props: Route.ComponentProps) {
   const [tab, setTab] = useState<TBackupTab>("overview");
@@ -49,6 +50,10 @@ function BackupPage(_props: Route.ComponentProps) {
             <HardDrive className="size-3.5" />
             Destinations
           </Tabs.Trigger>
+          <Tabs.Trigger value="recovery" size="md">
+            <LifeBuoy className="size-3.5" />
+            Server recovery
+          </Tabs.Trigger>
           <Tabs.Indicator />
         </Tabs.List>
         <Tabs.Content value="overview">
@@ -62,6 +67,9 @@ function BackupPage(_props: Route.ComponentProps) {
         </Tabs.Content>
         <Tabs.Content value="destinations">
           <BackupDestinations />
+        </Tabs.Content>
+        <Tabs.Content value="recovery">
+          <BackupRecovery />
         </Tabs.Content>
       </Tabs>
     </PageWrapper>

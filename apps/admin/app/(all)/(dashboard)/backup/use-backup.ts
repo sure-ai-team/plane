@@ -16,6 +16,7 @@ const KEYS = {
   schedule: "BACKUP_SCHEDULE",
   destinations: "BACKUP_DESTINATIONS",
   snapshots: "BACKUP_SNAPSHOTS",
+  releases: "BACKUP_RELEASES",
 };
 
 const ACTIVE_POLL_MS = 3000;
@@ -29,6 +30,15 @@ export function useBackupOverview() {
 
 export function useBackupSchedule() {
   return useSWR(KEYS.schedule, () => backupService.getSchedule(), { revalidateOnFocus: false });
+}
+
+export function useBackupReleases() {
+  return useSWR(KEYS.releases, () => backupService.listReleases(), {
+    refreshInterval: (data) =>
+      data?.releases.some((r) => Object.values(r.copies).some((c) => c.status === "queued" || c.status === "copying"))
+        ? ACTIVE_POLL_MS
+        : IDLE_POLL_MS,
+  });
 }
 
 export function useBackupDestinations() {
