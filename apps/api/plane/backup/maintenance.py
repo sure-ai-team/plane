@@ -24,7 +24,7 @@ STATUS_TTL = 3 * 24 * 3600
 MAINTENANCE_TTL = 6 * 3600
 # Paths that keep working during maintenance: the restore status and the instance info
 # the admin app needs to render.
-ALLOWED_PREFIXES = ("/api/instances/backups/restores/",)
+ALLOWED_PREFIXES = ("/api/instances/backups/restores/", "/api/instances/backups/maintenance/")
 ALLOWED_EXACT = ("/api/instances/",)
 CACHE_SECONDS = 2.0
 

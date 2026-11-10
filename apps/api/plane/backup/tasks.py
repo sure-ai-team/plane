@@ -229,3 +229,11 @@ def backup_housekeeping():
         cleanup()
     except Exception:  # noqa: BLE001
         logger.exception("Backup housekeeping failed")
+
+
+@shared_task(ignore_result=True)
+def copy_release_task(version):
+    """Upload a release copy (Docker images and compose files) to the backup destinations."""
+    from plane.backup.releases import copy_to_destinations
+
+    copy_to_destinations(version)

@@ -9,7 +9,7 @@ import shutil
 
 from django.conf import settings
 from django.db import transaction
-from django.http import FileResponse
+
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -17,7 +17,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from plane.backup import maintenance
-from plane.backup.bundle import shared_dir
+from plane.backup.bundle import compressed_file_response, shared_dir
 from plane.backup.destinations import format_bytes
 from plane.backup.exports import download_name, estimated_size, export_path
 from plane.backup.models import (
@@ -321,6 +321,19 @@ class BackupExportDownloadEndpoint(BaseAPIView):
         path = export_path(export.id)
         if export.status != ExportStatus.READY or not path.is_file():
             return _error("This download isn't ready or has expired. Prepare it again.", status.HTTP_404_NOT_FOUND)
-        return FileResponse(
-            open(path, "rb"), as_attachment=True, filename=download_name(export), content_type="application/gzip"
-        )
+        return compressed_file_response(request, path, download_name(export))
+
+
+class BackupMaintenanceStatusEndpoint(APIView):
+    """Whether the platform is paused for a restore. Open, so the web app's maintenance
+    screen can tell when to reload; it reveals only on/off."""
+
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        try:
+            active = bool(maintenance.maintenance_reason())
+        except Exception:  # noqa: BLE001 - Redis down means no restore is switching
+            active = False
+        return Response({"active": active}, headers={"Cache-Control": "no-store"})

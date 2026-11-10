@@ -187,3 +187,17 @@ def bundle_file_reader(root: Path):
             return open(path, "rb")
 
     return _Reader()
+
+
+def compressed_file_response(request, path: Path, filename: str):
+    """Serve an already-compressed .tar.gz as a download.
+
+    Django's GZipMiddleware would compress it a second time on the way out: wasted CPU on
+    files of several gigabytes, and the size header is dropped, so browsers can't show
+    download progress. The middleware decides from the request's Accept-Encoding when the
+    response passes back through it, so that is cleared for this request only.
+    """
+    from django.http import FileResponse
+
+    request.META["HTTP_ACCEPT_ENCODING"] = ""
+    return FileResponse(open(path, "rb"), as_attachment=True, filename=filename, content_type="application/gzip")

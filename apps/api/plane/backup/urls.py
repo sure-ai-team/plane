@@ -13,10 +13,18 @@ from plane.backup.views import (
     BackupSnapshotDetailEndpoint,
     BackupSnapshotListEndpoint,
 )
+from plane.backup.views_recovery import (
+    BackupReleaseCopyEndpoint,
+    BackupReleaseDetailEndpoint,
+    BackupReleaseDownloadEndpoint,
+    BackupReleaseListEndpoint,
+    BackupSettingsKitEndpoint,
+)
 from plane.backup.views_restore import (
     BackupExportDetailEndpoint,
     BackupExportDownloadEndpoint,
     BackupExportListEndpoint,
+    BackupMaintenanceStatusEndpoint,
     BackupRestoreCancelEndpoint,
     BackupRestoreConfirmEndpoint,
     BackupRestoreDetailEndpoint,
@@ -31,6 +39,7 @@ from plane.backup.views_restore import (
 
 urlpatterns = [
     path("overview/", BackupOverviewEndpoint.as_view(), name="backup-overview"),
+    path("maintenance/", BackupMaintenanceStatusEndpoint.as_view(), name="backup-maintenance"),
     path("schedule/", BackupScheduleEndpoint.as_view(), name="backup-schedule"),
     path("destinations/", BackupDestinationListEndpoint.as_view(), name="backup-destinations"),
     path("destinations/test/", BackupDestinationTestEndpoint.as_view(), name="backup-destination-test"),
@@ -55,4 +64,9 @@ urlpatterns = [
     path("uploads/<uuid:pk>/", BackupUploadDetailEndpoint.as_view(), name="backup-upload"),
     path("uploads/<uuid:pk>/chunk/", BackupUploadChunkEndpoint.as_view(), name="backup-upload-chunk"),
     path("uploads/<uuid:pk>/restore/", BackupUploadRestoreEndpoint.as_view(), name="backup-upload-restore"),
+    path("settings-kit/", BackupSettingsKitEndpoint.as_view(), name="backup-settings-kit"),
+    path("releases/", BackupReleaseListEndpoint.as_view(), name="backup-releases"),
+    path("releases/<str:version>/", BackupReleaseDetailEndpoint.as_view(), name="backup-release"),
+    path("releases/<str:version>/download/", BackupReleaseDownloadEndpoint.as_view(), name="backup-release-download"),
+    path("releases/<str:version>/copy/", BackupReleaseCopyEndpoint.as_view(), name="backup-release-copy"),
 ]
