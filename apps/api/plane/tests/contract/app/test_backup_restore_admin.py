@@ -265,8 +265,9 @@ class TestExports:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b"bundle-bytes")
         BackupExport.objects.filter(pk=export_id).update(status=ExportStatus.READY)
-        response = admin_client.get(f"{BASE}/exports/{export_id}/download/")
+        response = admin_client.get(f"{BASE}/exports/{export_id}/download/", HTTP_ACCEPT_ENCODING="gzip")
         assert response.status_code == 200
+        assert not response.has_header("Content-Encoding") and response["Content-Length"] == "12"
         assert b"".join(response.streaming_content) == b"bundle-bytes"
         assert "sgtpm-backup-s1.tar.gz" in response["Content-Disposition"]
 
