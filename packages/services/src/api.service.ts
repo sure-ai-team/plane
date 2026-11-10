@@ -6,6 +6,7 @@
 
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { create } from "axios";
+import { announceMaintenance, isMaintenanceResponse } from "@plane/constants";
 
 /**
  * Abstract base class for making HTTP requests using axios
@@ -25,6 +26,14 @@ export abstract class APIService {
       baseURL,
       withCredentials: true,
     });
+    // Only announces the restore pause; the app decides what to show. Errors still reach the caller.
+    this.axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (isMaintenanceResponse(error?.response?.status, error?.response?.data)) announceMaintenance();
+        return Promise.reject(error);
+      }
+    );
   }
 
   /**

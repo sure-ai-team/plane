@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "否则，请偶尔刷新页面或访问我们的",
     "status_page": "状态页面"
   },
+  "maintenance_mode": {
+    "title": "马上回来",
+    "description": "管理员正在从备份恢复平台，通常需要几分钟。",
+    "auto_reload": "平台恢复可用后，此页面将自动刷新。"
+  },
   "submit": "提交",
   "cancel": "取消",
   "loading": "加载中",

@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Otherwise, try refreshing the page occasionally or visit our",
     "status_page": "Status page"
   },
+  "maintenance_mode": {
+    "title": "We'll be right back",
+    "description": "An administrator is restoring the platform from a backup. This usually takes a few minutes.",
+    "auto_reload": "This page reloads by itself when the platform is available again."
+  },
   "submit": "Submit",
   "cancel": "Cancel",
   "loading": "Loading",

@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Andernfalls versuchen Sie gelegentlich die Seite zu aktualisieren oder besuchen Sie unsere",
     "status_page": "Statusseite"
   },
+  "maintenance_mode": {
+    "title": "Gleich wieder da",
+    "description": "Ein Administrator stellt die Plattform aus einer Sicherung wieder her. Das dauert in der Regel nur wenige Minuten.",
+    "auto_reload": "Diese Seite wird automatisch neu geladen, sobald die Plattform wieder verfügbar ist."
+  },
   "submit": "Senden",
   "cancel": "Abbrechen",
   "loading": "Wird geladen",

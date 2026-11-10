@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Aksi takdirde, sayfayı ara sıra yenilemeyi deneyin veya",
     "status_page": "durum sayfamızı ziyaret edin"
   },
+  "maintenance_mode": {
+    "title": "Hemen döneceğiz",
+    "description": "Bir yönetici platformu bir yedekten geri yüklüyor. Bu işlem genellikle birkaç dakika sürer.",
+    "auto_reload": "Platform yeniden kullanılabilir olduğunda bu sayfa otomatik olarak yenilenecektir."
+  },
   "submit": "Gönder",
   "cancel": "İptal",
   "loading": "Yükleniyor",
