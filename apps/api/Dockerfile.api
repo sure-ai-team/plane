@@ -16,7 +16,11 @@ RUN apk add --no-cache --upgrade \
     "libxslt" \
     "xmlsec" \
     "ca-certificates" \
-    "openssl"
+    "openssl" \
+    "postgresql17-client"
+
+# postgresql17-client above provides pg_dump / pg_restore for Backup & restore.
+# Version 17 can back up and load PostgreSQL servers up to 17.
 
 COPY requirements.txt ./
 COPY requirements ./requirements
