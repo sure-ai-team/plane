@@ -239,3 +239,37 @@ export type TBackupExport = {
   expires_at: string | null;
   estimated_size?: number;
 };
+
+// ---------------------------------------------------------------------------
+// Server recovery: settings kit and release copies
+// ---------------------------------------------------------------------------
+
+export type TBackupSettingsKitInfo = {
+  min_passphrase_length: number;
+  iterations: number;
+  filename: string;
+  /** The standard openssl command that opens a kit. */
+  open_command: string;
+};
+
+export type TBackupReleaseCopy = { status: "queued" | "copying" | "saved" | "failed"; at: string; error: string };
+
+export type TBackupRelease = {
+  version: string;
+  created_at: string | null;
+  images: { name: string; id?: string }[];
+  images_sha256: string;
+  images_size: number;
+  has_compose_files: boolean;
+  compose_size: number;
+  made_on: string;
+  /** Per destination name. */
+  copies: Record<string, TBackupReleaseCopy>;
+  is_current: boolean;
+};
+
+export type TBackupReleaseList = {
+  current_version: string;
+  has_current: boolean;
+  releases: TBackupRelease[];
+};

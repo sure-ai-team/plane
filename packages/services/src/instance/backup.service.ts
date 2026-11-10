@@ -11,8 +11,11 @@ import type {
   TBackupDestinationPayload,
   TBackupExport,
   TBackupOverview,
+  TBackupRelease,
+  TBackupReleaseList,
   TBackupRestore,
   TBackupRestorePublicStatus,
+  TBackupSettingsKitInfo,
   TBackupUpload,
   TBackupSchedule,
   TBackupSchedulePayload,
@@ -156,5 +159,45 @@ export class BackupService extends APIService {
 
   downloadUrl(id: string): string {
     return `${API_BASE_URL}${BASE}/exports/${id}/download/`;
+  }
+
+  // Server recovery
+
+  settingsKitInfo(): Promise<TBackupSettingsKitInfo> {
+    return this.unwrap(this.get(`${BASE}/settings-kit/`));
+  }
+
+  /** The encrypted kit as a file. Errors reject with the JSON body, like the other calls. */
+  async downloadSettingsKit(data: { password: string; passphrase: string }): Promise<Blob> {
+    try {
+      const response = await this.post(`${BASE}/settings-kit/`, data, { responseType: "blob" });
+      return response.data as Blob;
+    } catch (error) {
+      const body = (error as { response?: { data?: unknown } })?.response?.data;
+      if (body instanceof Blob) {
+        try {
+          throw JSON.parse(await body.text());
+        } catch (parsed) {
+          throw parsed instanceof SyntaxError ? { error: "Couldn't create the settings kit." } : parsed;
+        }
+      }
+      throw body ?? error;
+    }
+  }
+
+  listReleases(): Promise<TBackupReleaseList> {
+    return this.unwrap(this.get(`${BASE}/releases/`));
+  }
+
+  copyRelease(version: string): Promise<TBackupRelease> {
+    return this.unwrap(this.post(`${BASE}/releases/${encodeURIComponent(version)}/copy/`));
+  }
+
+  deleteRelease(version: string): Promise<void> {
+    return this.unwrap(this.delete(`${BASE}/releases/${encodeURIComponent(version)}/`));
+  }
+
+  releaseDownloadUrl(version: string, file: "images" | "compose"): string {
+    return `${API_BASE_URL}${BASE}/releases/${encodeURIComponent(version)}/download/?file=${file}`;
   }
 }
