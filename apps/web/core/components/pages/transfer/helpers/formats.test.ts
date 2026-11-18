@@ -283,7 +283,9 @@ describe("serializePages round trips", () => {
 
   it("gives duplicate page names unique file names inside the zip", async () => {
     const { blob } = await serializePages(SAMPLE, "html", { baseName: "p" });
-    expect(Object.keys(unzipSync(await blobBytes(blob))).toSorted()).toEqual(["Alpha-Beta-2.html", "Alpha-Beta.html"]);
+    const names = Object.keys(unzipSync(await blobBytes(blob)));
+    expect(names).toHaveLength(2);
+    expect(names).toEqual(expect.arrayContaining(["Alpha-Beta.html", "Alpha-Beta-2.html"]));
   });
 
   it(
@@ -302,9 +304,9 @@ describe("templates", () => {
     async (format) => {
       const { blob, fileName } = await buildTemplateFile(format);
       const { document } = await parseImportFiles([{ name: fileName, data: await blobBytes(blob) }]);
-      expect(document.pages.map((page) => page.name).toSorted()).toEqual(
-        TEMPLATE_PAGES.map((page) => page.name).toSorted()
-      );
+      const names = document.pages.map((page) => page.name);
+      expect(names).toHaveLength(TEMPLATE_PAGES.length);
+      expect(names).toEqual(expect.arrayContaining(TEMPLATE_PAGES.map((page) => page.name)));
       const notes = document.pages.find((page) => page.name === "Weekly meeting notes");
       expect(notes).toMatchObject({ access: "private", labels: ["Meetings", "Team"] });
     },
