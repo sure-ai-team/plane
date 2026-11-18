@@ -105,6 +105,15 @@ export const parseHTMLPage = (html: string): TParsedHTMLPage => {
     }
   }
 
+  // The editor only reads images as <image-component>; turn remote <img> into one
+  for (const image of findAll(container, (el) => el.tagName === "img")) {
+    const src = propString(image, "src");
+    if (src && /^https?:\/\//i.test(src)) {
+      image.tagName = "image-component";
+      image.properties = { src };
+    }
+  }
+
   const contentChildren = container.children.filter(
     (child) => !(isElement(child) && ["head", "script", "style", "title", "meta", "link"].includes(child.tagName))
   );

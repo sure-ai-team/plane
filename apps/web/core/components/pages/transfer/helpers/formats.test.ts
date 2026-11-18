@@ -106,6 +106,40 @@ describe("markdown", () => {
     expect(html).toContain("<table>");
   });
 
+  it.each([
+    [
+      "bare items",
+      '<ul data-type="taskList"><li data-type="taskItem" data-checked="true"><p>done</p></li><li data-type="taskItem" data-checked="false"><p>open</p></li></ul>',
+    ],
+    [
+      "editor-rendered items",
+      '<ul data-type="taskList"><li data-checked="true" data-type="taskItem"><label><input type="checkbox" checked="checked"><span></span></label><div><p>done</p></div></li><li data-checked="false" data-type="taskItem"><label><input type="checkbox"><span></span></label><div><p>open</p></div></li></ul>',
+    ],
+  ])("writes task lists from %s as GFM checkboxes", (_, html) => {
+    expect(htmlToMarkdown(html)).toMatch(/^[*-] \[x\] done\n+[*-] \[ \] open$/);
+  });
+
+  it("writes editor dividers and remote images, and reads images back as image components", () => {
+    const md = htmlToMarkdown(
+      '<p>a</p><div data-type="horizontalRule"><div></div></div><image-component src="https://e.com/a.png" width="100"></image-component>'
+    );
+    expect(md).toMatch(/^(\*\*\*|---)$/m);
+    expect(md).toContain("![image](https://e.com/a.png)");
+    expect(markdownToHTML(md)).toContain("<hr>");
+    const html = markdownToHTML("![logo](https://e.com/b.png)\n\n```\ncode\n```");
+    expect(html).toContain('<image-component src="https://e.com/b.png"></image-component>');
+    expect(html).toContain("<code>code</code>");
+  });
+
+  it("reads a lone checkbox followed by the item's paragraph", () => {
+    const html = markdownToHTML("* [x]\n\n  done\n\n* [ ]\n\n  open");
+    expect(html).toContain('<ul data-type="taskList">');
+    expect(html).toContain('<li data-type="taskItem" data-checked="true">');
+    expect(html).toContain('<li data-type="taskItem" data-checked="false">');
+    expect(html).toContain("<p>done</p>");
+    expect(html).not.toContain("[x]");
+  });
+
   it("returns an empty paragraph for empty input", () => {
     expect(markdownToHTML("")).toBe("<p></p>");
   });
@@ -157,6 +191,12 @@ describe("html", () => {
     expect(parsed.content_html).toBe("<p>Body</p>");
     expect(parsed.access).toBeNull();
     expect(parsed.labels).toBeNull();
+  });
+
+  it("turns remote <img> from other tools into image components", () => {
+    const parsed = parseHTMLPage('<body><p>a</p><img src="https://e.com/b.png" alt="b"><img src="data:x"></body>');
+    expect(parsed.content_html).toContain('<image-component src="https://e.com/b.png"></image-component>');
+    expect(parsed.content_html).toContain('<img src="data:x">');
   });
 
   it("handles fragments without a body", () => {
@@ -271,6 +311,26 @@ describe("serializePages round trips", () => {
       expect(pages[0].content_html).toContain("<strong>Bold</strong>");
       expect(pages[1]).toMatchObject({ name: "Alpha / Beta", access: "public" });
       expect(pages[1].external_id ?? null).toBeNull();
+    },
+    XLSX_TIMEOUT
+  );
+
+  it.each<TPageTransferFormat>(["json", "markdown", "html", "csv", "xlsx"])(
+    "keeps task list checkboxes in %s",
+    async (format) => {
+      const tasks: TSerializablePage = {
+        name: "Tasks",
+        content_html:
+          '<ul data-type="taskList"><li data-checked="true" data-type="taskItem"><label><input type="checkbox" checked="checked"><span></span></label><div><p>done</p></div></li><li data-checked="false" data-type="taskItem"><label><input type="checkbox"><span></span></label><div><p>open</p></div></li></ul>',
+      };
+      const { pages } = await roundTrip(format, [tasks]);
+      const html = pages[0].content_html ?? "";
+      expect(html).toContain('data-type="taskList"');
+      expect(html).toMatch(/data-type="taskItem"[^>]*data-checked="true"|data-checked="true"[^>]*data-type="taskItem"/);
+      expect(html).toMatch(
+        /data-type="taskItem"[^>]*data-checked="false"|data-checked="false"[^>]*data-type="taskItem"/
+      );
+      expect(html).toContain("done");
     },
     XLSX_TIMEOUT
   );
