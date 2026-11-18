@@ -199,7 +199,31 @@
       "success_title": "Pages imported",
       "success_message": "Created {created}, updated {updated}, skipped {skipped}.",
       "error_title": "Import failed",
-      "error_message": "The pages could not be imported. Try again."
+      "error_message": "The pages could not be imported. Try again.",
+      "errors": {
+        "page_not_object": "Each page must be an object.",
+        "name_required": "Name is required.",
+        "name_too_long": "Name is too long (maximum characters: {max}).",
+        "access_invalid": "Access must be \"public\" or \"private\".",
+        "labels_not_list": "Labels must be a list of label names.",
+        "label_not_text": "Every label must be text.",
+        "label_too_long": "A label name is too long (maximum characters: {max}).",
+        "too_many_labels": "Too many labels (maximum per page: {max}).",
+        "external_id_not_text": "external_id must be text.",
+        "external_id_too_long": "external_id is too long (maximum characters: {max}).",
+        "duplicate_external_id": "external_id \"{external_id}\" is also used by page {other}.",
+        "logo_not_object": "The page icon (logo_props) must be an object.",
+        "logo_invalid": "The page icon (logo_props) is not valid.",
+        "logo_too_large": "The page icon (logo_props) is too large.",
+        "content_not_text": "The page content must be text.",
+        "content_invalid": "The page content is too large or could not be processed.",
+        "payload_not_object": "The file must contain a list of pages.",
+        "unsupported_version": "This file uses format version {version}; only version {expected} is supported.",
+        "pages_not_list": "\"pages\" must be a list.",
+        "no_pages": "The file does not contain any pages.",
+        "too_many_pages": "Too many pages in one import (maximum: {max}). Split them across several files.",
+        "invalid_conflict_mode": "Choose what to do when a page already exists."
+      }
     },
     "export": {
       "button": "Export",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {Exported # page.} other {Exported # pages.}}",
       "error_title": "Export failed",
       "error_message": "The pages could not be exported. Try again."
+    },
+    "template": {
+      "file_name": "pages-import-template",
+      "getting_started": {
+        "name": "Getting started",
+        "label": "Docs",
+        "overview": "Overview",
+        "intro": "Write the page content here.",
+        "bold": "Bold text",
+        "italic": "Italic text",
+        "link": "A link",
+        "steps": "Steps",
+        "step_one": "First step",
+        "step_two": "Second step",
+        "task_done": "A finished task",
+        "task_open": "An open task",
+        "tip": "Tip: set access to private to keep a page to yourself."
+      },
+      "meeting_notes": {
+        "name": "Weekly meeting notes",
+        "label_meetings": "Meetings",
+        "label_team": "Team",
+        "agenda": "Agenda",
+        "updates": "Updates",
+        "blockers": "Blockers",
+        "decisions": "Decisions",
+        "decisions_hint": "Fill in the decisions made in the meeting."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Add page",
+    "create_error": "The page could not be created. Try again."
   }
 }

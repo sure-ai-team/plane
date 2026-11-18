@@ -147,7 +147,11 @@ export function ImportPagesModal(props: Props) {
 
   const handleDownloadTemplate = async () => {
     try {
-      const { blob, fileName } = await buildTemplateFile(templateFormat);
+      const { blob, fileName } = await buildTemplateFile(
+        templateFormat,
+        (key) => t(`pages_transfer.template.${key}`),
+        t("pages_transfer.template.file_name")
+      );
       downloadBlob(blob, fileName);
     } catch {
       setToast({
@@ -196,13 +200,14 @@ export function ImportPagesModal(props: Props) {
   };
 
   const describeError = (error: TPageImportError) => {
-    if (error.index === null || !preview) return error.message;
+    const text = error.code ? t(`pages_transfer.import.errors.${error.code}`, error.params ?? {}) : error.message;
+    if (error.index === null || !preview) return text;
     const page = preview.document.pages[error.index];
     const name = typeof page?.name === "string" && page.name.trim() ? page.name.trim() : null;
     const location = name
       ? t("pages_transfer.import.error_location_named", { number: error.index + 1, name })
       : t("pages_transfer.import.error_location", { number: error.index + 1 });
-    return `${location}: ${error.message}`;
+    return `${location}: ${text}`;
   };
 
   const results = preview?.response.results ?? [];

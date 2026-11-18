@@ -43,7 +43,9 @@ from plane.utils.page_transfer import (
     FORMAT_VERSION,
     INT_TO_ACCESS,
     ImportedPage,
+    Problem,
     as_uuid,
+    make_error,
     parse_conflict_mode,
     parse_import_payload,
 )
@@ -167,9 +169,9 @@ class PageImportEndpoint(BaseAPIView):
     def post(self, request, slug, project_id):
         on_conflict = parse_conflict_mode(request.data.get("on_conflict"))
         if on_conflict is None:
-            message = f"on_conflict must be one of: {', '.join(CONFLICT_MODES)}"
+            problem = Problem("invalid_conflict_mode", f"on_conflict must be one of: {', '.join(CONFLICT_MODES)}")
             return Response(
-                {"valid": False, "errors": [{"index": None, "field": "on_conflict", "message": message}]},
+                {"valid": False, "errors": [make_error(None, "on_conflict", problem)]},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         dry_run = request.data.get("dry_run") in (True, "true", "1", 1)

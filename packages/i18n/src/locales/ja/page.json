@@ -199,7 +199,31 @@
       "success_title": "ページをインポートしました",
       "success_message": "作成 {created} 件、更新 {updated} 件、スキップ {skipped} 件。",
       "error_title": "インポートに失敗しました",
-      "error_message": "ページをインポートできませんでした。もう一度お試しください。"
+      "error_message": "ページをインポートできませんでした。もう一度お試しください。",
+      "errors": {
+        "page_not_object": "各ページはオブジェクトである必要があります。",
+        "name_required": "名前は必須です。",
+        "name_too_long": "名前が長すぎます（最大文字数：{max}）。",
+        "access_invalid": "公開範囲は「public」または「private」である必要があります。",
+        "labels_not_list": "ラベルはラベル名のリストである必要があります。",
+        "label_not_text": "すべてのラベルはテキストである必要があります。",
+        "label_too_long": "ラベル名が長すぎます（最大文字数：{max}）。",
+        "too_many_labels": "ラベルが多すぎます（1 ページあたりの最大数：{max}）。",
+        "external_id_not_text": "external_id はテキストである必要があります。",
+        "external_id_too_long": "external_id が長すぎます（最大文字数：{max}）。",
+        "duplicate_external_id": "external_id「{external_id}」はページ {other} でも使用されています。",
+        "logo_not_object": "ページアイコン（logo_props）はオブジェクトである必要があります。",
+        "logo_invalid": "ページアイコン（logo_props）が無効です。",
+        "logo_too_large": "ページアイコン（logo_props）が大きすぎます。",
+        "content_not_text": "ページの内容はテキストである必要があります。",
+        "content_invalid": "ページの内容が大きすぎるか、処理できませんでした。",
+        "payload_not_object": "ファイルにはページのリストが含まれている必要があります。",
+        "unsupported_version": "このファイルは形式バージョン {version} を使用しています。サポートされているのはバージョン {expected} のみです。",
+        "pages_not_list": "「pages」はリストである必要があります。",
+        "no_pages": "ファイルにページが含まれていません。",
+        "too_many_pages": "1 回のインポートに含まれるページが多すぎます（最大：{max}）。複数のファイルに分割してください。",
+        "invalid_conflict_mode": "ページが既に存在する場合の処理を選択してください。"
+      }
     },
     "export": {
       "button": "エクスポート",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {# 件のページをエクスポートしました。} other {# 件のページをエクスポートしました。}}",
       "error_title": "エクスポートに失敗しました",
       "error_message": "ページをエクスポートできませんでした。もう一度お試しください。"
+    },
+    "template": {
+      "file_name": "ページインポートテンプレート",
+      "getting_started": {
+        "name": "はじめに",
+        "label": "ドキュメント",
+        "overview": "概要",
+        "intro": "ここにページの内容を記述します。",
+        "bold": "太字のテキスト",
+        "italic": "斜体のテキスト",
+        "link": "リンク",
+        "steps": "手順",
+        "step_one": "最初の手順",
+        "step_two": "2 番目の手順",
+        "task_done": "完了したタスク",
+        "task_open": "未完了のタスク",
+        "tip": "ヒント：公開範囲を非公開に設定すると、ページを自分だけのものにできます。"
+      },
+      "meeting_notes": {
+        "name": "週次ミーティングメモ",
+        "label_meetings": "ミーティング",
+        "label_team": "チーム",
+        "agenda": "議題",
+        "updates": "進捗報告",
+        "blockers": "課題・障害",
+        "decisions": "決定事項",
+        "decisions_hint": "ミーティングで決定した事項を記入してください。"
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "ページを追加",
+    "create_error": "ページを作成できませんでした。もう一度お試しください。"
   }
 }

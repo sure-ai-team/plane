@@ -199,7 +199,31 @@
       "success_title": "Pagini importate",
       "success_message": "Create: {created}, actualizate: {updated}, omise: {skipped}.",
       "error_title": "Importul a eșuat",
-      "error_message": "Paginile nu au putut fi importate. Încercați din nou."
+      "error_message": "Paginile nu au putut fi importate. Încercați din nou.",
+      "errors": {
+        "page_not_object": "Fiecare pagină trebuie să fie un obiect.",
+        "name_required": "Numele este obligatoriu.",
+        "name_too_long": "Numele este prea lung (număr maxim de caractere: {max}).",
+        "access_invalid": "Accesul trebuie să fie „public” sau „private”.",
+        "labels_not_list": "Etichetele trebuie să fie o listă de nume de etichete.",
+        "label_not_text": "Fiecare etichetă trebuie să fie text.",
+        "label_too_long": "Un nume de etichetă este prea lung (număr maxim de caractere: {max}).",
+        "too_many_labels": "Prea multe etichete (maximum pe pagină: {max}).",
+        "external_id_not_text": "external_id trebuie să fie text.",
+        "external_id_too_long": "external_id este prea lung (număr maxim de caractere: {max}).",
+        "duplicate_external_id": "external_id „{external_id}” este folosit și de pagina {other}.",
+        "logo_not_object": "Pictograma paginii (logo_props) trebuie să fie un obiect.",
+        "logo_invalid": "Pictograma paginii (logo_props) nu este validă.",
+        "logo_too_large": "Pictograma paginii (logo_props) este prea mare.",
+        "content_not_text": "Conținutul paginii trebuie să fie text.",
+        "content_invalid": "Conținutul paginii este prea mare sau nu a putut fi procesat.",
+        "payload_not_object": "Fișierul trebuie să conțină o listă de pagini.",
+        "unsupported_version": "Acest fișier folosește versiunea de format {version}; este acceptată doar versiunea {expected}.",
+        "pages_not_list": "„pages” trebuie să fie o listă.",
+        "no_pages": "Fișierul nu conține nicio pagină.",
+        "too_many_pages": "Prea multe pagini într-un singur import (maximum: {max}). Împărțiți-le în mai multe fișiere.",
+        "invalid_conflict_mode": "Alegeți ce se întâmplă când o pagină există deja."
+      }
     },
     "export": {
       "button": "Exportă",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {S-a exportat # pagină.} few {S-au exportat # pagini.} other {S-au exportat # de pagini.}}",
       "error_title": "Exportul a eșuat",
       "error_message": "Paginile nu au putut fi exportate. Încercați din nou."
+    },
+    "template": {
+      "file_name": "șablon-import-pagini",
+      "getting_started": {
+        "name": "Primii pași",
+        "label": "Documentație",
+        "overview": "Prezentare generală",
+        "intro": "Scrieți aici conținutul paginii.",
+        "bold": "Text aldin",
+        "italic": "Text cursiv",
+        "link": "Un link",
+        "steps": "Pași",
+        "step_one": "Primul pas",
+        "step_two": "Al doilea pas",
+        "task_done": "O sarcină finalizată",
+        "task_open": "O sarcină deschisă",
+        "tip": "Sfat: setați accesul la „private” pentru ca pagina să fie vizibilă doar pentru dumneavoastră."
+      },
+      "meeting_notes": {
+        "name": "Notițe de la ședința săptămânală",
+        "label_meetings": "Ședințe",
+        "label_team": "Echipă",
+        "agenda": "Ordinea de zi",
+        "updates": "Noutăți",
+        "blockers": "Blocaje",
+        "decisions": "Decizii",
+        "decisions_hint": "Completați deciziile luate în ședință."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Adaugă o pagină",
+    "create_error": "Pagina nu a putut fi creată. Încercați din nou."
   }
 }

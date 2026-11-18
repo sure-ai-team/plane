@@ -199,7 +199,31 @@
       "success_title": "Seiten importiert",
       "success_message": "Erstellt: {created}, aktualisiert: {updated}, übersprungen: {skipped}.",
       "error_title": "Import fehlgeschlagen",
-      "error_message": "Die Seiten konnten nicht importiert werden. Bitte versuchen Sie es erneut."
+      "error_message": "Die Seiten konnten nicht importiert werden. Bitte versuchen Sie es erneut.",
+      "errors": {
+        "page_not_object": "Jede Seite muss ein Objekt sein.",
+        "name_required": "Name ist erforderlich.",
+        "name_too_long": "Name ist zu lang (maximale Zeichenanzahl: {max}).",
+        "access_invalid": "Zugriff muss „public“ oder „private“ sein.",
+        "labels_not_list": "Labels müssen eine Liste von Label-Namen sein.",
+        "label_not_text": "Jedes Label muss Text sein.",
+        "label_too_long": "Ein Label-Name ist zu lang (maximale Zeichenanzahl: {max}).",
+        "too_many_labels": "Zu viele Labels (maximal pro Seite: {max}).",
+        "external_id_not_text": "external_id muss Text sein.",
+        "external_id_too_long": "external_id ist zu lang (maximale Zeichenanzahl: {max}).",
+        "duplicate_external_id": "external_id „{external_id}“ wird auch von Seite {other} verwendet.",
+        "logo_not_object": "Das Seitensymbol (logo_props) muss ein Objekt sein.",
+        "logo_invalid": "Das Seitensymbol (logo_props) ist ungültig.",
+        "logo_too_large": "Das Seitensymbol (logo_props) ist zu groß.",
+        "content_not_text": "Der Seiteninhalt muss Text sein.",
+        "content_invalid": "Der Seiteninhalt ist zu groß oder konnte nicht verarbeitet werden.",
+        "payload_not_object": "Die Datei muss eine Liste von Seiten enthalten.",
+        "unsupported_version": "Diese Datei verwendet die Formatversion {version}; nur Version {expected} wird unterstützt.",
+        "pages_not_list": "„pages“ muss eine Liste sein.",
+        "no_pages": "Die Datei enthält keine Seiten.",
+        "too_many_pages": "Zu viele Seiten in einem Import (maximal: {max}). Verteilen Sie sie auf mehrere Dateien.",
+        "invalid_conflict_mode": "Wählen Sie aus, was geschehen soll, wenn eine Seite bereits existiert."
+      }
     },
     "export": {
       "button": "Exportieren",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {# Seite exportiert.} other {# Seiten exportiert.}}",
       "error_title": "Export fehlgeschlagen",
       "error_message": "Die Seiten konnten nicht exportiert werden. Bitte versuchen Sie es erneut."
+    },
+    "template": {
+      "file_name": "seiten-import-vorlage",
+      "getting_started": {
+        "name": "Erste Schritte",
+        "label": "Dokumentation",
+        "overview": "Überblick",
+        "intro": "Schreiben Sie hier den Inhalt der Seite.",
+        "bold": "Fetter Text",
+        "italic": "Kursiver Text",
+        "link": "Ein Link",
+        "steps": "Schritte",
+        "step_one": "Erster Schritt",
+        "step_two": "Zweiter Schritt",
+        "task_done": "Eine erledigte Aufgabe",
+        "task_open": "Eine offene Aufgabe",
+        "tip": "Tipp: Setzen Sie den Zugriff auf „private“, damit nur Sie die Seite sehen."
+      },
+      "meeting_notes": {
+        "name": "Notizen zur wöchentlichen Besprechung",
+        "label_meetings": "Besprechungen",
+        "label_team": "Team",
+        "agenda": "Tagesordnung",
+        "updates": "Neuigkeiten",
+        "blockers": "Blocker",
+        "decisions": "Entscheidungen",
+        "decisions_hint": "Tragen Sie die in der Besprechung getroffenen Entscheidungen ein."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Seite hinzufügen",
+    "create_error": "Die Seite konnte nicht erstellt werden. Bitte versuchen Sie es erneut."
   }
 }

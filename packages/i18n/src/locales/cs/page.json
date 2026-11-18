@@ -199,7 +199,31 @@
       "success_title": "Stránky importovány",
       "success_message": "Vytvořeno: {created}, aktualizováno: {updated}, přeskočeno: {skipped}.",
       "error_title": "Import se nezdařil",
-      "error_message": "Stránky se nepodařilo importovat. Zkuste to znovu."
+      "error_message": "Stránky se nepodařilo importovat. Zkuste to znovu.",
+      "errors": {
+        "page_not_object": "Každá stránka musí být objekt.",
+        "name_required": "Název je povinný.",
+        "name_too_long": "Název je příliš dlouhý (maximální počet znaků: {max}).",
+        "access_invalid": "Přístup musí mít hodnotu „public“ nebo „private“.",
+        "labels_not_list": "Štítky musí být seznam názvů štítků.",
+        "label_not_text": "Každý štítek musí být text.",
+        "label_too_long": "Název štítku je příliš dlouhý (maximální počet znaků: {max}).",
+        "too_many_labels": "Příliš mnoho štítků (maximum na stránku: {max}).",
+        "external_id_not_text": "external_id musí být text.",
+        "external_id_too_long": "external_id je příliš dlouhé (maximální počet znaků: {max}).",
+        "duplicate_external_id": "external_id „{external_id}“ používá také stránka {other}.",
+        "logo_not_object": "Ikona stránky (logo_props) musí být objekt.",
+        "logo_invalid": "Ikona stránky (logo_props) není platná.",
+        "logo_too_large": "Ikona stránky (logo_props) je příliš velká.",
+        "content_not_text": "Obsah stránky musí být text.",
+        "content_invalid": "Obsah stránky je příliš velký nebo ho nebylo možné zpracovat.",
+        "payload_not_object": "Soubor musí obsahovat seznam stránek.",
+        "unsupported_version": "Tento soubor používá verzi formátu {version}; podporována je pouze verze {expected}.",
+        "pages_not_list": "„pages“ musí být seznam.",
+        "no_pages": "Soubor neobsahuje žádné stránky.",
+        "too_many_pages": "Příliš mnoho stránek v jednom importu (maximum: {max}). Rozdělte je do více souborů.",
+        "invalid_conflict_mode": "Vyberte, co se má stát, pokud stránka již existuje."
+      }
     },
     "export": {
       "button": "Exportovat",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {Exportována # stránka.} few {Exportovány # stránky.} many {Exportováno # stránky.} other {Exportováno # stránek.}}",
       "error_title": "Export se nezdařil",
       "error_message": "Stránky se nepodařilo exportovat. Zkuste to znovu."
+    },
+    "template": {
+      "file_name": "šablona-importu-stránek",
+      "getting_started": {
+        "name": "Začínáme",
+        "label": "Dokumentace",
+        "overview": "Přehled",
+        "intro": "Sem napište obsah stránky.",
+        "bold": "Tučný text",
+        "italic": "Kurzíva",
+        "link": "Odkaz",
+        "steps": "Kroky",
+        "step_one": "První krok",
+        "step_two": "Druhý krok",
+        "task_done": "Dokončený úkol",
+        "task_open": "Otevřený úkol",
+        "tip": "Tip: nastavte přístup na soukromý, aby stránku viděli jen Vy."
+      },
+      "meeting_notes": {
+        "name": "Poznámky z týdenní schůzky",
+        "label_meetings": "Schůzky",
+        "label_team": "Tým",
+        "agenda": "Program",
+        "updates": "Novinky",
+        "blockers": "Překážky",
+        "decisions": "Rozhodnutí",
+        "decisions_hint": "Doplňte rozhodnutí přijatá na schůzce."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Přidat stránku",
+    "create_error": "Stránku se nepodařilo vytvořit. Zkuste to znovu."
   }
 }

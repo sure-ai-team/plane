@@ -199,7 +199,31 @@
       "success_title": "Pages importées",
       "success_message": "Créées : {created}, mises à jour : {updated}, ignorées : {skipped}.",
       "error_title": "Échec de l’importation",
-      "error_message": "Impossible d’importer les pages. Veuillez réessayer."
+      "error_message": "Impossible d’importer les pages. Veuillez réessayer.",
+      "errors": {
+        "page_not_object": "Chaque page doit être un objet.",
+        "name_required": "Le nom est obligatoire.",
+        "name_too_long": "Le nom est trop long (nombre maximal de caractères : {max}).",
+        "access_invalid": "L’accès doit être « public » ou « private ».",
+        "labels_not_list": "Les étiquettes doivent être une liste de noms d’étiquettes.",
+        "label_not_text": "Chaque étiquette doit être du texte.",
+        "label_too_long": "Un nom d’étiquette est trop long (nombre maximal de caractères : {max}).",
+        "too_many_labels": "Trop d’étiquettes (maximum par page : {max}).",
+        "external_id_not_text": "external_id doit être du texte.",
+        "external_id_too_long": "external_id est trop long (nombre maximal de caractères : {max}).",
+        "duplicate_external_id": "external_id « {external_id} » est aussi utilisé par la page {other}.",
+        "logo_not_object": "L’icône de la page (logo_props) doit être un objet.",
+        "logo_invalid": "L’icône de la page (logo_props) n’est pas valide.",
+        "logo_too_large": "L’icône de la page (logo_props) est trop volumineuse.",
+        "content_not_text": "Le contenu de la page doit être du texte.",
+        "content_invalid": "Le contenu de la page est trop volumineux ou n’a pas pu être traité.",
+        "payload_not_object": "Le fichier doit contenir une liste de pages.",
+        "unsupported_version": "Ce fichier utilise la version de format {version} ; seule la version {expected} est prise en charge.",
+        "pages_not_list": "« pages » doit être une liste.",
+        "no_pages": "Le fichier ne contient aucune page.",
+        "too_many_pages": "Trop de pages dans une seule importation (maximum : {max}). Répartissez-les sur plusieurs fichiers.",
+        "invalid_conflict_mode": "Choisissez quoi faire lorsqu’une page existe déjà."
+      }
     },
     "export": {
       "button": "Exporter",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {# page exportée.} many {# de pages exportées.} other {# pages exportées.}}",
       "error_title": "Échec de l’exportation",
       "error_message": "Impossible d’exporter les pages. Veuillez réessayer."
+    },
+    "template": {
+      "file_name": "modèle-import-pages",
+      "getting_started": {
+        "name": "Prise en main",
+        "label": "Documentation",
+        "overview": "Vue d’ensemble",
+        "intro": "Rédigez le contenu de la page ici.",
+        "bold": "Texte en gras",
+        "italic": "Texte en italique",
+        "link": "Un lien",
+        "steps": "Étapes",
+        "step_one": "Première étape",
+        "step_two": "Deuxième étape",
+        "task_done": "Une tâche terminée",
+        "task_open": "Une tâche en cours",
+        "tip": "Astuce : définissez l’accès sur « private » pour garder une page pour vous seul."
+      },
+      "meeting_notes": {
+        "name": "Notes de la réunion hebdomadaire",
+        "label_meetings": "Réunions",
+        "label_team": "Équipe",
+        "agenda": "Ordre du jour",
+        "updates": "Actualités",
+        "blockers": "Points bloquants",
+        "decisions": "Décisions",
+        "decisions_hint": "Indiquez les décisions prises pendant la réunion."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Ajouter une page",
+    "create_error": "Impossible de créer la page. Veuillez réessayer."
   }
 }

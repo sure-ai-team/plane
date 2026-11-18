@@ -23,6 +23,9 @@ the server only ever has to understand this:
       ]
     }
 
+Every validation error carries a stable ``code`` and ``params`` so the web
+app can show it in the user's language; ``message`` is an English fallback.
+
 Everything here is pure (no database access) so it can be unit tested.
 """
 
@@ -67,8 +70,23 @@ class ImportedPage:
     logo_props: Optional[Dict[str, Any]] = None
 
 
-def _error(index: Optional[int], field_name: Optional[str], message: str) -> Dict[str, Any]:
-    return {"index": index, "field": field_name, "message": message}
+@dataclass
+class Problem:
+    """A validation problem: a stable code for translation plus an English message."""
+
+    code: str
+    message: str
+    params: Dict[str, Any] = field(default_factory=dict)
+
+
+def make_error(index: Optional[int], field_name: Optional[str], problem: Problem) -> Dict[str, Any]:
+    return {
+        "index": index,
+        "field": field_name,
+        "code": problem.code,
+        "params": problem.params,
+        "message": problem.message,
+    }
 
 
 def _parse_access(value: Any) -> Optional[int]:
@@ -83,25 +101,29 @@ def _parse_access(value: Any) -> Optional[int]:
     return None
 
 
-def _parse_labels(value: Any) -> Tuple[List[str], Optional[str]]:
+def _parse_labels(value: Any) -> Tuple[List[str], Optional[Problem]]:
     if value is None or value == "":
         return [], None
     if isinstance(value, str):
         # Spreadsheet cells and front matter often hold "a, b, c"
         value = value.split(",")
     if not isinstance(value, list):
-        return [], "Labels must be a list of label names."
+        return [], Problem("labels_not_list", "Labels must be a list of label names.")
 
     labels: List[str] = []
     seen = set()
     for raw in value:
         if not isinstance(raw, str):
-            return [], "Every label must be text."
+            return [], Problem("label_not_text", "Every label must be text.")
         name = raw.strip()
         if not name:
             continue
         if len(name) > MAX_LABEL_NAME_LENGTH:
-            return [], f"Label names can be at most {MAX_LABEL_NAME_LENGTH} characters."
+            return [], Problem(
+                "label_too_long",
+                f"Label names can be at most {MAX_LABEL_NAME_LENGTH} characters.",
+                {"max": MAX_LABEL_NAME_LENGTH},
+            )
         key = name.lower()
         if key in seen:
             continue
@@ -109,78 +131,100 @@ def _parse_labels(value: Any) -> Tuple[List[str], Optional[str]]:
         labels.append(name)
 
     if len(labels) > MAX_LABELS_PER_PAGE:
-        return [], f"A page can have at most {MAX_LABELS_PER_PAGE} labels."
+        return [], Problem(
+            "too_many_labels",
+            f"A page can have at most {MAX_LABELS_PER_PAGE} labels.",
+            {"max": MAX_LABELS_PER_PAGE},
+        )
     return labels, None
 
 
-def _parse_external_id(value: Any) -> Tuple[Optional[str], Optional[str]]:
+def _parse_external_id(value: Any) -> Tuple[Optional[str], Optional[Problem]]:
     if value is None or value == "":
         return None, None
     if isinstance(value, bool) or not isinstance(value, (str, int)):
-        return None, "external_id must be text."
+        return None, Problem("external_id_not_text", "external_id must be text.")
     text = str(value).strip()
     if not text:
         return None, None
     if len(text) > MAX_EXTERNAL_ID_LENGTH:
-        return None, f"external_id can be at most {MAX_EXTERNAL_ID_LENGTH} characters."
+        return None, Problem(
+            "external_id_too_long",
+            f"external_id can be at most {MAX_EXTERNAL_ID_LENGTH} characters.",
+            {"max": MAX_EXTERNAL_ID_LENGTH},
+        )
     return text, None
 
 
-def _parse_logo_props(value: Any) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+def _parse_logo_props(value: Any) -> Tuple[Optional[Dict[str, Any]], Optional[Problem]]:
     if value is None or value == "" or value == {}:
         return None, None
     if not isinstance(value, dict):
-        return None, "logo_props must be an object."
+        return None, Problem("logo_not_object", "logo_props must be an object.")
     try:
         size = len(json.dumps(value).encode("utf-8"))
     except (TypeError, ValueError):
-        return None, "logo_props must be valid JSON."
+        return None, Problem("logo_invalid", "logo_props must be valid JSON.")
     if size > MAX_LOGO_PROPS_BYTES:
-        return None, "logo_props is too large."
+        return None, Problem("logo_too_large", "logo_props is too large.")
     return value, None
 
 
 def _parse_page(index: int, item: Any) -> Tuple[Optional[ImportedPage], List[Dict[str, Any]]]:
     if not isinstance(item, dict):
-        return None, [_error(index, None, "Each page must be an object.")]
+        return None, [make_error(index, None, Problem("page_not_object", "Each page must be an object."))]
 
     errors: List[Dict[str, Any]] = []
 
     name = item.get("name")
     if not isinstance(name, str) or not name.strip():
-        errors.append(_error(index, "name", "Name is required."))
+        errors.append(make_error(index, "name", Problem("name_required", "Name is required.")))
         name = ""
     else:
         name = name.strip()
         if len(name) > MAX_NAME_LENGTH:
-            errors.append(_error(index, "name", f"Name can be at most {MAX_NAME_LENGTH} characters."))
+            errors.append(
+                make_error(
+                    index,
+                    "name",
+                    Problem(
+                        "name_too_long",
+                        f"Name can be at most {MAX_NAME_LENGTH} characters.",
+                        {"max": MAX_NAME_LENGTH},
+                    ),
+                )
+            )
 
     access = _parse_access(item.get("access"))
     if access is None:
-        errors.append(_error(index, "access", 'Access must be "public" or "private".'))
+        errors.append(
+            make_error(index, "access", Problem("access_invalid", 'Access must be "public" or "private".'))
+        )
 
-    labels, label_error = _parse_labels(item.get("labels"))
-    if label_error:
-        errors.append(_error(index, "labels", label_error))
+    labels, label_problem = _parse_labels(item.get("labels"))
+    if label_problem:
+        errors.append(make_error(index, "labels", label_problem))
 
-    external_id, external_id_error = _parse_external_id(item.get("external_id"))
-    if external_id_error:
-        errors.append(_error(index, "external_id", external_id_error))
+    external_id, external_id_problem = _parse_external_id(item.get("external_id"))
+    if external_id_problem:
+        errors.append(make_error(index, "external_id", external_id_problem))
 
-    logo_props, logo_error = _parse_logo_props(item.get("logo_props"))
-    if logo_error:
-        errors.append(_error(index, "logo_props", logo_error))
+    logo_props, logo_problem = _parse_logo_props(item.get("logo_props"))
+    if logo_problem:
+        errors.append(make_error(index, "logo_props", logo_problem))
 
     content_html = item.get("content_html")
     if content_html is None or content_html == "":
         content_html = EMPTY_CONTENT_HTML
     elif not isinstance(content_html, str):
-        errors.append(_error(index, "content_html", "content_html must be text."))
+        errors.append(make_error(index, "content_html", Problem("content_not_text", "content_html must be text.")))
         content_html = EMPTY_CONTENT_HTML
     else:
         is_valid, message, clean_html = validate_html_content(content_html)
         if not is_valid:
-            errors.append(_error(index, "content_html", message or "Content is not valid HTML."))
+            errors.append(
+                make_error(index, "content_html", Problem("content_invalid", message or "Content is not valid HTML."))
+            )
             content_html = EMPTY_CONTENT_HTML
         else:
             content_html = clean_html if clean_html and clean_html.strip() else EMPTY_CONTENT_HTML
@@ -211,19 +255,26 @@ def parse_import_payload(data: Any) -> Tuple[List[ImportedPage], List[Dict[str, 
     errors about the payload as a whole).
     """
     if not isinstance(data, dict):
-        return [], [_error(None, None, "The import must be a JSON object with a pages list.")]
+        problem = Problem("payload_not_object", "The import must be a JSON object with a pages list.")
+        return [], [make_error(None, None, problem)]
 
     version = data.get("version", FORMAT_VERSION)
     if version != FORMAT_VERSION:
-        return [], [_error(None, "version", f"Unsupported format version {version!r}; expected {FORMAT_VERSION}.")]
+        problem = Problem(
+            "unsupported_version",
+            f"Unsupported format version {version!r}; expected {FORMAT_VERSION}.",
+            {"version": str(version), "expected": FORMAT_VERSION},
+        )
+        return [], [make_error(None, "version", problem)]
 
     items = data.get("pages")
     if not isinstance(items, list):
-        return [], [_error(None, "pages", "pages must be a list.")]
+        return [], [make_error(None, "pages", Problem("pages_not_list", "pages must be a list."))]
     if not items:
-        return [], [_error(None, "pages", "The file does not contain any pages.")]
+        return [], [make_error(None, "pages", Problem("no_pages", "The file does not contain any pages."))]
     if len(items) > MAX_PAGES:
-        return [], [_error(None, "pages", f"A single import can contain at most {MAX_PAGES} pages.")]
+        problem = Problem("too_many_pages", f"A single import can contain at most {MAX_PAGES} pages.", {"max": MAX_PAGES})
+        return [], [make_error(None, "pages", problem)]
 
     pages: List[ImportedPage] = []
     errors: List[Dict[str, Any]] = []
@@ -237,13 +288,12 @@ def parse_import_payload(data: Any) -> Tuple[List[ImportedPage], List[Dict[str, 
         if page.external_id is not None:
             first = seen_external_ids.get(page.external_id)
             if first is not None:
-                errors.append(
-                    _error(
-                        index,
-                        "external_id",
-                        f'external_id "{page.external_id}" is also used by page {first + 1}.',
-                    )
+                problem = Problem(
+                    "duplicate_external_id",
+                    f'external_id "{page.external_id}" is also used by page {first + 1}.',
+                    {"external_id": page.external_id, "other": first + 1},
                 )
+                errors.append(make_error(index, "external_id", problem))
                 continue
             seen_external_ids[page.external_id] = index
         pages.append(page)

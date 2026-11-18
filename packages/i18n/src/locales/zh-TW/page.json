@@ -199,7 +199,31 @@
       "success_title": "頁面已匯入",
       "success_message": "已建立 {created} 個，已更新 {updated} 個，已略過 {skipped} 個。",
       "error_title": "匯入失敗",
-      "error_message": "無法匯入頁面。請再試一次。"
+      "error_message": "無法匯入頁面。請再試一次。",
+      "errors": {
+        "page_not_object": "每個頁面都必須是物件。",
+        "name_required": "名稱為必填。",
+        "name_too_long": "名稱過長（最大字元數：{max}）。",
+        "access_invalid": "可見性必須為「public」或「private」。",
+        "labels_not_list": "標籤必須是標籤名稱清單。",
+        "label_not_text": "每個標籤都必須是文字。",
+        "label_too_long": "標籤名稱過長（最大字元數：{max}）。",
+        "too_many_labels": "標籤過多（每個頁面上限：{max}）。",
+        "external_id_not_text": "external_id 必須是文字。",
+        "external_id_too_long": "external_id 過長（最大字元數：{max}）。",
+        "duplicate_external_id": "external_id「{external_id}」也被第 {other} 個頁面使用。",
+        "logo_not_object": "頁面圖示（logo_props）必須是物件。",
+        "logo_invalid": "頁面圖示（logo_props）無效。",
+        "logo_too_large": "頁面圖示（logo_props）過大。",
+        "content_not_text": "頁面內容必須是文字。",
+        "content_invalid": "頁面內容過大或無法處理。",
+        "payload_not_object": "檔案必須包含頁面清單。",
+        "unsupported_version": "此檔案使用的格式版本為 {version}；僅支援版本 {expected}。",
+        "pages_not_list": "「pages」必須是清單。",
+        "no_pages": "檔案中不包含任何頁面。",
+        "too_many_pages": "單次匯入的頁面過多（上限：{max}）。請將其分割成多個檔案。",
+        "invalid_conflict_mode": "請選擇頁面已存在時的處理方式。"
+      }
     },
     "export": {
       "button": "匯出",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {已匯出 # 個頁面。} other {已匯出 # 個頁面。}}",
       "error_title": "匯出失敗",
       "error_message": "無法匯出頁面。請再試一次。"
+    },
+    "template": {
+      "file_name": "頁面匯入範本",
+      "getting_started": {
+        "name": "入門指南",
+        "label": "文件",
+        "overview": "概覽",
+        "intro": "在此處撰寫頁面內容。",
+        "bold": "粗體文字",
+        "italic": "斜體文字",
+        "link": "一個連結",
+        "steps": "步驟",
+        "step_one": "第一步",
+        "step_two": "第二步",
+        "task_done": "已完成的任務",
+        "task_open": "未完成的任務",
+        "tip": "提示：將可見性設為私人，頁面將僅供您自己檢視。"
+      },
+      "meeting_notes": {
+        "name": "每週會議記錄",
+        "label_meetings": "會議",
+        "label_team": "團隊",
+        "agenda": "議程",
+        "updates": "進度更新",
+        "blockers": "阻礙事項",
+        "decisions": "決議",
+        "decisions_hint": "請填寫會議中做出的決議。"
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "新增頁面",
+    "create_error": "無法建立頁面。請再試一次。"
   }
 }

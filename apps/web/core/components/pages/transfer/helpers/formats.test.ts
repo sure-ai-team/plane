@@ -314,6 +314,24 @@ describe("templates", () => {
   );
 });
 
+const fakeTranslate = (key: string) => (key === "getting_started.intro" ? "<b>نص</b> & more" : `ع:${key}`);
+
+describe("localized templates", () => {
+  it("uses translated text and escapes it in the content", async () => {
+    const { blob, fileName } = await buildTemplateFile("json", fakeTranslate, "قالب الصفحات");
+    const { document } = await parseImportFiles([{ name: fileName, data: await blobBytes(blob) }]);
+
+    expect(fileName).toBe("قالب-الصفحات.json");
+    expect(document.pages[0]).toMatchObject({
+      name: "ع:getting_started.name",
+      access: "public",
+      labels: ["ع:getting_started.label"],
+    });
+    expect(document.pages[0].content_html).toContain("&lt;b&gt;نص&lt;/b&gt; &amp; more");
+    expect(document.pages[1].labels).toEqual(["ع:meeting_notes.label_meetings", "ع:meeting_notes.label_team"]);
+  });
+});
+
 describe("toSafeFileName", () => {
   it("keeps letters from any script and strips path characters", () => {
     expect(toSafeFileName("ملاحظات/الاجتماع: ١")).toBe("ملاحظات-الاجتماع-١");

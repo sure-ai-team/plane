@@ -199,7 +199,31 @@
       "success_title": "Zaimportowano strony",
       "success_message": "Utworzono: {created}, zaktualizowano: {updated}, pominięto: {skipped}.",
       "error_title": "Import nie powiódł się",
-      "error_message": "Nie udało się zaimportować stron. Prosimy spróbować ponownie."
+      "error_message": "Nie udało się zaimportować stron. Prosimy spróbować ponownie.",
+      "errors": {
+        "page_not_object": "Każda strona musi być obiektem.",
+        "name_required": "Nazwa jest wymagana.",
+        "name_too_long": "Nazwa jest za długa (maksymalna liczba znaków: {max}).",
+        "access_invalid": "Dostęp musi mieć wartość „public” lub „private”.",
+        "labels_not_list": "Etykiety muszą być listą nazw etykiet.",
+        "label_not_text": "Każda etykieta musi być tekstem.",
+        "label_too_long": "Nazwa etykiety jest za długa (maksymalna liczba znaków: {max}).",
+        "too_many_labels": "Za dużo etykiet (maksymalnie na stronę: {max}).",
+        "external_id_not_text": "external_id musi być tekstem.",
+        "external_id_too_long": "external_id jest za długi (maksymalna liczba znaków: {max}).",
+        "duplicate_external_id": "external_id „{external_id}” jest używany również przez stronę {other}.",
+        "logo_not_object": "Ikona strony (logo_props) musi być obiektem.",
+        "logo_invalid": "Ikona strony (logo_props) jest nieprawidłowa.",
+        "logo_too_large": "Ikona strony (logo_props) jest za duża.",
+        "content_not_text": "Treść strony musi być tekstem.",
+        "content_invalid": "Treść strony jest za duża lub nie udało się jej przetworzyć.",
+        "payload_not_object": "Plik musi zawierać listę stron.",
+        "unsupported_version": "Ten plik używa wersji formatu {version}; obsługiwana jest tylko wersja {expected}.",
+        "pages_not_list": "„pages” musi być listą.",
+        "no_pages": "Plik nie zawiera żadnych stron.",
+        "too_many_pages": "Za dużo stron w jednym imporcie (maksymalnie: {max}). Należy podzielić je na kilka plików.",
+        "invalid_conflict_mode": "Należy wybrać, co zrobić, jeśli strona już istnieje."
+      }
     },
     "export": {
       "button": "Eksportuj",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {Wyeksportowano # stronę.} few {Wyeksportowano # strony.} many {Wyeksportowano # stron.} other {Wyeksportowano # strony.}}",
       "error_title": "Eksport nie powiódł się",
       "error_message": "Nie udało się wyeksportować stron. Prosimy spróbować ponownie."
+    },
+    "template": {
+      "file_name": "szablon-importu-stron",
+      "getting_started": {
+        "name": "Pierwsze kroki",
+        "label": "Dokumentacja",
+        "overview": "Przegląd",
+        "intro": "Tutaj należy wpisać treść strony.",
+        "bold": "Pogrubiony tekst",
+        "italic": "Kursywa",
+        "link": "Link",
+        "steps": "Kroki",
+        "step_one": "Pierwszy krok",
+        "step_two": "Drugi krok",
+        "task_done": "Ukończone zadanie",
+        "task_open": "Otwarte zadanie",
+        "tip": "Wskazówka: ustawienie dostępu na prywatny sprawi, że strona będzie widoczna tylko dla autora."
+      },
+      "meeting_notes": {
+        "name": "Notatki z cotygodniowego spotkania",
+        "label_meetings": "Spotkania",
+        "label_team": "Zespół",
+        "agenda": "Porządek spotkania",
+        "updates": "Aktualności",
+        "blockers": "Przeszkody",
+        "decisions": "Decyzje",
+        "decisions_hint": "Tutaj należy wpisać decyzje podjęte na spotkaniu."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Dodaj stronę",
+    "create_error": "Nie udało się utworzyć strony. Prosimy spróbować ponownie."
   }
 }

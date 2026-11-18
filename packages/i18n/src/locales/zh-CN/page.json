@@ -199,7 +199,31 @@
       "success_title": "页面已导入",
       "success_message": "已创建 {created} 个，已更新 {updated} 个，已跳过 {skipped} 个。",
       "error_title": "导入失败",
-      "error_message": "无法导入页面。请重试。"
+      "error_message": "无法导入页面。请重试。",
+      "errors": {
+        "page_not_object": "每个页面都必须是对象。",
+        "name_required": "名称为必填项。",
+        "name_too_long": "名称过长（最大字符数：{max}）。",
+        "access_invalid": "可见性必须为“public”或“private”。",
+        "labels_not_list": "标签必须是标签名称列表。",
+        "label_not_text": "每个标签都必须是文本。",
+        "label_too_long": "标签名称过长（最大字符数：{max}）。",
+        "too_many_labels": "标签过多（每个页面最多：{max}）。",
+        "external_id_not_text": "external_id 必须是文本。",
+        "external_id_too_long": "external_id 过长（最大字符数：{max}）。",
+        "duplicate_external_id": "external_id“{external_id}”也被第 {other} 个页面使用。",
+        "logo_not_object": "页面图标（logo_props）必须是对象。",
+        "logo_invalid": "页面图标（logo_props）无效。",
+        "logo_too_large": "页面图标（logo_props）过大。",
+        "content_not_text": "页面内容必须是文本。",
+        "content_invalid": "页面内容过大或无法处理。",
+        "payload_not_object": "文件必须包含页面列表。",
+        "unsupported_version": "此文件使用的格式版本为 {version}；仅支持版本 {expected}。",
+        "pages_not_list": "“pages”必须是列表。",
+        "no_pages": "文件中不包含任何页面。",
+        "too_many_pages": "单次导入的页面过多（最多：{max}）。请将其拆分到多个文件中。",
+        "invalid_conflict_mode": "请选择页面已存在时的处理方式。"
+      }
     },
     "export": {
       "button": "导出",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {已导出 # 个页面。} other {已导出 # 个页面。}}",
       "error_title": "导出失败",
       "error_message": "无法导出页面。请重试。"
+    },
+    "template": {
+      "file_name": "页面导入模板",
+      "getting_started": {
+        "name": "入门指南",
+        "label": "文档",
+        "overview": "概述",
+        "intro": "在此处编写页面内容。",
+        "bold": "粗体文本",
+        "italic": "斜体文本",
+        "link": "一个链接",
+        "steps": "步骤",
+        "step_one": "第一步",
+        "step_two": "第二步",
+        "task_done": "已完成的任务",
+        "task_open": "未完成的任务",
+        "tip": "提示：将可见性设为私有，页面将仅对您自己可见。"
+      },
+      "meeting_notes": {
+        "name": "每周会议记录",
+        "label_meetings": "会议",
+        "label_team": "团队",
+        "agenda": "议程",
+        "updates": "进展",
+        "blockers": "阻碍事项",
+        "decisions": "决定",
+        "decisions_hint": "请填写会议中做出的决定。"
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "添加页面",
+    "create_error": "无法创建页面。请重试。"
   }
 }

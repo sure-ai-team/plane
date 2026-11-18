@@ -199,7 +199,31 @@
       "success_title": "Páginas importadas",
       "success_message": "Criadas: {created}, atualizadas: {updated}, ignoradas: {skipped}.",
       "error_title": "Falha na importação",
-      "error_message": "Não foi possível importar as páginas. Tente novamente."
+      "error_message": "Não foi possível importar as páginas. Tente novamente.",
+      "errors": {
+        "page_not_object": "Cada página deve ser um objeto.",
+        "name_required": "O nome é obrigatório.",
+        "name_too_long": "O nome é longo demais (máximo de caracteres: {max}).",
+        "access_invalid": "O acesso deve ser \"public\" ou \"private\".",
+        "labels_not_list": "As etiquetas devem ser uma lista de nomes de etiquetas.",
+        "label_not_text": "Cada etiqueta deve ser um texto.",
+        "label_too_long": "Um nome de etiqueta é longo demais (máximo de caracteres: {max}).",
+        "too_many_labels": "Etiquetas demais (máximo por página: {max}).",
+        "external_id_not_text": "external_id deve ser um texto.",
+        "external_id_too_long": "external_id é longo demais (máximo de caracteres: {max}).",
+        "duplicate_external_id": "O external_id \"{external_id}\" também é usado pela página {other}.",
+        "logo_not_object": "O ícone da página (logo_props) deve ser um objeto.",
+        "logo_invalid": "O ícone da página (logo_props) não é válido.",
+        "logo_too_large": "O ícone da página (logo_props) é grande demais.",
+        "content_not_text": "O conteúdo da página deve ser um texto.",
+        "content_invalid": "O conteúdo da página é grande demais ou não pôde ser processado.",
+        "payload_not_object": "O arquivo deve conter uma lista de páginas.",
+        "unsupported_version": "Este arquivo usa a versão de formato {version}; somente a versão {expected} é compatível.",
+        "pages_not_list": "\"pages\" deve ser uma lista.",
+        "no_pages": "O arquivo não contém nenhuma página.",
+        "too_many_pages": "Páginas demais em uma única importação (máximo: {max}). Divida-as em vários arquivos.",
+        "invalid_conflict_mode": "Escolha o que fazer quando uma página já existir."
+      }
     },
     "export": {
       "button": "Exportar",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {# página exportada.} many {# de páginas exportadas.} other {# páginas exportadas.}}",
       "error_title": "Falha na exportação",
       "error_message": "Não foi possível exportar as páginas. Tente novamente."
+    },
+    "template": {
+      "file_name": "modelo-importação-páginas",
+      "getting_started": {
+        "name": "Primeiros passos",
+        "label": "Documentação",
+        "overview": "Visão geral",
+        "intro": "Escreva o conteúdo da página aqui.",
+        "bold": "Texto em negrito",
+        "italic": "Texto em itálico",
+        "link": "Um link",
+        "steps": "Etapas",
+        "step_one": "Primeira etapa",
+        "step_two": "Segunda etapa",
+        "task_done": "Uma tarefa concluída",
+        "task_open": "Uma tarefa em aberto",
+        "tip": "Dica: defina o acesso como \"private\" para que só você veja a página."
+      },
+      "meeting_notes": {
+        "name": "Notas da reunião semanal",
+        "label_meetings": "Reuniões",
+        "label_team": "Equipe",
+        "agenda": "Pauta",
+        "updates": "Atualizações",
+        "blockers": "Impedimentos",
+        "decisions": "Decisões",
+        "decisions_hint": "Preencha as decisões tomadas na reunião."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Adicionar página",
+    "create_error": "Não foi possível criar a página. Tente novamente."
   }
 }

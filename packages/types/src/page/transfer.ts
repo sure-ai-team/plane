@@ -48,10 +48,38 @@ export type TPageExportResponse = {
 
 export type TPageImportConflictMode = "skip" | "update" | "duplicate";
 
+export type TPageImportErrorCode =
+  | "page_not_object"
+  | "name_required"
+  | "name_too_long"
+  | "access_invalid"
+  | "labels_not_list"
+  | "label_not_text"
+  | "label_too_long"
+  | "too_many_labels"
+  | "external_id_not_text"
+  | "external_id_too_long"
+  | "duplicate_external_id"
+  | "logo_not_object"
+  | "logo_invalid"
+  | "logo_too_large"
+  | "content_not_text"
+  | "content_invalid"
+  | "payload_not_object"
+  | "unsupported_version"
+  | "pages_not_list"
+  | "no_pages"
+  | "too_many_pages"
+  | "invalid_conflict_mode";
+
 export type TPageImportError = {
   /** Index of the page in the payload, or null for errors about the whole file. */
   index: number | null;
   field: string | null;
+  /** Stable code to translate; older servers may not send it. */
+  code?: TPageImportErrorCode;
+  params?: Record<string, string | number>;
+  /** English fallback. */
   message: string;
 };
 

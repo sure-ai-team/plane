@@ -118,6 +118,28 @@ class TestParseImportPayload:
 
         assert _fields(errors) == [(0, "name"), (0, "access"), (2, "name")]
 
+    def test_errors_carry_codes_and_params_for_translation(self):
+        _, errors = parse_import_payload(
+            _payload(
+                {"name": "x" * (MAX_NAME_LENGTH + 1), "access": "team"},
+                {"name": "A", "external_id": "dup"},
+                {"name": "B", "external_id": "dup"},
+            )
+        )
+
+        by_field = {(error["index"], error["field"]): error for error in errors}
+        assert by_field[(0, "name")]["code"] == "name_too_long"
+        assert by_field[(0, "name")]["params"] == {"max": MAX_NAME_LENGTH}
+        assert by_field[(0, "access")]["code"] == "access_invalid"
+        assert by_field[(2, "external_id")]["code"] == "duplicate_external_id"
+        assert by_field[(2, "external_id")]["params"] == {"external_id": "dup", "other": 2}
+        assert all(error["message"] for error in errors)
+
+    def test_payload_errors_have_codes(self):
+        _, errors = parse_import_payload({"version": 1, "pages": []})
+
+        assert errors[0]["code"] == "no_pages"
+
     def test_duplicate_external_ids_are_rejected(self):
         _, errors = parse_import_payload(
             _payload({"name": "A", "external_id": "x"}, {"name": "B", "external_id": "x"})

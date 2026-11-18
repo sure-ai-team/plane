@@ -60,8 +60,8 @@ export const PagesListHeader = observer(function PagesListHeader() {
       .catch((err) => {
         setToast({
           type: TOAST_TYPE.ERROR,
-          title: "Error!",
-          message: err?.data?.error || "Page could not be created. Please try again.",
+          title: t("error"),
+          message: err?.data?.error || t("pages_list_header.create_error"),
         });
       })
       .finally(() => setIsCreatingPage(false));
@@ -75,7 +75,7 @@ export const PagesListHeader = observer(function PagesListHeader() {
           <Breadcrumbs.Item
             component={
               <BreadcrumbLink
-                label="Pages"
+                label={t("pages")}
                 href={`/${workspaceSlug}/projects/${currentProjectDetails?.id}/pages/`}
                 icon={<PageIcon className="h-4 w-4 text-tertiary" />}
                 isLast
@@ -98,7 +98,7 @@ export const PagesListHeader = observer(function PagesListHeader() {
         </Button>
         {canCurrentUserCreatePage && (
           <Button variant="primary" size="lg" onClick={handleCreatePage} loading={isCreatingPage}>
-            {isCreatingPage ? "Adding" : "Add page"}
+            {isCreatingPage ? t("adding") : t("pages_list_header.add_page")}
           </Button>
         )}
       </Header.RightItem>

@@ -199,7 +199,31 @@
       "success_title": "Halaman diimpor",
       "success_message": "Dibuat {created}, diperbarui {updated}, dilewati {skipped}.",
       "error_title": "Impor gagal",
-      "error_message": "Halaman tidak dapat diimpor. Coba lagi."
+      "error_message": "Halaman tidak dapat diimpor. Coba lagi.",
+      "errors": {
+        "page_not_object": "Setiap halaman harus berupa objek.",
+        "name_required": "Nama wajib diisi.",
+        "name_too_long": "Nama terlalu panjang (maksimum karakter: {max}).",
+        "access_invalid": "Akses harus \"public\" atau \"private\".",
+        "labels_not_list": "Label harus berupa daftar nama label.",
+        "label_not_text": "Setiap label harus berupa teks.",
+        "label_too_long": "Nama label terlalu panjang (maksimum karakter: {max}).",
+        "too_many_labels": "Terlalu banyak label (maksimum per halaman: {max}).",
+        "external_id_not_text": "external_id harus berupa teks.",
+        "external_id_too_long": "external_id terlalu panjang (maksimum karakter: {max}).",
+        "duplicate_external_id": "external_id \"{external_id}\" juga digunakan oleh halaman {other}.",
+        "logo_not_object": "Ikon halaman (logo_props) harus berupa objek.",
+        "logo_invalid": "Ikon halaman (logo_props) tidak valid.",
+        "logo_too_large": "Ikon halaman (logo_props) terlalu besar.",
+        "content_not_text": "Konten halaman harus berupa teks.",
+        "content_invalid": "Konten halaman terlalu besar atau tidak dapat diproses.",
+        "payload_not_object": "File harus berisi daftar halaman.",
+        "unsupported_version": "File ini menggunakan format versi {version}; hanya versi {expected} yang didukung.",
+        "pages_not_list": "\"pages\" harus berupa daftar.",
+        "no_pages": "File tidak berisi halaman apa pun.",
+        "too_many_pages": "Terlalu banyak halaman dalam satu impor (maksimum: {max}). Bagi ke dalam beberapa file.",
+        "invalid_conflict_mode": "Pilih tindakan jika halaman sudah ada."
+      }
     },
     "export": {
       "button": "Ekspor",
@@ -222,6 +246,38 @@
       "success_message": "{count, plural, one {# halaman diekspor.} other {# halaman diekspor.}}",
       "error_title": "Ekspor gagal",
       "error_message": "Halaman tidak dapat diekspor. Coba lagi."
+    },
+    "template": {
+      "file_name": "template-impor-halaman",
+      "getting_started": {
+        "name": "Memulai",
+        "label": "Dokumen",
+        "overview": "Ikhtisar",
+        "intro": "Tulis konten halaman di sini.",
+        "bold": "Teks tebal",
+        "italic": "Teks miring",
+        "link": "Sebuah tautan",
+        "steps": "Langkah-langkah",
+        "step_one": "Langkah pertama",
+        "step_two": "Langkah kedua",
+        "task_done": "Tugas yang sudah selesai",
+        "task_open": "Tugas yang belum selesai",
+        "tip": "Tips: atur akses ke pribadi agar halaman hanya untuk Anda sendiri."
+      },
+      "meeting_notes": {
+        "name": "Catatan rapat mingguan",
+        "label_meetings": "Rapat",
+        "label_team": "Tim",
+        "agenda": "Agenda",
+        "updates": "Perkembangan",
+        "blockers": "Hambatan",
+        "decisions": "Keputusan",
+        "decisions_hint": "Isi keputusan yang dibuat dalam rapat."
+      }
     }
+  },
+  "pages_list_header": {
+    "add_page": "Tambah halaman",
+    "create_error": "Halaman tidak dapat dibuat. Coba lagi."
   }
 }
