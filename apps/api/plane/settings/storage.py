@@ -155,6 +155,19 @@ class S3Storage(S3Boto3Storage):
             "Metadata": response.get("Metadata", {}),
         }
 
+    def get_object_range(self, object_name, start=0, end=8191):
+        """Read bytes [start, end] of an S3 object (used to sniff the real file type)."""
+        try:
+            response = self.s3_client.get_object(
+                Bucket=self.aws_storage_bucket_name,
+                Key=object_name,
+                Range=f"bytes={start}-{end}",
+            )
+            return response["Body"].read()
+        except ClientError as e:
+            log_exception(e)
+            return None
+
     def copy_object(self, object_name, new_object_name):
         """Copy an S3 object to a new location"""
         try:

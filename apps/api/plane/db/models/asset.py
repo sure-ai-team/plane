@@ -44,6 +44,15 @@ class FileAsset(BaseModel):
         PROJECT_COVER = "PROJECT_COVER"
         DRAFT_ISSUE_ATTACHMENT = "DRAFT_ISSUE_ATTACHMENT"
         DRAFT_ISSUE_DESCRIPTION = "DRAFT_ISSUE_DESCRIPTION"
+        CHAT_ATTACHMENT = "CHAT_ATTACHMENT"
+
+    # Entity types that are private to a chat conversation. The generic asset
+    # endpoints must never create, serve, copy or restore these; they are only
+    # reachable through the chat attachment endpoints, which check
+    # conversation membership (docs/chat/07-security.md S1).
+    PRIVATE_ENTITY_TYPES = frozenset({EntityTypeContext.CHAT_ATTACHMENT})
+    # Entity types the generic asset endpoints may create.
+    PUBLIC_ENTITY_TYPES = frozenset(EntityTypeContext.values) - PRIVATE_ENTITY_TYPES
 
     attributes = models.JSONField(default=dict)
     asset = models.FileField(upload_to=get_upload_path, max_length=800)
@@ -54,6 +63,14 @@ class FileAsset(BaseModel):
     issue = models.ForeignKey("db.Issue", on_delete=models.CASCADE, null=True, related_name="assets")
     comment = models.ForeignKey("db.IssueComment", on_delete=models.CASCADE, null=True, related_name="assets")
     page = models.ForeignKey("db.Page", on_delete=models.CASCADE, null=True, related_name="assets")
+    # Chat attachments: the conversation is set when the upload is requested,
+    # the message once it is sent. Both cascade so permanent deletes remove rows.
+    chat_conversation = models.ForeignKey(
+        "db.Conversation", on_delete=models.CASCADE, null=True, blank=True, related_name="chat_assets"
+    )
+    chat_message = models.ForeignKey(
+        "db.Message", on_delete=models.CASCADE, null=True, blank=True, related_name="assets"
+    )
     entity_type = models.CharField(max_length=255, null=True, blank=True)
     entity_identifier = models.CharField(max_length=255, null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
@@ -99,5 +116,8 @@ class FileAsset(BaseModel):
             self.EntityTypeContext.DRAFT_ISSUE_DESCRIPTION,
         ]:
             return f"/api/assets/v2/workspaces/{self.workspace.slug}/projects/{self.project_id}/{self.id}/"
+
+        if self.entity_type == self.EntityTypeContext.CHAT_ATTACHMENT:
+            return f"/api/workspaces/{self.workspace.slug}/chat/attachments/{self.id}/"
 
         return None

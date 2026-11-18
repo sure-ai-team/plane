@@ -4,14 +4,28 @@
  * See the LICENSE file for details.
  */
 
-import { BarChart2, Briefcase, FileText, Home, Inbox, Layers, PenSquare, Settings } from "lucide-react";
+import {
+  BarChart2,
+  Briefcase,
+  FileText,
+  Home,
+  Inbox,
+  Layers,
+  MessageSquare,
+  MessagesSquare,
+  PenSquare,
+  Settings,
+  TextSearch,
+} from "lucide-react";
+import { useParams } from "next/navigation";
 // plane imports
 import { EUserPermissionsLevel } from "@plane/constants";
 import { ArchiveIcon, UserActivityIcon, LayersIcon, ContrastIcon, DiceIcon, Intake } from "@plane/propel/icons";
-import type { ICycle, IModule, IPartialProject, IProjectView, IWorkspace } from "@plane/types";
+import type { ICycle, IModule, IPartialProject, IProjectView, IWorkspace, TChatConversation } from "@plane/types";
 import { EUserProjectRoles, EUserWorkspaceRoles } from "@plane/types";
 // components
 import type { TPowerKCommandConfig, TPowerKContext } from "@/components/power-k/core/types";
+import { useChatAvailability } from "@/components/chat/hooks/use-chat-availability";
 import { handlePowerKNavigate } from "@/components/power-k/utils/navigation";
 // hooks
 import { useProject } from "@/hooks/store/use-project";
@@ -21,6 +35,9 @@ export type TPowerKNavigationCommandKeys =
   | "open_workspace"
   | "nav_home"
   | "nav_inbox"
+  | "nav_chat"
+  | "open_chat_conversation"
+  | "search_chat_messages"
   | "nav_your_work"
   | "nav_account_settings"
   | "open_project"
@@ -50,6 +67,10 @@ export type TPowerKNavigationCommandKeys =
 /**
  * Navigation commands - Navigate to all pages in the app
  */
+const baseWorkspaceConditions = (ctx: TPowerKContext) => Boolean(ctx.params.workspaceSlug?.toString());
+const baseProjectConditions = (ctx: TPowerKContext) =>
+  Boolean(ctx.params.workspaceSlug?.toString() && ctx.params.projectId?.toString());
+
 export const usePowerKNavigationCommandsRecord = (): Record<TPowerKNavigationCommandKeys, TPowerKCommandConfig> => {
   // store hooks
   const {
@@ -71,9 +92,10 @@ export const usePowerKNavigationCommandsRecord = (): Record<TPowerKNavigationCom
       ctx.params.workspaceSlug?.toString(),
       ctx.params.projectId?.toString()
     );
-  const baseWorkspaceConditions = (ctx: TPowerKContext) => Boolean(ctx.params.workspaceSlug?.toString());
-  const baseProjectConditions = (ctx: TPowerKContext) =>
-    Boolean(ctx.params.workspaceSlug?.toString() && ctx.params.projectId?.toString());
+  // Chat commands only when chat is on and the user may use it (admins and members).
+  const { workspaceSlug: routeWorkspaceSlug } = useParams();
+  const isChatAvailable = useChatAvailability(routeWorkspaceSlug?.toString());
+  const chatConditions = (ctx: TPowerKContext) => baseWorkspaceConditions(ctx) && isChatAvailable;
   const getContextProject = (ctx: TPowerKContext) => getPartialProjectById(ctx.params.projectId?.toString());
 
   return {
@@ -116,6 +138,47 @@ export const usePowerKNavigationCommandsRecord = (): Record<TPowerKNavigationCom
       isEnabled: (ctx) => baseWorkspaceConditions(ctx),
       isVisible: (ctx) => baseWorkspaceConditions(ctx),
       closeOnSelect: true,
+    },
+    nav_chat: {
+      id: "nav_chat",
+      type: "action",
+      group: "navigation",
+      i18n_title: "power_k.navigation_actions.nav_chat",
+      icon: MessageSquare,
+      keySequence: "gt",
+      action: (ctx) => handlePowerKNavigate(ctx, [ctx.params.workspaceSlug?.toString(), "chat"]),
+      isEnabled: chatConditions,
+      isVisible: chatConditions,
+      closeOnSelect: true,
+    },
+    open_chat_conversation: {
+      id: "open_chat_conversation",
+      type: "change-page",
+      group: "navigation",
+      i18n_title: "power_k.navigation_actions.open_chat_conversation",
+      icon: MessagesSquare,
+      keySequence: "ot",
+      page: "open-chat-conversation",
+      onSelect: (data, ctx) => {
+        const conversation = data as TChatConversation;
+        handlePowerKNavigate(ctx, [ctx.params.workspaceSlug?.toString(), "chat", conversation.id]);
+      },
+      isEnabled: chatConditions,
+      isVisible: chatConditions,
+      closeOnSelect: true,
+      keywords: ["chat", "message", "dm", "group"],
+    },
+    search_chat_messages: {
+      id: "search_chat_messages",
+      type: "action",
+      group: "navigation",
+      i18n_title: "power_k.navigation_actions.search_chat_messages",
+      icon: TextSearch,
+      action: (ctx) => handlePowerKNavigate(ctx, [ctx.params.workspaceSlug?.toString(), "chat", "search"]),
+      isEnabled: chatConditions,
+      isVisible: chatConditions,
+      closeOnSelect: true,
+      keywords: ["chat", "messages", "find"],
     },
     nav_your_work: {
       id: "nav_your_work",

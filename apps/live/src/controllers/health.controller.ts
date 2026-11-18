@@ -6,7 +6,9 @@
 
 import type { Request, Response } from "express";
 import { Controller, Get } from "@plane/decorators";
+import { chatHub } from "@/chat";
 import { env } from "@/env";
+import { redisManager } from "@/redis";
 
 @Controller("/health")
 export class HealthController {
@@ -16,6 +18,10 @@ export class HealthController {
       status: "OK",
       timestamp: new Date().toISOString(),
       version: env.APP_VERSION,
+      chat: {
+        ...chatHub.stats(),
+        redis: redisManager.isClientConnected() ? "ok" : "unavailable",
+      },
     });
   }
 }

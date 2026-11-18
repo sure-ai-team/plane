@@ -4,9 +4,16 @@
  * See the LICENSE file for details.
  */
 
+import { ChatController } from "./chat.controller";
 import { CollaborationController } from "./collaboration.controller";
 import { DocumentController } from "./document.controller";
 import { HealthController } from "./health.controller";
 import { PdfExportController } from "./pdf-export.controller";
 
-export const CONTROLLERS = [CollaborationController, DocumentController, HealthController, PdfExportController];
+export const CONTROLLERS = [
+  ChatController,
+  CollaborationController,
+  DocumentController,
+  HealthController,
+  PdfExportController,
+];

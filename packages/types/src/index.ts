@@ -11,6 +11,7 @@ export * from "./api_token";
 export * from "./auth";
 export * from "./calendar";
 export * from "./charts";
+export * from "./chat";
 export * from "./command-palette";
 export * from "./common";
 export * from "./cycle";

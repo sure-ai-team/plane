@@ -105,7 +105,10 @@
       "open_project_setting": "開啟專案設定",
       "nav_project_settings": "前往專案設定",
       "nav_workspace_active_cycle": "前往所有進行中的週期",
-      "nav_project_overview": "前往專案概覽"
+      "nav_project_overview": "前往專案概覽",
+      "nav_chat": "前往聊天",
+      "open_chat_conversation": "開啟對話",
+      "search_chat_messages": "搜尋聊天訊息"
     },
     "account_actions": {
       "sign_out": "登出",
@@ -166,7 +169,8 @@
       "update_theme": "變更主題",
       "update_timezone": "變更時區",
       "update_start_of_week": "變更一週的第一天",
-      "update_language": "變更語言"
+      "update_language": "變更語言",
+      "open_chat_conversation": "開啟對話"
     },
     "search_menu": {
       "no_results": "找不到結果",

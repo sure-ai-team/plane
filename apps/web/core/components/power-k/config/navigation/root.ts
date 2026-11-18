@@ -25,6 +25,9 @@ export const usePowerKNavigationCommands = (): TPowerKCommandConfig[] => {
     // User-Level Navigation
     optionsList["nav_home"],
     optionsList["nav_inbox"],
+    optionsList["nav_chat"],
+    optionsList["open_chat_conversation"],
+    optionsList["search_chat_messages"],
     optionsList["nav_your_work"],
     // Project-Level Navigation (Only visible in project context)
     optionsList["nav_project_work_items"],

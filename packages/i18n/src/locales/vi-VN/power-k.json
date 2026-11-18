@@ -105,7 +105,10 @@
       "open_project_setting": "Mở một cài đặt dự án",
       "nav_project_settings": "Đi đến cài đặt dự án",
       "nav_workspace_active_cycle": "Đi đến tất cả chu kỳ đang hoạt động",
-      "nav_project_overview": "Đi đến tổng quan dự án"
+      "nav_project_overview": "Đi đến tổng quan dự án",
+      "nav_chat": "Đi đến trò chuyện",
+      "open_chat_conversation": "Mở một cuộc trò chuyện",
+      "search_chat_messages": "Tìm kiếm tin nhắn trò chuyện"
     },
     "account_actions": {
       "sign_out": "Đăng xuất",
@@ -166,7 +169,8 @@
       "update_theme": "Thay đổi chủ đề",
       "update_timezone": "Thay đổi múi giờ",
       "update_start_of_week": "Thay đổi ngày đầu tuần",
-      "update_language": "Thay đổi ngôn ngữ"
+      "update_language": "Thay đổi ngôn ngữ",
+      "open_chat_conversation": "Mở một cuộc trò chuyện"
     },
     "search_menu": {
       "no_results": "Không tìm thấy kết quả",

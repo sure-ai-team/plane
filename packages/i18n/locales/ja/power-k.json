@@ -105,7 +105,10 @@
       "open_project_setting": "プロジェクトの設定を開く",
       "nav_project_settings": "プロジェクトの設定に移動",
       "nav_workspace_active_cycle": "すべてのアクティブサイクルに移動",
-      "nav_project_overview": "プロジェクトの概要に移動"
+      "nav_project_overview": "プロジェクトの概要に移動",
+      "nav_chat": "チャットに移動",
+      "open_chat_conversation": "会話を開く",
+      "search_chat_messages": "チャットのメッセージを検索"
     },
     "account_actions": {
       "sign_out": "サインアウト",
@@ -166,7 +169,8 @@
       "update_theme": "テーマを変更",
       "update_timezone": "タイムゾーンを変更",
       "update_start_of_week": "週の開始日を変更",
-      "update_language": "言語を変更"
+      "update_language": "言語を変更",
+      "open_chat_conversation": "会話を開く"
     },
     "search_menu": {
       "no_results": "結果が見つかりません",

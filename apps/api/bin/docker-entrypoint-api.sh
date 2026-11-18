@@ -35,4 +35,9 @@ python manage.py clear_cache
 # Collect static files
 python manage.py collectstatic --noinput
 
+# Worker count: GUNICORN_WORKERS=<n> pins it; "auto" (default) sizes it from the
+# container's CPUs and memory (see plane/utils/gunicorn_workers.py).
+GUNICORN_WORKERS=$(python plane/utils/gunicorn_workers.py)
+echo "Starting gunicorn with $GUNICORN_WORKERS workers"
+
 exec gunicorn -w "$GUNICORN_WORKERS" -k uvicorn.workers.UvicornWorker plane.asgi:application --bind 0.0.0.0:"${PORT:-8000}" --max-requests 1200 --max-requests-jitter 1000 --access-logfile -

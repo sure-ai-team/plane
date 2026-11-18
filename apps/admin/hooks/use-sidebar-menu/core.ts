@@ -4,13 +4,21 @@
  * See the LICENSE file for details.
  */
 
-import { Image, BrainCog, Cog, Mail, Users } from "lucide-react";
+import { Image, BrainCog, Cog, Mail, MessageSquare, Users } from "lucide-react";
 // plane imports
 import { LockIcon, WorkspaceIcon } from "@plane/propel/icons";
 // types
 import type { TSidebarMenuItem } from "./types";
 
-export type TCoreSidebarMenuKey = "general" | "email" | "workspace" | "users" | "authentication" | "ai" | "image";
+export type TCoreSidebarMenuKey =
+  | "general"
+  | "email"
+  | "workspace"
+  | "users"
+  | "authentication"
+  | "ai"
+  | "image"
+  | "chat";
 
 export const coreSidebarMenuLinks: Record<TCoreSidebarMenuKey, TSidebarMenuItem> = {
   general: {
@@ -54,5 +62,11 @@ export const coreSidebarMenuLinks: Record<TCoreSidebarMenuKey, TSidebarMenuItem>
     name: "Images in SURE Project Management Platform",
     description: "Allow third-party image libraries.",
     href: `/image/`,
+  },
+  chat: {
+    Icon: MessageSquare,
+    name: "Chat",
+    description: "Turn chat on or off and set attachment limits.",
+    href: `/chat/`,
   },
 };

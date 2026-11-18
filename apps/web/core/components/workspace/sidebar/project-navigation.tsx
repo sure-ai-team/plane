@@ -10,7 +10,9 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { EUserPermissionsLevel, EUserPermissions } from "@plane/constants";
 import { useTranslation } from "@plane/i18n";
+import { MessageSquare } from "lucide-react";
 import { CycleIcon, IntakeIcon, ModuleIcon, PageIcon, ViewsIcon, WorkItemsIcon } from "@plane/propel/icons";
+import { useChatAvailability } from "@/components/chat/hooks/use-chat-availability";
 import type { EUserProjectRoles } from "@plane/types";
 // plane ui
 // components
@@ -68,7 +70,9 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
     }
   };
 
+  const isChatAvailable = useChatAvailability(workspaceSlug);
   const baseNavigation = useCallback(
+    // oxlint-disable-next-line no-shadow -- same names as the props on purpose (mirrors use-navigation-items.ts)
     (workspaceSlug: string, projectId: string): TNavigationItem[] => [
       {
         i18n_key: "sidebar.work_items",
@@ -130,12 +134,24 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
         shouldRender: project?.inbox_view ?? false,
         sortOrder: 6,
       },
+      {
+        i18n_key: "chat.nav.project_chat",
+        key: "chat",
+        name: "Chat",
+        // The chat page filtered to this project's group chats.
+        href: `/${workspaceSlug}/chat?project=${projectId}`,
+        icon: MessageSquare,
+        access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER],
+        shouldRender: isChatAvailable,
+        sortOrder: 7,
+      },
     ],
-    [project]
+    [project, isChatAvailable]
   );
 
   // memoized navigation items and adding additional navigation items
   const navigationItemsMemo = useMemo(() => {
+    // oxlint-disable-next-line no-shadow -- same names as the props on purpose
     const navigationItems = (workspaceSlug: string, projectId: string): TNavigationItem[] => {
       const navItems = baseNavigation(workspaceSlug, projectId);
 
@@ -146,7 +162,8 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
       return navItems;
     };
 
-    // sort navigation items by sortOrder
+    // sort navigation items by sortOrder (a fresh array; the web app targets ES2022, so no toSorted)
+    // oxlint-disable-next-line unicorn/no-array-sort
     const sortedNavigationItems = navigationItems(workspaceSlug, projectId).sort(
       (a, b) => (a.sortOrder || 0) - (b.sortOrder || 0)
     );

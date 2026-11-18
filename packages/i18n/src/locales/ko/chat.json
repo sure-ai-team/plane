@@ -1,0 +1,457 @@
+{
+  "chat": {
+    "title": "채팅",
+    "page_label": "{workspace} - 채팅",
+    "nav": {
+      "rail_label": "채팅",
+      "project_chat": "채팅"
+    },
+    "sections": {
+      "groups": "그룹",
+      "directs": "다이렉트 메시지"
+    },
+    "actions": {
+      "new": "새 대화",
+      "new_group": "새 그룹",
+      "new_direct": "새 다이렉트 메시지",
+      "mute": "대화 음소거",
+      "unmute": "대화 음소거 해제",
+      "leave": "그룹 나가기",
+      "delete_group": "그룹 삭제",
+      "add_members": "멤버 추가",
+      "rename": "그룹 이름 변경",
+      "details": "대화 세부 정보",
+      "hide_details": "세부 정보 숨기기"
+    },
+    "status": {
+      "online": "온라인",
+      "offline": "오프라인",
+      "connecting": "연결 중…",
+      "reconnecting": "다시 연결 중…",
+      "blocked_disabled": "이 인스턴스에서는 채팅이 꺼져 있습니다.",
+      "blocked_access": "이 작업 공간의 채팅에 액세스할 권한이 없습니다."
+    },
+    "members": {
+      "count": "{count, plural, other {멤버 #명}}",
+      "role_admin": "관리자",
+      "role_member": "멤버",
+      "make_admin": "관리자로 지정",
+      "remove_admin": "관리자 해제",
+      "remove": "그룹에서 제거",
+      "you": "나",
+      "only_members_hint": "이 작업 공간의 멤버만 추가할 수 있습니다. 게스트에게는 메시지를 보낼 수 없습니다."
+    },
+    "new_conversation": {
+      "title": "새 대화",
+      "direct": "다이렉트 메시지",
+      "group": "그룹",
+      "group_name": "그룹 이름",
+      "group_name_placeholder": "예: 모바일 앱 출시",
+      "members": "멤버",
+      "to": "받는 사람",
+      "search_members": "멤버 검색",
+      "no_members_found": "멤버를 찾을 수 없습니다",
+      "create_group": "그룹 만들기",
+      "start": "대화 시작",
+      "cancel": "취소"
+    },
+    "thread": {
+      "today": "오늘",
+      "yesterday": "어제",
+      "new_messages": "새 메시지",
+      "jump_to_latest": "최신 메시지로 이동",
+      "seen_by": "{count, plural, other {#명이 읽음}}",
+      "typing_one": "{name}님이 입력 중…",
+      "typing_two": "{first}님과 {second}님이 입력 중…",
+      "typing_many": "여러 명이 입력 중…",
+      "edited": "수정됨",
+      "replying_to": "{name}님에게 답장 중",
+      "reply_attachment": "첨부 파일",
+      "reply_voice": "음성 메모",
+      "empty_title": "아직 메시지가 없습니다",
+      "empty_body": "인사를 건네 대화를 시작해 보세요.",
+      "no_conversation_title": "대화 선택",
+      "no_conversation_body": "목록에서 대화를 선택하거나 새 대화를 시작하세요.",
+      "loading_older": "이전 메시지를 불러오는 중…",
+      "load_failed": "메시지를 불러올 수 없습니다.",
+      "retry": "다시 시도",
+      "deleted_user": "이전 멤버",
+      "loading_newer": "최신 메시지를 불러오는 중…"
+    },
+    "message": {
+      "reply": "답장",
+      "edit": "수정",
+      "delete": "삭제",
+      "copy_link": "메시지 링크 복사",
+      "link_copied": "링크가 복사되었습니다",
+      "more": "추가 작업",
+      "save": "저장",
+      "cancel": "취소",
+      "delete_confirm_title": "메시지를 삭제하시겠습니까?",
+      "delete_confirm_body": "이 메시지와 첨부 파일이 모든 사람에게서 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "send_failed": "보내지 못했습니다",
+      "sending": "보내는 중…",
+      "retry": "다시 시도",
+      "discard": "삭제",
+      "create_work_item": "작업 항목 만들기",
+      "no_access": "이 메시지를 열 수 없습니다."
+    },
+    "system": {
+      "created": "{actor}이(가) 그룹을 만들었습니다",
+      "member_added": "{actor}이(가) {name}을(를) 추가했습니다",
+      "member_removed": "{actor}이(가) {name}을(를) 제거했습니다",
+      "member_left": "{name}이(가) 나갔습니다",
+      "renamed": "{actor}이(가) 그룹 이름을 \"{name}\"(으)로 변경했습니다",
+      "icon_changed": "{actor}이(가) 그룹 아이콘을 변경했습니다",
+      "project_linked": "{actor}이(가) 그룹을 프로젝트에 연결했습니다",
+      "pinned": "{actor}이(가) 메시지를 고정했습니다",
+      "unpinned": "{actor}이(가) 메시지 고정을 해제했습니다",
+      "someone": "누군가"
+    },
+    "preview": {
+      "you": "나",
+      "photo": "사진",
+      "video": "동영상",
+      "voice": "음성 메모",
+      "file": "파일",
+      "attachments": "{count, plural, other {첨부 파일 #개}}",
+      "system": "그룹 업데이트",
+      "empty": "아직 메시지가 없습니다"
+    },
+    "composer": {
+      "placeholder": "{name}에게 메시지 보내기",
+      "send": "보내기",
+      "editing": "메시지 수정 중",
+      "reply_cancel": "답장 취소",
+      "attach": "파일 첨부",
+      "waiting_uploads": "업로드를 기다리는 중…",
+      "remove_failed": "먼저 실패한 파일을 제거하거나 다시 시도하세요",
+      "emoji": "이모지 삽입",
+      "formatting": "서식",
+      "emoji_suggestions": "이모지 추천",
+      "suggestion_hint": "↑ ↓ 이동 · Enter 선택 · Esc 닫기"
+    },
+    "delete_group": {
+      "title": "{name}을(를) 삭제하시겠습니까?",
+      "body": "이 그룹의 모든 메시지와 파일이 모든 사람에게서 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "confirm": "그룹 삭제"
+    },
+    "leave_group": {
+      "title": "{name}에서 나가시겠습니까?",
+      "body": "더 이상 이 그룹의 메시지를 받지 않습니다.",
+      "confirm": "나가기"
+    },
+    "errors": {
+      "generic": "문제가 발생했습니다. 다시 시도해 주세요.",
+      "not_found": "이 대화가 더 이상 존재하지 않거나 대화의 멤버가 아닙니다."
+    },
+    "upload": {
+      "ready": "준비됨",
+      "preparing": "준비 중…",
+      "uploading": "업로드 중 {percent}%",
+      "confirming": "확인 중…",
+      "failed": "업로드 실패",
+      "retry": "다시 시도",
+      "remove": "{name} 제거",
+      "too_large": "{name}이(가) 너무 큽니다. 최대 크기는 {limit} MB입니다.",
+      "type_not_allowed": "{name}을(를) 공유할 수 없습니다: 허용되지 않는 파일 형식입니다.",
+      "type_mismatch": "파일 내용이 파일 형식과 일치하지 않습니다.",
+      "too_many": "메시지당 최대 {max}개의 파일을 첨부할 수 있습니다.",
+      "drop_title": "{name}에 공유할 파일을 여기에 놓으세요",
+      "drop_hint": "이미지 최대 {image} MB · 동영상 최대 {video} MB · 오디오 최대 {audio} MB · 기타 파일 최대 {file} MB",
+      "rejected_title": "일부 파일이 추가되지 않았습니다"
+    },
+    "media": {
+      "open_image": "이미지 {name} 열기",
+      "play_video": "동영상 {name} 재생",
+      "download": "{name} 다운로드",
+      "preview_unavailable": "미리 보기를 사용할 수 없음",
+      "more": "+{count}",
+      "view_all": "모두 보기({count})",
+      "filter": "미디어 필터",
+      "filter_all": "전체",
+      "filter_image": "이미지",
+      "filter_video": "동영상",
+      "loaded_only": "이 대화에서 불러온 메시지의 미디어를 표시합니다. 이전 미디어를 불러오려면 채팅을 위로 스크롤하세요."
+    },
+    "details": {
+      "members": "멤버",
+      "media": "미디어",
+      "files": "파일",
+      "no_media": "불러온 메시지에 아직 사진이나 동영상이 없습니다",
+      "no_files": "불러온 메시지에 아직 파일이 없습니다"
+    },
+    "voice": {
+      "record": "음성 메모 녹음",
+      "stop": "중지",
+      "discard": "녹음 삭제",
+      "record_again": "다시 녹음",
+      "play": "음성 메모 재생",
+      "pause": "일시 정지",
+      "position": "재생 위치",
+      "send": "보내기",
+      "speed": "재생 속도",
+      "up_to": "최대 {max}",
+      "permission_denied": "마이크 액세스가 차단되었습니다. 브라우저 설정에서 허용하세요.",
+      "unsupported": "이 브라우저에서는 음성 녹음을 지원하지 않습니다."
+    },
+    "reactions": {
+      "add": "반응 추가",
+      "react_with": "{emoji}(으)로 반응",
+      "chip_label": "{emoji} {count, plural, other {반응 #개}}",
+      "tooltip": "{names}이(가) {emoji}(으)로 반응했습니다",
+      "and_others": "{names} 외 {count, plural, other {#명}}"
+    },
+    "picker": {
+      "search": "이모지 검색"
+    },
+    "pins": {
+      "title": "고정됨",
+      "pinned": "고정됨",
+      "count": "고정됨 · {index}/{total}",
+      "next": "다음 고정 메시지",
+      "view_all": "모두 보기",
+      "close": "고정 메시지 닫기",
+      "pin": "메시지 고정",
+      "unpin": "고정 해제",
+      "pinned_by": "{name}님이 고정함",
+      "empty": "아직 고정된 메시지가 없습니다.",
+      "hint": "대화 참여자 누구나 메시지를 고정할 수 있습니다. 대화당 최대 50개까지 고정할 수 있습니다."
+    },
+    "jump": {
+      "to_message": "메시지로 이동",
+      "jump": "이동",
+      "highlight": "여기로 이동함"
+    },
+    "unread": {
+      "divider": "새 메시지",
+      "divider_label": "새 메시지",
+      "pill": "{time} 이후 {count, plural, other {새 메시지 #개}}",
+      "jump": "이동",
+      "dismiss": "닫기"
+    },
+    "forward": {
+      "action": "전달",
+      "title": "메시지 전달",
+      "to": "받는 사람",
+      "search": "대화 검색",
+      "no_results": "일치하는 대화가 없습니다.",
+      "limit": "한 번에 최대 {count}개의 대화로 전달할 수 있습니다.",
+      "note": "메시지 추가(선택 사항)",
+      "submit": "{count, plural, other {대화 #개에 보내기}}",
+      "done": "{count, plural, other {대화 #개에 전달했습니다}}",
+      "from": "{name}님이 보낸 메시지 전달",
+      "from_conversation": "{conversation}에서 {name}님이 보낸 메시지 전달"
+    },
+    "sidebar": {
+      "find": "대화 찾기",
+      "find_placeholder": "이름으로 찾기",
+      "people": "사람",
+      "people_message": "{name}에게 메시지 보내기",
+      "people_show_all": "모두 보기({count})",
+      "people_show_fewer": "간단히 보기",
+      "search_messages_for": "\"{query}\"(으)로 메시지 검색",
+      "filter": {
+        "label": "대화 필터",
+        "all": "전체",
+        "unread": "{count, plural, =0 {읽지 않음} other {읽지 않음 #}}",
+        "mentions": "{count, plural, =0 {멘션} other {멘션 #}}"
+      },
+      "starred": "별표",
+      "archived": "아카이브됨",
+      "archived_empty": "아카이브된 대화가 없습니다.",
+      "no_unread": "모든 메시지를 확인했습니다.",
+      "no_mentions": "읽지 않은 멘션이 없습니다.",
+      "draft": "초안: {text}",
+      "muted": "알림 끔",
+      "mentions_label": "{count, plural, other {읽지 않은 멘션 #개}}",
+      "options": "{name} 옵션",
+      "star": "별표 표시",
+      "unstar": "별표 해제",
+      "mark_read": "읽음으로 표시",
+      "archive": "아카이브",
+      "unarchive": "아카이브 해제",
+      "project_chats": "{project} 채팅",
+      "show_all": "모두 표시",
+      "project_empty": "아직 이 프로젝트에 연결된 그룹 채팅이 없습니다. 그룹 세부 정보에서 연결하세요."
+    },
+    "search": {
+      "title": "메시지 검색",
+      "back": "채팅으로 돌아가기",
+      "placeholder": "메시지 검색",
+      "clear": "검색 지우기",
+      "filter": {
+        "in": "대화",
+        "in_all": "대화: 모든 대화",
+        "from": "보낸 사람",
+        "from_anyone": "보낸 사람: 모든 사람",
+        "has": "포함",
+        "has_any": "포함: 모두",
+        "after": "이후",
+        "before": "이전"
+      },
+      "has": {
+        "file": "포함: 파일",
+        "image": "포함: 이미지",
+        "video": "포함: 동영상",
+        "voice": "포함: 음성 메모",
+        "link": "포함: 링크",
+        "work_item": "포함: 작업 항목"
+      },
+      "results": "{count, plural, other {결과 #개}}",
+      "results_many": "결과 1,000개 이상",
+      "results_label": "검색 결과",
+      "hint": "두 글자 이상 입력하거나 \"포함\" 필터를 선택하세요.",
+      "empty": "검색과 일치하는 메시지가 없습니다.",
+      "load_more": "더 불러오기",
+      "loading": "불러오는 중…",
+      "context": "앞뒤 메시지 보기",
+      "open": "대화 열기",
+      "footer": "참여 중인 대화의 결과만 표시됩니다. ↑ ↓ 키로 결과 간에 이동하고 Enter 키로 엽니다."
+    },
+    "shortcuts": {
+      "title": "키보드 단축키",
+      "previous_next": "이전 / 다음 대화",
+      "next_unread": "다음 읽지 않은 대화",
+      "jump_conversation": "대화로 이동",
+      "search": "메시지 검색",
+      "edit_last": "마지막 메시지 수정(입력창이 비어 있을 때)",
+      "mark_read": "대화를 읽음으로 표시",
+      "jump_unread": "첫 번째 읽지 않은 메시지로 이동",
+      "new_line": "입력창에서 줄 바꿈",
+      "show_shortcuts": "단축키 표시"
+    },
+    "about": {
+      "title": "그룹 정보",
+      "description": "그룹 설명",
+      "placeholder": "이 그룹은 어떤 용도인가요?",
+      "empty": "아직 설명이 없습니다.",
+      "add": "설명 추가",
+      "edit": "설명 수정",
+      "change_icon": "아이콘을 클릭하여 변경하세요"
+    },
+    "notify": {
+      "title": "알림 받을 항목",
+      "button_label": "알림: {level}",
+      "level": {
+        "all": "모든 메시지",
+        "mentions": "멘션만",
+        "off": "끔"
+      },
+      "level_description": {
+        "all": "모든 새 메시지",
+        "mentions": "누군가 나를 멘션하거나 나에게 답장할 때",
+        "off": "알림 없음. 읽지 않은 메시지 수는 계속 업데이트됩니다."
+      },
+      "snooze": "다음 기간 동안 미루기",
+      "snooze_1h": "1시간",
+      "snooze_8h": "8시간",
+      "snooze_tomorrow": "내일까지",
+      "snoozed_short": "미루는 중",
+      "snoozed_until": "{time}까지 미루는 중",
+      "unsnooze": "끄기",
+      "blocked": "브라우저에서 이 사이트의 알림을 차단하고 있습니다. 브라우저의 사이트 설정(주소 옆 아이콘)에서 허용하세요.",
+      "unsupported": "이 브라우저에서는 데스크톱 알림을 표시할 수 없습니다.",
+      "allow": "데스크톱 알림 허용",
+      "allow_prompt": "이 탭이 앞에 없을 때도 알림을 받으려면 알림을 허용하세요.",
+      "test_title": "테스트 알림",
+      "test_body": "새 메시지는 이렇게 표시되고 소리가 납니다.",
+      "new_message": "새 메시지",
+      "sent_photo": "사진을 보냈습니다",
+      "sent_video": "동영상을 보냈습니다",
+      "sent_voice": "음성 메모를 보냈습니다",
+      "sent_file": "파일을 보냈습니다"
+    },
+    "prefs": {
+      "title": "채팅 설정",
+      "subtitle": "이 설정은 이 작업 공간에서 나에게만 적용됩니다.",
+      "desktop_notifications": "데스크톱 알림",
+      "desktop_notifications_description": "이 사이트가 열려 있는 동안 새 메시지 알림을 표시합니다.",
+      "sound": "소리",
+      "sound_description": "알림마다 짧은 소리를 재생합니다.",
+      "sound_tone": "알림음",
+      "sound_volume": "볼륨",
+      "sound_play": "재생",
+      "tones": {
+        "chime": "차임",
+        "ding": "딩",
+        "pop": "팝",
+        "marimba": "마림바",
+        "ringtone": "벨소리"
+      },
+      "test": "테스트 알림 보내기",
+      "test_description": "새 메시지가 어떻게 보이고 들리는지 확인하세요.",
+      "show_preview": "메시지 미리 보기 표시",
+      "show_preview_description": "알림에 메시지 내용을 포함합니다.",
+      "inbox_mentions": "받은 편지함에 채팅 표시",
+      "inbox_mentions_description": "멘션과 다이렉트 메시지를 받은 편지함에 추가합니다.",
+      "layout": {
+        "title": "메시지 레이아웃",
+        "description": "대화에서 메시지가 표시되는 방식입니다.",
+        "bubbles": "말풍선",
+        "compact": "간결하게",
+        "direct_only": "다이렉트 메시지에서만 말풍선 사용"
+      },
+      "minimize": {
+        "title": "최소화된 채팅",
+        "description": "다른 페이지에서 열어 둔 채팅이 최소화되었을 때 표시되는 방식입니다.",
+        "docked": "고정 탭",
+        "heads": "채팅 헤드"
+      }
+    },
+    "inbox": {
+      "mentioned": "{name}님이 채팅에서 나를 멘션했습니다",
+      "mentioned_in": "{name}님이 {conversation}에서 나를 멘션했습니다",
+      "direct": "{name}님이 메시지를 보냈습니다"
+    },
+    "slash": {
+      "title": "명령어",
+      "workitem": "작업 항목을 만들고 여기에 연결",
+      "link": "기존 작업 항목 연결",
+      "mute": "이 대화 음소거 또는 음소거 해제",
+      "code": "코드 블록 삽입",
+      "shrug": "¯\\_(ツ)_/¯ 추가",
+      "muted": "대화가 음소거되었습니다",
+      "unmuted": "대화 음소거가 해제되었습니다"
+    },
+    "dock": {
+      "open_full": "전체 채팅에서 열기",
+      "minimize": "최소화",
+      "close": "닫기",
+      "expand": "{name} 열기",
+      "heads": "최소화된 채팅"
+    },
+    "workitem": {
+      "share": "채팅에 공유",
+      "discuss": "채팅에서 논의",
+      "discuss_hint": "이 작업 항목의 링크가 입력된 상태로 채팅이 열립니다.",
+      "this_project": "이 프로젝트",
+      "shared": "{count, plural, other {대화 #개에 공유했습니다}}",
+      "discussed_in": "{count, plural, other {대화 #개에서 논의됨}}",
+      "discussed_hint": "참여 중인 대화만 표시됩니다.",
+      "chip": "{key}",
+      "due": "마감일 {date}",
+      "archived": "아카이브됨",
+      "sub_items": "{count, plural, other {하위 항목 #개}}"
+    },
+    "mobile": {
+      "back": "대화 목록으로 돌아가기",
+      "close": "닫기",
+      "message_actions": "메시지 작업",
+      "copy_text": "텍스트 복사"
+    },
+    "states": {
+      "empty_title": "작업 공간의 동료와 대화하세요",
+      "empty_body": "팀원에게 메시지를 보내거나 프로젝트 또는 팀을 위한 그룹을 만드세요. 파일, 음성 메모, 작업 항목을 공유할 수 있습니다.",
+      "new_direct": "{name}님과의 대화가 시작되었습니다.",
+      "new_group": "{name}의 시작입니다.",
+      "say_hi": "👋 인사하기",
+      "offline": "오프라인 상태입니다. 보낸 메시지는 다시 연결되면 전송됩니다.",
+      "waiting": "전송 대기 중",
+      "back_online": "다시 온라인 상태입니다. 놓친 메시지를 불러오는 중입니다."
+    },
+    "a11y": {
+      "new_message": "{name}님의 새 메시지: {text}"
+    }
+  }
+}

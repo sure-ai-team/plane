@@ -27,6 +27,7 @@ from plane.license.api.serializers import InstanceConfigurationSerializer
 from plane.license.utils.encryption import encrypt_data
 from plane.utils.cache import cache_response, invalidate_cache
 from plane.license.utils.instance_value import get_email_configuration
+from plane.utils.chat_config import CHAT_CONFIG_KEYS, invalidate_chat_config, validate_chat_config_updates
 
 
 class InstanceConfigurationEndpoint(BaseAPIView):
@@ -41,6 +42,13 @@ class InstanceConfigurationEndpoint(BaseAPIView):
     @invalidate_cache(path="/api/instances/configurations/", user=False)
     @invalidate_cache(path="/api/instances/", user=False)
     def patch(self, request):
+        chat_errors = validate_chat_config_updates(request.data)
+        if chat_errors:
+            return Response(
+                {"error": "Invalid chat settings.", "fields": chat_errors},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         configurations = InstanceConfiguration.objects.filter(key__in=request.data.keys())
 
         bulk_configurations = []
@@ -54,6 +62,8 @@ class InstanceConfigurationEndpoint(BaseAPIView):
             bulk_configurations.append(configuration)
 
         InstanceConfiguration.objects.bulk_update(bulk_configurations, ["value"], batch_size=100)
+        if any(key in CHAT_CONFIG_KEYS for key in request.data.keys()):
+            invalidate_chat_config()
 
         serializer = InstanceConfigurationSerializer(configurations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

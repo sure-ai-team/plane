@@ -68,6 +68,10 @@ app.conf.beat_schedule = {
         "task": "plane.bgtasks.file_asset_task.delete_unuploaded_file_asset",
         "schedule": crontab(hour=2, minute=0),  # UTC 02:00
     },
+    "check-every-day-to-purge-orphan-chat-uploads": {
+        "task": "plane.bgtasks.chat_cleanup_task.purge_orphan_chat_uploads",
+        "schedule": crontab(hour=2, minute=15),  # UTC 02:15
+    },
     "check-every-day-to-delete-api-logs": {
         "task": "plane.bgtasks.cleanup_task.delete_api_logs",
         "schedule": crontab(hour=2, minute=30),  # UTC 02:30

@@ -105,7 +105,10 @@
       "open_project_setting": "Bir proje ayarı aç",
       "nav_project_settings": "Proje ayarlarına git",
       "nav_workspace_active_cycle": "Tüm aktif döngülere git",
-      "nav_project_overview": "Proje genel bakışına git"
+      "nav_project_overview": "Proje genel bakışına git",
+      "nav_chat": "Sohbete git",
+      "open_chat_conversation": "Bir konuşma aç",
+      "search_chat_messages": "Sohbet mesajlarında ara"
     },
     "account_actions": {
       "sign_out": "Çıkış yap",
@@ -166,7 +169,8 @@
       "update_theme": "Temayı değiştir",
       "update_timezone": "Saat dilimini değiştir",
       "update_start_of_week": "Haftanın ilk gününü değiştir",
-      "update_language": "Dili değiştir"
+      "update_language": "Dili değiştir",
+      "open_chat_conversation": "Bir konuşma aç"
     },
     "search_menu": {
       "no_results": "Sonuç bulunamadı",

@@ -7,6 +7,7 @@
 import React, { useCallback, useMemo } from "react";
 import { observer } from "mobx-react";
 import { useParams } from "next/navigation";
+import { useChatAvailability } from "@/components/chat/hooks/use-chat-availability";
 import useLocalStorage from "@/hooks/use-local-storage";
 import { AppRailVisibilityContext } from "./context";
 import type { IAppRailVisibilityContext } from "./types";
@@ -22,9 +23,12 @@ interface AppRailVisibilityProviderProps {
  */
 export const AppRailVisibilityProvider = observer(function AppRailVisibilityProvider({
   children,
-  isEnabled = false,
+  isEnabled: isEnabledProp = false,
 }: AppRailVisibilityProviderProps) {
   const { workspaceSlug } = useParams();
+  // Chat lives on the app rail, so the rail turns on whenever Chat is available to this user.
+  const isChatAvailable = useChatAvailability(workspaceSlug?.toString());
+  const isEnabled = isEnabledProp || isChatAvailable;
 
   // User preference from localStorage
   const { storedValue: isCollapsed, setValue: setIsCollapsed } = useLocalStorage<boolean>(

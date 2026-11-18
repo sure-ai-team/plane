@@ -30,13 +30,14 @@ features we need in-house.
 
 **Added in this platform**
 
-| Feature              | Where                             | What it does                                                                                                    |
-| -------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Workspace dashboards | Workspace sidebar > Dashboards    | Grids of number, bar, line, area, pie, donut and table widgets. Private or shared with the workspace.           |
-| Custom reports       | Workspace sidebar > Reports       | Report builder with grouping, splits, measures, date ranges and filters. Saves, permalinks and CSV/XLSX export. |
-| Cycle reports        | Cycle quick actions > View report | Summary, burndown, breakdowns by assignee, label, state and priority, scope changes and carried-over items.     |
-| Jira CSV import      | Workspace settings > Imports      | Imports a Jira CSV export into a project. See [Importing from Jira](#importing-from-jira).                      |
-| User management      | Admin console > Users             | Creates accounts one at a time or from a spreadsheet, without email. See [Managing users](#managing-users).     |
+| Feature              | Where                             | What it does                                                                                                                                                                      |
+| -------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Workspace dashboards | Workspace sidebar > Dashboards    | Grids of number, bar, line, area, pie, donut and table widgets. Private or shared with the workspace.                                                                             |
+| Custom reports       | Workspace sidebar > Reports       | Report builder with grouping, splits, measures, date ranges and filters. Saves, permalinks and CSV/XLSX export.                                                                   |
+| Cycle reports        | Cycle quick actions > View report | Summary, burndown, breakdowns by assignee, label, state and priority, scope changes and carried-over items.                                                                       |
+| Jira CSV import      | Workspace settings > Imports      | Imports a Jira CSV export into a project. See [Importing from Jira](#importing-from-jira).                                                                                        |
+| User management      | Admin console > Users             | Creates accounts one at a time or from a spreadsheet, without email. See [Managing users](#managing-users).                                                                       |
+| Workspace chat       | App rail > Chat                   | Direct and group chat between workspace members, with images, videos, files and voice notes. Limits and on/off switch in Superadmin > Chat. See [docs/chat](docs/chat/README.md). |
 
 Every report and dashboard only shows work items from projects the viewer is a member of.
 

@@ -93,3 +93,28 @@ from .device import Device, DeviceSession
 from .sticky import Sticky
 
 from .description import Description, DescriptionVersion
+
+from .chat import (
+    MAX_PINS_PER_CONVERSATION,
+    MAX_REACTIONS_PER_MESSAGE,
+    MAX_WORK_ITEM_REFS_PER_MESSAGE,
+    SEARCH_CONFIG,
+    ChatBaseModel,
+    ChatPreference,
+    Conversation,
+    ConversationMember,
+    ConversationRole,
+    ConversationType,
+    Message,
+    MessageKind,
+    MessageLayout,
+    MessageMention,
+    MessagePin,
+    MessageReaction,
+    MessageWorkItem,
+    MinimizeStyle,
+    NotifyLevel,
+    SoundTone,
+    SystemEvent,
+    build_direct_key,
+)

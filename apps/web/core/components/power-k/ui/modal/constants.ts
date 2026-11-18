@@ -33,6 +33,9 @@ export const POWER_K_MODAL_PAGE_DETAILS: Record<TPowerKPageType, TPowerKModalPag
   "open-project-setting": {
     i18n_placeholder: "power_k.page_placeholders.open_project_setting",
   },
+  "open-chat-conversation": {
+    i18n_placeholder: "power_k.page_placeholders.open_chat_conversation",
+  },
   "update-work-item-state": {
     i18n_placeholder: "power_k.page_placeholders.update_work_item_state",
   },

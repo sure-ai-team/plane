@@ -28,6 +28,14 @@ export type TNotificationIssueLite = {
 };
 
 export type TNotificationData = {
+  // Chat rows (entity_name "chat_message"; docs/chat/phase-2/05-notifications.md)
+  type?: "mention" | "direct";
+  conversation_id?: string;
+  conversation_type?: "direct" | "group";
+  conversation_name?: string;
+  message_id?: string;
+  seq?: number;
+  sender_id?: string | null;
   issue: TNotificationIssueLite | undefined;
   issue_activity: {
     id: string | undefined;
@@ -48,7 +56,8 @@ export type TNotification = {
   entity_name: string | undefined;
   message_html: string | undefined;
   message: undefined;
-  message_stripped: undefined;
+  /** Plain text of the message (chat rows). */
+  message_stripped: string | undefined;
   sender: string | undefined;
   receiver: string | undefined;
   triggered_by: string | undefined;

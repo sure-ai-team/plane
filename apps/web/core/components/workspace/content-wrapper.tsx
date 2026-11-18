@@ -11,6 +11,8 @@ import { cn } from "@plane/utils";
 import { AppRailRoot } from "@/components/navigation";
 import { useAppRailVisibility } from "@/lib/app-rail";
 import { TopNavigationRoot } from "@/components/navigation/top-navigation-root";
+import { ChatBootstrap } from "@/components/chat/bootstrap";
+import { ChatDock } from "@/components/chat/dock/root";
 
 export const WorkspaceContentWrapper = observer(function WorkspaceContentWrapper({
   children,
@@ -23,6 +25,8 @@ export const WorkspaceContentWrapper = observer(function WorkspaceContentWrapper
   return (
     <div className="relative flex size-full flex-col overflow-hidden bg-canvas transition-all duration-300 ease-in-out">
       <TopNavigationRoot />
+      <ChatBootstrap />
+      <ChatDock />
       <div className="relative flex size-full overflow-hidden">
         {/* Conditionally render AppRailRoot based on context */}
         {shouldRenderAppRail && <AppRailRoot />}
