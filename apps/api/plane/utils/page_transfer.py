@@ -273,7 +273,11 @@ def parse_import_payload(data: Any) -> Tuple[List[ImportedPage], List[Dict[str, 
     if not items:
         return [], [make_error(None, "pages", Problem("no_pages", "The file does not contain any pages."))]
     if len(items) > MAX_PAGES:
-        problem = Problem("too_many_pages", f"A single import can contain at most {MAX_PAGES} pages.", {"max": MAX_PAGES})
+        problem = Problem(
+            "too_many_pages",
+            f"A single import can contain at most {MAX_PAGES} pages.",
+            {"max": MAX_PAGES},
+        )
         return [], [make_error(None, "pages", problem)]
 
     pages: List[ImportedPage] = []
