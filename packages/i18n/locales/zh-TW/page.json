@@ -111,5 +111,173 @@
       "success_message": "頁面已從集合中移除。",
       "error_message": "無法將頁面從集合中移除。請再試一次。"
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "所有頁面詳細資料儲存在一個檔案中",
+      "markdown": "每個頁面一個 .md 檔案，多個頁面壓縮為 zip",
+      "html": "每個頁面一個 .html 檔案，多個頁面壓縮為 zip",
+      "csv": "每個頁面一列，內容為 Markdown 格式",
+      "xlsx": "每個頁面一列，內容為 Markdown 格式"
+    },
+    "access": {
+      "public": "公開",
+      "private": "私人"
+    },
+    "columns": {
+      "name": "名稱",
+      "access": "可見性",
+      "labels": "標籤",
+      "result": "結果"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} 不是支援的檔案類型。",
+      "invalid_json": "無法讀取 JSON 檔案。請確認其為有效的 JSON。",
+      "invalid_json_shape": "JSON 檔案必須包含「pages」清單。",
+      "empty_file": "檔案中找不到任何頁面。",
+      "empty_zip": "zip 檔案中不包含任何 .md、.html 或 .json 檔案。",
+      "invalid_zip": "無法開啟 zip 檔案。",
+      "invalid_xlsx": "無法開啟 Excel 檔案。請將其另存為 .xlsx 後再試一次。",
+      "missing_name_column": "第一列必須包含「name」欄。",
+      "xlsx_cell_too_long": "「{name}」超過 Excel 單一儲存格允許的長度（{limit} 個字元）。請改為匯出為 JSON、Markdown、HTML 或 CSV。",
+      "too_large": "這些頁面超過 {size} MB 的上傳限制。請將其分割成多個檔案。"
+    },
+    "import": {
+      "button": "匯入",
+      "title": "匯入頁面",
+      "description": "透過 JSON、Markdown、HTML、CSV 或 Excel 檔案在此專案中建立頁面。",
+      "template_title": "從範本開始",
+      "template_description": "下載範例檔案，填入您的頁面內容，然後在下方上傳。",
+      "download_template": "下載範本",
+      "template_error_title": "範本未下載",
+      "template_error_message": "無法建立範本。請再試一次。",
+      "upload_title": "上傳您的檔案",
+      "drop_idle": "將檔案拖曳至此處或按一下以選擇",
+      "drop_active": "將檔案放置於此處",
+      "reading": "正在檢查檔案…",
+      "supported_files": ".json、.md、.html、.csv、.xlsx 或包含 .md/.html 檔案的 .zip",
+      "read_error": "無法讀取檔案。",
+      "validate_error": "無法檢查檔案。請再試一次。",
+      "choose_another": "選擇其他檔案",
+      "conflict_label": "如果頁面已存在",
+      "conflict_modes": {
+        "skip": "略過",
+        "update": "更新",
+        "duplicate": "建立副本"
+      },
+      "conflict_mode_hints": {
+        "skip": "保持現有頁面不變",
+        "update": "取代其標題、內容、可見性和標籤",
+        "duplicate": "將該頁面匯入為新頁面"
+      },
+      "invalid_title": "{count, plural, one {請修正檔案中的 # 個問題，然後重新上傳。} other {請修正檔案中的 # 個問題，然後重新上傳。}}",
+      "error_location": "第 {number} 個頁面",
+      "error_location_named": "第 {number} 個頁面（{name}）",
+      "summary": "{total, plural, one {找到 # 個頁面} other {找到 # 個頁面}}：新增 {created} 個，更新 {updated} 個，略過 {skipped} 個。",
+      "labels_to_create": "將建立新標籤：{labels}",
+      "actions": {
+        "create": "新增",
+        "update": "更新",
+        "skip": "略過"
+      },
+      "reasons": {
+        "already_exists": "已存在",
+        "locked": "頁面已鎖定",
+        "archived": "頁面已封存",
+        "matches_page_already_in_this_import": "檔案中前面已出現相同頁面",
+        "access_unchanged_not_owner": "可見性未變更：僅擁有者可以變更"
+      },
+      "submit": "{count, plural, one {匯入 # 個頁面} other {匯入 # 個頁面}}",
+      "importing": "正在匯入",
+      "success_title": "頁面已匯入",
+      "success_message": "已建立 {created} 個，已更新 {updated} 個，已略過 {skipped} 個。",
+      "error_title": "匯入失敗",
+      "error_message": "無法匯入頁面。請再試一次。",
+      "errors": {
+        "page_not_object": "每個頁面都必須是物件。",
+        "name_required": "名稱為必填。",
+        "name_too_long": "名稱過長（最大字元數：{max}）。",
+        "access_invalid": "可見性必須為「public」或「private」。",
+        "labels_not_list": "標籤必須是標籤名稱清單。",
+        "label_not_text": "每個標籤都必須是文字。",
+        "label_too_long": "標籤名稱過長（最大字元數：{max}）。",
+        "too_many_labels": "標籤過多（每個頁面上限：{max}）。",
+        "external_id_not_text": "external_id 必須是文字。",
+        "external_id_too_long": "external_id 過長（最大字元數：{max}）。",
+        "duplicate_external_id": "external_id「{external_id}」也被第 {other} 個頁面使用。",
+        "logo_not_object": "頁面圖示（logo_props）必須是物件。",
+        "logo_invalid": "頁面圖示（logo_props）無效。",
+        "logo_too_large": "頁面圖示（logo_props）過大。",
+        "content_not_text": "頁面內容必須是文字。",
+        "content_invalid": "頁面內容過大或無法處理。",
+        "payload_not_object": "檔案必須包含頁面清單。",
+        "unsupported_version": "此檔案使用的格式版本為 {version}；僅支援版本 {expected}。",
+        "pages_not_list": "「pages」必須是清單。",
+        "no_pages": "檔案中不包含任何頁面。",
+        "too_many_pages": "單次匯入的頁面過多（上限：{max}）。請將其分割成多個檔案。",
+        "invalid_conflict_mode": "請選擇頁面已存在時的處理方式。"
+      }
+    },
+    "export": {
+      "button": "匯出",
+      "title": "匯出頁面",
+      "description": "下載此專案的頁面。您可以編輯檔案並重新匯入，以更新相同的頁面。",
+      "format_label": "格式",
+      "scope_label": "頁面",
+      "scopes": {
+        "all": "所有頁面",
+        "public": "公開頁面",
+        "private": "私人頁面",
+        "archived": "已封存頁面"
+      },
+      "zip_hint": "多個頁面將以 .zip 檔案下載。",
+      "submit": "匯出",
+      "exporting": "正在匯出",
+      "empty_title": "沒有可匯出的內容",
+      "empty_message": "所選範圍內沒有頁面。",
+      "success_title": "頁面已匯出",
+      "success_message": "{count, plural, one {已匯出 # 個頁面。} other {已匯出 # 個頁面。}}",
+      "error_title": "匯出失敗",
+      "error_message": "無法匯出頁面。請再試一次。"
+    },
+    "template": {
+      "file_name": "頁面匯入範本",
+      "getting_started": {
+        "name": "入門指南",
+        "label": "文件",
+        "overview": "概覽",
+        "intro": "在此處撰寫頁面內容。",
+        "bold": "粗體文字",
+        "italic": "斜體文字",
+        "link": "一個連結",
+        "steps": "步驟",
+        "step_one": "第一步",
+        "step_two": "第二步",
+        "task_done": "已完成的任務",
+        "task_open": "未完成的任務",
+        "tip": "提示：將可見性設為私人，頁面將僅供您自己檢視。"
+      },
+      "meeting_notes": {
+        "name": "每週會議記錄",
+        "label_meetings": "會議",
+        "label_team": "團隊",
+        "agenda": "議程",
+        "updates": "進度更新",
+        "blockers": "阻礙事項",
+        "decisions": "決議",
+        "decisions_hint": "請填寫會議中做出的決議。"
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "新增頁面",
+    "create_error": "無法建立頁面。請再試一次。"
   }
 }

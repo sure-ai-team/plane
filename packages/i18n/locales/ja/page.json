@@ -111,5 +111,173 @@
       "success_message": "ページをコレクションから削除しました。",
       "error_message": "ページをコレクションから削除できませんでした。もう一度お試しください。"
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "すべてのページの詳細を 1 つのファイルにまとめます",
+      "markdown": "ページごとに .md ファイルを 1 つ作成し、複数ページの場合は zip にまとめます",
+      "html": "ページごとに .html ファイルを 1 つ作成し、複数ページの場合は zip にまとめます",
+      "csv": "1 ページを 1 行とし、内容は Markdown で出力します",
+      "xlsx": "1 ページを 1 行とし、内容は Markdown で出力します"
+    },
+    "access": {
+      "public": "公開",
+      "private": "非公開"
+    },
+    "columns": {
+      "name": "名前",
+      "access": "公開範囲",
+      "labels": "ラベル",
+      "result": "結果"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} はサポートされていないファイル形式です。",
+      "invalid_json": "JSON ファイルを読み込めませんでした。有効な JSON であることを確認してください。",
+      "invalid_json_shape": "JSON ファイルには「pages」リストが含まれている必要があります。",
+      "empty_file": "ファイル内にページが見つかりませんでした。",
+      "empty_zip": "zip ファイルに .md、.html、.json ファイルが含まれていません。",
+      "invalid_zip": "zip ファイルを開けませんでした。",
+      "invalid_xlsx": "Excel ファイルを開けませんでした。.xlsx 形式で保存してから、もう一度お試しください。",
+      "missing_name_column": "1 行目に「name」列が含まれている必要があります。",
+      "xlsx_cell_too_long": "「{name}」は Excel の 1 セルに入る上限（{limit} 文字）を超えています。代わりに JSON、Markdown、HTML、CSV でエクスポートしてください。",
+      "too_large": "これらのページはアップロード上限の {size} MB を超えています。複数のファイルに分割してください。"
+    },
+    "import": {
+      "button": "インポート",
+      "title": "ページをインポート",
+      "description": "JSON、Markdown、HTML、CSV、Excel ファイルから、このプロジェクトにページを作成します。",
+      "template_title": "テンプレートから始める",
+      "template_description": "サンプルファイルをダウンロードし、ページの内容を入力してから下でアップロードしてください。",
+      "download_template": "テンプレートをダウンロード",
+      "template_error_title": "テンプレートをダウンロードできませんでした",
+      "template_error_message": "テンプレートを作成できませんでした。もう一度お試しください。",
+      "upload_title": "ファイルをアップロード",
+      "drop_idle": "ここにファイルをドラッグするか、クリックして選択してください",
+      "drop_active": "ここにファイルをドロップしてください",
+      "reading": "ファイルを確認しています…",
+      "supported_files": ".json、.md、.html、.csv、.xlsx、または .md/.html ファイルの .zip",
+      "read_error": "ファイルを読み込めませんでした。",
+      "validate_error": "ファイルを確認できませんでした。もう一度お試しください。",
+      "choose_another": "別のファイルを選択",
+      "conflict_label": "ページが既に存在する場合",
+      "conflict_modes": {
+        "skip": "スキップする",
+        "update": "更新する",
+        "duplicate": "コピーを作成する"
+      },
+      "conflict_mode_hints": {
+        "skip": "既存のページを変更せずに残します",
+        "update": "タイトル、内容、公開範囲、ラベルを置き換えます",
+        "duplicate": "新しいページとしてインポートします"
+      },
+      "invalid_title": "{count, plural, one {ファイル内の # 件の問題を修正して、もう一度アップロードしてください。} other {ファイル内の # 件の問題を修正して、もう一度アップロードしてください。}}",
+      "error_location": "ページ {number}",
+      "error_location_named": "ページ {number}（{name}）",
+      "summary": "{total, plural, one {# 件のページが見つかりました} other {# 件のページが見つかりました}}：新規 {created} 件、更新 {updated} 件、スキップ {skipped} 件。",
+      "labels_to_create": "新しいラベルが作成されます：{labels}",
+      "actions": {
+        "create": "新規",
+        "update": "更新",
+        "skip": "スキップ"
+      },
+      "reasons": {
+        "already_exists": "既に存在します",
+        "locked": "ページがロックされています",
+        "archived": "ページがアーカイブされています",
+        "matches_page_already_in_this_import": "同じページがファイル内の前の行にあります",
+        "access_unchanged_not_owner": "公開範囲は変更されません：変更できるのはオーナーのみです"
+      },
+      "submit": "{count, plural, one {# 件のページをインポート} other {# 件のページをインポート}}",
+      "importing": "インポート中",
+      "success_title": "ページをインポートしました",
+      "success_message": "作成 {created} 件、更新 {updated} 件、スキップ {skipped} 件。",
+      "error_title": "インポートに失敗しました",
+      "error_message": "ページをインポートできませんでした。もう一度お試しください。",
+      "errors": {
+        "page_not_object": "各ページはオブジェクトである必要があります。",
+        "name_required": "名前は必須です。",
+        "name_too_long": "名前が長すぎます（最大文字数：{max}）。",
+        "access_invalid": "公開範囲は「public」または「private」である必要があります。",
+        "labels_not_list": "ラベルはラベル名のリストである必要があります。",
+        "label_not_text": "すべてのラベルはテキストである必要があります。",
+        "label_too_long": "ラベル名が長すぎます（最大文字数：{max}）。",
+        "too_many_labels": "ラベルが多すぎます（1 ページあたりの最大数：{max}）。",
+        "external_id_not_text": "external_id はテキストである必要があります。",
+        "external_id_too_long": "external_id が長すぎます（最大文字数：{max}）。",
+        "duplicate_external_id": "external_id「{external_id}」はページ {other} でも使用されています。",
+        "logo_not_object": "ページアイコン（logo_props）はオブジェクトである必要があります。",
+        "logo_invalid": "ページアイコン（logo_props）が無効です。",
+        "logo_too_large": "ページアイコン（logo_props）が大きすぎます。",
+        "content_not_text": "ページの内容はテキストである必要があります。",
+        "content_invalid": "ページの内容が大きすぎるか、処理できませんでした。",
+        "payload_not_object": "ファイルにはページのリストが含まれている必要があります。",
+        "unsupported_version": "このファイルは形式バージョン {version} を使用しています。サポートされているのはバージョン {expected} のみです。",
+        "pages_not_list": "「pages」はリストである必要があります。",
+        "no_pages": "ファイルにページが含まれていません。",
+        "too_many_pages": "1 回のインポートに含まれるページが多すぎます（最大：{max}）。複数のファイルに分割してください。",
+        "invalid_conflict_mode": "ページが既に存在する場合の処理を選択してください。"
+      }
+    },
+    "export": {
+      "button": "エクスポート",
+      "title": "ページをエクスポート",
+      "description": "このプロジェクトのページをダウンロードします。ファイルを編集して再度インポートすると、同じページを更新できます。",
+      "format_label": "形式",
+      "scope_label": "ページ",
+      "scopes": {
+        "all": "すべてのページ",
+        "public": "公開ページ",
+        "private": "非公開ページ",
+        "archived": "アーカイブ済みのページ"
+      },
+      "zip_hint": "複数のページは .zip ファイルとしてダウンロードされます。",
+      "submit": "エクスポート",
+      "exporting": "エクスポート中",
+      "empty_title": "エクスポートするものがありません",
+      "empty_message": "この選択範囲にページはありません。",
+      "success_title": "ページをエクスポートしました",
+      "success_message": "{count, plural, one {# 件のページをエクスポートしました。} other {# 件のページをエクスポートしました。}}",
+      "error_title": "エクスポートに失敗しました",
+      "error_message": "ページをエクスポートできませんでした。もう一度お試しください。"
+    },
+    "template": {
+      "file_name": "ページインポートテンプレート",
+      "getting_started": {
+        "name": "はじめに",
+        "label": "ドキュメント",
+        "overview": "概要",
+        "intro": "ここにページの内容を記述します。",
+        "bold": "太字のテキスト",
+        "italic": "斜体のテキスト",
+        "link": "リンク",
+        "steps": "手順",
+        "step_one": "最初の手順",
+        "step_two": "2 番目の手順",
+        "task_done": "完了したタスク",
+        "task_open": "未完了のタスク",
+        "tip": "ヒント：公開範囲を非公開に設定すると、ページを自分だけのものにできます。"
+      },
+      "meeting_notes": {
+        "name": "週次ミーティングメモ",
+        "label_meetings": "ミーティング",
+        "label_team": "チーム",
+        "agenda": "議題",
+        "updates": "進捗報告",
+        "blockers": "課題・障害",
+        "decisions": "決定事項",
+        "decisions_hint": "ミーティングで決定した事項を記入してください。"
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "ページを追加",
+    "create_error": "ページを作成できませんでした。もう一度お試しください。"
   }
 }
