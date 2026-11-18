@@ -111,5 +111,117 @@
       "success_message": "Page removed from collection.",
       "error_message": "Page could not be removed from the collection. Please try again."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "All page details in one file",
+      "markdown": "One .md file per page, zipped for several pages",
+      "html": "One .html file per page, zipped for several pages",
+      "csv": "One row per page, content as Markdown",
+      "xlsx": "One row per page, content as Markdown"
+    },
+    "access": {
+      "public": "Public",
+      "private": "Private"
+    },
+    "columns": {
+      "name": "Name",
+      "access": "Access",
+      "labels": "Labels",
+      "result": "Result"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} is not a supported file type.",
+      "invalid_json": "The JSON file could not be read. Check that it is valid JSON.",
+      "invalid_json_shape": "The JSON file must contain a \"pages\" list.",
+      "empty_file": "No pages were found in the file.",
+      "empty_zip": "The zip file does not contain any .md, .html or .json files.",
+      "invalid_zip": "The zip file could not be opened.",
+      "invalid_xlsx": "The Excel file could not be opened. Save it as .xlsx and try again.",
+      "missing_name_column": "The first row must contain a \"name\" column.",
+      "xlsx_cell_too_long": "\"{name}\" is longer than Excel allows in one cell ({limit} characters). Export as JSON, Markdown, HTML or CSV instead.",
+      "too_large": "These pages are larger than the {size} MB upload limit. Split them across several files."
+    },
+    "import": {
+      "button": "Import",
+      "title": "Import pages",
+      "description": "Create pages in this project from a JSON, Markdown, HTML, CSV or Excel file.",
+      "template_title": "Start from a template",
+      "template_description": "Download an example file, fill it in with your pages and upload it below.",
+      "download_template": "Download template",
+      "template_error_title": "Template not downloaded",
+      "template_error_message": "The template could not be created. Try again.",
+      "upload_title": "Upload your file",
+      "drop_idle": "Drag files here or click to choose",
+      "drop_active": "Drop the files here",
+      "reading": "Checking the file…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx or a .zip of .md/.html files",
+      "read_error": "The file could not be read.",
+      "validate_error": "The file could not be checked. Try again.",
+      "choose_another": "Choose another file",
+      "conflict_label": "If a page already exists",
+      "conflict_modes": {
+        "skip": "Skip it",
+        "update": "Update it",
+        "duplicate": "Create a copy"
+      },
+      "conflict_mode_hints": {
+        "skip": "Keep the existing page unchanged",
+        "update": "Replace its title, content, access and labels",
+        "duplicate": "Import the page as a new page"
+      },
+      "invalid_title": "{count, plural, one {Fix # problem in the file and upload it again.} other {Fix # problems in the file and upload it again.}}",
+      "error_location": "Page {number}",
+      "error_location_named": "Page {number} ({name})",
+      "summary": "{total, plural, one {# page found} other {# pages found}}: {created} new, {updated} to update, {skipped} skipped.",
+      "labels_to_create": "New labels will be created: {labels}",
+      "actions": {
+        "create": "New",
+        "update": "Update",
+        "skip": "Skip"
+      },
+      "reasons": {
+        "already_exists": "Already exists",
+        "locked": "Page is locked",
+        "archived": "Page is archived",
+        "matches_page_already_in_this_import": "Same page appears earlier in the file",
+        "access_unchanged_not_owner": "Access unchanged: only the owner can change it"
+      },
+      "submit": "{count, plural, one {Import # page} other {Import # pages}}",
+      "importing": "Importing",
+      "success_title": "Pages imported",
+      "success_message": "Created {created}, updated {updated}, skipped {skipped}.",
+      "error_title": "Import failed",
+      "error_message": "The pages could not be imported. Try again."
+    },
+    "export": {
+      "button": "Export",
+      "title": "Export pages",
+      "description": "Download this project's pages. You can edit the file and import it again to update the same pages.",
+      "format_label": "Format",
+      "scope_label": "Pages",
+      "scopes": {
+        "all": "All pages",
+        "public": "Public pages",
+        "private": "Private pages",
+        "archived": "Archived pages"
+      },
+      "zip_hint": "Several pages are downloaded as a .zip file.",
+      "submit": "Export",
+      "exporting": "Exporting",
+      "empty_title": "Nothing to export",
+      "empty_message": "There are no pages in this selection.",
+      "success_title": "Pages exported",
+      "success_message": "{count, plural, one {Exported # page.} other {Exported # pages.}}",
+      "error_title": "Export failed",
+      "error_message": "The pages could not be exported. Try again."
+    }
   }
 }

@@ -111,5 +111,117 @@
       "success_message": "Page retirée de la collection.",
       "error_message": "La page n'a pas pu être retirée de la collection. Veuillez réessayer."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Tous les détails des pages dans un seul fichier",
+      "markdown": "Un fichier .md par page, compressé en ZIP s’il y a plusieurs pages",
+      "html": "Un fichier .html par page, compressé en ZIP s’il y a plusieurs pages",
+      "csv": "Une ligne par page, contenu au format Markdown",
+      "xlsx": "Une ligne par page, contenu au format Markdown"
+    },
+    "access": {
+      "public": "Public",
+      "private": "Privé"
+    },
+    "columns": {
+      "name": "Nom",
+      "access": "Accès",
+      "labels": "Étiquettes",
+      "result": "Résultat"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} n’est pas un type de fichier pris en charge.",
+      "invalid_json": "Impossible de lire le fichier JSON. Vérifiez qu’il contient du JSON valide.",
+      "invalid_json_shape": "Le fichier JSON doit contenir une liste « pages ».",
+      "empty_file": "Aucune page n’a été trouvée dans le fichier.",
+      "empty_zip": "Le fichier ZIP ne contient aucun fichier .md, .html ou .json.",
+      "invalid_zip": "Impossible d’ouvrir le fichier ZIP.",
+      "invalid_xlsx": "Impossible d’ouvrir le fichier Excel. Enregistrez-le au format .xlsx et réessayez.",
+      "missing_name_column": "La première ligne doit contenir une colonne « name ».",
+      "xlsx_cell_too_long": "« {name} » dépasse la longueur autorisée par Excel dans une cellule ({limit} caractères). Exportez plutôt au format JSON, Markdown, HTML ou CSV.",
+      "too_large": "Ces pages dépassent la limite d’importation de {size} Mo. Répartissez-les sur plusieurs fichiers."
+    },
+    "import": {
+      "button": "Importer",
+      "title": "Importer des pages",
+      "description": "Créez des pages dans ce projet à partir d’un fichier JSON, Markdown, HTML, CSV ou Excel.",
+      "template_title": "Partir d’un modèle",
+      "template_description": "Téléchargez un fichier d’exemple, remplissez-le avec vos pages, puis téléversez-le ci-dessous.",
+      "download_template": "Télécharger le modèle",
+      "template_error_title": "Modèle non téléchargé",
+      "template_error_message": "Impossible de créer le modèle. Veuillez réessayer.",
+      "upload_title": "Téléverser votre fichier",
+      "drop_idle": "Faites glisser des fichiers ici ou cliquez pour les choisir",
+      "drop_active": "Déposez les fichiers ici",
+      "reading": "Vérification du fichier…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx ou un fichier .zip de fichiers .md/.html",
+      "read_error": "Impossible de lire le fichier.",
+      "validate_error": "Impossible de vérifier le fichier. Veuillez réessayer.",
+      "choose_another": "Choisir un autre fichier",
+      "conflict_label": "Si une page existe déjà",
+      "conflict_modes": {
+        "skip": "L’ignorer",
+        "update": "La mettre à jour",
+        "duplicate": "Créer une copie"
+      },
+      "conflict_mode_hints": {
+        "skip": "Conserver la page existante telle quelle",
+        "update": "Remplacer son titre, son contenu, son accès et ses étiquettes",
+        "duplicate": "Importer la page en tant que nouvelle page"
+      },
+      "invalid_title": "{count, plural, one {Corrigez # problème dans le fichier, puis téléversez-le à nouveau.} many {Corrigez # de problèmes dans le fichier, puis téléversez-le à nouveau.} other {Corrigez # problèmes dans le fichier, puis téléversez-le à nouveau.}}",
+      "error_location": "Page {number}",
+      "error_location_named": "Page {number} ({name})",
+      "summary": "{total, plural, one {# page trouvée} many {# de pages trouvées} other {# pages trouvées}} : {created} à créer, {updated} à mettre à jour, {skipped} à ignorer.",
+      "labels_to_create": "Nouvelles étiquettes qui seront créées : {labels}",
+      "actions": {
+        "create": "Nouvelle",
+        "update": "Mise à jour",
+        "skip": "Ignorée"
+      },
+      "reasons": {
+        "already_exists": "Existe déjà",
+        "locked": "La page est verrouillée",
+        "archived": "La page est archivée",
+        "matches_page_already_in_this_import": "La même page apparaît plus haut dans le fichier",
+        "access_unchanged_not_owner": "Accès inchangé : seul le propriétaire peut le modifier"
+      },
+      "submit": "{count, plural, one {Importer # page} many {Importer # de pages} other {Importer # pages}}",
+      "importing": "Importation",
+      "success_title": "Pages importées",
+      "success_message": "Créées : {created}, mises à jour : {updated}, ignorées : {skipped}.",
+      "error_title": "Échec de l’importation",
+      "error_message": "Impossible d’importer les pages. Veuillez réessayer."
+    },
+    "export": {
+      "button": "Exporter",
+      "title": "Exporter des pages",
+      "description": "Téléchargez les pages de ce projet. Vous pouvez modifier le fichier et l’importer à nouveau pour mettre à jour ces mêmes pages.",
+      "format_label": "Format",
+      "scope_label": "Pages",
+      "scopes": {
+        "all": "Toutes les pages",
+        "public": "Pages publiques",
+        "private": "Pages privées",
+        "archived": "Pages archivées"
+      },
+      "zip_hint": "Plusieurs pages sont téléchargées sous forme de fichier .zip.",
+      "submit": "Exporter",
+      "exporting": "Exportation",
+      "empty_title": "Rien à exporter",
+      "empty_message": "Cette sélection ne contient aucune page.",
+      "success_title": "Pages exportées",
+      "success_message": "{count, plural, one {# page exportée.} many {# de pages exportées.} other {# pages exportées.}}",
+      "error_title": "Échec de l’exportation",
+      "error_message": "Impossible d’exporter les pages. Veuillez réessayer."
+    }
   }
 }

@@ -111,5 +111,117 @@
       "success_message": "Seite aus Sammlung entfernt.",
       "error_message": "Die Seite konnte nicht aus der Sammlung entfernt werden. Bitte versuchen Sie es erneut."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Alle Seitendetails in einer Datei",
+      "markdown": "Eine .md-Datei pro Seite, bei mehreren Seiten als ZIP",
+      "html": "Eine .html-Datei pro Seite, bei mehreren Seiten als ZIP",
+      "csv": "Eine Zeile pro Seite, Inhalt als Markdown",
+      "xlsx": "Eine Zeile pro Seite, Inhalt als Markdown"
+    },
+    "access": {
+      "public": "Öffentlich",
+      "private": "Privat"
+    },
+    "columns": {
+      "name": "Name",
+      "access": "Zugriff",
+      "labels": "Labels",
+      "result": "Ergebnis"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} ist kein unterstützter Dateityp.",
+      "invalid_json": "Die JSON-Datei konnte nicht gelesen werden. Prüfen Sie, ob sie gültiges JSON enthält.",
+      "invalid_json_shape": "Die JSON-Datei muss eine „pages“-Liste enthalten.",
+      "empty_file": "In der Datei wurden keine Seiten gefunden.",
+      "empty_zip": "Die ZIP-Datei enthält keine .md-, .html- oder .json-Dateien.",
+      "invalid_zip": "Die ZIP-Datei konnte nicht geöffnet werden.",
+      "invalid_xlsx": "Die Excel-Datei konnte nicht geöffnet werden. Speichern Sie sie als .xlsx und versuchen Sie es erneut.",
+      "missing_name_column": "Die erste Zeile muss eine Spalte „name“ enthalten.",
+      "xlsx_cell_too_long": "„{name}“ ist länger, als Excel in einer Zelle zulässt ({limit} Zeichen). Exportieren Sie stattdessen als JSON, Markdown, HTML oder CSV.",
+      "too_large": "Diese Seiten überschreiten das Upload-Limit von {size} MB. Verteilen Sie sie auf mehrere Dateien."
+    },
+    "import": {
+      "button": "Importieren",
+      "title": "Seiten importieren",
+      "description": "Seiten in diesem Projekt aus einer JSON-, Markdown-, HTML-, CSV- oder Excel-Datei erstellen.",
+      "template_title": "Mit einer Vorlage beginnen",
+      "template_description": "Laden Sie eine Beispieldatei herunter, füllen Sie sie mit Ihren Seiten aus und laden Sie sie unten hoch.",
+      "download_template": "Vorlage herunterladen",
+      "template_error_title": "Vorlage nicht heruntergeladen",
+      "template_error_message": "Die Vorlage konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+      "upload_title": "Datei hochladen",
+      "drop_idle": "Dateien hierher ziehen oder zum Auswählen klicken",
+      "drop_active": "Dateien hier ablegen",
+      "reading": "Datei wird geprüft…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx oder eine .zip-Datei mit .md-/.html-Dateien",
+      "read_error": "Die Datei konnte nicht gelesen werden.",
+      "validate_error": "Die Datei konnte nicht geprüft werden. Bitte versuchen Sie es erneut.",
+      "choose_another": "Andere Datei auswählen",
+      "conflict_label": "Wenn eine Seite bereits existiert",
+      "conflict_modes": {
+        "skip": "Überspringen",
+        "update": "Aktualisieren",
+        "duplicate": "Kopie erstellen"
+      },
+      "conflict_mode_hints": {
+        "skip": "Die vorhandene Seite bleibt unverändert",
+        "update": "Titel, Inhalt, Zugriff und Labels ersetzen",
+        "duplicate": "Die Seite als neue Seite importieren"
+      },
+      "invalid_title": "{count, plural, one {Beheben Sie # Problem in der Datei und laden Sie sie erneut hoch.} other {Beheben Sie # Probleme in der Datei und laden Sie sie erneut hoch.}}",
+      "error_location": "Seite {number}",
+      "error_location_named": "Seite {number} ({name})",
+      "summary": "{total, plural, one {# Seite gefunden} other {# Seiten gefunden}}: {created} neu, {updated} zu aktualisieren, {skipped} übersprungen.",
+      "labels_to_create": "Neue Labels werden erstellt: {labels}",
+      "actions": {
+        "create": "Neu",
+        "update": "Aktualisieren",
+        "skip": "Überspringen"
+      },
+      "reasons": {
+        "already_exists": "Existiert bereits",
+        "locked": "Seite ist gesperrt",
+        "archived": "Seite ist archiviert",
+        "matches_page_already_in_this_import": "Dieselbe Seite kommt weiter oben in der Datei vor",
+        "access_unchanged_not_owner": "Zugriff unverändert: Nur der Eigentümer kann ihn ändern"
+      },
+      "submit": "{count, plural, one {# Seite importieren} other {# Seiten importieren}}",
+      "importing": "Wird importiert",
+      "success_title": "Seiten importiert",
+      "success_message": "Erstellt: {created}, aktualisiert: {updated}, übersprungen: {skipped}.",
+      "error_title": "Import fehlgeschlagen",
+      "error_message": "Die Seiten konnten nicht importiert werden. Bitte versuchen Sie es erneut."
+    },
+    "export": {
+      "button": "Exportieren",
+      "title": "Seiten exportieren",
+      "description": "Laden Sie die Seiten dieses Projekts herunter. Sie können die Datei bearbeiten und erneut importieren, um dieselben Seiten zu aktualisieren.",
+      "format_label": "Format",
+      "scope_label": "Seiten",
+      "scopes": {
+        "all": "Alle Seiten",
+        "public": "Öffentliche Seiten",
+        "private": "Private Seiten",
+        "archived": "Archivierte Seiten"
+      },
+      "zip_hint": "Mehrere Seiten werden als .zip-Datei heruntergeladen.",
+      "submit": "Exportieren",
+      "exporting": "Wird exportiert",
+      "empty_title": "Nichts zu exportieren",
+      "empty_message": "In dieser Auswahl gibt es keine Seiten.",
+      "success_title": "Seiten exportiert",
+      "success_message": "{count, plural, one {# Seite exportiert.} other {# Seiten exportiert.}}",
+      "error_title": "Export fehlgeschlagen",
+      "error_message": "Die Seiten konnten nicht exportiert werden. Bitte versuchen Sie es erneut."
+    }
   }
 }

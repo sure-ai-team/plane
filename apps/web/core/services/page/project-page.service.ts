@@ -6,7 +6,14 @@
 
 // types
 import { API_BASE_URL } from "@plane/constants";
-import type { TDocumentPayload, TPage } from "@plane/types";
+import type {
+  TDocumentPayload,
+  TPage,
+  TPageExportResponse,
+  TPageExportType,
+  TPageImportRequest,
+  TPageImportResponse,
+} from "@plane/types";
 // helpers
 // services
 import { APIService } from "@/services/api.service";
@@ -186,6 +193,32 @@ export class ProjectPageService extends APIService {
     return this.post(`/api/workspaces/${workspaceSlug}/projects/${projectId}/pages/${pageId}/move/`, {
       new_project_id: newProjectId,
     })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  async exportPages(
+    workspaceSlug: string,
+    projectId: string,
+    params: { type: TPageExportType; page_ids?: string[] }
+  ): Promise<TPageExportResponse> {
+    return this.get(`/api/workspaces/${workspaceSlug}/projects/${projectId}/pages/export/`, {
+      params: {
+        type: params.type,
+        ...(params.page_ids?.length ? { page_ids: params.page_ids.join(",") } : {}),
+      },
+    })
+      .then((response) => response?.data)
+      .catch((error) => {
+        throw error?.response?.data;
+      });
+  }
+
+  /** Validates (dry_run) or performs a bulk import. Validation errors come back in the body. */
+  async importPages(workspaceSlug: string, projectId: string, data: TPageImportRequest): Promise<TPageImportResponse> {
+    return this.post(`/api/workspaces/${workspaceSlug}/projects/${projectId}/pages/import/`, data)
       .then((response) => response?.data)
       .catch((error) => {
         throw error?.response?.data;

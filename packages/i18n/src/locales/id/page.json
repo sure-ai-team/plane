@@ -111,5 +111,117 @@
       "success_message": "Halaman dihapus dari koleksi.",
       "error_message": "Halaman tidak dapat dihapus dari koleksi. Silakan coba lagi."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Semua detail halaman dalam satu file",
+      "markdown": "Satu file .md per halaman, dikompres menjadi zip untuk beberapa halaman",
+      "html": "Satu file .html per halaman, dikompres menjadi zip untuk beberapa halaman",
+      "csv": "Satu baris per halaman, konten dalam format Markdown",
+      "xlsx": "Satu baris per halaman, konten dalam format Markdown"
+    },
+    "access": {
+      "public": "Publik",
+      "private": "Pribadi"
+    },
+    "columns": {
+      "name": "Nama",
+      "access": "Akses",
+      "labels": "Label",
+      "result": "Hasil"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} bukan jenis file yang didukung.",
+      "invalid_json": "File JSON tidak dapat dibaca. Pastikan file tersebut berisi JSON yang valid.",
+      "invalid_json_shape": "File JSON harus berisi daftar \"pages\".",
+      "empty_file": "Tidak ada halaman yang ditemukan dalam file.",
+      "empty_zip": "File zip tidak berisi file .md, .html, atau .json apa pun.",
+      "invalid_zip": "File zip tidak dapat dibuka.",
+      "invalid_xlsx": "File Excel tidak dapat dibuka. Simpan sebagai .xlsx lalu coba lagi.",
+      "missing_name_column": "Baris pertama harus berisi kolom \"name\".",
+      "xlsx_cell_too_long": "\"{name}\" melebihi panjang yang diizinkan Excel dalam satu sel ({limit} karakter). Ekspor sebagai JSON, Markdown, HTML, atau CSV.",
+      "too_large": "Halaman-halaman ini melebihi batas unggahan {size} MB. Bagi ke dalam beberapa file."
+    },
+    "import": {
+      "button": "Impor",
+      "title": "Impor halaman",
+      "description": "Buat halaman di proyek ini dari file JSON, Markdown, HTML, CSV, atau Excel.",
+      "template_title": "Mulai dari template",
+      "template_description": "Unduh file contoh, isi dengan halaman Anda, lalu unggah di bawah.",
+      "download_template": "Unduh template",
+      "template_error_title": "Template tidak terunduh",
+      "template_error_message": "Template tidak dapat dibuat. Coba lagi.",
+      "upload_title": "Unggah file Anda",
+      "drop_idle": "Seret file ke sini atau klik untuk memilih",
+      "drop_active": "Lepaskan file di sini",
+      "reading": "Memeriksa file…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx, atau .zip berisi file .md/.html",
+      "read_error": "File tidak dapat dibaca.",
+      "validate_error": "File tidak dapat diperiksa. Coba lagi.",
+      "choose_another": "Pilih file lain",
+      "conflict_label": "Jika halaman sudah ada",
+      "conflict_modes": {
+        "skip": "Lewati",
+        "update": "Perbarui",
+        "duplicate": "Buat salinan"
+      },
+      "conflict_mode_hints": {
+        "skip": "Biarkan halaman yang ada tidak berubah",
+        "update": "Ganti judul, konten, akses, dan labelnya",
+        "duplicate": "Impor halaman sebagai halaman baru"
+      },
+      "invalid_title": "{count, plural, one {Perbaiki # masalah dalam file lalu unggah lagi.} other {Perbaiki # masalah dalam file lalu unggah lagi.}}",
+      "error_location": "Halaman {number}",
+      "error_location_named": "Halaman {number} ({name})",
+      "summary": "{total, plural, one {# halaman ditemukan} other {# halaman ditemukan}}: {created} baru, {updated} akan diperbarui, {skipped} dilewati.",
+      "labels_to_create": "Label baru akan dibuat: {labels}",
+      "actions": {
+        "create": "Baru",
+        "update": "Perbarui",
+        "skip": "Lewati"
+      },
+      "reasons": {
+        "already_exists": "Sudah ada",
+        "locked": "Halaman dikunci",
+        "archived": "Halaman diarsipkan",
+        "matches_page_already_in_this_import": "Halaman yang sama muncul lebih awal dalam file",
+        "access_unchanged_not_owner": "Akses tidak diubah: hanya pemilik yang dapat mengubahnya"
+      },
+      "submit": "{count, plural, one {Impor # halaman} other {Impor # halaman}}",
+      "importing": "Mengimpor",
+      "success_title": "Halaman diimpor",
+      "success_message": "Dibuat {created}, diperbarui {updated}, dilewati {skipped}.",
+      "error_title": "Impor gagal",
+      "error_message": "Halaman tidak dapat diimpor. Coba lagi."
+    },
+    "export": {
+      "button": "Ekspor",
+      "title": "Ekspor halaman",
+      "description": "Unduh halaman proyek ini. Anda dapat mengedit file dan mengimpornya lagi untuk memperbarui halaman yang sama.",
+      "format_label": "Format",
+      "scope_label": "Halaman",
+      "scopes": {
+        "all": "Semua halaman",
+        "public": "Halaman publik",
+        "private": "Halaman pribadi",
+        "archived": "Halaman yang diarsipkan"
+      },
+      "zip_hint": "Beberapa halaman diunduh sebagai file .zip.",
+      "submit": "Ekspor",
+      "exporting": "Mengekspor",
+      "empty_title": "Tidak ada yang dapat diekspor",
+      "empty_message": "Tidak ada halaman dalam pilihan ini.",
+      "success_title": "Halaman diekspor",
+      "success_message": "{count, plural, one {# halaman diekspor.} other {# halaman diekspor.}}",
+      "error_title": "Ekspor gagal",
+      "error_message": "Halaman tidak dapat diekspor. Coba lagi."
+    }
   }
 }

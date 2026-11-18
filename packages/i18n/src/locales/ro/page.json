@@ -111,5 +111,117 @@
       "success_message": "Pagina a fost eliminată din colecție.",
       "error_message": "Pagina nu a putut fi eliminată din colecție. Te rugăm să încerci din nou."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Toate detaliile paginilor într-un singur fișier",
+      "markdown": "Câte un fișier .md pentru fiecare pagină, arhivate ZIP dacă sunt mai multe pagini",
+      "html": "Câte un fișier .html pentru fiecare pagină, arhivate ZIP dacă sunt mai multe pagini",
+      "csv": "Câte un rând pentru fiecare pagină, conținutul în Markdown",
+      "xlsx": "Câte un rând pentru fiecare pagină, conținutul în Markdown"
+    },
+    "access": {
+      "public": "Public",
+      "private": "Privat"
+    },
+    "columns": {
+      "name": "Nume",
+      "access": "Acces",
+      "labels": "Etichete",
+      "result": "Rezultat"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} nu este un tip de fișier acceptat.",
+      "invalid_json": "Fișierul JSON nu a putut fi citit. Verificați dacă este un JSON valid.",
+      "invalid_json_shape": "Fișierul JSON trebuie să conțină o listă „pages”.",
+      "empty_file": "Nu s-au găsit pagini în fișier.",
+      "empty_zip": "Fișierul ZIP nu conține niciun fișier .md, .html sau .json.",
+      "invalid_zip": "Fișierul ZIP nu a putut fi deschis.",
+      "invalid_xlsx": "Fișierul Excel nu a putut fi deschis. Salvați-l ca .xlsx și încercați din nou.",
+      "missing_name_column": "Primul rând trebuie să conțină o coloană „name”.",
+      "xlsx_cell_too_long": "„{name}” depășește lungimea permisă de Excel într-o celulă ({limit} de caractere). Exportați în schimb ca JSON, Markdown, HTML sau CSV.",
+      "too_large": "Aceste pagini depășesc limita de încărcare de {size} MB. Împărțiți-le în mai multe fișiere."
+    },
+    "import": {
+      "button": "Importă",
+      "title": "Importă pagini",
+      "description": "Creați pagini în acest proiect dintr-un fișier JSON, Markdown, HTML, CSV sau Excel.",
+      "template_title": "Porniți de la un șablon",
+      "template_description": "Descărcați un fișier exemplu, completați-l cu paginile dumneavoastră și încărcați-l mai jos.",
+      "download_template": "Descarcă șablonul",
+      "template_error_title": "Șablonul nu a fost descărcat",
+      "template_error_message": "Șablonul nu a putut fi creat. Încercați din nou.",
+      "upload_title": "Încărcați fișierul",
+      "drop_idle": "Trageți fișierele aici sau faceți clic pentru a le alege",
+      "drop_active": "Plasați fișierele aici",
+      "reading": "Se verifică fișierul…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx sau un .zip cu fișiere .md/.html",
+      "read_error": "Fișierul nu a putut fi citit.",
+      "validate_error": "Fișierul nu a putut fi verificat. Încercați din nou.",
+      "choose_another": "Alegeți alt fișier",
+      "conflict_label": "Dacă o pagină există deja",
+      "conflict_modes": {
+        "skip": "Omite pagina",
+        "update": "Actualizează pagina",
+        "duplicate": "Creează o copie"
+      },
+      "conflict_mode_hints": {
+        "skip": "Pagina existentă rămâne neschimbată",
+        "update": "Se înlocuiesc titlul, conținutul, accesul și etichetele",
+        "duplicate": "Pagina se importă ca pagină nouă"
+      },
+      "invalid_title": "{count, plural, one {Corectați # problemă din fișier și încărcați-l din nou.} few {Corectați # probleme din fișier și încărcați-l din nou.} other {Corectați # de probleme din fișier și încărcați-l din nou.}}",
+      "error_location": "Pagina {number}",
+      "error_location_named": "Pagina {number} ({name})",
+      "summary": "{total, plural, one {# pagină găsită} few {# pagini găsite} other {# de pagini găsite}}: {created} de creat, {updated} de actualizat, {skipped} de omis.",
+      "labels_to_create": "Se vor crea etichete noi: {labels}",
+      "actions": {
+        "create": "Nouă",
+        "update": "Actualizare",
+        "skip": "Omisă"
+      },
+      "reasons": {
+        "already_exists": "Există deja",
+        "locked": "Pagina este blocată",
+        "archived": "Pagina este arhivată",
+        "matches_page_already_in_this_import": "Aceeași pagină apare mai sus în fișier",
+        "access_unchanged_not_owner": "Acces neschimbat: doar proprietarul îl poate modifica"
+      },
+      "submit": "{count, plural, one {Importă # pagină} few {Importă # pagini} other {Importă # de pagini}}",
+      "importing": "Se importă",
+      "success_title": "Pagini importate",
+      "success_message": "Create: {created}, actualizate: {updated}, omise: {skipped}.",
+      "error_title": "Importul a eșuat",
+      "error_message": "Paginile nu au putut fi importate. Încercați din nou."
+    },
+    "export": {
+      "button": "Exportă",
+      "title": "Exportă pagini",
+      "description": "Descărcați paginile acestui proiect. Puteți edita fișierul și îl puteți importa din nou pentru a actualiza aceleași pagini.",
+      "format_label": "Format",
+      "scope_label": "Pagini",
+      "scopes": {
+        "all": "Toate paginile",
+        "public": "Pagini publice",
+        "private": "Pagini private",
+        "archived": "Pagini arhivate"
+      },
+      "zip_hint": "Mai multe pagini se descarcă sub forma unui fișier .zip.",
+      "submit": "Exportă",
+      "exporting": "Se exportă",
+      "empty_title": "Nimic de exportat",
+      "empty_message": "Nu există pagini în această selecție.",
+      "success_title": "Pagini exportate",
+      "success_message": "{count, plural, one {S-a exportat # pagină.} few {S-au exportat # pagini.} other {S-au exportat # de pagini.}}",
+      "error_title": "Exportul a eșuat",
+      "error_message": "Paginile nu au putut fi exportate. Încercați din nou."
+    }
   }
 }

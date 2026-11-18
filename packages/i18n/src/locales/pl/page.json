@@ -111,5 +111,117 @@
       "success_message": "Strona została usunięta z kolekcji.",
       "error_message": "Nie udało się usunąć strony z kolekcji. Spróbuj ponownie."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Wszystkie dane stron w jednym pliku",
+      "markdown": "Jeden plik .md na stronę, kilka stron w archiwum ZIP",
+      "html": "Jeden plik .html na stronę, kilka stron w archiwum ZIP",
+      "csv": "Jeden wiersz na stronę, treść w formacie Markdown",
+      "xlsx": "Jeden wiersz na stronę, treść w formacie Markdown"
+    },
+    "access": {
+      "public": "Publiczny",
+      "private": "Prywatny"
+    },
+    "columns": {
+      "name": "Nazwa",
+      "access": "Dostęp",
+      "labels": "Etykiety",
+      "result": "Wynik"
+    },
+    "file_errors": {
+      "unsupported_file": "Typ pliku {name} nie jest obsługiwany.",
+      "invalid_json": "Nie udało się odczytać pliku JSON. Należy sprawdzić, czy zawiera poprawny JSON.",
+      "invalid_json_shape": "Plik JSON musi zawierać listę „pages”.",
+      "empty_file": "W pliku nie znaleziono żadnych stron.",
+      "empty_zip": "Plik ZIP nie zawiera żadnych plików .md, .html ani .json.",
+      "invalid_zip": "Nie udało się otworzyć pliku ZIP.",
+      "invalid_xlsx": "Nie udało się otworzyć pliku Excel. Należy zapisać go w formacie .xlsx i spróbować ponownie.",
+      "missing_name_column": "Pierwszy wiersz musi zawierać kolumnę „name”.",
+      "xlsx_cell_too_long": "„{name}” przekracza limit znaków w jednej komórce Excel (maksymalna liczba znaków: {limit}). Należy wyeksportować w formacie JSON, Markdown, HTML lub CSV.",
+      "too_large": "Te strony przekraczają limit przesyłania wynoszący {size} MB. Należy podzielić je na kilka plików."
+    },
+    "import": {
+      "button": "Importuj",
+      "title": "Importuj strony",
+      "description": "Utwórz strony w tym projekcie z pliku JSON, Markdown, HTML, CSV lub Excel.",
+      "template_title": "Zacznij od szablonu",
+      "template_description": "Pobierz przykładowy plik, uzupełnij go swoimi stronami i prześlij poniżej.",
+      "download_template": "Pobierz szablon",
+      "template_error_title": "Nie pobrano szablonu",
+      "template_error_message": "Nie udało się utworzyć szablonu. Prosimy spróbować ponownie.",
+      "upload_title": "Prześlij plik",
+      "drop_idle": "Przeciągnij pliki tutaj lub kliknij, aby wybrać",
+      "drop_active": "Upuść pliki tutaj",
+      "reading": "Sprawdzanie pliku…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx lub .zip z plikami .md/.html",
+      "read_error": "Nie udało się odczytać pliku.",
+      "validate_error": "Nie udało się sprawdzić pliku. Prosimy spróbować ponownie.",
+      "choose_another": "Wybierz inny plik",
+      "conflict_label": "Jeśli strona już istnieje",
+      "conflict_modes": {
+        "skip": "Pomiń",
+        "update": "Aktualizuj",
+        "duplicate": "Utwórz kopię"
+      },
+      "conflict_mode_hints": {
+        "skip": "Pozostaw istniejącą stronę bez zmian",
+        "update": "Zastąp jej tytuł, treść, dostęp i etykiety",
+        "duplicate": "Zaimportuj jako nową stronę"
+      },
+      "invalid_title": "{count, plural, one {Należy poprawić # błąd w pliku i przesłać go ponownie.} few {Należy poprawić # błędy w pliku i przesłać go ponownie.} many {Należy poprawić # błędów w pliku i przesłać go ponownie.} other {Należy poprawić # błędu w pliku i przesłać go ponownie.}}",
+      "error_location": "Strona {number}",
+      "error_location_named": "Strona {number} ({name})",
+      "summary": "{total, plural, one {Znaleziono # stronę} few {Znaleziono # strony} many {Znaleziono # stron} other {Znaleziono # strony}}: nowe — {created}, do aktualizacji — {updated}, pominięte — {skipped}.",
+      "labels_to_create": "Zostaną utworzone nowe etykiety: {labels}",
+      "actions": {
+        "create": "Nowa",
+        "update": "Aktualizacja",
+        "skip": "Pominięcie"
+      },
+      "reasons": {
+        "already_exists": "Już istnieje",
+        "locked": "Strona jest zablokowana",
+        "archived": "Strona jest zarchiwizowana",
+        "matches_page_already_in_this_import": "Ta sama strona występuje wcześniej w pliku",
+        "access_unchanged_not_owner": "Dostęp bez zmian: może go zmienić tylko właściciel"
+      },
+      "submit": "{count, plural, one {Importuj # stronę} few {Importuj # strony} many {Importuj # stron} other {Importuj # strony}}",
+      "importing": "Importowanie",
+      "success_title": "Zaimportowano strony",
+      "success_message": "Utworzono: {created}, zaktualizowano: {updated}, pominięto: {skipped}.",
+      "error_title": "Import nie powiódł się",
+      "error_message": "Nie udało się zaimportować stron. Prosimy spróbować ponownie."
+    },
+    "export": {
+      "button": "Eksportuj",
+      "title": "Eksportuj strony",
+      "description": "Pobierz strony tego projektu. Plik można edytować i zaimportować ponownie, aby zaktualizować te same strony.",
+      "format_label": "Format",
+      "scope_label": "Strony",
+      "scopes": {
+        "all": "Wszystkie strony",
+        "public": "Strony publiczne",
+        "private": "Strony prywatne",
+        "archived": "Strony zarchiwizowane"
+      },
+      "zip_hint": "Kilka stron zostanie pobranych jako plik .zip.",
+      "submit": "Eksportuj",
+      "exporting": "Eksportowanie",
+      "empty_title": "Brak danych do eksportu",
+      "empty_message": "W tym wyborze nie ma żadnych stron.",
+      "success_title": "Wyeksportowano strony",
+      "success_message": "{count, plural, one {Wyeksportowano # stronę.} few {Wyeksportowano # strony.} many {Wyeksportowano # stron.} other {Wyeksportowano # strony.}}",
+      "error_title": "Eksport nie powiódł się",
+      "error_message": "Nie udało się wyeksportować stron. Prosimy spróbować ponownie."
+    }
   }
 }

@@ -111,5 +111,117 @@
       "success_message": "Sayfa koleksiyondan kaldırıldı.",
       "error_message": "Sayfa koleksiyondan kaldırılamadı. Lütfen tekrar deneyin."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Tüm sayfa ayrıntıları tek bir dosyada",
+      "markdown": "Her sayfa için bir .md dosyası, birden fazla sayfa ZIP olarak",
+      "html": "Her sayfa için bir .html dosyası, birden fazla sayfa ZIP olarak",
+      "csv": "Her sayfa için bir satır, içerik Markdown olarak",
+      "xlsx": "Her sayfa için bir satır, içerik Markdown olarak"
+    },
+    "access": {
+      "public": "Herkese açık",
+      "private": "Özel"
+    },
+    "columns": {
+      "name": "Ad",
+      "access": "Erişim",
+      "labels": "Etiketler",
+      "result": "Sonuç"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} desteklenen bir dosya türü değil.",
+      "invalid_json": "JSON dosyası okunamadı. Dosyanın geçerli JSON içerdiğini kontrol edin.",
+      "invalid_json_shape": "JSON dosyası bir \"pages\" listesi içermelidir.",
+      "empty_file": "Dosyada hiç sayfa bulunamadı.",
+      "empty_zip": "ZIP dosyası hiç .md, .html veya .json dosyası içermiyor.",
+      "invalid_zip": "ZIP dosyası açılamadı.",
+      "invalid_xlsx": "Excel dosyası açılamadı. Dosyayı .xlsx olarak kaydedip yeniden deneyin.",
+      "missing_name_column": "İlk satır bir \"name\" sütunu içermelidir.",
+      "xlsx_cell_too_long": "\"{name}\", Excel'in tek bir hücrede izin verdiği uzunluğu aşıyor (en fazla {limit} karakter). Bunun yerine JSON, Markdown, HTML veya CSV olarak dışa aktarın.",
+      "too_large": "Bu sayfalar {size} MB yükleme sınırını aşıyor. Sayfaları birden fazla dosyaya bölün."
+    },
+    "import": {
+      "button": "İçe aktar",
+      "title": "Sayfaları içe aktar",
+      "description": "JSON, Markdown, HTML, CSV veya Excel dosyasından bu projede sayfalar oluşturun.",
+      "template_title": "Bir şablonla başlayın",
+      "template_description": "Örnek dosyayı indirin, sayfalarınızla doldurun ve aşağıya yükleyin.",
+      "download_template": "Şablonu indir",
+      "template_error_title": "Şablon indirilemedi",
+      "template_error_message": "Şablon oluşturulamadı. Yeniden deneyin.",
+      "upload_title": "Dosyanızı yükleyin",
+      "drop_idle": "Dosyaları buraya sürükleyin veya seçmek için tıklayın",
+      "drop_active": "Dosyaları buraya bırakın",
+      "reading": "Dosya kontrol ediliyor…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx veya .md/.html dosyalarından oluşan bir .zip",
+      "read_error": "Dosya okunamadı.",
+      "validate_error": "Dosya kontrol edilemedi. Yeniden deneyin.",
+      "choose_another": "Başka bir dosya seç",
+      "conflict_label": "Sayfa zaten varsa",
+      "conflict_modes": {
+        "skip": "Atla",
+        "update": "Güncelle",
+        "duplicate": "Kopya oluştur"
+      },
+      "conflict_mode_hints": {
+        "skip": "Mevcut sayfayı değiştirmeden bırak",
+        "update": "Başlığını, içeriğini, erişimini ve etiketlerini değiştir",
+        "duplicate": "Sayfayı yeni bir sayfa olarak içe aktar"
+      },
+      "invalid_title": "{count, plural, one {Dosyadaki # sorunu düzeltip dosyayı yeniden yükleyin.} other {Dosyadaki # sorunu düzeltip dosyayı yeniden yükleyin.}}",
+      "error_location": "Sayfa {number}",
+      "error_location_named": "Sayfa {number} ({name})",
+      "summary": "{total, plural, one {# sayfa bulundu} other {# sayfa bulundu}}: yeni: {created}, güncellenecek: {updated}, atlanan: {skipped}.",
+      "labels_to_create": "Yeni etiketler oluşturulacak: {labels}",
+      "actions": {
+        "create": "Yeni",
+        "update": "Güncelle",
+        "skip": "Atla"
+      },
+      "reasons": {
+        "already_exists": "Zaten var",
+        "locked": "Sayfa kilitli",
+        "archived": "Sayfa arşivlenmiş",
+        "matches_page_already_in_this_import": "Aynı sayfa dosyada daha önce yer alıyor",
+        "access_unchanged_not_owner": "Erişim değişmedi: yalnızca sahibi değiştirebilir"
+      },
+      "submit": "{count, plural, one {# sayfayı içe aktar} other {# sayfayı içe aktar}}",
+      "importing": "İçe aktarılıyor",
+      "success_title": "Sayfalar içe aktarıldı",
+      "success_message": "Oluşturulan: {created}, güncellenen: {updated}, atlanan: {skipped}.",
+      "error_title": "İçe aktarma başarısız oldu",
+      "error_message": "Sayfalar içe aktarılamadı. Yeniden deneyin."
+    },
+    "export": {
+      "button": "Dışa aktar",
+      "title": "Sayfaları dışa aktar",
+      "description": "Bu projenin sayfalarını indirin. Dosyayı düzenleyip aynı sayfaları güncellemek için yeniden içe aktarabilirsiniz.",
+      "format_label": "Biçim",
+      "scope_label": "Sayfalar",
+      "scopes": {
+        "all": "Tüm sayfalar",
+        "public": "Herkese açık sayfalar",
+        "private": "Özel sayfalar",
+        "archived": "Arşivlenen sayfalar"
+      },
+      "zip_hint": "Birden fazla sayfa .zip dosyası olarak indirilir.",
+      "submit": "Dışa aktar",
+      "exporting": "Dışa aktarılıyor",
+      "empty_title": "Dışa aktarılacak bir şey yok",
+      "empty_message": "Bu seçimde hiç sayfa yok.",
+      "success_title": "Sayfalar dışa aktarıldı",
+      "success_message": "{count, plural, one {# sayfa dışa aktarıldı.} other {# sayfa dışa aktarıldı.}}",
+      "error_title": "Dışa aktarma başarısız oldu",
+      "error_message": "Sayfalar dışa aktarılamadı. Yeniden deneyin."
+    }
   }
 }
