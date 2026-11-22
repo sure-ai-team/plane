@@ -111,5 +111,173 @@
       "success_message": "页面已从集合中移除。",
       "error_message": "无法将页面从集合中移除。请重试。"
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "所有页面详情保存在一个文件中",
+      "markdown": "每个页面一个 .md 文件，多个页面打包为 zip",
+      "html": "每个页面一个 .html 文件，多个页面打包为 zip",
+      "csv": "每个页面一行，内容为 Markdown 格式",
+      "xlsx": "每个页面一行，内容为 Markdown 格式"
+    },
+    "access": {
+      "public": "公开",
+      "private": "私有"
+    },
+    "columns": {
+      "name": "名称",
+      "access": "可见性",
+      "labels": "标签",
+      "result": "结果"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} 不是受支持的文件类型。",
+      "invalid_json": "无法读取 JSON 文件。请检查其是否为有效的 JSON。",
+      "invalid_json_shape": "JSON 文件必须包含“pages”列表。",
+      "empty_file": "文件中未找到任何页面。",
+      "empty_zip": "zip 文件中不包含任何 .md、.html 或 .json 文件。",
+      "invalid_zip": "无法打开 zip 文件。",
+      "invalid_xlsx": "无法打开 Excel 文件。请将其另存为 .xlsx 后重试。",
+      "missing_name_column": "第一行必须包含“name”列。",
+      "xlsx_cell_too_long": "“{name}”超出了 Excel 单个单元格允许的长度（{limit} 个字符）。请改为导出为 JSON、Markdown、HTML 或 CSV。",
+      "too_large": "这些页面超出了 {size} MB 的上传限制。请将其拆分到多个文件中。"
+    },
+    "import": {
+      "button": "导入",
+      "title": "导入页面",
+      "description": "通过 JSON、Markdown、HTML、CSV 或 Excel 文件在此项目中创建页面。",
+      "template_title": "从模板开始",
+      "template_description": "下载示例文件，填入您的页面内容，然后在下方上传。",
+      "download_template": "下载模板",
+      "template_error_title": "模板未下载",
+      "template_error_message": "无法创建模板。请重试。",
+      "upload_title": "上传您的文件",
+      "drop_idle": "将文件拖到此处或点击选择",
+      "drop_active": "将文件拖放到此处",
+      "reading": "正在检查文件…",
+      "supported_files": ".json、.md、.html、.csv、.xlsx 或包含 .md/.html 文件的 .zip",
+      "read_error": "无法读取文件。",
+      "validate_error": "无法检查文件。请重试。",
+      "choose_another": "选择其他文件",
+      "conflict_label": "如果页面已存在",
+      "conflict_modes": {
+        "skip": "跳过",
+        "update": "更新",
+        "duplicate": "创建副本"
+      },
+      "conflict_mode_hints": {
+        "skip": "保持现有页面不变",
+        "update": "替换其标题、内容、可见性和标签",
+        "duplicate": "将该页面作为新页面导入"
+      },
+      "invalid_title": "{count, plural, one {请修复文件中的 # 个问题，然后重新上传。} other {请修复文件中的 # 个问题，然后重新上传。}}",
+      "error_location": "第 {number} 个页面",
+      "error_location_named": "第 {number} 个页面（{name}）",
+      "summary": "{total, plural, one {找到 # 个页面} other {找到 # 个页面}}：新建 {created} 个，更新 {updated} 个，跳过 {skipped} 个。",
+      "labels_to_create": "将创建新标签：{labels}",
+      "actions": {
+        "create": "新建",
+        "update": "更新",
+        "skip": "跳过"
+      },
+      "reasons": {
+        "already_exists": "已存在",
+        "locked": "页面已锁定",
+        "archived": "页面已归档",
+        "matches_page_already_in_this_import": "文件中前面已出现相同页面",
+        "access_unchanged_not_owner": "可见性未更改：仅所有者可以更改"
+      },
+      "submit": "{count, plural, one {导入 # 个页面} other {导入 # 个页面}}",
+      "importing": "正在导入",
+      "success_title": "页面已导入",
+      "success_message": "已创建 {created} 个，已更新 {updated} 个，已跳过 {skipped} 个。",
+      "error_title": "导入失败",
+      "error_message": "无法导入页面。请重试。",
+      "errors": {
+        "page_not_object": "每个页面都必须是对象。",
+        "name_required": "名称为必填项。",
+        "name_too_long": "名称过长（最大字符数：{max}）。",
+        "access_invalid": "可见性必须为“public”或“private”。",
+        "labels_not_list": "标签必须是标签名称列表。",
+        "label_not_text": "每个标签都必须是文本。",
+        "label_too_long": "标签名称过长（最大字符数：{max}）。",
+        "too_many_labels": "标签过多（每个页面最多：{max}）。",
+        "external_id_not_text": "external_id 必须是文本。",
+        "external_id_too_long": "external_id 过长（最大字符数：{max}）。",
+        "duplicate_external_id": "external_id“{external_id}”也被第 {other} 个页面使用。",
+        "logo_not_object": "页面图标（logo_props）必须是对象。",
+        "logo_invalid": "页面图标（logo_props）无效。",
+        "logo_too_large": "页面图标（logo_props）过大。",
+        "content_not_text": "页面内容必须是文本。",
+        "content_invalid": "页面内容过大或无法处理。",
+        "payload_not_object": "文件必须包含页面列表。",
+        "unsupported_version": "此文件使用的格式版本为 {version}；仅支持版本 {expected}。",
+        "pages_not_list": "“pages”必须是列表。",
+        "no_pages": "文件中不包含任何页面。",
+        "too_many_pages": "单次导入的页面过多（最多：{max}）。请将其拆分到多个文件中。",
+        "invalid_conflict_mode": "请选择页面已存在时的处理方式。"
+      }
+    },
+    "export": {
+      "button": "导出",
+      "title": "导出页面",
+      "description": "下载此项目的页面。您可以编辑文件并重新导入，以更新相同的页面。",
+      "format_label": "格式",
+      "scope_label": "页面",
+      "scopes": {
+        "all": "所有页面",
+        "public": "公开页面",
+        "private": "私有页面",
+        "archived": "已归档页面"
+      },
+      "zip_hint": "多个页面将以 .zip 文件下载。",
+      "submit": "导出",
+      "exporting": "正在导出",
+      "empty_title": "没有可导出的内容",
+      "empty_message": "所选范围内没有页面。",
+      "success_title": "页面已导出",
+      "success_message": "{count, plural, one {已导出 # 个页面。} other {已导出 # 个页面。}}",
+      "error_title": "导出失败",
+      "error_message": "无法导出页面。请重试。"
+    },
+    "template": {
+      "file_name": "页面导入模板",
+      "getting_started": {
+        "name": "入门指南",
+        "label": "文档",
+        "overview": "概述",
+        "intro": "在此处编写页面内容。",
+        "bold": "粗体文本",
+        "italic": "斜体文本",
+        "link": "一个链接",
+        "steps": "步骤",
+        "step_one": "第一步",
+        "step_two": "第二步",
+        "task_done": "已完成的任务",
+        "task_open": "未完成的任务",
+        "tip": "提示：将可见性设为私有，页面将仅对您自己可见。"
+      },
+      "meeting_notes": {
+        "name": "每周会议记录",
+        "label_meetings": "会议",
+        "label_team": "团队",
+        "agenda": "议程",
+        "updates": "进展",
+        "blockers": "阻碍事项",
+        "decisions": "决定",
+        "decisions_hint": "请填写会议中做出的决定。"
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "添加页面",
+    "create_error": "无法创建页面。请重试。"
   }
 }

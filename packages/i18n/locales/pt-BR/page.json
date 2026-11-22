@@ -111,5 +111,173 @@
       "success_message": "Página removida da coleção.",
       "error_message": "Não foi possível remover a página da coleção. Tente novamente."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Todos os detalhes das páginas em um único arquivo",
+      "markdown": "Um arquivo .md por página, compactados em ZIP quando houver várias páginas",
+      "html": "Um arquivo .html por página, compactados em ZIP quando houver várias páginas",
+      "csv": "Uma linha por página, com o conteúdo em Markdown",
+      "xlsx": "Uma linha por página, com o conteúdo em Markdown"
+    },
+    "access": {
+      "public": "Público",
+      "private": "Privado"
+    },
+    "columns": {
+      "name": "Nome",
+      "access": "Acesso",
+      "labels": "Etiquetas",
+      "result": "Resultado"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} não é um tipo de arquivo compatível.",
+      "invalid_json": "Não foi possível ler o arquivo JSON. Verifique se ele contém um JSON válido.",
+      "invalid_json_shape": "O arquivo JSON deve conter uma lista \"pages\".",
+      "empty_file": "Nenhuma página foi encontrada no arquivo.",
+      "empty_zip": "O arquivo ZIP não contém nenhum arquivo .md, .html ou .json.",
+      "invalid_zip": "Não foi possível abrir o arquivo ZIP.",
+      "invalid_xlsx": "Não foi possível abrir o arquivo do Excel. Salve-o como .xlsx e tente novamente.",
+      "missing_name_column": "A primeira linha deve conter uma coluna \"name\".",
+      "xlsx_cell_too_long": "\"{name}\" é maior do que o Excel permite em uma célula ({limit} caracteres). Exporte em JSON, Markdown, HTML ou CSV.",
+      "too_large": "Estas páginas excedem o limite de envio de {size} MB. Divida-as em vários arquivos."
+    },
+    "import": {
+      "button": "Importar",
+      "title": "Importar páginas",
+      "description": "Crie páginas neste projeto a partir de um arquivo JSON, Markdown, HTML, CSV ou Excel.",
+      "template_title": "Começar com um modelo",
+      "template_description": "Baixe um arquivo de exemplo, preencha-o com suas páginas e envie-o abaixo.",
+      "download_template": "Baixar modelo",
+      "template_error_title": "Modelo não baixado",
+      "template_error_message": "Não foi possível criar o modelo. Tente novamente.",
+      "upload_title": "Enviar seu arquivo",
+      "drop_idle": "Arraste arquivos para cá ou clique para escolher",
+      "drop_active": "Solte os arquivos aqui",
+      "reading": "Verificando o arquivo…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx ou um .zip de arquivos .md/.html",
+      "read_error": "Não foi possível ler o arquivo.",
+      "validate_error": "Não foi possível verificar o arquivo. Tente novamente.",
+      "choose_another": "Escolher outro arquivo",
+      "conflict_label": "Se uma página já existir",
+      "conflict_modes": {
+        "skip": "Ignorar",
+        "update": "Atualizar",
+        "duplicate": "Criar uma cópia"
+      },
+      "conflict_mode_hints": {
+        "skip": "Manter a página existente sem alterações",
+        "update": "Substituir título, conteúdo, acesso e etiquetas",
+        "duplicate": "Importar a página como uma nova página"
+      },
+      "invalid_title": "{count, plural, one {Corrija # problema no arquivo e envie-o novamente.} many {Corrija # de problemas no arquivo e envie-o novamente.} other {Corrija # problemas no arquivo e envie-o novamente.}}",
+      "error_location": "Página {number}",
+      "error_location_named": "Página {number} ({name})",
+      "summary": "{total, plural, one {# página encontrada} many {# de páginas encontradas} other {# páginas encontradas}}: {created} a criar, {updated} a atualizar, {skipped} a ignorar.",
+      "labels_to_create": "Novas etiquetas serão criadas: {labels}",
+      "actions": {
+        "create": "Nova",
+        "update": "Atualizar",
+        "skip": "Ignorar"
+      },
+      "reasons": {
+        "already_exists": "Já existe",
+        "locked": "A página está bloqueada",
+        "archived": "A página está arquivada",
+        "matches_page_already_in_this_import": "A mesma página aparece antes no arquivo",
+        "access_unchanged_not_owner": "Acesso inalterado: só o proprietário pode alterá-lo"
+      },
+      "submit": "{count, plural, one {Importar # página} many {Importar # de páginas} other {Importar # páginas}}",
+      "importing": "Importando",
+      "success_title": "Páginas importadas",
+      "success_message": "Criadas: {created}, atualizadas: {updated}, ignoradas: {skipped}.",
+      "error_title": "Falha na importação",
+      "error_message": "Não foi possível importar as páginas. Tente novamente.",
+      "errors": {
+        "page_not_object": "Cada página deve ser um objeto.",
+        "name_required": "O nome é obrigatório.",
+        "name_too_long": "O nome é longo demais (máximo de caracteres: {max}).",
+        "access_invalid": "O acesso deve ser \"public\" ou \"private\".",
+        "labels_not_list": "As etiquetas devem ser uma lista de nomes de etiquetas.",
+        "label_not_text": "Cada etiqueta deve ser um texto.",
+        "label_too_long": "Um nome de etiqueta é longo demais (máximo de caracteres: {max}).",
+        "too_many_labels": "Etiquetas demais (máximo por página: {max}).",
+        "external_id_not_text": "external_id deve ser um texto.",
+        "external_id_too_long": "external_id é longo demais (máximo de caracteres: {max}).",
+        "duplicate_external_id": "O external_id \"{external_id}\" também é usado pela página {other}.",
+        "logo_not_object": "O ícone da página (logo_props) deve ser um objeto.",
+        "logo_invalid": "O ícone da página (logo_props) não é válido.",
+        "logo_too_large": "O ícone da página (logo_props) é grande demais.",
+        "content_not_text": "O conteúdo da página deve ser um texto.",
+        "content_invalid": "O conteúdo da página é grande demais ou não pôde ser processado.",
+        "payload_not_object": "O arquivo deve conter uma lista de páginas.",
+        "unsupported_version": "Este arquivo usa a versão de formato {version}; somente a versão {expected} é compatível.",
+        "pages_not_list": "\"pages\" deve ser uma lista.",
+        "no_pages": "O arquivo não contém nenhuma página.",
+        "too_many_pages": "Páginas demais em uma única importação (máximo: {max}). Divida-as em vários arquivos.",
+        "invalid_conflict_mode": "Escolha o que fazer quando uma página já existir."
+      }
+    },
+    "export": {
+      "button": "Exportar",
+      "title": "Exportar páginas",
+      "description": "Baixe as páginas deste projeto. Você pode editar o arquivo e importá-lo novamente para atualizar as mesmas páginas.",
+      "format_label": "Formato",
+      "scope_label": "Páginas",
+      "scopes": {
+        "all": "Todas as páginas",
+        "public": "Páginas públicas",
+        "private": "Páginas privadas",
+        "archived": "Páginas arquivadas"
+      },
+      "zip_hint": "Várias páginas são baixadas como um arquivo .zip.",
+      "submit": "Exportar",
+      "exporting": "Exportando",
+      "empty_title": "Nada para exportar",
+      "empty_message": "Não há páginas nesta seleção.",
+      "success_title": "Páginas exportadas",
+      "success_message": "{count, plural, one {# página exportada.} many {# de páginas exportadas.} other {# páginas exportadas.}}",
+      "error_title": "Falha na exportação",
+      "error_message": "Não foi possível exportar as páginas. Tente novamente."
+    },
+    "template": {
+      "file_name": "modelo-importação-páginas",
+      "getting_started": {
+        "name": "Primeiros passos",
+        "label": "Documentação",
+        "overview": "Visão geral",
+        "intro": "Escreva o conteúdo da página aqui.",
+        "bold": "Texto em negrito",
+        "italic": "Texto em itálico",
+        "link": "Um link",
+        "steps": "Etapas",
+        "step_one": "Primeira etapa",
+        "step_two": "Segunda etapa",
+        "task_done": "Uma tarefa concluída",
+        "task_open": "Uma tarefa em aberto",
+        "tip": "Dica: defina o acesso como \"private\" para que só você veja a página."
+      },
+      "meeting_notes": {
+        "name": "Notas da reunião semanal",
+        "label_meetings": "Reuniões",
+        "label_team": "Equipe",
+        "agenda": "Pauta",
+        "updates": "Atualizações",
+        "blockers": "Impedimentos",
+        "decisions": "Decisões",
+        "decisions_hint": "Preencha as decisões tomadas na reunião."
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "Adicionar página",
+    "create_error": "Não foi possível criar a página. Tente novamente."
   }
 }

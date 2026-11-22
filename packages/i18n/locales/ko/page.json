@@ -111,5 +111,173 @@
       "success_message": "페이지가 컬렉션에서 제거되었습니다.",
       "error_message": "페이지를 컬렉션에서 제거할 수 없습니다. 다시 시도해 주세요."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "모든 페이지 정보를 하나의 파일에 담습니다",
+      "markdown": "페이지마다 .md 파일 하나, 여러 페이지는 zip으로 묶습니다",
+      "html": "페이지마다 .html 파일 하나, 여러 페이지는 zip으로 묶습니다",
+      "csv": "페이지당 한 행, 내용은 Markdown 형식입니다",
+      "xlsx": "페이지당 한 행, 내용은 Markdown 형식입니다"
+    },
+    "access": {
+      "public": "공개",
+      "private": "비공개"
+    },
+    "columns": {
+      "name": "이름",
+      "access": "공개 범위",
+      "labels": "레이블",
+      "result": "결과"
+    },
+    "file_errors": {
+      "unsupported_file": "{name}은(는) 지원되지 않는 파일 형식입니다.",
+      "invalid_json": "JSON 파일을 읽을 수 없습니다. 올바른 JSON인지 확인하십시오.",
+      "invalid_json_shape": "JSON 파일에는 \"pages\" 목록이 있어야 합니다.",
+      "empty_file": "파일에서 페이지를 찾을 수 없습니다.",
+      "empty_zip": "zip 파일에 .md, .html 또는 .json 파일이 없습니다.",
+      "invalid_zip": "zip 파일을 열 수 없습니다.",
+      "invalid_xlsx": "Excel 파일을 열 수 없습니다. .xlsx 형식으로 저장한 후 다시 시도하십시오.",
+      "missing_name_column": "첫 번째 행에 \"name\" 열이 있어야 합니다.",
+      "xlsx_cell_too_long": "\"{name}\"이(가) Excel 셀 하나에 허용되는 길이({limit}자)를 초과합니다. 대신 JSON, Markdown, HTML 또는 CSV로 내보내십시오.",
+      "too_large": "이 페이지들은 업로드 한도인 {size} MB를 초과합니다. 여러 파일로 나누십시오."
+    },
+    "import": {
+      "button": "가져오기",
+      "title": "페이지 가져오기",
+      "description": "JSON, Markdown, HTML, CSV 또는 Excel 파일로 이 프로젝트에 페이지를 생성합니다.",
+      "template_title": "템플릿으로 시작",
+      "template_description": "예제 파일을 다운로드하고 페이지 내용을 채운 후 아래에 업로드하십시오.",
+      "download_template": "템플릿 다운로드",
+      "template_error_title": "템플릿을 다운로드하지 못했습니다",
+      "template_error_message": "템플릿을 생성할 수 없습니다. 다시 시도하십시오.",
+      "upload_title": "파일 업로드",
+      "drop_idle": "파일을 여기로 끌어오거나 클릭하여 선택하십시오",
+      "drop_active": "여기에 파일을 놓으십시오",
+      "reading": "파일을 확인하는 중…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx 또는 .md/.html 파일의 .zip",
+      "read_error": "파일을 읽을 수 없습니다.",
+      "validate_error": "파일을 확인할 수 없습니다. 다시 시도하십시오.",
+      "choose_another": "다른 파일 선택",
+      "conflict_label": "페이지가 이미 있는 경우",
+      "conflict_modes": {
+        "skip": "건너뛰기",
+        "update": "업데이트",
+        "duplicate": "사본 만들기"
+      },
+      "conflict_mode_hints": {
+        "skip": "기존 페이지를 변경하지 않고 유지합니다",
+        "update": "제목, 내용, 공개 범위, 레이블을 교체합니다",
+        "duplicate": "페이지를 새 페이지로 가져옵니다"
+      },
+      "invalid_title": "{count, plural, one {파일에서 문제 #개를 수정한 후 다시 업로드하십시오.} other {파일에서 문제 #개를 수정한 후 다시 업로드하십시오.}}",
+      "error_location": "페이지 {number}",
+      "error_location_named": "페이지 {number}({name})",
+      "summary": "{total, plural, one {페이지 #개 발견} other {페이지 #개 발견}}: 새로 만들기 {created}개, 업데이트 {updated}개, 건너뜀 {skipped}개.",
+      "labels_to_create": "새 레이블이 생성됩니다: {labels}",
+      "actions": {
+        "create": "신규",
+        "update": "업데이트",
+        "skip": "건너뜀"
+      },
+      "reasons": {
+        "already_exists": "이미 있음",
+        "locked": "페이지가 잠겨 있음",
+        "archived": "페이지가 보관됨",
+        "matches_page_already_in_this_import": "파일 앞부분에 같은 페이지가 있음",
+        "access_unchanged_not_owner": "공개 범위 변경 안 됨: 소유자만 변경할 수 있음"
+      },
+      "submit": "{count, plural, one {페이지 #개 가져오기} other {페이지 #개 가져오기}}",
+      "importing": "가져오는 중",
+      "success_title": "페이지를 가져왔습니다",
+      "success_message": "{created}개 생성, {updated}개 업데이트, {skipped}개 건너뜀.",
+      "error_title": "가져오기에 실패했습니다",
+      "error_message": "페이지를 가져올 수 없습니다. 다시 시도하십시오.",
+      "errors": {
+        "page_not_object": "각 페이지는 객체여야 합니다.",
+        "name_required": "이름은 필수입니다.",
+        "name_too_long": "이름이 너무 깁니다(최대 문자 수: {max}).",
+        "access_invalid": "공개 범위는 \"public\" 또는 \"private\"이어야 합니다.",
+        "labels_not_list": "레이블은 레이블 이름 목록이어야 합니다.",
+        "label_not_text": "모든 레이블은 텍스트여야 합니다.",
+        "label_too_long": "레이블 이름이 너무 깁니다(최대 문자 수: {max}).",
+        "too_many_labels": "레이블이 너무 많습니다(페이지당 최대: {max}).",
+        "external_id_not_text": "external_id는 텍스트여야 합니다.",
+        "external_id_too_long": "external_id가 너무 깁니다(최대 문자 수: {max}).",
+        "duplicate_external_id": "external_id \"{external_id}\"이(가) 페이지 {other}에서도 사용되고 있습니다.",
+        "logo_not_object": "페이지 아이콘(logo_props)은 객체여야 합니다.",
+        "logo_invalid": "페이지 아이콘(logo_props)이 유효하지 않습니다.",
+        "logo_too_large": "페이지 아이콘(logo_props)이 너무 큽니다.",
+        "content_not_text": "페이지 내용은 텍스트여야 합니다.",
+        "content_invalid": "페이지 내용이 너무 크거나 처리할 수 없습니다.",
+        "payload_not_object": "파일에는 페이지 목록이 있어야 합니다.",
+        "unsupported_version": "이 파일은 형식 버전 {version}을(를) 사용합니다. 버전 {expected}만 지원됩니다.",
+        "pages_not_list": "\"pages\"는 목록이어야 합니다.",
+        "no_pages": "파일에 페이지가 없습니다.",
+        "too_many_pages": "한 번에 가져오는 페이지가 너무 많습니다(최대: {max}). 여러 파일로 나누십시오.",
+        "invalid_conflict_mode": "페이지가 이미 있는 경우 수행할 작업을 선택하십시오."
+      }
+    },
+    "export": {
+      "button": "내보내기",
+      "title": "페이지 내보내기",
+      "description": "이 프로젝트의 페이지를 다운로드합니다. 파일을 편집한 후 다시 가져오면 같은 페이지를 업데이트할 수 있습니다.",
+      "format_label": "형식",
+      "scope_label": "페이지",
+      "scopes": {
+        "all": "모든 페이지",
+        "public": "공개 페이지",
+        "private": "비공개 페이지",
+        "archived": "보관된 페이지"
+      },
+      "zip_hint": "여러 페이지는 .zip 파일로 다운로드됩니다.",
+      "submit": "내보내기",
+      "exporting": "내보내는 중",
+      "empty_title": "내보낼 항목이 없습니다",
+      "empty_message": "선택한 범위에 페이지가 없습니다.",
+      "success_title": "페이지를 내보냈습니다",
+      "success_message": "{count, plural, one {페이지 #개를 내보냈습니다.} other {페이지 #개를 내보냈습니다.}}",
+      "error_title": "내보내기에 실패했습니다",
+      "error_message": "페이지를 내보낼 수 없습니다. 다시 시도하십시오."
+    },
+    "template": {
+      "file_name": "페이지-가져오기-템플릿",
+      "getting_started": {
+        "name": "시작하기",
+        "label": "문서",
+        "overview": "개요",
+        "intro": "여기에 페이지 내용을 작성하십시오.",
+        "bold": "굵은 텍스트",
+        "italic": "기울임꼴 텍스트",
+        "link": "링크",
+        "steps": "단계",
+        "step_one": "첫 번째 단계",
+        "step_two": "두 번째 단계",
+        "task_done": "완료된 작업",
+        "task_open": "진행 중인 작업",
+        "tip": "팁: 공개 범위를 비공개로 설정하면 페이지를 나만 볼 수 있습니다."
+      },
+      "meeting_notes": {
+        "name": "주간 회의록",
+        "label_meetings": "회의",
+        "label_team": "팀",
+        "agenda": "안건",
+        "updates": "진행 상황",
+        "blockers": "장애 요소",
+        "decisions": "결정 사항",
+        "decisions_hint": "회의에서 결정된 사항을 입력하십시오."
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "페이지 추가",
+    "create_error": "페이지를 생성할 수 없습니다. 다시 시도하십시오."
   }
 }

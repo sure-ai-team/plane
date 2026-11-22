@@ -111,5 +111,173 @@
       "success_message": "Đã xóa trang khỏi bộ sưu tập.",
       "error_message": "Không thể xóa trang khỏi bộ sưu tập. Vui lòng thử lại."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Toàn bộ thông tin trang trong một tệp",
+      "markdown": "Mỗi trang một tệp .md, nén thành zip nếu có nhiều trang",
+      "html": "Mỗi trang một tệp .html, nén thành zip nếu có nhiều trang",
+      "csv": "Mỗi trang một hàng, nội dung ở dạng Markdown",
+      "xlsx": "Mỗi trang một hàng, nội dung ở dạng Markdown"
+    },
+    "access": {
+      "public": "Công khai",
+      "private": "Riêng tư"
+    },
+    "columns": {
+      "name": "Tên",
+      "access": "Quyền truy cập",
+      "labels": "Nhãn",
+      "result": "Kết quả"
+    },
+    "file_errors": {
+      "unsupported_file": "{name} không phải là loại tệp được hỗ trợ.",
+      "invalid_json": "Không thể đọc tệp JSON. Hãy kiểm tra xem tệp có phải là JSON hợp lệ không.",
+      "invalid_json_shape": "Tệp JSON phải chứa danh sách \"pages\".",
+      "empty_file": "Không tìm thấy trang nào trong tệp.",
+      "empty_zip": "Tệp zip không chứa tệp .md, .html hoặc .json nào.",
+      "invalid_zip": "Không thể mở tệp zip.",
+      "invalid_xlsx": "Không thể mở tệp Excel. Hãy lưu tệp dưới dạng .xlsx và thử lại.",
+      "missing_name_column": "Hàng đầu tiên phải có cột \"name\".",
+      "xlsx_cell_too_long": "\"{name}\" dài hơn mức Excel cho phép trong một ô ({limit} ký tự). Hãy xuất dưới dạng JSON, Markdown, HTML hoặc CSV.",
+      "too_large": "Các trang này vượt quá giới hạn tải lên {size} MB. Hãy chia chúng ra nhiều tệp."
+    },
+    "import": {
+      "button": "Nhập",
+      "title": "Nhập trang",
+      "description": "Tạo trang trong dự án này từ tệp JSON, Markdown, HTML, CSV hoặc Excel.",
+      "template_title": "Bắt đầu từ mẫu",
+      "template_description": "Tải xuống tệp mẫu, điền các trang của bạn vào và tải lên bên dưới.",
+      "download_template": "Tải xuống mẫu",
+      "template_error_title": "Chưa tải xuống được mẫu",
+      "template_error_message": "Không thể tạo mẫu. Vui lòng thử lại.",
+      "upload_title": "Tải lên tệp của bạn",
+      "drop_idle": "Kéo tệp vào đây hoặc nhấp để chọn",
+      "drop_active": "Thả tệp vào đây",
+      "reading": "Đang kiểm tra tệp…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx hoặc tệp .zip chứa các tệp .md/.html",
+      "read_error": "Không thể đọc tệp.",
+      "validate_error": "Không thể kiểm tra tệp. Vui lòng thử lại.",
+      "choose_another": "Chọn tệp khác",
+      "conflict_label": "Nếu trang đã tồn tại",
+      "conflict_modes": {
+        "skip": "Bỏ qua",
+        "update": "Cập nhật",
+        "duplicate": "Tạo bản sao"
+      },
+      "conflict_mode_hints": {
+        "skip": "Giữ nguyên trang hiện có",
+        "update": "Thay thế tiêu đề, nội dung, quyền truy cập và nhãn",
+        "duplicate": "Nhập trang dưới dạng trang mới"
+      },
+      "invalid_title": "{count, plural, one {Hãy sửa # lỗi trong tệp và tải lên lại.} other {Hãy sửa # lỗi trong tệp và tải lên lại.}}",
+      "error_location": "Trang {number}",
+      "error_location_named": "Trang {number} ({name})",
+      "summary": "{total, plural, one {Tìm thấy # trang} other {Tìm thấy # trang}}: {created} mới, {updated} sẽ cập nhật, {skipped} bị bỏ qua.",
+      "labels_to_create": "Các nhãn mới sẽ được tạo: {labels}",
+      "actions": {
+        "create": "Mới",
+        "update": "Cập nhật",
+        "skip": "Bỏ qua"
+      },
+      "reasons": {
+        "already_exists": "Đã tồn tại",
+        "locked": "Trang đã bị khóa",
+        "archived": "Trang đã được lưu trữ",
+        "matches_page_already_in_this_import": "Trang giống hệt đã xuất hiện trước đó trong tệp",
+        "access_unchanged_not_owner": "Quyền truy cập không đổi: chỉ chủ sở hữu mới có thể thay đổi"
+      },
+      "submit": "{count, plural, one {Nhập # trang} other {Nhập # trang}}",
+      "importing": "Đang nhập",
+      "success_title": "Đã nhập trang",
+      "success_message": "Đã tạo {created}, đã cập nhật {updated}, đã bỏ qua {skipped}.",
+      "error_title": "Nhập thất bại",
+      "error_message": "Không thể nhập các trang. Vui lòng thử lại.",
+      "errors": {
+        "page_not_object": "Mỗi trang phải là một đối tượng.",
+        "name_required": "Tên là bắt buộc.",
+        "name_too_long": "Tên quá dài (số ký tự tối đa: {max}).",
+        "access_invalid": "Quyền truy cập phải là \"public\" hoặc \"private\".",
+        "labels_not_list": "Nhãn phải là danh sách tên nhãn.",
+        "label_not_text": "Mỗi nhãn phải là văn bản.",
+        "label_too_long": "Tên nhãn quá dài (số ký tự tối đa: {max}).",
+        "too_many_labels": "Quá nhiều nhãn (tối đa mỗi trang: {max}).",
+        "external_id_not_text": "external_id phải là văn bản.",
+        "external_id_too_long": "external_id quá dài (số ký tự tối đa: {max}).",
+        "duplicate_external_id": "external_id \"{external_id}\" cũng được dùng bởi trang {other}.",
+        "logo_not_object": "Biểu tượng trang (logo_props) phải là một đối tượng.",
+        "logo_invalid": "Biểu tượng trang (logo_props) không hợp lệ.",
+        "logo_too_large": "Biểu tượng trang (logo_props) quá lớn.",
+        "content_not_text": "Nội dung trang phải là văn bản.",
+        "content_invalid": "Nội dung trang quá lớn hoặc không thể xử lý.",
+        "payload_not_object": "Tệp phải chứa danh sách các trang.",
+        "unsupported_version": "Tệp này dùng phiên bản định dạng {version}; chỉ hỗ trợ phiên bản {expected}.",
+        "pages_not_list": "\"pages\" phải là một danh sách.",
+        "no_pages": "Tệp không chứa trang nào.",
+        "too_many_pages": "Quá nhiều trang trong một lần nhập (tối đa: {max}). Hãy chia chúng ra nhiều tệp.",
+        "invalid_conflict_mode": "Hãy chọn cách xử lý khi trang đã tồn tại."
+      }
+    },
+    "export": {
+      "button": "Xuất",
+      "title": "Xuất trang",
+      "description": "Tải xuống các trang của dự án này. Bạn có thể chỉnh sửa tệp và nhập lại để cập nhật chính các trang đó.",
+      "format_label": "Định dạng",
+      "scope_label": "Trang",
+      "scopes": {
+        "all": "Tất cả trang",
+        "public": "Trang công khai",
+        "private": "Trang riêng tư",
+        "archived": "Trang đã lưu trữ"
+      },
+      "zip_hint": "Nhiều trang sẽ được tải xuống dưới dạng tệp .zip.",
+      "submit": "Xuất",
+      "exporting": "Đang xuất",
+      "empty_title": "Không có gì để xuất",
+      "empty_message": "Không có trang nào trong lựa chọn này.",
+      "success_title": "Đã xuất trang",
+      "success_message": "{count, plural, one {Đã xuất # trang.} other {Đã xuất # trang.}}",
+      "error_title": "Xuất thất bại",
+      "error_message": "Không thể xuất các trang. Vui lòng thử lại."
+    },
+    "template": {
+      "file_name": "mẫu-nhập-trang",
+      "getting_started": {
+        "name": "Bắt đầu",
+        "label": "Tài liệu",
+        "overview": "Tổng quan",
+        "intro": "Viết nội dung trang tại đây.",
+        "bold": "Chữ in đậm",
+        "italic": "Chữ in nghiêng",
+        "link": "Một liên kết",
+        "steps": "Các bước",
+        "step_one": "Bước thứ nhất",
+        "step_two": "Bước thứ hai",
+        "task_done": "Một việc đã hoàn thành",
+        "task_open": "Một việc chưa hoàn thành",
+        "tip": "Mẹo: đặt quyền truy cập thành riêng tư để chỉ mình bạn xem được trang."
+      },
+      "meeting_notes": {
+        "name": "Biên bản họp hằng tuần",
+        "label_meetings": "Cuộc họp",
+        "label_team": "Nhóm",
+        "agenda": "Chương trình họp",
+        "updates": "Cập nhật",
+        "blockers": "Vướng mắc",
+        "decisions": "Quyết định",
+        "decisions_hint": "Điền các quyết định được đưa ra trong cuộc họp."
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "Thêm trang",
+    "create_error": "Không thể tạo trang. Vui lòng thử lại."
   }
 }

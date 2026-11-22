@@ -5,15 +5,17 @@
  */
 
 import { useState } from "react";
+import { Download, Upload } from "lucide-react";
 import { observer } from "mobx-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 // constants
 import { EPageAccess } from "@plane/constants";
+import { useTranslation } from "@plane/i18n";
 // plane types
 import { Button } from "@plane/propel/button";
 import { PageIcon } from "@plane/propel/icons";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
-import type { TPage } from "@plane/types";
+import type { TPage, TPageNavigationTabs } from "@plane/types";
 // plane ui
 import { Breadcrumbs, Header } from "@plane/ui";
 // helpers
@@ -23,6 +25,7 @@ import { useProject } from "@/hooks/store/use-project";
 // plane web imports
 import { CommonProjectBreadcrumbs } from "@/components/breadcrumbs/common";
 import { EPageStoreType, usePageStore } from "@/hooks/store";
+import { ExportPagesModal, ImportPagesModal } from "@/components/pages/transfer";
 
 export const PagesListHeader = observer(function PagesListHeader() {
   // states
@@ -34,7 +37,12 @@ export const PagesListHeader = observer(function PagesListHeader() {
   const pageType = searchParams.get("type");
   // store hooks
   const { currentProjectDetails, loader } = useProject();
-  const { canCurrentUserCreatePage, createPage } = usePageStore(EPageStoreType.PROJECT);
+  const { canCurrentUserCreatePage, createPage, fetchPagesList } = usePageStore(EPageStoreType.PROJECT);
+  const { t } = useTranslation();
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const currentTab: TPageNavigationTabs | undefined =
+    pageType === "public" || pageType === "private" || pageType === "archived" ? pageType : undefined;
   // handle page create
   const handleCreatePage = async () => {
     setIsCreatingPage(true);
@@ -52,8 +60,8 @@ export const PagesListHeader = observer(function PagesListHeader() {
       .catch((err) => {
         setToast({
           type: TOAST_TYPE.ERROR,
-          title: "Error!",
-          message: err?.data?.error || "Page could not be created. Please try again.",
+          title: t("error"),
+          message: err?.data?.error || t("pages_list_header.create_error"),
         });
       })
       .finally(() => setIsCreatingPage(false));
@@ -67,7 +75,7 @@ export const PagesListHeader = observer(function PagesListHeader() {
           <Breadcrumbs.Item
             component={
               <BreadcrumbLink
-                label="Pages"
+                label={t("pages")}
                 href={`/${workspaceSlug}/projects/${currentProjectDetails?.id}/pages/`}
                 icon={<PageIcon className="h-4 w-4 text-tertiary" />}
                 isLast
@@ -77,12 +85,43 @@ export const PagesListHeader = observer(function PagesListHeader() {
           />
         </Breadcrumbs>
       </Header.LeftItem>
-      {canCurrentUserCreatePage && (
-        <Header.RightItem>
-          <Button variant="primary" size="lg" onClick={handleCreatePage} loading={isCreatingPage}>
-            {isCreatingPage ? "Adding" : "Add page"}
+      <Header.RightItem>
+        {canCurrentUserCreatePage && (
+          <Button variant="secondary" size="lg" onClick={() => setIsImportModalOpen(true)}>
+            <Upload className="size-3.5" />
+            {t("pages_transfer.import.button")}
           </Button>
-        </Header.RightItem>
+        )}
+        <Button variant="secondary" size="lg" onClick={() => setIsExportModalOpen(true)}>
+          <Download className="size-3.5" />
+          {t("pages_transfer.export.button")}
+        </Button>
+        {canCurrentUserCreatePage && (
+          <Button variant="primary" size="lg" onClick={handleCreatePage} loading={isCreatingPage}>
+            {isCreatingPage ? t("adding") : t("pages_list_header.add_page")}
+          </Button>
+        )}
+      </Header.RightItem>
+      {workspaceSlug && projectId && (
+        <>
+          <ImportPagesModal
+            isOpen={isImportModalOpen}
+            onClose={() => setIsImportModalOpen(false)}
+            workspaceSlug={workspaceSlug.toString()}
+            projectId={projectId.toString()}
+            onImported={async () => {
+              await fetchPagesList(workspaceSlug.toString(), projectId.toString(), currentTab);
+            }}
+          />
+          <ExportPagesModal
+            isOpen={isExportModalOpen}
+            onClose={() => setIsExportModalOpen(false)}
+            workspaceSlug={workspaceSlug.toString()}
+            projectId={projectId.toString()}
+            projectIdentifier={currentProjectDetails?.identifier}
+            defaultScope={currentTab ?? "all"}
+          />
+        </>
       )}
     </Header>
   );

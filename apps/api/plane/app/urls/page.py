@@ -11,9 +11,22 @@ from plane.app.views import (
     PagesDescriptionViewSet,
     PageVersionEndpoint,
     PageDuplicateEndpoint,
+    PageExportEndpoint,
+    PageImportEndpoint,
 )
 
 urlpatterns = [
+    # bulk import / export (must come before pages/<uuid:page_id>/)
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/pages/import/",
+        PageImportEndpoint.as_view(),
+        name="project-pages-import",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/pages/export/",
+        PageExportEndpoint.as_view(),
+        name="project-pages-export",
+    ),
     path(
         "workspaces/<str:slug>/projects/<uuid:project_id>/pages-summary/",
         PageViewSet.as_view({"get": "summary"}),

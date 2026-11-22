@@ -111,5 +111,173 @@
       "success_message": "Stránka bola odstránená z kolekcie.",
       "error_message": "Stránku sa nepodarilo odstrániť z kolekcie. Skúste to prosím znova."
     }
+  },
+  "pages_transfer": {
+    "formats": {
+      "json": "JSON",
+      "markdown": "Markdown",
+      "html": "HTML",
+      "csv": "CSV",
+      "xlsx": "Excel"
+    },
+    "format_hints": {
+      "json": "Všetky údaje o stránkach v jednom súbore",
+      "markdown": "Jeden súbor .md na stránku, viac stránok v archíve ZIP",
+      "html": "Jeden súbor .html na stránku, viac stránok v archíve ZIP",
+      "csv": "Jeden riadok na stránku, obsah vo formáte Markdown",
+      "xlsx": "Jeden riadok na stránku, obsah vo formáte Markdown"
+    },
+    "access": {
+      "public": "Verejný",
+      "private": "Súkromný"
+    },
+    "columns": {
+      "name": "Názov",
+      "access": "Prístup",
+      "labels": "Štítky",
+      "result": "Výsledok"
+    },
+    "file_errors": {
+      "unsupported_file": "Typ súboru {name} nie je podporovaný.",
+      "invalid_json": "Súbor JSON sa nepodarilo načítať. Skontrolujte, či obsahuje platný JSON.",
+      "invalid_json_shape": "Súbor JSON musí obsahovať zoznam „pages“.",
+      "empty_file": "V súbore sa nenašli žiadne stránky.",
+      "empty_zip": "Súbor ZIP neobsahuje žiadne súbory .md, .html ani .json.",
+      "invalid_zip": "Súbor ZIP sa nepodarilo otvoriť.",
+      "invalid_xlsx": "Súbor Excel sa nepodarilo otvoriť. Uložte ho vo formáte .xlsx a skúste to znova.",
+      "missing_name_column": "Prvý riadok musí obsahovať stĺpec „name“.",
+      "xlsx_cell_too_long": "„{name}“ je dlhší, než Excel povoľuje v jednej bunke (maximálny počet znakov: {limit}). Exportujte namiesto toho do formátu JSON, Markdown, HTML alebo CSV.",
+      "too_large": "Tieto stránky prekračujú limit nahrávania {size} MB. Rozdeľte ich do viacerých súborov."
+    },
+    "import": {
+      "button": "Importovať",
+      "title": "Importovať stránky",
+      "description": "Vytvorte stránky v tomto projekte zo súboru JSON, Markdown, HTML, CSV alebo Excel.",
+      "template_title": "Začnite šablónou",
+      "template_description": "Stiahnite si vzorový súbor, vyplňte ho svojimi stránkami a nahrajte ho nižšie.",
+      "download_template": "Stiahnuť šablónu",
+      "template_error_title": "Šablóna nebola stiahnutá",
+      "template_error_message": "Šablónu sa nepodarilo vytvoriť. Skúste to znova.",
+      "upload_title": "Nahrajte súbor",
+      "drop_idle": "Presuňte súbory sem alebo kliknite a vyberte ich",
+      "drop_active": "Pustite súbory sem",
+      "reading": "Kontrola súboru…",
+      "supported_files": ".json, .md, .html, .csv, .xlsx alebo .zip so súbormi .md/.html",
+      "read_error": "Súbor sa nepodarilo načítať.",
+      "validate_error": "Súbor sa nepodarilo skontrolovať. Skúste to znova.",
+      "choose_another": "Vybrať iný súbor",
+      "conflict_label": "Ak stránka už existuje",
+      "conflict_modes": {
+        "skip": "Preskočiť",
+        "update": "Aktualizovať",
+        "duplicate": "Vytvoriť kópiu"
+      },
+      "conflict_mode_hints": {
+        "skip": "Ponechať existujúcu stránku bez zmeny",
+        "update": "Nahradiť jej názov, obsah, prístup a štítky",
+        "duplicate": "Importovať ako novú stránku"
+      },
+      "invalid_title": "{count, plural, one {Opravte # chybu v súbore a nahrajte ho znova.} few {Opravte # chyby v súbore a nahrajte ho znova.} many {Opravte # chyby v súbore a nahrajte ho znova.} other {Opravte # chýb v súbore a nahrajte ho znova.}}",
+      "error_location": "Stránka {number}",
+      "error_location_named": "Stránka {number} ({name})",
+      "summary": "{total, plural, one {Nájdená # stránka} few {Nájdené # stránky} many {Nájdené # stránky} other {Nájdených # stránok}}: nové – {created}, na aktualizáciu – {updated}, preskočené – {skipped}.",
+      "labels_to_create": "Vytvoria sa nové štítky: {labels}",
+      "actions": {
+        "create": "Nová",
+        "update": "Aktualizácia",
+        "skip": "Preskočiť"
+      },
+      "reasons": {
+        "already_exists": "Už existuje",
+        "locked": "Stránka je uzamknutá",
+        "archived": "Stránka je archivovaná",
+        "matches_page_already_in_this_import": "Rovnaká stránka sa v súbore vyskytuje už skôr",
+        "access_unchanged_not_owner": "Prístup nezmenený: zmeniť ho môže iba vlastník"
+      },
+      "submit": "{count, plural, one {Importovať # stránku} few {Importovať # stránky} many {Importovať # stránky} other {Importovať # stránok}}",
+      "importing": "Prebieha import",
+      "success_title": "Stránky importované",
+      "success_message": "Vytvorené: {created}, aktualizované: {updated}, preskočené: {skipped}.",
+      "error_title": "Import zlyhal",
+      "error_message": "Stránky sa nepodarilo importovať. Skúste to znova.",
+      "errors": {
+        "page_not_object": "Každá stránka musí byť objekt.",
+        "name_required": "Názov je povinný.",
+        "name_too_long": "Názov je príliš dlhý (maximálny počet znakov: {max}).",
+        "access_invalid": "Prístup musí mať hodnotu „public“ alebo „private“.",
+        "labels_not_list": "Štítky musia byť zoznam názvov štítkov.",
+        "label_not_text": "Každý štítok musí byť text.",
+        "label_too_long": "Názov štítka je príliš dlhý (maximálny počet znakov: {max}).",
+        "too_many_labels": "Príliš veľa štítkov (maximum na stránku: {max}).",
+        "external_id_not_text": "external_id musí byť text.",
+        "external_id_too_long": "external_id je príliš dlhé (maximálny počet znakov: {max}).",
+        "duplicate_external_id": "external_id „{external_id}“ používa aj stránka {other}.",
+        "logo_not_object": "Ikona stránky (logo_props) musí byť objekt.",
+        "logo_invalid": "Ikona stránky (logo_props) nie je platná.",
+        "logo_too_large": "Ikona stránky (logo_props) je príliš veľká.",
+        "content_not_text": "Obsah stránky musí byť text.",
+        "content_invalid": "Obsah stránky je príliš veľký alebo ho nebolo možné spracovať.",
+        "payload_not_object": "Súbor musí obsahovať zoznam stránok.",
+        "unsupported_version": "Tento súbor používa verziu formátu {version}; podporovaná je iba verzia {expected}.",
+        "pages_not_list": "„pages“ musí byť zoznam.",
+        "no_pages": "Súbor neobsahuje žiadne stránky.",
+        "too_many_pages": "Príliš veľa stránok v jednom importe (maximum: {max}). Rozdeľte ich do viacerých súborov.",
+        "invalid_conflict_mode": "Vyberte, čo sa má stať, ak stránka už existuje."
+      }
+    },
+    "export": {
+      "button": "Exportovať",
+      "title": "Exportovať stránky",
+      "description": "Stiahnite si stránky tohto projektu. Súbor môžete upraviť a znova importovať, aby ste aktualizovali tie isté stránky.",
+      "format_label": "Formát",
+      "scope_label": "Stránky",
+      "scopes": {
+        "all": "Všetky stránky",
+        "public": "Verejné stránky",
+        "private": "Súkromné stránky",
+        "archived": "Archivované stránky"
+      },
+      "zip_hint": "Viac stránok sa stiahne ako súbor .zip.",
+      "submit": "Exportovať",
+      "exporting": "Prebieha export",
+      "empty_title": "Nie je čo exportovať",
+      "empty_message": "V tomto výbere nie sú žiadne stránky.",
+      "success_title": "Stránky exportované",
+      "success_message": "{count, plural, one {Exportovaná # stránka.} few {Exportované # stránky.} many {Exportované # stránky.} other {Exportovaných # stránok.}}",
+      "error_title": "Export zlyhal",
+      "error_message": "Stránky sa nepodarilo exportovať. Skúste to znova."
+    },
+    "template": {
+      "file_name": "šablóna-importu-stránok",
+      "getting_started": {
+        "name": "Začíname",
+        "label": "Dokumentácia",
+        "overview": "Prehľad",
+        "intro": "Sem napíšte obsah stránky.",
+        "bold": "Tučný text",
+        "italic": "Kurzíva",
+        "link": "Odkaz",
+        "steps": "Kroky",
+        "step_one": "Prvý krok",
+        "step_two": "Druhý krok",
+        "task_done": "Dokončená úloha",
+        "task_open": "Otvorená úloha",
+        "tip": "Tip: nastavte prístup na súkromný, aby stránku videli iba Vy."
+      },
+      "meeting_notes": {
+        "name": "Poznámky z týždennej porady",
+        "label_meetings": "Porady",
+        "label_team": "Tím",
+        "agenda": "Program",
+        "updates": "Novinky",
+        "blockers": "Prekážky",
+        "decisions": "Rozhodnutia",
+        "decisions_hint": "Doplňte rozhodnutia prijaté na porade."
+      }
+    }
+  },
+  "pages_list_header": {
+    "add_page": "Pridať stránku",
+    "create_error": "Stránku sa nepodarilo vytvoriť. Skúste to znova."
   }
 }
