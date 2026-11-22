@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "그렇지 않으면 가끔 페이지를 새로고침하거나 저희",
     "status_page": "상태 페이지를 방문해 주세요"
   },
+  "maintenance_mode": {
+    "title": "곧 돌아오겠습니다",
+    "description": "관리자가 백업에서 플랫폼을 복원하고 있습니다. 보통 몇 분 정도 걸립니다.",
+    "auto_reload": "플랫폼을 다시 사용할 수 있게 되면 이 페이지가 자동으로 새로고침됩니다."
+  },
   "submit": "제출",
   "cancel": "취소",
   "loading": "로딩 중",

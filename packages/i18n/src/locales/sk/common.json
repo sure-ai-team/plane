@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Inak skúste občas obnoviť stránku alebo navštívte našu",
     "status_page": "stránku stavu"
   },
+  "maintenance_mode": {
+    "title": "Hneď sme späť",
+    "description": "Správca obnovuje platformu zo zálohy. Zvyčajne to trvá niekoľko minút.",
+    "auto_reload": "Táto stránka sa automaticky znova načíta, keď bude platforma opäť dostupná."
+  },
   "submit": "Odoslať",
   "cancel": "Zrušiť",
   "loading": "Načítavanie",

@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Altfel, încercați să reîmprospătați pagina din când în când sau vizitați",
     "status_page": "pagina noastră de stare"
   },
+  "maintenance_mode": {
+    "title": "Revenim imediat",
+    "description": "Un administrator restaurează platforma dintr-o copie de rezervă. De obicei, durează câteva minute.",
+    "auto_reload": "Această pagină se va reîncărca automat când platforma va fi din nou disponibilă."
+  },
   "submit": "Trimite",
   "cancel": "Anulează",
   "loading": "Se încarcă",

@@ -7,6 +7,7 @@
 export * from "./ai";
 export * from "./auth";
 export * from "./auth-ee";
+export * from "./backup";
 export * from "./base";
 export * from "./bulk-users";
 export * from "./chat";

@@ -4,7 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { Image, BrainCog, Cog, Mail, MessageSquare, Users } from "lucide-react";
+import { Image, BrainCog, Cog, DatabaseBackup, Mail, MessageSquare, Users } from "lucide-react";
 // plane imports
 import { LockIcon, WorkspaceIcon } from "@plane/propel/icons";
 // types
@@ -18,7 +18,8 @@ export type TCoreSidebarMenuKey =
   | "authentication"
   | "ai"
   | "image"
-  | "chat";
+  | "chat"
+  | "backup";
 
 export const coreSidebarMenuLinks: Record<TCoreSidebarMenuKey, TSidebarMenuItem> = {
   general: {
@@ -68,5 +69,11 @@ export const coreSidebarMenuLinks: Record<TCoreSidebarMenuKey, TSidebarMenuItem>
     name: "Chat",
     description: "Turn chat on or off and set attachment limits.",
     href: `/chat/`,
+  },
+  backup: {
+    Icon: DatabaseBackup,
+    name: "Backup & restore",
+    description: "Schedule backups and choose where they are saved.",
+    href: `/backup/`,
   },
 };

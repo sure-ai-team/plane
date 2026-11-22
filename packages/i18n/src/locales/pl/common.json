@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "W przeciwnym razie spróbuj od czasu do czasu odświeżyć stronę lub odwiedź naszą",
     "status_page": "stronę statusu"
   },
+  "maintenance_mode": {
+    "title": "Zaraz wracamy",
+    "description": "Administrator przywraca platformę z kopii zapasowej. Zwykle trwa to kilka minut.",
+    "auto_reload": "Ta strona odświeży się automatycznie, gdy platforma znów będzie dostępna."
+  },
   "submit": "Wyślij",
   "cancel": "Anuluj",
   "loading": "Ładowanie",

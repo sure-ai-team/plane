@@ -74,6 +74,7 @@ services:
       - dev_env
     volumes:
       - ./apps/api:/code
+      - backups:/backups
     command: ./bin/docker-entrypoint-api-local.sh
     env_file:
       - ./apps/api/.env
@@ -95,6 +96,7 @@ services:
       - dev_env
     volumes:
       - ./apps/api:/code
+      - backups:/backups
     command: ./bin/docker-entrypoint-worker.sh
     env_file:
       - ./apps/api/.env
@@ -141,6 +143,7 @@ services:
       - redis
 
 volumes:
+  backups:
   redisdata:
   uploads:
   pgdata:

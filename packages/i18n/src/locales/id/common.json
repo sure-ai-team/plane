@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Jika tidak, coba segarkan halaman sesekali atau kunjungi",
     "status_page": "halaman status kami"
   },
+  "maintenance_mode": {
+    "title": "Kami akan segera kembali",
+    "description": "Administrator sedang memulihkan platform dari cadangan. Proses ini biasanya memakan waktu beberapa menit.",
+    "auto_reload": "Halaman ini akan dimuat ulang secara otomatis saat platform tersedia kembali."
+  },
   "submit": "Kirim",
   "cancel": "Batal",
   "loading": "Memuat",

@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "De lo contrario, intenta actualizar la página ocasionalmente o visita nuestra",
     "status_page": "página de estado"
   },
+  "maintenance_mode": {
+    "title": "Volvemos enseguida",
+    "description": "Un administrador está restaurando la plataforma desde una copia de seguridad. Esto suele tardar unos minutos.",
+    "auto_reload": "Esta página se recargará automáticamente cuando la plataforma vuelva a estar disponible."
+  },
   "submit": "Enviar",
   "cancel": "Cancelar",
   "loading": "Cargando",

@@ -31,3 +31,6 @@ export const SUPPORT_EMAIL = process.env.VITE_SUPPORT_EMAIL || "info@sure.com.sa
 export const MARKETING_PRICING_PAGE_LINK = "https://sure.com.sa";
 export const MARKETING_CONTACT_US_PAGE_LINK = "https://sure.com.sa";
 export const MARKETING_PLANE_ONE_PAGE_LINK = "https://sure.com.sa";
+// Raised on `window` when the API answers that the platform is paused for a backup restore.
+export const MAINTENANCE_EVENT = "sgtpm:maintenance";
+export const MAINTENANCE_STATUS_PATH = "/api/instances/backups/maintenance/";

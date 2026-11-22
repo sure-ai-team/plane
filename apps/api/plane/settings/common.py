@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     "plane.license",
     "plane.api",
     "plane.authentication",
+    "plane.backup",
     # Third-party things
     "rest_framework",
     "corsheaders",
@@ -116,6 +117,8 @@ INSTALLED_APPS = [
 # Middlewares
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
+    # Before sessions: during a restore the database (and its sessions) is being swapped.
+    "plane.backup.maintenance.MaintenanceModeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "plane.authentication.middleware.session.SessionMiddleware",
@@ -353,7 +356,25 @@ CELERY_IMPORTS = (
     # Chat attachment storage cleanup
     "plane.bgtasks.chat_cleanup_task",
     "plane.bgtasks.chat_inbox_task",
+    # Backup & restore
+    "plane.backup.tasks",
 )
+
+# Backup & restore
+# Root of the "folder on the server" destination; mount a volume or network share here.
+BACKUP_LOCAL_ROOT = os.environ.get("BACKUP_LOCAL_ROOT", "/backups")
+# Scratch space for the database dump while a backup runs; emptied after every run.
+BACKUP_WORK_DIR = os.environ.get("BACKUP_WORK_DIR", "/tmp/sgtpm-backups")
+BACKUP_DB_TIMEOUT_SECONDS = int(os.environ.get("BACKUP_DB_TIMEOUT_SECONDS", 6 * 3600))
+# Shared by the API and worker containers (both mount the backups volume): uploaded backup files,
+# downloads being prepared and restores being inspected. Never a destination folder: names there
+# can't start with a dot.
+BACKUP_SHARED_DIR = os.environ.get("BACKUP_SHARED_DIR", os.path.join(BACKUP_LOCAL_ROOT, ".staging"))
+# Address the server itself uses to read and write uploaded files during backup and restore,
+# when it differs from AWS_S3_ENDPOINT_URL (which browsers use), e.g. http://minio:9000 in Docker.
+BACKUP_SOURCE_S3_ENDPOINT_URL = os.environ.get("BACKUP_SOURCE_S3_ENDPOINT_URL", "")
+# Largest backup file an admin may upload for a restore.
+BACKUP_MAX_UPLOAD_BYTES = int(os.environ.get("BACKUP_MAX_UPLOAD_BYTES", 50 * 1024**3))
 
 FILE_SIZE_LIMIT = int(os.environ.get("FILE_SIZE_LIMIT", 5242880))
 

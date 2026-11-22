@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "否則，請偶爾重新整理頁面或造訪我們的",
     "status_page": "狀態頁面"
   },
+  "maintenance_mode": {
+    "title": "馬上回來",
+    "description": "管理員正在從備份還原平台，通常需要幾分鐘。",
+    "auto_reload": "平台恢復可用後，此頁面將自動重新整理。"
+  },
   "submit": "送出",
   "cancel": "取消",
   "loading": "載入中",

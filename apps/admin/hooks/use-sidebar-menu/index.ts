@@ -16,6 +16,7 @@ export function useSidebarMenu(): TSidebarMenuItem[] {
     coreSidebarMenuLinks.workspace,
     coreSidebarMenuLinks.users,
     coreSidebarMenuLinks.chat,
+    coreSidebarMenuLinks.backup,
     coreSidebarMenuLinks.ai,
     coreSidebarMenuLinks.image,
   ];

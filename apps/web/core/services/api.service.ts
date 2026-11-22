@@ -7,6 +7,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { create } from "axios";
+import { announceMaintenance, isMaintenanceResponse } from "@plane/constants";
 
 export abstract class APIService {
   protected baseURL: string;
@@ -26,6 +27,8 @@ export abstract class APIService {
     this.axiosInstance.interceptors.response.use(
       (response) => response,
       (error) => {
+        // The platform is paused while an admin restores a backup: show the maintenance screen.
+        if (isMaintenanceResponse(error.response?.status, error.response?.data)) announceMaintenance();
         if (error.response && error.response.status === 401) {
           const currentPath = window.location.pathname;
           window.location.replace(`/${currentPath ? `?next_path=${currentPath}` : ``}`);

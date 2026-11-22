@@ -24,6 +24,7 @@ import globalStyles from "@/styles/globals.css?url";
 import type { Route } from "./+types/root";
 // components
 import { LogoSpinner } from "@/components/common/logo-spinner";
+import { MaintenanceScreen } from "@/components/maintenance/maintenance-screen";
 // lib
 import { isStaleAssetError, recoverFromStaleAsset } from "@/lib/stale-asset-error";
 // local
@@ -133,6 +134,7 @@ export default function Root() {
           <Outlet />
         </main>
       </div>
+      <MaintenanceScreen />
     </AppProvider>
   );
 }

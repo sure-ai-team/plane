@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "それ以外の場合は、時々ページを更新するか、こちらの",
     "status_page": "ステータスページ"
   },
+  "maintenance_mode": {
+    "title": "まもなく再開します",
+    "description": "管理者がバックアップからプラットフォームを復元しています。通常、数分で完了します。",
+    "auto_reload": "プラットフォームが利用可能になると、このページは自動的に再読み込みされます。"
+  },
   "submit": "送信",
   "cancel": "キャンセル",
   "loading": "読み込み中",

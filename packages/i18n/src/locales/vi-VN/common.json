@@ -5,6 +5,11 @@
     "otherwise_try_refreshing_the_page_occasionally_or_visit_our": "Nếu không, hãy thử làm mới trang thỉnh thoảng hoặc truy cập",
     "status_page": "trang trạng thái của chúng tôi"
   },
+  "maintenance_mode": {
+    "title": "Chúng tôi sẽ quay lại ngay",
+    "description": "Quản trị viên đang khôi phục nền tảng từ một bản sao lưu. Quá trình này thường mất vài phút.",
+    "auto_reload": "Trang này sẽ tự động tải lại khi nền tảng hoạt động trở lại."
+  },
   "submit": "Gửi",
   "cancel": "Hủy",
   "loading": "Đang tải",

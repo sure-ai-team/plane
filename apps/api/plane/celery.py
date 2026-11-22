@@ -51,6 +51,16 @@ app.conf.beat_schedule = {
         "task": "plane.license.bgtasks.telemetry_metrics.push_instance_metrics",
         "schedule": schedule(run_every=timedelta(minutes=METRICS_PUSH_INTERVAL_MINUTES)),
     },
+    # Starts the automatic backup when the admin's schedule says it is due.
+    "backup-scheduler-tick": {
+        "task": "plane.backup.tasks.backup_scheduler_tick",
+        "schedule": crontab(),  # Every minute
+    },
+    # Expires backup downloads and checked restores; drops the pre-restore database after the undo window.
+    "backup-housekeeping": {
+        "task": "plane.backup.tasks.backup_housekeeping",
+        "schedule": crontab(minute=7),  # Hourly
+    },
     # Occurs once every day
     "check-every-day-to-delete-hard-delete": {
         "task": "plane.bgtasks.deletion_task.hard_delete",
