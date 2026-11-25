@@ -25,6 +25,8 @@ import { HocusPocusServerManager } from "@/hocuspocus";
 import { redisManager } from "@/redis";
 // chat
 import { startChat, stopChat } from "@/chat";
+// stickies
+import { startStickies, stopStickies } from "@/stickies";
 
 export class Server {
   private app: Express;
@@ -46,6 +48,7 @@ export class Server {
       await redisManager.initialize();
       logger.info("SERVER: Redis setup completed");
       await startChat();
+      await startStickies();
       const manager = HocusPocusServerManager.getInstance();
       this.hocuspocusServer = await manager.initialize();
       logger.info("SERVER: HocusPocus setup completed");
@@ -113,6 +116,7 @@ export class Server {
     }
 
     await stopChat();
+    await stopStickies();
     logger.info("SERVER: Chat sockets closed gracefully.");
 
     await redisManager.disconnect();

@@ -20,8 +20,10 @@ import { useSticky } from "@/hooks/use-stickies";
 export const WorkspaceStickyHeader = observer(function WorkspaceStickyHeader() {
   const { workspaceSlug } = useParams();
   // hooks
-  const { creatingSticky, toggleShowNewSticky } = useSticky();
+  const { getList, toggleShowNewSticky } = useSticky();
   const { stickyOperations } = useStickyOperations({ workspaceSlug: workspaceSlug?.toString() });
+  // derived values
+  const { isCreating } = getList({ workspaceSlug: workspaceSlug?.toString() ?? "" });
 
   return (
     <>
@@ -42,7 +44,7 @@ export const WorkspaceStickyHeader = observer(function WorkspaceStickyHeader() {
         </Header.LeftItem>
 
         <Header.RightItem>
-          <StickySearch />
+          <StickySearch workspaceSlug={workspaceSlug?.toString() ?? ""} />
           <Button
             variant="primary"
             size="lg"
@@ -50,7 +52,7 @@ export const WorkspaceStickyHeader = observer(function WorkspaceStickyHeader() {
               toggleShowNewSticky(true);
               stickyOperations.create();
             }}
-            loading={creatingSticky}
+            loading={isCreating}
           >
             Add sticky
           </Button>

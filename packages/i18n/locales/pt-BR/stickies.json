@@ -54,6 +54,71 @@
         "title": "Anotação não removida",
         "message": "A anotação não pôde ser removida"
       }
+    },
+    "view_only": "Somente visualização",
+    "project": {
+      "empty_state": {
+        "title": "As anotações deste projeto em um só lugar.",
+        "description": "Os Stickies que você adiciona aqui pertencem a este projeto. Os Stickies que membros do projeto compartilham com você também aparecem aqui."
+      }
+    },
+    "conflict": {
+      "title": "Outra pessoa alterou este Sticky enquanto você o editava.",
+      "use_theirs": "Usar a outra versão",
+      "keep_mine": "Manter minha versão"
+    },
+    "sharing": {
+      "title": "Compartilhar Sticky",
+      "access": {
+        "private": {
+          "label": "Privado",
+          "description": "Somente o proprietário pode vê-lo."
+        },
+        "members": {
+          "label": "Pessoas específicas",
+          "description": "Somente o proprietário, os administradores do projeto e as pessoas que você escolher."
+        },
+        "project": {
+          "label": "Projeto inteiro",
+          "description": "Todos os membros deste projeto."
+        }
+      },
+      "permission": {
+        "view": "Pode visualizar",
+        "edit": "Pode editar"
+      },
+      "everyone_can": "Todos no projeto",
+      "people": "Pessoas",
+      "guests_hint": "Convidados só o veem se você os adicionar aqui.",
+      "search": "Buscar membros do projeto",
+      "no_people": "Nenhuma pessoa encontrada",
+      "remove_person": "Remover {name}",
+      "choose_someone": "Escolha pelo menos uma pessoa.",
+      "lose_access": "Somente o proprietário verá este Sticky. Você perderá o acesso a ele.",
+      "shared_with": "{count, plural, one {# pessoa} many {# pessoas} other {# pessoas}}",
+      "notification": "{name} compartilhou um Sticky com você",
+      "unavailable": "Este Sticky não está mais disponível para você.",
+      "toasts": {
+        "updated": "Compartilhamento atualizado",
+        "not_updated": {
+          "title": "Compartilhamento não atualizado",
+          "message": "Alguém pode ter saído do projeto. Verifique as pessoas e tente novamente."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Fixar na visão geral",
+      "unpin": "Desafixar da visão geral",
+      "needs_project": "Compartilhe com o projeto inteiro para fixar na visão geral",
+      "will_unpin": "Salvar também desafixará o Sticky da visão geral do projeto."
+    },
+    "overview": {
+      "pinned": "Stickies fixados",
+      "empty": {
+        "title": "Ainda não há Stickies fixados",
+        "description": "Fixe um Sticky compartilhado com o projeto inteiro e todos o verão aqui."
+      },
+      "view_all": "Ver todos os Stickies"
     }
   }
 }

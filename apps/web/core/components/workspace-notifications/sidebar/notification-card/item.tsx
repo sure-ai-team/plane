@@ -12,6 +12,7 @@ import { Avatar, Row } from "@plane/ui";
 import { cn, calculateTimeAgo, renderFormattedDate, renderFormattedTime, getFileURL } from "@plane/utils";
 // components
 import { ChatInboxNotificationItem } from "@/components/chat/inbox-item";
+import { StickyInboxNotificationItem } from "@/components/stickies/sharing/inbox-item";
 // hooks
 import { useWorkspaceNotifications } from "@/hooks/store/notifications";
 import { useNotification } from "@/hooks/store/notifications/use-notification";
@@ -42,7 +43,7 @@ export const NotificationItem = observer(function NotificationItem(props: TNotif
   const issueId = notification?.data?.issue?.id || undefined;
   const workspace = getWorkspaceBySlug(workspaceSlug);
 
-  const notificationField = notification?.data?.issue_activity.field || undefined;
+  const notificationField = notification?.data?.issue_activity?.field || undefined;
   const notificationTriggeredBy = notification.triggered_by_details || undefined;
 
   const handleNotificationIssuePeekOverview = async () => {
@@ -76,6 +77,30 @@ export const NotificationItem = observer(function NotificationItem(props: TNotif
         isSelected={currentSelectedNotificationId === notification.id}
         onOpen={async () => {
           setCurrentSelectedNotificationId(notificationId);
+          if (notification.read_at === null) await markNotificationAsRead(workspaceSlug).catch(() => undefined);
+        }}
+        options={
+          <NotificationOption
+            workspaceSlug={workspaceSlug}
+            notificationId={notification.id}
+            isSnoozeStateModalOpen={isSnoozeStateModalOpen}
+            setIsSnoozeStateModalOpen={setIsSnoozeStateModalOpen}
+            customSnoozeModal={customSnoozeModal}
+            setCustomSnoozeModal={setCustomSnoozeModal}
+          />
+        }
+      />
+    );
+  }
+
+  // Stickies shared with the user
+  if (workspaceSlug && notification?.id && notification.entity_name === "sticky") {
+    return (
+      <StickyInboxNotificationItem
+        workspaceSlug={workspaceSlug}
+        notification={notification}
+        isSelected={currentSelectedNotificationId === notification.id}
+        onOpen={async () => {
           if (notification.read_at === null) await markNotificationAsRead(workspaceSlug).catch(() => undefined);
         }}
         options={

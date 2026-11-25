@@ -54,6 +54,71 @@
         "title": "Catatan tempel tidak dihapus",
         "message": "Catatan tempel tidak dapat dihapus"
       }
+    },
+    "view_only": "Hanya lihat",
+    "project": {
+      "empty_state": {
+        "title": "Catatan untuk proyek ini, di satu tempat.",
+        "description": "Stickies yang Anda tambahkan di sini menjadi bagian dari proyek ini. Stickies yang dibagikan anggota proyek kepada Anda juga muncul di sini."
+      }
+    },
+    "conflict": {
+      "title": "Orang lain mengubah Sticky ini saat Anda mengeditnya.",
+      "use_theirs": "Gunakan versi mereka",
+      "keep_mine": "Pertahankan versi saya"
+    },
+    "sharing": {
+      "title": "Bagikan Sticky",
+      "access": {
+        "private": {
+          "label": "Pribadi",
+          "description": "Hanya pemilik yang dapat melihatnya."
+        },
+        "members": {
+          "label": "Orang tertentu",
+          "description": "Hanya pemilik, admin proyek, dan orang yang Anda pilih."
+        },
+        "project": {
+          "label": "Seluruh proyek",
+          "description": "Semua anggota proyek ini."
+        }
+      },
+      "permission": {
+        "view": "Dapat melihat",
+        "edit": "Dapat mengedit"
+      },
+      "everyone_can": "Semua orang di proyek",
+      "people": "Orang",
+      "guests_hint": "Tamu hanya melihatnya jika Anda menambahkannya di sini.",
+      "search": "Cari anggota proyek",
+      "no_people": "Tidak ada orang yang ditemukan",
+      "remove_person": "Hapus {name}",
+      "choose_someone": "Pilih setidaknya satu orang.",
+      "lose_access": "Hanya pemilik yang akan melihat Sticky ini. Anda akan kehilangan akses.",
+      "shared_with": "{count, plural, one {# orang} other {# orang}}",
+      "notification": "{name} membagikan Sticky kepada Anda",
+      "unavailable": "Sticky ini tidak lagi tersedia untuk Anda.",
+      "toasts": {
+        "updated": "Berbagi diperbarui",
+        "not_updated": {
+          "title": "Berbagi tidak diperbarui",
+          "message": "Mungkin ada yang keluar dari proyek. Periksa daftar orang dan coba lagi."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Sematkan ke ringkasan",
+      "unpin": "Lepas dari ringkasan",
+      "needs_project": "Bagikan ke seluruh proyek untuk menyematkannya ke ringkasan",
+      "will_unpin": "Menyimpan ini juga melepas Sticky dari ringkasan proyek."
+    },
+    "overview": {
+      "pinned": "Stickies yang disematkan",
+      "empty": {
+        "title": "Belum ada Stickies yang disematkan",
+        "description": "Sematkan Sticky yang dibagikan ke seluruh proyek agar semua orang di proyek melihatnya di sini."
+      },
+      "view_all": "Lihat semua Stickies"
     }
   }
 }

@@ -54,6 +54,71 @@
         "title": "Yapışkan not kaldırılamadı",
         "message": "Yapışkan not kaldırılamadı"
       }
+    },
+    "view_only": "Yalnızca görüntüleme",
+    "project": {
+      "empty_state": {
+        "title": "Bu projenin notları tek bir yerde.",
+        "description": "Buraya eklediğiniz Stickies bu projeye aittir. Proje üyelerinin sizinle paylaştığı Stickies de burada görünür."
+      }
+    },
+    "conflict": {
+      "title": "Siz düzenlerken başka biri bu Sticky üzerinde değişiklik yaptı.",
+      "use_theirs": "Diğer sürümü kullan",
+      "keep_mine": "Benim sürümümü koru"
+    },
+    "sharing": {
+      "title": "Sticky paylaş",
+      "access": {
+        "private": {
+          "label": "Özel",
+          "description": "Yalnızca sahibi görebilir."
+        },
+        "members": {
+          "label": "Belirli kişiler",
+          "description": "Yalnızca sahibi, proje yöneticileri ve seçtiğiniz kişiler."
+        },
+        "project": {
+          "label": "Tüm proje",
+          "description": "Bu projenin tüm üyeleri."
+        }
+      },
+      "permission": {
+        "view": "Görüntüleyebilir",
+        "edit": "Düzenleyebilir"
+      },
+      "everyone_can": "Projedeki herkes",
+      "people": "Kişiler",
+      "guests_hint": "Misafirler yalnızca buraya eklerseniz görebilir.",
+      "search": "Proje üyelerini ara",
+      "no_people": "Kişi bulunamadı",
+      "remove_person": "{name} kişisini kaldır",
+      "choose_someone": "En az bir kişi seçin.",
+      "lose_access": "Bu Sticky yalnızca sahibine görünecek. Erişiminizi kaybedeceksiniz.",
+      "shared_with": "{count, plural, one {# kişi} other {# kişi}}",
+      "notification": "{name} sizinle bir Sticky paylaştı",
+      "unavailable": "Bu Sticky artık sizin için kullanılamıyor.",
+      "toasts": {
+        "updated": "Paylaşım güncellendi",
+        "not_updated": {
+          "title": "Paylaşım güncellenemedi",
+          "message": "Biri projeden ayrılmış olabilir. Kişileri kontrol edip yeniden deneyin."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Genel bakışa sabitle",
+      "unpin": "Genel bakıştan kaldır",
+      "needs_project": "Genel bakışa sabitlemek için tüm projeyle paylaşın",
+      "will_unpin": "Kaydettiğinizde Sticky proje genel bakışından da kaldırılır."
+    },
+    "overview": {
+      "pinned": "Sabitlenmiş Stickies",
+      "empty": {
+        "title": "Henüz sabitlenmiş Stickies yok",
+        "description": "Tüm projeyle paylaşılan bir Sticky sabitleyin; projedeki herkes burada görsün."
+      },
+      "view_all": "Tüm Stickies öğelerini görüntüle"
     }
   }
 }

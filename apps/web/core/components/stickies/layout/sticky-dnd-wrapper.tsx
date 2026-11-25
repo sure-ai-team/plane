@@ -5,136 +5,107 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-import type {
-  DropTargetRecord,
-  DragLocationHistory,
-} from "@atlaskit/pragmatic-drag-and-drop/dist/types/internal-types";
-import type { ElementDragPayload } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { draggable, dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { pointerOutsideOfPreview } from "@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview";
-import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview";
-import { attachInstruction } from "@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item";
+import { attachClosestEdge, extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 import { observer } from "mobx-react";
-import { usePathname } from "next/navigation";
-import { createRoot } from "react-dom/client";
-// plane types
-import type { InstructionType } from "@plane/types";
+// plane imports
+import { cn } from "@plane/utils";
+// hooks
+import { useSticky } from "@/hooks/use-stickies";
 // components
 import { StickyNote } from "../sticky";
-// helpers
-import { getInstructionFromPayload } from "./sticky.helpers";
+import { StickyItemDragHandle } from "../sticky/sticky-item-drag-handle";
+
+type TDropEdge = "left" | "right";
 
 type Props = {
   stickyId: string;
   workspaceSlug: string;
+  projectId?: string;
+  isStickiesPage: boolean;
+  isLinked: boolean;
   itemWidth: string;
-  isLastChild: boolean;
-  isInFirstRow: boolean;
-  isInLastRow: boolean;
-  handleDrop: (self: DropTargetRecord, source: ElementDragPayload, location: DragLocationHistory) => void;
+  handleDrop: (sourceId: string, destinationId: string, edge: TDropEdge) => void;
   handleLayout: () => void;
 };
 
 export const StickyDNDWrapper = observer(function StickyDNDWrapper(props: Props) {
-  const { stickyId, workspaceSlug, itemWidth, isLastChild, handleDrop, handleLayout } = props;
+  const { stickyId, workspaceSlug, projectId, isStickiesPage, isLinked, itemWidth, handleDrop, handleLayout } = props;
   // states
   const [isDragging, setIsDragging] = useState(false);
-  const [_instruction, setInstruction] = useState<InstructionType | undefined>(undefined);
+  const [dropEdge, setDropEdge] = useState<TDropEdge | null>(null);
   // refs
   const elementRef = useRef<HTMLDivElement>(null);
-  // navigation
-  const pathname = usePathname();
+  const handleRef = useRef<HTMLButtonElement>(null);
+  // store hooks
+  const { stickies } = useSticky();
+  // derived values
+  const canMove = isStickiesPage && (!projectId || (stickies[stickyId]?.my_permission ?? "view") !== "view");
+
+  useEffect(() => {
+    // after the layout has positioned the note
+    if (isLinked) requestAnimationFrame(() => elementRef.current?.scrollIntoView({ block: "center" }));
+  }, [isLinked]);
 
   useEffect(() => {
     const element = elementRef.current;
-    if (!element) return;
+    const dragHandle = handleRef.current;
+    if (!element || !dragHandle || !canMove) return;
 
-    const initialData = { id: stickyId, type: "sticky" };
+    return draggable({
+      element,
+      dragHandle,
+      getInitialData: () => ({ id: stickyId, type: "sticky" }),
+      onDragStart: () => setIsDragging(true),
+      onDrop: () => setIsDragging(false),
+    });
+  }, [canMove, stickyId]);
 
-    if (pathname.includes("stickies"))
-      return combine(
-        draggable({
-          element,
-          dragHandle: element,
-          getInitialData: () => initialData,
-          onDragStart: () => {
-            setIsDragging(true);
-          },
-          onDrop: () => {
-            setIsDragging(false);
-          },
-          onGenerateDragPreview: ({ nativeSetDragImage }) => {
-            setCustomNativeDragPreview({
-              getOffset: pointerOutsideOfPreview({ x: "-200px", y: "0px" }),
-              render: ({ container }) => {
-                const root = createRoot(container);
-                root.render(
-                  <div className="scale-50">
-                    <div className="-m-2 max-h-[150px]">
-                      <StickyNote
-                        className={"w-[290px]"}
-                        workspaceSlug={workspaceSlug.toString()}
-                        stickyId={stickyId}
-                        showToolbar={false}
-                      />
-                    </div>
-                  </div>
-                );
-                return () => root.unmount();
-              },
-              nativeSetDragImage,
-            });
-          },
-        }),
-        dropTargetForElements({
-          element,
-          canDrop: ({ source }) => source.data?.type === "sticky",
-          getData: ({ input, element }) => {
-            const blockedStates: InstructionType[] = ["make-child"];
-            if (!isLastChild) {
-              blockedStates.push("reorder-below");
-            }
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element || !isStickiesPage) return;
 
-            return attachInstruction(initialData, {
-              input,
-              element,
-              currentLevel: 1,
-              indentPerLevel: 0,
-              mode: isLastChild ? "last-in-group" : "standard",
-              block: blockedStates,
-            });
-          },
-          onDrag: ({ self, source, location }) => {
-            const instruction = getInstructionFromPayload(self, source, location);
-            setInstruction(instruction);
-          },
-          onDragLeave: () => {
-            setInstruction(undefined);
-          },
-          onDrop: ({ self, source, location }) => {
-            setInstruction(undefined);
-            handleDrop(self, source, location);
-          },
-        })
-      );
-  }, [handleDrop, isDragging, isLastChild, pathname, stickyId, workspaceSlug]);
+    return dropTargetForElements({
+      element,
+      canDrop: ({ source }) => source.data.type === "sticky" && source.data.id !== stickyId,
+      getData: ({ input, element: target }) =>
+        attachClosestEdge({ id: stickyId }, { input, element: target, allowedEdges: ["left", "right"] }),
+      onDrag: ({ self }) => setDropEdge(extractClosestEdge(self.data) as TDropEdge | null),
+      onDragLeave: () => setDropEdge(null),
+      onDrop: ({ self, source }) => {
+        const edge = extractClosestEdge(self.data) as TDropEdge | null;
+        setDropEdge(null);
+        if (edge) handleDrop(source.data.id as string, stickyId, edge);
+      },
+    });
+  }, [handleDrop, isStickiesPage, stickyId]);
 
   return (
     <div
-      className="box-border flex flex-col p-[8px]"
+      ref={elementRef}
+      className={cn("group/sticky-item box-border flex flex-col p-[8px]", { "opacity-50": isDragging })}
       style={{
         width: itemWidth,
       }}
     >
-      {/* {!isInFirstRow && <DropIndicator isVisible={instruction === "reorder-above"} />} */}
+      {dropEdge && (
+        <div
+          className={cn(
+            "absolute inset-y-2 w-0.5 rounded-full bg-accent-primary",
+            dropEdge === "left" ? "left-[3px]" : "right-[3px]"
+          )}
+        />
+      )}
+      {canMove && <StickyItemDragHandle ref={handleRef} isDragging={isDragging} />}
       <StickyNote
         key={stickyId || "new"}
         workspaceSlug={workspaceSlug}
+        projectId={projectId}
         stickyId={stickyId}
+        className={cn({ "ring-2 ring-accent-strong": isLinked })}
+        isStickiesPage={isStickiesPage}
         handleLayout={handleLayout}
       />
-      {/* {!isInLastRow && <DropIndicator isVisible={instruction === "reorder-below"} />} */}
     </div>
   );
 });

@@ -54,6 +54,71 @@
         "title": "Usunięcie się nie powiodło",
         "message": "Nie można usunąć notatki"
       }
+    },
+    "view_only": "Tylko podgląd",
+    "project": {
+      "empty_state": {
+        "title": "Notatki do tego projektu w jednym miejscu.",
+        "description": "Dodane tutaj Stickies należą do tego projektu. Wyświetlane są tu również Stickies udostępnione przez członków projektu."
+      }
+    },
+    "conflict": {
+      "title": "Ten Sticky został zmieniony przez inną osobę podczas edycji.",
+      "use_theirs": "Użyj innej wersji",
+      "keep_mine": "Zachowaj moją wersję"
+    },
+    "sharing": {
+      "title": "Udostępnij Sticky",
+      "access": {
+        "private": {
+          "label": "Prywatny",
+          "description": "Widoczny tylko dla właściciela."
+        },
+        "members": {
+          "label": "Wybrane osoby",
+          "description": "Tylko właściciel, administratorzy projektu i wybrane osoby."
+        },
+        "project": {
+          "label": "Cały projekt",
+          "description": "Wszyscy członkowie tego projektu."
+        }
+      },
+      "permission": {
+        "view": "Może wyświetlać",
+        "edit": "Może edytować"
+      },
+      "everyone_can": "Wszyscy w projekcie",
+      "people": "Osoby",
+      "guests_hint": "Goście zobaczą go tylko po dodaniu tutaj.",
+      "search": "Szukaj członków projektu",
+      "no_people": "Nie znaleziono osób",
+      "remove_person": "Usuń: {name}",
+      "choose_someone": "Należy wybrać co najmniej jedną osobę.",
+      "lose_access": "Ten Sticky będzie widoczny tylko dla właściciela. Dostęp do niego zostanie utracony.",
+      "shared_with": "{count, plural, one {# osoba} few {# osoby} many {# osób} other {# osoby}}",
+      "notification": "{name} udostępnia Sticky",
+      "unavailable": "Ten Sticky nie jest już dostępny.",
+      "toasts": {
+        "updated": "Zaktualizowano udostępnianie",
+        "not_updated": {
+          "title": "Nie zaktualizowano udostępniania",
+          "message": "Ktoś mógł opuścić projekt. Należy sprawdzić wybrane osoby i spróbować ponownie."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Przypnij do przeglądu",
+      "unpin": "Odepnij od przeglądu",
+      "needs_project": "Aby przypiąć do przeglądu, należy udostępnić całemu projektowi",
+      "will_unpin": "Zapisanie spowoduje też odpięcie tego Sticky od przeglądu projektu."
+    },
+    "overview": {
+      "pinned": "Przypięte Stickies",
+      "empty": {
+        "title": "Brak przypiętych Stickies",
+        "description": "Po przypięciu Sticky udostępnionego całemu projektowi będą go tu widzieć wszyscy w projekcie."
+      },
+      "view_all": "Pokaż wszystkie Stickies"
     }
   }
 }

@@ -4,33 +4,31 @@
  * See the LICENSE file for details.
  */
 
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 // plane types
 import { useTranslation } from "@plane/i18n";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
-import type { InstructionType, TSticky } from "@plane/types";
+import type { TSticky, TStickyScope, TStickySharing } from "@plane/types";
 // plane utils
 import { isCommentEmpty } from "@plane/utils";
 // components
 import { STICKY_COLORS_LIST } from "@/components/editor/sticky-editor/color-palette";
 // hooks
+import { useUser } from "@/hooks/store/user";
 import { useSticky } from "@/hooks/use-stickies";
 
 export type TOperations = {
   create: (data?: Partial<TSticky>) => Promise<void>;
   update: (stickyId: string, data: Partial<TSticky>) => Promise<void>;
   remove: (stickyId: string) => Promise<void>;
-  updatePosition: (
-    workspaceSlug: string,
-    sourceId: string,
-    droppedId: string,
-    instruction: InstructionType
-  ) => Promise<void>;
+  resolveConflict: (stickyId: string, keep: "mine" | "theirs") => Promise<void>;
+  /** resolves to whether it was saved */
+  updateSharing: (stickyId: string, sharing: TStickySharing) => Promise<boolean>;
+  updatePin: (stickyId: string, isPinned: boolean) => Promise<void>;
+  updatePosition: (sourceId: string, destinationId: string, edge: "left" | "right") => Promise<void>;
 };
 
-type TProps = {
-  workspaceSlug: string;
-};
+type TProps = TStickyScope;
 
 export const getRandomStickyColor = (): string => {
   const randomIndex = Math.floor(Math.random() * STICKY_COLORS_LIST.length);
@@ -38,23 +36,39 @@ export const getRandomStickyColor = (): string => {
 };
 
 export const useStickyOperations = (props: TProps) => {
-  const { workspaceSlug } = props;
+  const { workspaceSlug, projectId } = props;
   // store hooks
-  const { stickies, getWorkspaceStickyIds, createSticky, updateSticky, deleteSticky, updateStickyPosition } =
-    useSticky();
+  const {
+    stickies,
+    getStickyIds,
+    createSticky,
+    updateSticky,
+    resolveConflict,
+    updateSharing,
+    updatePin,
+    deleteSticky,
+    updateStickyPosition,
+  } = useSticky();
+  const { data: currentUser } = useUser();
+  // derived values
+  const currentUserId = currentUser?.id;
+  const scope: TStickyScope = useMemo(() => ({ workspaceSlug, projectId }), [workspaceSlug, projectId]);
   const { t } = useTranslation();
 
-  const isValid = (data: Partial<TSticky>) => {
-    if (data.name && data.name.length > 100) {
-      setToast({
-        type: TOAST_TYPE.ERROR,
-        title: t("stickies.toasts.not_updated.title"),
-        message: t("stickies.toasts.errors.wrong_name"),
-      });
-      return false;
-    }
-    return true;
-  };
+  const isValid = useCallback(
+    (data: Partial<TSticky>) => {
+      if (data.name && data.name.length > 100) {
+        setToast({
+          type: TOAST_TYPE.ERROR,
+          title: t("stickies.toasts.not_updated.title"),
+          message: t("stickies.toasts.errors.wrong_name"),
+        });
+        return false;
+      }
+      return true;
+    },
+    [t]
+  );
 
   const stickyOperations: TOperations = useMemo(
     () => ({
@@ -64,22 +78,22 @@ export const useStickyOperations = (props: TProps) => {
             background_color: getRandomStickyColor(),
             ...data,
           };
-          const workspaceStickIds = getWorkspaceStickyIds(workspaceSlug);
-          // check if latest sticky is empty
-          if (workspaceStickIds && workspaceStickIds.length >= 0) {
-            const latestSticky = stickies[workspaceStickIds[0]];
-            if (latestSticky && (!latestSticky.description_html || isCommentEmpty(latestSticky.description_html))) {
-              setToast({
-                message: t("stickies.toasts.errors.already_exists"),
-                type: TOAST_TYPE.WARNING,
-                title: t("stickies.toasts.not_created.title"),
-              });
-              return;
-            }
+          // check if the user's latest sticky is empty; in a project, other people's do not count
+          const latestStickyId = getStickyIds(scope).find(
+            (stickyId) => !projectId || stickies[stickyId]?.owner === currentUserId
+          );
+          const latestSticky = latestStickyId ? stickies[latestStickyId] : undefined;
+          if (latestSticky && (!latestSticky.description_html || isCommentEmpty(latestSticky.description_html))) {
+            setToast({
+              message: t("stickies.toasts.errors.already_exists"),
+              type: TOAST_TYPE.WARNING,
+              title: t("stickies.toasts.not_created.title"),
+            });
+            return;
           }
           if (!workspaceSlug) throw new Error("Missing required fields");
           if (!isValid(payload)) return;
-          await createSticky(workspaceSlug, payload);
+          await createSticky(scope, payload);
           setToast({
             type: TOAST_TYPE.SUCCESS,
             title: t("stickies.toasts.created.title"),
@@ -98,7 +112,7 @@ export const useStickyOperations = (props: TProps) => {
         try {
           if (!workspaceSlug) throw new Error("Missing required fields");
           if (!isValid(data)) return;
-          await updateSticky(workspaceSlug, stickyId, data);
+          await updateSticky(scope, stickyId, data);
         } catch (error) {
           console.error("Error in updating sticky:", error);
           setToast({
@@ -111,7 +125,7 @@ export const useStickyOperations = (props: TProps) => {
       remove: async (stickyId: string) => {
         try {
           if (!workspaceSlug) throw new Error("Missing required fields");
-          await deleteSticky(workspaceSlug, stickyId);
+          await deleteSticky(scope, stickyId);
           setToast({
             type: TOAST_TYPE.SUCCESS,
             title: t("stickies.toasts.removed.title"),
@@ -126,15 +140,52 @@ export const useStickyOperations = (props: TProps) => {
           });
         }
       },
-      updatePosition: async (
-        workspaceSlug: string,
-        sourceId: string,
-        droppedId: string,
-        instruction: InstructionType
-      ) => {
+      resolveConflict: async (stickyId: string, keep: "mine" | "theirs") => {
+        try {
+          await resolveConflict(scope, stickyId, keep);
+        } catch (error) {
+          console.error("Error in resolving sticky conflict:", error);
+          setToast({
+            type: TOAST_TYPE.ERROR,
+            title: t("stickies.toasts.not_updated.title"),
+            message: t("stickies.toasts.not_updated.message"),
+          });
+        }
+      },
+      updateSharing: async (stickyId: string, sharing: TStickySharing) => {
+        try {
+          await updateSharing(scope, stickyId, sharing);
+          setToast({
+            type: TOAST_TYPE.SUCCESS,
+            title: t("stickies.sharing.toasts.updated"),
+          });
+          return true;
+        } catch (error) {
+          console.error("Error in sharing sticky:", error);
+          setToast({
+            type: TOAST_TYPE.ERROR,
+            title: t("stickies.sharing.toasts.not_updated.title"),
+            message: t("stickies.sharing.toasts.not_updated.message"),
+          });
+          return false;
+        }
+      },
+      updatePin: async (stickyId: string, isPinned: boolean) => {
+        try {
+          await updatePin(scope, stickyId, isPinned);
+        } catch (error) {
+          console.error("Error in pinning sticky:", error);
+          setToast({
+            type: TOAST_TYPE.ERROR,
+            title: t("stickies.toasts.not_updated.title"),
+            message: t("stickies.toasts.not_updated.message"),
+          });
+        }
+      },
+      updatePosition: async (sourceId: string, destinationId: string, edge: "left" | "right") => {
         try {
           if (!workspaceSlug) throw new Error("Missing required fields");
-          await updateStickyPosition(workspaceSlug, sourceId, droppedId, instruction);
+          await updateStickyPosition(scope, sourceId, destinationId, edge);
         } catch (error) {
           console.error("Error in updating sticky position:", error);
           setToast({
@@ -145,7 +196,23 @@ export const useStickyOperations = (props: TProps) => {
         }
       },
     }),
-    [createSticky, deleteSticky, getWorkspaceStickyIds, stickies, updateSticky, updateStickyPosition, workspaceSlug]
+    [
+      createSticky,
+      currentUserId,
+      deleteSticky,
+      getStickyIds,
+      isValid,
+      projectId,
+      resolveConflict,
+      scope,
+      stickies,
+      t,
+      updatePin,
+      updateSharing,
+      updateSticky,
+      updateStickyPosition,
+      workspaceSlug,
+    ]
   );
 
   return {

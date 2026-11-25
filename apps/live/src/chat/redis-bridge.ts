@@ -28,6 +28,18 @@ const parseEnvelope = (message: string): TChatEnvelope | null => {
   }
 };
 
+export type TBridgeChannels = {
+  /** prefix of the channels with events for one person */
+  user: string;
+  /** prefix of the channels with events for everyone in a workspace, if there are any */
+  workspace: string | null;
+};
+
+export const CHAT_CHANNELS: TBridgeChannels = {
+  user: CHAT_USER_CHANNEL_PREFIX,
+  workspace: CHAT_WORKSPACE_CHANNEL_PREFIX,
+};
+
 /**
  * One pattern subscription for the whole instance:
  *   chat:user:<user_id>   events for one person (published by Django and by typing)
@@ -39,7 +51,8 @@ export class ChatRedisBridge {
 
   constructor(
     private readonly registry: ChatConnectionRegistry,
-    private readonly onMembershipChange?: (workspaceSlug: string, conversationId: string) => void
+    private readonly onMembershipChange?: (workspaceSlug: string, conversationId: string) => void,
+    private readonly channels: TBridgeChannels = CHAT_CHANNELS
   ) {}
 
   async start(subscriber: IChatSubscriber): Promise<void> {
@@ -47,7 +60,8 @@ export class ChatRedisBridge {
     subscriber.on("pmessage", (_pattern, channel, message) => {
       this.dispatch(channel, message);
     });
-    await subscriber.psubscribe(`${CHAT_USER_CHANNEL_PREFIX}*`, `${CHAT_WORKSPACE_CHANNEL_PREFIX}*`);
+    const { user, workspace } = this.channels;
+    await subscriber.psubscribe(...[user, workspace].filter((prefix) => prefix !== null).map((prefix) => `${prefix}*`));
   }
 
   async stop(): Promise<void> {
@@ -63,12 +77,13 @@ export class ChatRedisBridge {
     if (!envelope) return 0;
 
     let targets: TChatConnection[] = [];
-    if (channel.startsWith(CHAT_USER_CHANNEL_PREFIX)) {
-      const userId = channel.slice(CHAT_USER_CHANNEL_PREFIX.length);
+    const { user, workspace } = this.channels;
+    if (channel.startsWith(user)) {
+      const userId = channel.slice(user.length);
       if (!UUID_RE.test(userId)) return 0;
       targets = this.registry.connectionsFor(userId, envelope.ws);
-    } else if (channel.startsWith(CHAT_WORKSPACE_CHANNEL_PREFIX)) {
-      const slug = channel.slice(CHAT_WORKSPACE_CHANNEL_PREFIX.length);
+    } else if (workspace !== null && channel.startsWith(workspace)) {
+      const slug = channel.slice(workspace.length);
       if (!SLUG_RE.test(slug) || slug !== envelope.ws) return 0;
       targets = this.registry.connectionsInWorkspace(slug);
     } else {

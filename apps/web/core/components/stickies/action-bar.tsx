@@ -39,7 +39,7 @@ export const StickyActionBar = observer(function StickyActionBar() {
   const { toggleAllStickiesModal, allStickiesModal } = useCommandPalette();
   // derived values
   const recentStickyBackgroundColor = recentStickyId
-    ? STICKY_COLORS_LIST.find((c) => c.key === stickies[recentStickyId].background_color)?.backgroundColor
+    ? STICKY_COLORS_LIST.find((c) => c.key === stickies[recentStickyId]?.background_color)?.backgroundColor
     : STICKY_COLORS_LIST[0].backgroundColor;
 
   useSWR(

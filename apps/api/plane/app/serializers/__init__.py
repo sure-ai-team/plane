@@ -29,6 +29,7 @@ from .workspace import (
     WorkspaceHomePreferenceSerializer,
     StickySerializer,
 )
+from .sticky import ProjectStickySerializer, StickySharingSerializer
 from .project import (
     ProjectSerializer,
     ProjectListSerializer,

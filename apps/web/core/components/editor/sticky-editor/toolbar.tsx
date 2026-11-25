@@ -24,7 +24,7 @@ type Props = {
   executeCommand: (item: ToolbarMenuItem) => void;
   editorRef: EditorRefApi | null;
   handleColorChange: (data: Partial<TSticky>) => Promise<void>;
-  handleDelete: () => void;
+  handleDelete: (() => void) | undefined;
 };
 
 const toolbarItems = TOOLBAR_ITEMS.sticky;
@@ -118,17 +118,19 @@ export function StickyEditorToolbar(props: Props) {
         </div>
       </div>
       {/* delete action */}
-      <Tooltip
-        tooltipContent={
-          <p className="flex flex-col gap-1 text-center text-11">
-            <span className="font-medium">Delete</span>
-          </p>
-        }
-      >
-        <button type="button" onClick={handleDelete} className="my-auto text-primary/50">
-          <TrashIcon className="size-4" />
-        </button>
-      </Tooltip>
+      {handleDelete && (
+        <Tooltip
+          tooltipContent={
+            <p className="flex flex-col gap-1 text-center text-11">
+              <span className="font-medium">Delete</span>
+            </p>
+          }
+        >
+          <button type="button" onClick={handleDelete} className="my-auto text-primary/50">
+            <TrashIcon className="size-4" />
+          </button>
+        </Tooltip>
+      )}
     </div>
   );
 }

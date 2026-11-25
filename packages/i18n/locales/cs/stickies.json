@@ -54,6 +54,71 @@
         "title": "Mazání selhalo",
         "message": "Poznámku nelze smazat"
       }
+    },
+    "view_only": "Pouze pro čtení",
+    "project": {
+      "empty_state": {
+        "title": "Poznámky k tomuto projektu na jednom místě.",
+        "description": "Stickies, které sem přidáte, patří k tomuto projektu. Zobrazí se zde i Stickies, které s vámi sdílejí členové projektu."
+      }
+    },
+    "conflict": {
+      "title": "Tento Sticky během vašich úprav změnil někdo jiný.",
+      "use_theirs": "Použít jejich verzi",
+      "keep_mine": "Ponechat moji verzi"
+    },
+    "sharing": {
+      "title": "Sdílet Sticky",
+      "access": {
+        "private": {
+          "label": "Soukromý",
+          "description": "Vidí ho pouze vlastník."
+        },
+        "members": {
+          "label": "Konkrétní lidé",
+          "description": "Pouze vlastník, správci projektu a lidé, které vyberete."
+        },
+        "project": {
+          "label": "Celý projekt",
+          "description": "Všichni členové tohoto projektu."
+        }
+      },
+      "permission": {
+        "view": "Může zobrazit",
+        "edit": "Může upravovat"
+      },
+      "everyone_can": "Všichni v projektu",
+      "people": "Lidé",
+      "guests_hint": "Hosté ho uvidí, jen pokud je zde přidáte.",
+      "search": "Hledat členy projektu",
+      "no_people": "Nikdo nebyl nalezen",
+      "remove_person": "Odebrat: {name}",
+      "choose_someone": "Vyberte alespoň jednu osobu.",
+      "lose_access": "Tento Sticky uvidí pouze vlastník. Ztratíte k němu přístup.",
+      "shared_with": "{count, plural, one {# osoba} few {# osoby} many {# osoby} other {# osob}}",
+      "notification": "{name} s vámi sdílí Sticky",
+      "unavailable": "Tento Sticky pro vás již není dostupný.",
+      "toasts": {
+        "updated": "Sdílení bylo aktualizováno",
+        "not_updated": {
+          "title": "Sdílení nebylo aktualizováno",
+          "message": "Někdo mohl projekt opustit. Zkontrolujte vybrané lidi a zkuste to znovu."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Připnout na přehled",
+      "unpin": "Odepnout z přehledu",
+      "needs_project": "Chcete-li připnout na přehled, sdílejte s celým projektem",
+      "will_unpin": "Uložením se Sticky také odepne z přehledu projektu."
+    },
+    "overview": {
+      "pinned": "Připnuté Stickies",
+      "empty": {
+        "title": "Zatím žádné připnuté Stickies",
+        "description": "Připněte Sticky sdílený s celým projektem a uvidí ho zde všichni v projektu."
+      },
+      "view_all": "Zobrazit všechny Stickies"
     }
   }
 }

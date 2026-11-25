@@ -4,8 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { useCallback, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 // plane imports
 import type { EditorRefApi } from "@plane/editor";
@@ -22,24 +21,41 @@ import { useWorkspace } from "@/hooks/store/use-workspace";
 type TProps = {
   stickyData: Partial<TSticky> | undefined;
   workspaceSlug: string;
+  projectId?: string;
   handleUpdate: (payload: Partial<TSticky>) => void;
   stickyId: string | undefined;
+  /** increases when the stored content must replace what the editor shows */
+  revision: number | undefined;
   showToolbar?: boolean;
+  isEditable: boolean;
+  isStickiesPage: boolean;
   handleChange: (data: Partial<TSticky>) => Promise<void>;
-  handleDelete: () => void;
+  handleDelete: (() => void) | undefined;
 };
 
 export function StickyInput(props: TProps) {
-  const { stickyData, workspaceSlug, handleUpdate, stickyId, handleDelete, handleChange, showToolbar } = props;
+  const {
+    stickyData,
+    workspaceSlug,
+    projectId,
+    handleUpdate,
+    stickyId,
+    revision,
+    handleDelete,
+    handleChange,
+    showToolbar,
+    isEditable,
+    isStickiesPage,
+  } = props;
+  // states
+  const [replacement, setReplacement] = useState<string | null>(null);
   // refs
   const editorRef = useRef<EditorRefApi>(null);
-  // navigation
-  const pathname = usePathname();
+  const revisionRef = useRef(revision);
   // store hooks
   const { getWorkspaceBySlug } = useWorkspace();
   // derived values
   const workspaceId = getWorkspaceBySlug(workspaceSlug)?.id?.toString() ?? "";
-  const isStickiesPage = pathname?.includes("stickies");
   // form info
   const { handleSubmit, reset, control } = useForm<TSticky>({
     defaultValues: {
@@ -64,6 +80,19 @@ export function StickyInput(props: TProps) {
     });
   }, [stickyData, stickyId, reset]);
 
+  // The editor reads its content only when it is created. Replacing it in place keeps
+  // the focus and the cursor of someone who has the note open.
+  useEffect(() => {
+    if (revisionRef.current === revision) return;
+    revisionRef.current = revision;
+    setReplacement(stickyData?.description_html?.trim() || "<p></p>");
+  }, [revision, stickyData]);
+
+  // the editor has taken it over; kept, it would be shown again if the editor is created anew
+  useEffect(() => {
+    if (replacement !== null) setReplacement(null);
+  }, [replacement]);
+
   return (
     <div className="flex-1">
       <Controller
@@ -73,16 +102,20 @@ export function StickyInput(props: TProps) {
           <StickyEditor
             id={`description-${stickyId}`}
             initialValue={stickyData?.description_html ?? ""}
-            value={null}
+            value={replacement}
             workspaceSlug={workspaceSlug}
             workspaceId={workspaceId}
-            onChange={(_description, description_html) => {
+            projectId={projectId}
+            editable={isEditable}
+            onChange={(_description, description_html, options) => {
+              // opening a shared sticky must not save it
+              if (projectId && (!isEditable || options?.isMigrationUpdate)) return;
               onChange(description_html);
               handleSubmit(handleFormSubmit)();
             }}
             placeholder={(_, value) => {
               const isContentEmpty = isCommentEmpty(value);
-              if (!isContentEmpty) return "";
+              if (!isContentEmpty || !isEditable) return "";
               return "Click to type here";
             }}
             containerClassName={cn(

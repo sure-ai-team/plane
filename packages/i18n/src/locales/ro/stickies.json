@@ -54,6 +54,71 @@
         "title": "Notiță neștearsă",
         "message": "Notița nu a putut fi ștearsă"
       }
+    },
+    "view_only": "Doar vizualizare",
+    "project": {
+      "empty_state": {
+        "title": "Notele acestui proiect, într-un singur loc.",
+        "description": "Stickies adăugate aici aparțin acestui proiect. Aici apar și Stickies partajate cu dumneavoastră de membrii proiectului."
+      }
+    },
+    "conflict": {
+      "title": "Altcineva a modificat acest Sticky în timp ce îl editați.",
+      "use_theirs": "Folosește cealaltă versiune",
+      "keep_mine": "Păstrează versiunea mea"
+    },
+    "sharing": {
+      "title": "Partajați Sticky",
+      "access": {
+        "private": {
+          "label": "Privat",
+          "description": "Doar proprietarul îl poate vedea."
+        },
+        "members": {
+          "label": "Anumite persoane",
+          "description": "Doar proprietarul, administratorii proiectului și persoanele alese."
+        },
+        "project": {
+          "label": "Întregul proiect",
+          "description": "Toți membrii acestui proiect."
+        }
+      },
+      "permission": {
+        "view": "Poate vizualiza",
+        "edit": "Poate edita"
+      },
+      "everyone_can": "Toți cei din proiect",
+      "people": "Persoane",
+      "guests_hint": "Invitații îl văd doar dacă îi adăugați aici.",
+      "search": "Căutați membri ai proiectului",
+      "no_people": "Nu s-au găsit persoane",
+      "remove_person": "Eliminați: {name}",
+      "choose_someone": "Alegeți cel puțin o persoană.",
+      "lose_access": "Doar proprietarul va vedea acest Sticky. Veți pierde accesul la el.",
+      "shared_with": "{count, plural, one {# persoană} few {# persoane} other {# de persoane}}",
+      "notification": "{name} a partajat un Sticky cu dumneavoastră",
+      "unavailable": "Acest Sticky nu mai este disponibil pentru dumneavoastră.",
+      "toasts": {
+        "updated": "Partajare actualizată",
+        "not_updated": {
+          "title": "Partajarea nu a fost actualizată",
+          "message": "Este posibil ca cineva să fi părăsit proiectul. Verificați persoanele și încercați din nou."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Fixați în prezentare",
+      "unpin": "Anulați fixarea din prezentare",
+      "needs_project": "Partajați cu întregul proiect pentru a fixa în prezentare",
+      "will_unpin": "Salvarea va anula și fixarea acestui Sticky din prezentarea proiectului."
+    },
+    "overview": {
+      "pinned": "Stickies fixate",
+      "empty": {
+        "title": "Nu există încă Stickies fixate",
+        "description": "Fixați un Sticky partajat cu întregul proiect și toți îl vor vedea aici."
+      },
+      "view_all": "Vedeți toate Stickies"
     }
   }
 }

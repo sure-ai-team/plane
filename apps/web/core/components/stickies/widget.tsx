@@ -21,12 +21,14 @@ export const StickiesWidget = observer(function StickiesWidget() {
   // params
   const { workspaceSlug } = useParams();
   // store hooks
-  const { creatingSticky, toggleShowNewSticky } = useSticky();
+  const { getList, toggleShowNewSticky } = useSticky();
   const { t } = useTranslation();
   // sticky operations
   const { stickyOperations } = useStickyOperations({
     workspaceSlug: workspaceSlug?.toString() ?? "",
   });
+  // derived values
+  const { isCreating } = getList({ workspaceSlug: workspaceSlug?.toString() ?? "" });
 
   return (
     <div>
@@ -34,18 +36,18 @@ export const StickiesWidget = observer(function StickiesWidget() {
         <div className="text-14 font-semibold text-tertiary">{t("stickies.title")}</div>
         {/* actions */}
         <div className="flex gap-2">
-          <StickySearch />
+          <StickySearch workspaceSlug={workspaceSlug?.toString() ?? ""} />
           <button
             onClick={() => {
               toggleShowNewSticky(true);
               stickyOperations.create();
             }}
             className="my-auto flex gap-1 text-13 font-medium text-accent-primary"
-            disabled={creatingSticky}
+            disabled={isCreating}
           >
             <PlusIcon className="my-auto size-4" />
             <span>{t("stickies.add")}</span>
-            {creatingSticky && (
+            {isCreating && (
               <div
                 className="size-4 animate-spin rounded-full border-2 border-accent-strong border-t-transparent"
                 role="status"

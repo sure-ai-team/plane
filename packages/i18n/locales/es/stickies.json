@@ -54,6 +54,71 @@
         "title": "Nota adhesiva no eliminada",
         "message": "No se pudo eliminar la nota adhesiva"
       }
+    },
+    "view_only": "Solo lectura",
+    "project": {
+      "empty_state": {
+        "title": "Las notas de este proyecto, en un solo lugar.",
+        "description": "Los Stickies que agregue aquí pertenecen a este proyecto. También aparecen aquí los Stickies que los miembros del proyecto comparten con usted."
+      }
+    },
+    "conflict": {
+      "title": "Otra persona modificó este Sticky mientras usted lo editaba.",
+      "use_theirs": "Usar la otra versión",
+      "keep_mine": "Conservar mi versión"
+    },
+    "sharing": {
+      "title": "Compartir Sticky",
+      "access": {
+        "private": {
+          "label": "Privado",
+          "description": "Solo puede verlo el propietario."
+        },
+        "members": {
+          "label": "Personas específicas",
+          "description": "Solo el propietario, los administradores del proyecto y las personas que elija."
+        },
+        "project": {
+          "label": "Todo el proyecto",
+          "description": "Todos los miembros de este proyecto."
+        }
+      },
+      "permission": {
+        "view": "Puede ver",
+        "edit": "Puede editar"
+      },
+      "everyone_can": "Todos en el proyecto",
+      "people": "Personas",
+      "guests_hint": "Los invitados solo lo verán si los agrega aquí.",
+      "search": "Buscar miembros del proyecto",
+      "no_people": "No se encontraron personas",
+      "remove_person": "Quitar a {name}",
+      "choose_someone": "Elija al menos una persona.",
+      "lose_access": "Solo el propietario verá este Sticky. Usted perderá el acceso.",
+      "shared_with": "{count, plural, one {# persona} other {# personas}}",
+      "notification": "{name} compartió un Sticky con usted",
+      "unavailable": "Este Sticky ya no está disponible para usted.",
+      "toasts": {
+        "updated": "Permisos de acceso actualizados",
+        "not_updated": {
+          "title": "Permisos de acceso no actualizados",
+          "message": "Es posible que alguien haya dejado el proyecto. Revise las personas e inténtelo de nuevo."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Fijar en el resumen",
+      "unpin": "Quitar del resumen",
+      "needs_project": "Comparta con todo el proyecto para fijarlo en el resumen",
+      "will_unpin": "Al guardar, el Sticky también se quitará del resumen del proyecto."
+    },
+    "overview": {
+      "pinned": "Stickies fijados",
+      "empty": {
+        "title": "Aún no hay Stickies fijados",
+        "description": "Fije un Sticky compartido con todo el proyecto y todos lo verán aquí."
+      },
+      "view_all": "Ver todos los Stickies"
     }
   }
 }

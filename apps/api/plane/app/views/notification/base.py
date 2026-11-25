@@ -63,8 +63,9 @@ class NotificationViewSet(BaseViewSet, BasePaginator):
 
         notifications = (
             Notification.objects.filter(workspace__slug=slug, receiver_id=request.user.id)
-            # Work items, plus chat mentions and direct messages (docs/chat/phase-2/05-notifications.md).
-            .filter(entity_name__in=["issue", "chat_message"])
+            # Work items, chat mentions and direct messages (docs/chat/phase-2/05-notifications.md)
+            # and stickies shared by name.
+            .filter(entity_name__in=["issue", "chat_message", "sticky"])
             .annotate(is_inbox_issue=Exists(intake_issue))
             .annotate(is_intake_issue=Exists(intake_issue))
             .annotate(

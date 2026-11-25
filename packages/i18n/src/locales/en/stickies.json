@@ -54,6 +54,71 @@
         "title": "Sticky not removed",
         "message": "The sticky could not be removed"
       }
+    },
+    "view_only": "View only",
+    "project": {
+      "empty_state": {
+        "title": "Notes for this project, in one place.",
+        "description": "Stickies you add here belong to this project. Stickies that project members share with you appear here too."
+      }
+    },
+    "conflict": {
+      "title": "Someone else changed this sticky while you were editing.",
+      "use_theirs": "Use their version",
+      "keep_mine": "Keep my version"
+    },
+    "sharing": {
+      "title": "Share sticky",
+      "access": {
+        "private": {
+          "label": "Private",
+          "description": "Only the owner can see it."
+        },
+        "members": {
+          "label": "Specific people",
+          "description": "Only the owner, project admins and the people you choose."
+        },
+        "project": {
+          "label": "Whole project",
+          "description": "All members of this project."
+        }
+      },
+      "permission": {
+        "view": "Can view",
+        "edit": "Can edit"
+      },
+      "everyone_can": "Everyone in the project",
+      "people": "People",
+      "guests_hint": "Guests only see it if you add them here.",
+      "search": "Search project members",
+      "no_people": "No people found",
+      "remove_person": "Remove {name}",
+      "choose_someone": "Choose at least one person.",
+      "lose_access": "Only the owner will see this sticky. You will lose access to it.",
+      "shared_with": "{count, plural, one {# person} other {# people}}",
+      "notification": "{name} shared a sticky with you",
+      "unavailable": "This sticky is no longer available to you.",
+      "toasts": {
+        "updated": "Sharing updated",
+        "not_updated": {
+          "title": "Sharing not updated",
+          "message": "Someone may have left the project. Please check the people and try again."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Pin to overview",
+      "unpin": "Unpin from overview",
+      "needs_project": "Share with the whole project to pin it to the overview",
+      "will_unpin": "Saving this also unpins the sticky from the project overview."
+    },
+    "overview": {
+      "pinned": "Pinned stickies",
+      "empty": {
+        "title": "No pinned stickies yet",
+        "description": "Pin a sticky shared with the whole project, and everyone in the project sees it here."
+      },
+      "view_all": "View all stickies"
     }
   }
 }

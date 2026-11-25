@@ -29,15 +29,19 @@ export type TNotificationIssueLite = {
 
 export type TNotificationData = {
   // Chat rows (entity_name "chat_message"; docs/chat/phase-2/05-notifications.md)
-  type?: "mention" | "direct";
+  type?: "mention" | "direct" | "shared";
   conversation_id?: string;
   conversation_type?: "direct" | "group";
   conversation_name?: string;
   message_id?: string;
   seq?: number;
   sender_id?: string | null;
+  // Sticky rows (entity_name "sticky")
+  sticky_id?: string;
+  permission?: "view" | "edit";
   issue: TNotificationIssueLite | undefined;
-  issue_activity: {
+  /** Work item rows only */
+  issue_activity?: {
     id: string | undefined;
     actor: string | undefined;
     field: string | undefined;

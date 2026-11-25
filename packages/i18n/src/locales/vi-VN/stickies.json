@@ -54,6 +54,71 @@
         "title": "Chưa xóa ghi chú",
         "message": "Không thể xóa ghi chú"
       }
+    },
+    "view_only": "Chỉ xem",
+    "project": {
+      "empty_state": {
+        "title": "Ghi chú của dự án này, tập trung một nơi.",
+        "description": "Stickies bạn thêm ở đây thuộc về dự án này. Stickies mà thành viên dự án chia sẻ với bạn cũng hiển thị ở đây."
+      }
+    },
+    "conflict": {
+      "title": "Người khác đã thay đổi Sticky này trong khi bạn đang chỉnh sửa.",
+      "use_theirs": "Dùng phiên bản của họ",
+      "keep_mine": "Giữ phiên bản của tôi"
+    },
+    "sharing": {
+      "title": "Chia sẻ Sticky",
+      "access": {
+        "private": {
+          "label": "Riêng tư",
+          "description": "Chỉ chủ sở hữu có thể xem."
+        },
+        "members": {
+          "label": "Những người cụ thể",
+          "description": "Chỉ chủ sở hữu, quản trị viên dự án và những người bạn chọn."
+        },
+        "project": {
+          "label": "Toàn bộ dự án",
+          "description": "Tất cả thành viên của dự án này."
+        }
+      },
+      "permission": {
+        "view": "Có thể xem",
+        "edit": "Có thể chỉnh sửa"
+      },
+      "everyone_can": "Mọi người trong dự án",
+      "people": "Mọi người",
+      "guests_hint": "Khách chỉ thấy nếu bạn thêm họ tại đây.",
+      "search": "Tìm thành viên dự án",
+      "no_people": "Không tìm thấy ai",
+      "remove_person": "Xóa {name}",
+      "choose_someone": "Chọn ít nhất một người.",
+      "lose_access": "Chỉ chủ sở hữu thấy Sticky này. Bạn sẽ mất quyền truy cập.",
+      "shared_with": "{count, plural, one {# người} other {# người}}",
+      "notification": "{name} đã chia sẻ một Sticky với bạn",
+      "unavailable": "Sticky này không còn khả dụng với bạn.",
+      "toasts": {
+        "updated": "Đã cập nhật chia sẻ",
+        "not_updated": {
+          "title": "Chưa cập nhật chia sẻ",
+          "message": "Có thể ai đó đã rời dự án. Vui lòng kiểm tra danh sách và thử lại."
+        }
+      }
+    },
+    "pin": {
+      "pin": "Ghim vào tổng quan",
+      "unpin": "Bỏ ghim khỏi tổng quan",
+      "needs_project": "Chia sẻ với toàn bộ dự án để ghim vào tổng quan",
+      "will_unpin": "Khi lưu, Sticky cũng sẽ được bỏ ghim khỏi tổng quan dự án."
+    },
+    "overview": {
+      "pinned": "Stickies đã ghim",
+      "empty": {
+        "title": "Chưa có Stickies nào được ghim",
+        "description": "Ghim một Sticky được chia sẻ với toàn bộ dự án để mọi người trong dự án thấy tại đây."
+      },
+      "view_all": "Xem tất cả Stickies"
     }
   }
 }

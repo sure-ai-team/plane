@@ -90,7 +90,7 @@ from .label import Label
 
 from .device import Device, DeviceSession
 
-from .sticky import Sticky
+from .sticky import Sticky, StickyAccess, StickyPermission, StickyShare
 
 from .description import Description, DescriptionVersion
 

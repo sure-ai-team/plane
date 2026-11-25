@@ -4,72 +4,109 @@
  * See the LICENSE file for details.
  */
 
-import { useCallback, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from "lodash-es";
 import { observer } from "mobx-react";
 import { Minimize2 } from "lucide-react";
-// plane types
+// plane imports
 import type { TSticky } from "@plane/types";
-// plane utils
 import { cn } from "@plane/utils";
 // hooks
 import { useSticky } from "@/hooks/use-stickies";
 // components
 import { STICKY_COLORS_LIST } from "../../editor/sticky-editor/color-palette";
 import { StickyDeleteModal } from "../delete-modal";
+import { StickySharingHeader } from "../sharing/sharing-header";
+import { StickyConflict } from "./conflict";
 import { StickyInput } from "./inputs";
 import { getRandomStickyColor, useStickyOperations } from "./use-operations";
 
 type TProps = {
   onClose?: () => void;
   workspaceSlug: string;
+  projectId?: string;
   className?: string;
   stickyId: string | undefined;
   showToolbar?: boolean;
+  isStickiesPage?: boolean;
   handleLayout?: () => void;
 };
 export const StickyNote = observer(function StickyNote(props: TProps) {
-  const { onClose, workspaceSlug, className = "", stickyId, showToolbar, handleLayout } = props;
-  // navigation
-  // const pathName = usePathname();
+  const {
+    onClose,
+    workspaceSlug,
+    projectId,
+    className = "",
+    stickyId,
+    showToolbar,
+    isStickiesPage = false,
+    handleLayout,
+  } = props;
   // states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // store hooks
-  const { stickies } = useSticky();
+  const { stickies, conflicts, revisions, markStickyDirty } = useSticky();
   // sticky operations
-  const { stickyOperations } = useStickyOperations({ workspaceSlug });
+  const { stickyOperations } = useStickyOperations({ workspaceSlug, projectId });
   // derived values
-  const stickyData: Partial<TSticky> = stickyId ? stickies[stickyId] : { background_color: getRandomStickyColor() };
-  // const isStickiesPage = pathName?.includes("stickies");
+  const stickyData: Partial<TSticky> | undefined = stickyId
+    ? stickies[stickyId]
+    : { background_color: getRandomStickyColor() };
   const backgroundColor =
     STICKY_COLORS_LIST.find((c) => c.key === stickyData?.background_color)?.backgroundColor ||
     STICKY_COLORS_LIST[0].backgroundColor;
+  const canEdit = !projectId || (!!stickyData?.my_permission && stickyData.my_permission !== "view");
+  const canDelete = !projectId || stickyData?.my_permission === "manage";
+  const hasConflict = !!stickyId && !!conflicts[stickyId];
+  const revision = stickyId ? revisions[stickyId] : undefined;
 
-  const handleChange = useCallback(
-    async (payload: Partial<TSticky>) => {
-      if (stickyId) {
-        await stickyOperations.update(stickyId, payload);
-      } else {
-        await stickyOperations.create({
-          ...stickyData,
-          ...payload,
-        });
-      }
-    },
-    [stickyId, stickyOperations]
+  // the note above and below are positioned by its height
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => handleLayout?.());
+    return () => cancelAnimationFrame(frame);
+  }, [canEdit, handleLayout, hasConflict, revision]);
+
+  const handleChange = async (payload: Partial<TSticky>) => {
+    if (stickyId) {
+      await stickyOperations.update(stickyId, payload);
+    } else {
+      await stickyOperations.create({
+        ...stickyData,
+        ...payload,
+      });
+    }
+  };
+
+  // One debounce for the lifetime of the note: recreating it would let an older
+  // change be saved after a newer one.
+  const handleChangeRef = useRef(handleChange);
+  useEffect(() => {
+    handleChangeRef.current = handleChange;
+  });
+  const debouncedFormSave = useMemo(
+    () => debounce((payload: Partial<TSticky>) => handleChangeRef.current(payload), 500),
+    []
   );
 
-  const debouncedFormSave = useCallback(
-    debounce(async (payload: Partial<TSticky>) => {
-      await handleChange(payload);
-    }, 500),
-    [stickyOperations, stickyData, handleChange]
-  );
+  const handleUpdate = (payload: Partial<TSticky>) => {
+    handleLayout?.();
+    if (stickyId) markStickyDirty({ workspaceSlug, projectId }, stickyId);
+    void debouncedFormSave(payload);
+  };
+
+  const handleResolveConflict = async (keep: "mine" | "theirs") => {
+    if (!stickyId) return;
+    // include, or drop, what has been typed in the last moment
+    if (keep === "mine") await debouncedFormSave.flush();
+    else debouncedFormSave.cancel();
+    await stickyOperations.resolveConflict(stickyId, keep);
+  };
 
   const handleDelete = async () => {
     if (!stickyId) return;
+    debouncedFormSave.cancel();
+    await stickyOperations.remove(stickyId);
     onClose?.();
-    stickyOperations.remove(stickyId);
   };
 
   return (
@@ -85,25 +122,29 @@ export const StickyNote = observer(function StickyNote(props: TProps) {
           backgroundColor,
         }}
       >
-        {/* {isStickiesPage && <StickyItemDragHandle isDragging={false} />}{" "} */}
         {onClose && (
           <button type="button" className="flex flex-shrink-0 justify-end p-2.5" onClick={onClose}>
             <Minimize2 className="size-4" />
           </button>
         )}
+        {projectId && stickyId && stickies[stickyId] && (
+          <StickySharingHeader workspaceSlug={workspaceSlug} projectId={projectId} sticky={stickies[stickyId]} />
+        )}
+        {hasConflict && <StickyConflict handleResolve={handleResolveConflict} />}
         {/* inputs */}
         <div className="-mt-2">
           <StickyInput
             stickyData={stickyData}
+            revision={revision}
             workspaceSlug={workspaceSlug}
-            handleUpdate={(payload) => {
-              handleLayout?.();
-              debouncedFormSave(payload);
-            }}
+            projectId={projectId}
+            handleUpdate={handleUpdate}
             stickyId={stickyId}
-            handleDelete={() => setIsDeleteModalOpen(true)}
+            handleDelete={canDelete ? () => setIsDeleteModalOpen(true) : undefined}
             handleChange={handleChange}
             showToolbar={showToolbar}
+            isEditable={canEdit}
+            isStickiesPage={isStickiesPage}
           />
         </div>
       </div>

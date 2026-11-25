@@ -41,14 +41,22 @@ export type TChatSocketOptions = {
 
 const OPEN = 1;
 
-/** Builds the chat socket URL the same way the editor builds its collaboration URL. */
-export const buildChatSocketUrl = (liveBaseUrl: string, liveBasePath: string, workspaceSlug: string): string => {
+/** Builds the URL of a live server socket the same way the editor builds its collaboration URL. */
+export const buildLiveSocketUrl = (
+  liveBaseUrl: string,
+  liveBasePath: string,
+  endpoint: "chat" | "stickies",
+  workspaceSlug: string
+): string => {
   const origin = liveBaseUrl.trim() || window.location.origin;
-  const base = new URL(`${liveBasePath.replace(/\/$/, "")}/chat/`, origin);
+  const base = new URL(`${liveBasePath.replace(/\/$/, "")}/${endpoint}/`, origin);
   base.protocol = base.protocol === "https:" ? "wss:" : "ws:";
   base.searchParams.set("workspace", workspaceSlug);
   return base.toString();
 };
+
+export const buildChatSocketUrl = (liveBaseUrl: string, liveBasePath: string, workspaceSlug: string): string =>
+  buildLiveSocketUrl(liveBaseUrl, liveBasePath, "chat", workspaceSlug);
 
 /**
  * One chat connection per tab. Reconnects with backoff (partysocket), keeps a
