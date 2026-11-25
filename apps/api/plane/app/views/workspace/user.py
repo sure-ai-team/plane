@@ -12,6 +12,7 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import (
     Case,
     Count,
+    Exists,
     F,
     Func,
     IntegerField,
@@ -40,9 +41,11 @@ from plane.app.serializers import (
 )
 from plane.app.views.base import BaseAPIView
 from plane.db.models import (
+    Cycle,
     CycleIssue,
     Issue,
     IssueActivity,
+    IssueAssignee,
     FileAsset,
     IssueLink,
     IssueSubscriber,
@@ -278,6 +281,55 @@ class WorkspaceUserPropertiesEndpoint(BaseAPIView):
 
 
 class WorkspaceUserProfileEndpoint(BaseAPIView):
+    @staticmethod
+    def get_project_counts(requesting_user, slug, user_id):
+        """Work item counts of user_id in each project the requesting user has joined.
+
+        Created and assigned items are counted from the work items themselves, without
+        joining assignees, so items with several assignees are counted once. The manager
+        leaves out deleted, archived, draft and triage items.
+        """
+        projects = list(
+            Project.objects.filter(
+                workspace__slug=slug,
+                project_projectmember__member=requesting_user,
+                project_projectmember__is_active=True,
+                project_projectmember__deleted_at__isnull=True,
+                archived_at__isnull=True,
+            )
+            .order_by("name")
+            .values("id", "logo_props")
+        )
+        issues = Issue.issue_objects.filter(
+            workspace__slug=slug, project_id__in=[project["id"] for project in projects]
+        ).order_by()
+        created = {
+            row["project_id"]: row["count"]
+            for row in issues.filter(created_by_id=user_id).values("project_id").annotate(count=Count("id"))
+        }
+        assigned = {
+            row["project_id"]: row
+            for row in issues.filter(
+                Exists(IssueAssignee.objects.filter(issue_id=OuterRef("pk"), assignee_id=user_id))
+            )
+            .values("project_id")
+            .annotate(
+                total=Count("id"),
+                completed=Count("id", filter=Q(state__group="completed")),
+                pending=Count("id", filter=Q(state__group__in=["backlog", "unstarted", "started"])),
+            )
+        }
+        return [
+            {
+                **project,
+                "created_issues": created.get(project["id"], 0),
+                "assigned_issues": assigned.get(project["id"], {}).get("total", 0),
+                "completed_issues": assigned.get(project["id"], {}).get("completed", 0),
+                "pending_issues": assigned.get(project["id"], {}).get("pending", 0),
+            }
+            for project in projects
+        ]
+
     def get(self, request, slug, user_id):
         requesting_workspace_member = WorkspaceMember.objects.get(
             workspace__slug=slug, member=request.user, is_active=True
@@ -291,68 +343,7 @@ class WorkspaceUserProfileEndpoint(BaseAPIView):
         user_data = target_workspace_member.member
         projects = []
         if requesting_workspace_member.role >= 15:
-            projects = (
-                Project.objects.filter(
-                    workspace__slug=slug,
-                    project_projectmember__member=request.user,
-                    project_projectmember__is_active=True,
-                    archived_at__isnull=True,
-                )
-                .annotate(
-                    created_issues=Count(
-                        "project_issue",
-                        filter=Q(
-                            project_issue__created_by_id=user_id,
-                            project_issue__archived_at__isnull=True,
-                            project_issue__is_draft=False,
-                        ),
-                    )
-                )
-                .annotate(
-                    assigned_issues=Count(
-                        "project_issue",
-                        filter=Q(
-                            project_issue__assignees__in=[user_id],
-                            project_issue__archived_at__isnull=True,
-                            project_issue__is_draft=False,
-                        ),
-                    )
-                )
-                .annotate(
-                    completed_issues=Count(
-                        "project_issue",
-                        filter=Q(
-                            project_issue__completed_at__isnull=False,
-                            project_issue__assignees__in=[user_id],
-                            project_issue__archived_at__isnull=True,
-                            project_issue__is_draft=False,
-                        ),
-                    )
-                )
-                .annotate(
-                    pending_issues=Count(
-                        "project_issue",
-                        filter=Q(
-                            project_issue__state__group__in=[
-                                "backlog",
-                                "unstarted",
-                                "started",
-                            ],
-                            project_issue__assignees__in=[user_id],
-                            project_issue__archived_at__isnull=True,
-                            project_issue__is_draft=False,
-                        ),
-                    )
-                )
-                .values(
-                    "id",
-                    "logo_props",
-                    "created_issues",
-                    "assigned_issues",
-                    "completed_issues",
-                    "pending_issues",
-                )
-            )
+            projects = self.get_project_counts(request.user, slug, user_id)
 
         return Response(
             {
@@ -403,6 +394,32 @@ class WorkspaceUserActivityEndpoint(BaseAPIView):
 
 
 class WorkspaceUserProfileStatsEndpoint(BaseAPIView):
+    permission_classes = [WorkspaceViewerPermission]
+
+    @staticmethod
+    def get_cycles(requesting_user, slug, user_id, **date_filters):
+        """Cycles holding work assigned to user_id, in projects the requesting user has joined."""
+        assigned_cycle_ids = CycleIssue.objects.filter(
+            workspace__slug=slug,
+            issue__deleted_at__isnull=True,
+            issue__issue_assignee__assignee_id=user_id,
+            issue__issue_assignee__deleted_at__isnull=True,
+        ).values("cycle_id")
+        return (
+            Cycle.objects.filter(
+                id__in=assigned_cycle_ids,
+                workspace__slug=slug,
+                archived_at__isnull=True,
+                project__archived_at__isnull=True,
+                project__project_projectmember__member=requesting_user,
+                project__project_projectmember__is_active=True,
+                project__project_projectmember__deleted_at__isnull=True,
+                **date_filters,
+            )
+            .order_by("start_date")
+            .values(cycle__name=F("name"), cycle__id=F("id"), cycle__project_id=F("project_id"))
+        )
+
     def get(self, request, slug, user_id):
         filters = issue_filters(request.query_params, "GET")
 
@@ -501,18 +518,9 @@ class WorkspaceUserProfileStatsEndpoint(BaseAPIView):
             .count()
         )
 
-        upcoming_cycles = CycleIssue.objects.filter(
-            workspace__slug=slug,
-            cycle__start_date__gt=timezone.now(),
-            issue__assignees__in=[user_id],
-        ).values("cycle__name", "cycle__id", "cycle__project_id")
-
-        present_cycle = CycleIssue.objects.filter(
-            workspace__slug=slug,
-            cycle__start_date__lt=timezone.now(),
-            cycle__end_date__gt=timezone.now(),
-            issue__assignees__in=[user_id],
-        ).values("cycle__name", "cycle__id", "cycle__project_id")
+        now = timezone.now()
+        upcoming_cycles = self.get_cycles(request.user, slug, user_id, start_date__gt=now)
+        present_cycle = self.get_cycles(request.user, slug, user_id, start_date__lte=now, end_date__gte=now)
 
         return Response(
             {
