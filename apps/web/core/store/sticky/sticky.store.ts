@@ -65,6 +65,8 @@ export interface IStickyStore {
   updateSticky: (scope: TStickyScope, id: string, updates: Partial<TSticky>) => Promise<void>;
   resolveConflict: (scope: TStickyScope, id: string, keep: "mine" | "theirs") => Promise<void>;
   fetchSticky: (scope: TStickyScope, id: string) => Promise<void>;
+  /** Someone else may have changed the sticky. Resolves to whether unsaved changes were lost with it. */
+  handleRemoteChange: (scope: TStickyScope, id: string, updatedAt?: string) => Promise<boolean>;
   updateSharing: (scope: TStickyScope, id: string, sharing: TStickySharing) => Promise<void>;
   updatePin: (scope: TStickyScope, id: string, isPinned: boolean) => Promise<void>;
   deleteSticky: (scope: TStickyScope, id: string) => Promise<void>;
@@ -91,6 +93,9 @@ const EMPTY_LIST: TStickyList = Object.freeze({
 });
 
 const hasContent = (updates: Partial<TSticky>) => CONTENT_FIELDS.some((field) => field in updates);
+
+/** Compares times the API and the live server format differently. */
+const toTime = (value: string | undefined) => (value ? new Date(value).getTime() : undefined);
 
 const PINNED_SUFFIX = "/pinned";
 
@@ -130,6 +135,7 @@ export class StickyStore implements IStickyStore {
       createSticky: action,
       resolveConflict: action,
       fetchSticky: action,
+      handleRemoteChange: action,
       updateSharing: action,
       updatePin: action,
       updateActiveStickyId: action,
@@ -184,6 +190,8 @@ export class StickyStore implements IStickyStore {
   private adopt = (sticky: TSticky) => {
     const current = this.stickies[sticky.id];
     const draft = this.drafts.get(sticky.id);
+    // a response overtaken by a newer one
+    if (current && (toTime(sticky.updated_at) ?? Infinity) < (toTime(current.updated_at) ?? -Infinity)) return;
     if (current && draft) {
       // Keep the local content and the version it is based on, so that saving it
       // is checked against that version and not against one the user never saw.
@@ -299,7 +307,8 @@ export class StickyStore implements IStickyStore {
       runInAction(() => {
         const list = this.ensureList(scope);
         this.stickies[response.id] = response;
-        list.stickyIds = [response.id, ...list.stickyIds];
+        // it may have arrived through live updates already
+        list.stickyIds = [response.id, ...list.stickyIds.filter((stickyId) => stickyId !== response.id)];
         if (!scope.projectId) {
           this.activeStickyId = response.id;
           this.recentStickyId = response.id;
@@ -469,6 +478,36 @@ export class StickyStore implements IStickyStore {
     });
   };
 
+  handleRemoteChange = async (scope: TStickyScope, id: string, updatedAt?: string) => {
+    // it may be the change this tab is saving
+    await this.drafts.get(id)?.running?.catch(() => undefined);
+    const time = toTime(updatedAt);
+    const isOwnChange = [this.stickies[id], this.drafts.get(id)?.confirmed].some(
+      (sticky) => time !== undefined && toTime(sticky?.updated_at) === time
+    );
+    if (isOwnChange) return false;
+
+    try {
+      const sticky = await this.stickyService.getSticky(scope, id);
+      runInAction(() => {
+        this.adopt(sticky);
+        const list = this.lists[getScopeKey({ ...scope, isPinned: false })];
+        // a search shows its results only
+        if (list && list.loader !== "init-loader" && !list.searchQuery && !list.stickyIds.includes(id))
+          list.stickyIds.push(id);
+        const pinnedList = this.lists[getScopeKey({ ...scope, isPinned: true })];
+        if (sticky.pinned_at && pinnedList && !pinnedList.stickyIds.includes(id)) pinnedList.stickyIds.push(id);
+      });
+      return false;
+    } catch (error) {
+      const status = (error as TStickyRequestError)?.status;
+      if (status !== 403 && status !== 404) return false;
+      const hasLostChanges = this.drafts.has(id);
+      if (this.stickies[id]) runInAction(() => this.forget(scope, id));
+      return hasLostChanges;
+    }
+  };
+
   updateSharing = async (scope: TStickyScope, id: string, sharing: TStickySharing) => {
     // a save that is still running would bring back the previous sharing
     await this.drafts.get(id)?.running?.catch(() => undefined);
@@ -539,8 +578,12 @@ export class StickyStore implements IStickyStore {
         this.stickies[stickyId].sort_order = resultSequence;
       });
 
-      await this.stickyService.updateSticky(scope, stickyId, {
+      const moved = await this.stickyService.updateSticky(scope, stickyId, {
         sort_order: resultSequence,
+      });
+      runInAction(() => {
+        // recognises the live update of this change
+        if (this.stickies[stickyId]) this.stickies[stickyId].updated_at = moved.updated_at;
       });
     } catch (error) {
       console.error("Failed to move sticky");

@@ -12,6 +12,7 @@ import { Pin } from "lucide-react";
 import { useTranslation } from "@plane/i18n";
 import { Button } from "@plane/propel/button";
 // components
+import { useStickyLiveUpdates } from "@/components/stickies/hooks/use-sticky-live-updates";
 import { StickiesLayout } from "@/components/stickies/layout/stickies-list";
 // hooks
 import { useSticky } from "@/hooks/use-stickies";
@@ -30,6 +31,8 @@ export const ProjectPinnedStickies = observer(function ProjectPinnedStickies(pro
   // derived values
   const scope = { workspaceSlug, projectId, isPinned: true };
   const { loader, paginationInfo } = getList(scope);
+
+  useStickyLiveUpdates(scope);
 
   // other people pin stickies too, so they are fetched on every visit
   useSWR(`PROJECT_PINNED_STICKIES_${workspaceSlug}_${projectId}`, () => fetchStickies(scope), {

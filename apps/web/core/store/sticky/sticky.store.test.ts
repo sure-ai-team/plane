@@ -535,6 +535,133 @@ describe("pinning", () => {
   });
 });
 
+describe("live updates", () => {
+  const T1 = "2026-11-25T10:00:00.123456+02:00";
+  const T1_FROM_LIVE_SERVER = "2026-11-25T08:00:00.123Z";
+  const T2 = "2026-11-25T10:00:05.000000+02:00";
+  const PINNED: TStickyScope = { ...PROJECT, isPinned: true };
+
+  beforeEach(() => loadProject(makeSticky({ updated_at: T1 })));
+
+  it("do not fetch what this tab saved itself", async () => {
+    expect(await store.handleRemoteChange(PROJECT, "s1", T1_FROM_LIVE_SERVER)).toBe(false);
+    expect(service.getSticky).not.toHaveBeenCalled();
+  });
+
+  it("wait for a running save, to recognise it", async () => {
+    const save = deferred<TSticky>();
+    service.updateSticky.mockReturnValueOnce(save.promise);
+    const saving = store.updateSticky(PROJECT, "s1", { description_html: "<p>two</p>" });
+    const handling = store.handleRemoteChange(PROJECT, "s1", "2026-11-25T08:00:05Z");
+    save.resolve(makeSticky({ description_html: "<p>two</p>", content_version: 2, updated_at: T2 }));
+    await Promise.all([saving, handling]);
+
+    expect(service.getSticky).not.toHaveBeenCalled();
+  });
+
+  it("show someone else's text", async () => {
+    service.getSticky.mockResolvedValueOnce(
+      makeSticky({ description_html: "<p>theirs</p>", content_version: 2, updated_at: T2 })
+    );
+    await store.handleRemoteChange(PROJECT, "s1", T2);
+
+    expect(store.stickies.s1.description_html).toBe("<p>theirs</p>");
+    expect(store.revisions.s1).toBe(1);
+  });
+
+  it("do not replace what the user is typing", async () => {
+    store.markStickyDirty(PROJECT, "s1");
+    service.getSticky.mockResolvedValueOnce(
+      makeSticky({ description_html: "<p>theirs</p>", content_version: 2, updated_at: T2, background_color: "gray" })
+    );
+    await store.handleRemoteChange(PROJECT, "s1", T2);
+
+    expect(store.stickies.s1).toMatchObject({
+      description_html: "<p>one</p>",
+      content_version: 1,
+      background_color: "gray",
+    });
+    expect(store.revisions.s1).toBeUndefined();
+  });
+
+  it("ignore a response that a newer save has overtaken", async () => {
+    const fetched = deferred<TSticky>();
+    service.getSticky.mockReturnValueOnce(fetched.promise);
+    const handling = store.handleRemoteChange(PROJECT, "s1", "2026-11-25T08:00:02Z");
+    service.updateSticky.mockResolvedValueOnce(
+      makeSticky({ description_html: "<p>mine</p>", content_version: 3, updated_at: T2 })
+    );
+    await store.updateSticky(PROJECT, "s1", { description_html: "<p>mine</p>" });
+    fetched.resolve(
+      makeSticky({ description_html: "<p>old</p>", content_version: 2, updated_at: "2026-11-25T10:00:02+02:00" })
+    );
+    await handling;
+
+    expect(store.stickies.s1).toMatchObject({ description_html: "<p>mine</p>", content_version: 3 });
+    expect(store.revisions.s1).toBeUndefined();
+  });
+
+  it("add a sticky that was shared, in its place", async () => {
+    service.getSticky.mockResolvedValueOnce(makeSticky({ id: "new", sort_order: 500 }));
+    await store.handleRemoteChange(PROJECT, "new", T2);
+
+    expect(store.getStickyIds(PROJECT)).toEqual(["new", "s1"]);
+  });
+
+  it("do not add to search results, or to a list that was not loaded", async () => {
+    store.updateSearchQuery(PROJECT, "budget");
+    service.getSticky.mockResolvedValue(makeSticky({ id: "new", project: "project-1" }));
+    await store.handleRemoteChange(PROJECT, "new", T2);
+    await store.handleRemoteChange(OTHER_PROJECT, "new", T2);
+
+    expect(store.getStickyIds(PROJECT)).toEqual(["s1"]);
+    expect(store.getStickyIds(OTHER_PROJECT)).toEqual([]);
+  });
+
+  it("pin and unpin on the overview", async () => {
+    service.getStickies.mockResolvedValueOnce(page([]));
+    await store.fetchStickies(PINNED);
+    service.getSticky.mockResolvedValueOnce(makeSticky({ pinned_at: T2, updated_at: T2 }));
+    await store.handleRemoteChange(PROJECT, "s1", T2);
+    expect(store.getStickyIds(PINNED)).toEqual(["s1"]);
+
+    service.getSticky.mockResolvedValueOnce(makeSticky({ pinned_at: null, updated_at: "2026-11-25T10:00:09+02:00" }));
+    await store.handleRemoteChange(PROJECT, "s1", "2026-11-25T08:00:09Z");
+    expect(store.getStickyIds(PINNED)).toEqual([]);
+  });
+
+  it("remove a sticky that can no longer be seen, and tell when typing was lost with it", async () => {
+    service.getSticky.mockRejectedValue(requestError(404));
+    expect(await store.handleRemoteChange(PROJECT, "s1", T2)).toBe(false);
+    expect(store.getStickyIds(PROJECT)).toEqual([]);
+
+    await loadProject(makeSticky());
+    store.markStickyDirty(PROJECT, "s1");
+    expect(await store.handleRemoteChange(PROJECT, "s1", T2)).toBe(true);
+    expect(await store.handleRemoteChange(PROJECT, "unknown", T2)).toBe(false);
+  });
+
+  it("keep the sticky when it could not be fetched", async () => {
+    service.getSticky.mockRejectedValueOnce(requestError(undefined));
+    expect(await store.handleRemoteChange(PROJECT, "s1", T2)).toBe(false);
+    expect(store.getStickyIds(PROJECT)).toEqual(["s1"]);
+  });
+
+  it("do not show a sticky twice that arrives before the response to creating it", async () => {
+    const created = makeSticky({ id: "new", sort_order: 500, updated_at: T2 });
+    const creation = deferred<TSticky>();
+    service.createSticky.mockReturnValueOnce(creation.promise);
+    const creating = store.createSticky(PROJECT, {});
+    service.getSticky.mockResolvedValueOnce(created);
+    await store.handleRemoteChange(PROJECT, "new", T2);
+    creation.resolve(created);
+    await creating;
+
+    expect(store.getStickyIds(PROJECT)).toEqual(["new", "s1"]);
+    expect(store.getList(PROJECT).stickyIds).toHaveLength(2);
+  });
+});
+
 describe("a linked sticky", () => {
   beforeEach(() => loadProject(makeSticky()));
 

@@ -4,7 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 // plane imports
 import type { EditorRefApi } from "@plane/editor";
@@ -24,6 +24,8 @@ type TProps = {
   projectId?: string;
   handleUpdate: (payload: Partial<TSticky>) => void;
   stickyId: string | undefined;
+  /** increases when the stored content must replace what the editor shows */
+  revision: number | undefined;
   showToolbar?: boolean;
   isEditable: boolean;
   isStickiesPage: boolean;
@@ -38,14 +40,18 @@ export function StickyInput(props: TProps) {
     projectId,
     handleUpdate,
     stickyId,
+    revision,
     handleDelete,
     handleChange,
     showToolbar,
     isEditable,
     isStickiesPage,
   } = props;
+  // states
+  const [replacement, setReplacement] = useState<string | null>(null);
   // refs
   const editorRef = useRef<EditorRefApi>(null);
+  const revisionRef = useRef(revision);
   // store hooks
   const { getWorkspaceBySlug } = useWorkspace();
   // derived values
@@ -74,6 +80,19 @@ export function StickyInput(props: TProps) {
     });
   }, [stickyData, stickyId, reset]);
 
+  // The editor reads its content only when it is created. Replacing it in place keeps
+  // the focus and the cursor of someone who has the note open.
+  useEffect(() => {
+    if (revisionRef.current === revision) return;
+    revisionRef.current = revision;
+    setReplacement(stickyData?.description_html?.trim() || "<p></p>");
+  }, [revision, stickyData]);
+
+  // the editor has taken it over; kept, it would be shown again if the editor is created anew
+  useEffect(() => {
+    if (replacement !== null) setReplacement(null);
+  }, [replacement]);
+
   return (
     <div className="flex-1">
       <Controller
@@ -83,7 +102,7 @@ export function StickyInput(props: TProps) {
           <StickyEditor
             id={`description-${stickyId}`}
             initialValue={stickyData?.description_html ?? ""}
-            value={null}
+            value={replacement}
             workspaceSlug={workspaceSlug}
             workspaceId={workspaceId}
             projectId={projectId}

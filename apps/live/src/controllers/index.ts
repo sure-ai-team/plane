@@ -9,6 +9,7 @@ import { CollaborationController } from "./collaboration.controller";
 import { DocumentController } from "./document.controller";
 import { HealthController } from "./health.controller";
 import { PdfExportController } from "./pdf-export.controller";
+import { StickyController } from "./sticky.controller";
 
 export const CONTROLLERS = [
   ChatController,
@@ -16,4 +17,5 @@ export const CONTROLLERS = [
   DocumentController,
   HealthController,
   PdfExportController,
+  StickyController,
 ];

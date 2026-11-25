@@ -10,7 +10,7 @@ import { ChatPresence } from "./presence";
 import { ChatPublisher } from "./publisher";
 import type { IChatRedis } from "./publisher";
 import { ChatRedisBridge } from "./redis-bridge";
-import type { IChatSubscriber } from "./redis-bridge";
+import type { IChatSubscriber, TBridgeChannels } from "./redis-bridge";
 import { ChatConnectionRegistry } from "./registry";
 import type { TChatConnection } from "./registry";
 import { ChatTyping } from "./typing";
@@ -31,6 +31,8 @@ export type TChatHubDeps = {
   getRedis: () => IChatRedis | null;
   allowedOrigins: string[];
   maxSocketsPerUser?: number;
+  /** Redis channels to forward; the chat ones unless given. */
+  channels?: TBridgeChannels;
   now?: () => number;
 };
 
@@ -66,8 +68,10 @@ export class ChatHub {
     this.publisher = new ChatPublisher(deps.getRedis);
     this.presence = new ChatPresence(deps.getRedis, this.publisher);
     this.typing = new ChatTyping(deps.memberSource, this.publisher, this.now);
-    this.bridge = new ChatRedisBridge(this.registry, (slug, conversationId) =>
-      this.typing.invalidate(slug, conversationId)
+    this.bridge = new ChatRedisBridge(
+      this.registry,
+      (slug, conversationId) => this.typing.invalidate(slug, conversationId),
+      deps.channels
     );
   }
 

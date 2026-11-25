@@ -16,9 +16,11 @@ from rest_framework.response import Response
 from plane.app.permissions import ProjectStickyPermission
 from plane.app.serializers import ProjectStickySerializer, StickySharingSerializer
 from plane.db.models import Sticky, StickyAccess, StickyShare, Workspace
+from plane.utils.sticky_events import publish_on_commit
 
 from ..base import BaseViewSet
-from .notifications import ids_who_can_see, notify_shared, withdraw
+from .audience import audience, ids_who_can_see
+from .notifications import notify_shared, withdraw
 
 # Fields whose concurrent edits would overwrite each other
 CONTENT_FIELDS = {"name", "description", "description_html"}
@@ -79,7 +81,8 @@ class ProjectStickyViewSet(ProjectStickyBaseViewSet):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         workspace = Workspace.objects.get(slug=slug)
-        serializer.save(workspace_id=workspace.id, project_id=project_id, owner_id=request.user.id)
+        sticky = serializer.save(workspace_id=workspace.id, project_id=project_id, owner_id=request.user.id)
+        publish_on_commit(sticky, audience(sticky, []), slug)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def partial_update(self, request, slug, project_id, pk):
@@ -111,14 +114,17 @@ class ProjectStickyViewSet(ProjectStickyBaseViewSet):
                 changes["content_version"] = sticky.content_version + 1
 
             serializer.save(**changes)
+            publish_on_commit(sticky, audience(sticky), slug)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, slug, project_id, pk):
         with transaction.atomic():
             sticky = self.get_locked_sticky(pk)
             self.require_manage(sticky)
+            viewer_ids = audience(sticky)
             sticky.delete()
             withdraw(sticky)
+            publish_on_commit(sticky, viewer_ids, slug)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -135,6 +141,7 @@ class ProjectStickyShareViewSet(ProjectStickyBaseViewSet):
             permissions = {item["member_id"]: item["permission"] for item in data["members"]}
             current_shares = {share.member_id: share for share in StickyShare.objects.filter(sticky=sticky)}
             could_see_ids = ids_who_can_see(sticky, current_shares)
+            viewer_ids = audience(sticky, current_shares)
 
             sticky.access = data["access"]
             sticky.project_permission = data["project_permission"]
@@ -146,6 +153,8 @@ class ProjectStickyShareViewSet(ProjectStickyBaseViewSet):
             self.replace_shares(sticky, current_shares, permissions)
             withdraw(sticky, except_for=ids_who_can_see(sticky, permissions))
             notify_shared(sticky, request.user, permissions, could_see_ids)
+            # also those who just lost access, whose screens must drop it
+            publish_on_commit(sticky, viewer_ids | audience(sticky, permissions), slug)
 
         # An admin who made someone else's sticky private can no longer see it
         sticky = self.get_queryset().filter(pk=pk).first()
@@ -180,6 +189,7 @@ class ProjectStickyPinViewSet(ProjectStickyBaseViewSet):
                 sticky.pinned_at = timezone.now()
                 sticky.pinned_by = request.user
                 sticky.save()
+                publish_on_commit(sticky, audience(sticky), slug)
         return Response(self.serialize(sticky), status=status.HTTP_200_OK)
 
     def destroy(self, request, slug, project_id, pk):
@@ -190,4 +200,5 @@ class ProjectStickyPinViewSet(ProjectStickyBaseViewSet):
                 sticky.pinned_at = None
                 sticky.pinned_by = None
                 sticky.save()
+                publish_on_commit(sticky, audience(sticky), slug)
         return Response(self.serialize(sticky), status=status.HTTP_200_OK)

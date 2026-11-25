@@ -58,11 +58,13 @@ export const StickyNote = observer(function StickyNote(props: TProps) {
   const canEdit = !projectId || (!!stickyData?.my_permission && stickyData.my_permission !== "view");
   const canDelete = !projectId || stickyData?.my_permission === "manage";
   const hasConflict = !!stickyId && !!conflicts[stickyId];
+  const revision = stickyId ? revisions[stickyId] : undefined;
 
   // the note above and below are positioned by its height
   useEffect(() => {
-    handleLayout?.();
-  }, [canEdit, handleLayout, hasConflict]);
+    const frame = requestAnimationFrame(() => handleLayout?.());
+    return () => cancelAnimationFrame(frame);
+  }, [canEdit, handleLayout, hasConflict, revision]);
 
   const handleChange = async (payload: Partial<TSticky>) => {
     if (stickyId) {
@@ -132,9 +134,8 @@ export const StickyNote = observer(function StickyNote(props: TProps) {
         {/* inputs */}
         <div className="-mt-2">
           <StickyInput
-            // the editor only reads its content when it mounts
-            key={stickyId ? revisions[stickyId] : undefined}
             stickyData={stickyData}
+            revision={revision}
             workspaceSlug={workspaceSlug}
             projectId={projectId}
             handleUpdate={handleUpdate}

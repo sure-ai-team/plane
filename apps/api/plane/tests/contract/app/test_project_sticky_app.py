@@ -4,6 +4,7 @@
 
 """Project stickies: who may see, edit, share, pin and delete them."""
 
+import json
 import uuid
 
 import pytest
@@ -507,6 +508,107 @@ class TestShareNotifications:
         )
 
         assert self.inbox(world, world.member) == []
+
+
+class TestLiveUpdates:
+    @pytest.fixture
+    def changes(self, world, mocker, django_capture_on_commit_callbacks):
+        """``changes(request)`` runs it and returns the names of those told, or None when nothing was published."""
+        published = mocker.patch("plane.utils.sticky_events.publish_sticky_changed")
+
+        def run(request):
+            published.reset_mock()
+            with django_capture_on_commit_callbacks(execute=True):
+                request()
+            if not published.called:
+                return None
+            (data, recipients, slug), _ = published.call_args
+            assert published.call_count == 1
+            assert set(data) == {"project_id", "sticky_id", "updated_at"}  # never its content
+            assert data["project_id"] == str(world.project.id)
+            assert slug == world.workspace.slug
+            names = {str(getattr(world, n).id): n for n in ("owner", "member", "other", "admin", "guest")}
+            return sorted(names[recipient] for recipient in recipients)
+
+        return run
+
+    @pytest.mark.parametrize("sharing", TestAccessMatrix.MATRIX)
+    def test_exactly_those_who_can_open_it_are_told(self, world, changes, sharing):
+        sticky = TestAccessMatrix().build(world, sharing)
+        expected = sorted(
+            name
+            for name in ("owner", "member", "other", "admin", "guest")
+            if client_for(getattr(world, name)).get(world.url(sticky)).status_code == OK
+        )
+
+        assert changes(lambda: world.edit(world.owner, sticky)) == expected
+        assert changes(lambda: client_for(world.owner).delete(world.url(sticky))) == expected
+
+    def test_guests_are_told_where_they_see_everything(self, world, changes):
+        world.project.guest_view_all_features = True
+        world.project.save()
+        sticky = world.sticky(StickyAccess.PROJECT)
+
+        assert "guest" in changes(lambda: world.edit(world.owner, sticky))
+
+    def test_workspace_admin_in_the_project_is_told(self, world, changes):
+        WorkspaceMember.objects.filter(member=world.other).update(role=ADMIN)
+        sticky = world.sticky(StickyAccess.MEMBERS, shares={world.member: "view"})
+
+        assert changes(lambda: world.edit(world.owner, sticky)) == ["admin", "member", "other", "owner"]
+
+    def test_removed_members_are_not_told(self, world, changes):
+        sticky = world.sticky(StickyAccess.MEMBERS, shares={world.member: "view"})
+        ProjectMember.objects.filter(member__in=[world.member, world.admin]).update(is_active=False)
+
+        assert changes(lambda: world.edit(world.owner, sticky)) == ["owner"]
+
+    def test_create_pin_and_unpin(self, world, changes):
+        everyone = ["admin", "member", "other", "owner"]
+        sticky = world.sticky(StickyAccess.PROJECT)
+        client = client_for(world.owner)
+
+        assert changes(lambda: client.post(world.url(), {}, format="json")) == ["owner"]
+        assert changes(lambda: client.post(world.url(sticky, "pin/"))) == everyone
+        assert changes(lambda: client.post(world.url(sticky, "pin/"))) is None  # already pinned
+        assert changes(lambda: client.delete(world.url(sticky, "pin/"))) == everyone
+        assert changes(lambda: client.delete(world.url(sticky, "pin/"))) is None
+
+    def test_those_who_gain_and_those_who_lose_access_are_told(self, world, changes):
+        sticky = world.sticky(StickyAccess.MEMBERS, shares={world.member: "view"})
+
+        assert changes(lambda: world.share(world.owner, sticky, StickyAccess.MEMBERS, {world.guest: "view"})) == [
+            "admin",
+            "guest",
+            "member",
+            "owner",
+        ]
+        assert changes(lambda: world.share(world.owner, sticky, StickyAccess.PRIVATE)) == ["admin", "guest", "owner"]
+
+    def test_refused_changes_are_not_published(self, world, changes):
+        sticky = world.sticky(StickyAccess.PROJECT)
+
+        assert changes(lambda: world.edit(world.member, sticky)) is None
+        assert changes(lambda: world.edit(world.owner, sticky, content_version=7)) is None
+        assert changes(lambda: world.share(world.owner, sticky, StickyAccess.MEMBERS)) is None
+        assert changes(lambda: client_for(world.member).delete(world.url(sticky))) is None
+
+    def test_unreachable_redis_does_not_fail_the_request(self, world, mocker, django_capture_on_commit_callbacks):
+        mocker.patch("plane.utils.sticky_events._redis", side_effect=ConnectionError("down"))
+        sticky = world.sticky()
+        with django_capture_on_commit_callbacks(execute=True):
+            assert world.edit(world.owner, sticky).status_code == OK
+
+    def test_payload(self, mocker):
+        from plane.utils import sticky_events
+
+        pipe = mocker.Mock()
+        mocker.patch.object(sticky_events, "_redis", return_value=mocker.Mock(pipeline=mocker.Mock(return_value=pipe)))
+        sticky_events.publish_sticky_changed({"sticky_id": "s"}, ["u1", "u1", None, "u2"], "acme")
+
+        assert sorted(call.args[0] for call in pipe.publish.call_args_list) == ["sticky:user:u1", "sticky:user:u2"]
+        message = json.loads(pipe.publish.call_args.args[1])
+        assert (message["t"], message["d"], message["ws"]) == ("sticky.changed", {"sticky_id": "s"}, "acme")
 
 
 class TestPin:

@@ -4,7 +4,6 @@
  * See the LICENSE file for details.
  */
 
-import ReconnectingWebSocket from "partysocket/ws";
 import { v4 as uuidv4 } from "uuid";
 import { LIVE_BASE_PATH, LIVE_BASE_URL } from "@plane/constants";
 import type { IUser, TChatUser } from "@plane/types";
@@ -12,7 +11,7 @@ import { ChatService } from "@/services/chat.service";
 import { IssueArchiveService, IssueService } from "@/services/issue";
 import { createBrowserNotifier, createNotifyChannel } from "@/services/chat-notifier";
 import { buildChatSocketUrl, ChatSocket } from "@/services/chat-socket";
-import type { IChatTransport } from "@/services/chat-socket";
+import { createLiveTransport } from "@/services/live-transport";
 import { TabLeader } from "./notify.store";
 import { ChatRootStore } from "./root.store";
 
@@ -74,14 +73,6 @@ export const createChatRootStore = (getCurrentUser: () => IUser | undefined): Ch
       new ChatSocket({
         ...handlers,
         url: (workspaceSlug) => buildChatSocketUrl(LIVE_BASE_URL, LIVE_BASE_PATH, workspaceSlug),
-        createTransport: (url) =>
-          new ReconnectingWebSocket(url, [], {
-            minReconnectionDelay: 1_000,
-            maxReconnectionDelay: 30_000,
-            reconnectionDelayGrowFactor: 1.6,
-            connectionTimeout: 10_000,
-            maxRetries: Infinity,
-            maxEnqueuedMessages: 0,
-          }) as unknown as IChatTransport,
+        createTransport: createLiveTransport,
       }),
   });

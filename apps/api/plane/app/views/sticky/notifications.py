@@ -11,8 +11,7 @@ their receiver can no longer open the sticky.
 """
 
 # Module imports
-from plane.app.permissions import ROLE
-from plane.db.models import Notification, ProjectMember, StickyAccess
+from plane.db.models import Notification
 
 # Must be listed by NotificationViewSet
 ENTITY_NAME = "sticky"
@@ -41,18 +40,6 @@ def notify_shared(sticky, actor, permissions, could_see_ids):
         ],
         batch_size=100,
     )
-
-
-def ids_who_can_see(sticky, shared_ids):
-    """The project members, admins aside, who can see the sticky as it is now."""
-    if sticky.access == StickyAccess.PRIVATE:
-        return set()
-    if sticky.access == StickyAccess.MEMBERS:
-        return set(shared_ids)
-    members = ProjectMember.objects.filter(project_id=sticky.project_id, is_active=True)
-    if not sticky.project.guest_view_all_features:
-        members = members.exclude(role=ROLE.GUEST.value)
-    return set(shared_ids) | set(members.values_list("member_id", flat=True))
 
 
 def withdraw(sticky, except_for=()):

@@ -15,6 +15,7 @@ import { ContentWrapper, Loader } from "@plane/ui";
 import { cn } from "@plane/utils";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { useSticky } from "@/hooks/use-stickies";
+import { useStickyLiveUpdates } from "../hooks/use-sticky-live-updates";
 import { StickiesLayout } from "./stickies-list";
 
 type TProps = TStickyScope & {
@@ -31,6 +32,8 @@ export const StickiesInfinite = observer(function StickiesInfinite(props: TProps
   // derived values
   const scope = { workspaceSlug, projectId };
   const { loader, paginationInfo } = getList(scope);
+
+  useStickyLiveUpdates(scope);
   //state
   const [elementRef, setElementRef] = useState<HTMLDivElement | null>(null);
 
