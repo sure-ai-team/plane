@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "ユーザー",
+    "page_title": "{workspace} - ユーザー",
+    "user_work": "ユーザーの作業",
+    "person_page_title": "{name} - ユーザーの作業",
+    "restricted": {
+      "title": "このページを表示できるのはワークスペース管理者のみです",
+      "description": "チームの作業の概要が必要な場合は、ワークスペース管理者に問い合わせてください。"
+    },
+    "error": {
+      "title": "データを読み込めませんでした",
+      "retry": "再試行"
+    },
+    "not_found": {
+      "title": "このユーザーはワークスペースに参加していません",
+      "back": "ユーザー一覧に戻る"
+    },
+    "role": {
+      "admin": "管理者",
+      "member": "メンバー",
+      "guest": "ゲスト"
+    },
+    "status": {
+      "label": "アカウント状態",
+      "active": "アクティブ",
+      "suspended": "停止中",
+      "invited": "招待中"
+    },
+    "totals": {
+      "members": "アクティブなメンバー",
+      "overdue": "期限超過の作業項目",
+      "unassigned": "未割り当ての未完了作業項目",
+      "orphaned": "離脱したメンバーが残した未完了の作業"
+    },
+    "filters": {
+      "search": "名前またはメールアドレスで検索",
+      "role": "役割",
+      "all_roles": "すべての役割",
+      "projects": "プロジェクト",
+      "all_projects": "すべてのプロジェクト",
+      "projects_count": "{count, plural, one{# 件のプロジェクト} other{# 件のプロジェクト}}",
+      "period": "過去 {days} 日間に完了",
+      "clear": "フィルターをクリア",
+      "date_from": "開始日",
+      "date_to": "終了日"
+    },
+    "columns": {
+      "name": "名前",
+      "email": "メールアドレス",
+      "role": "役割",
+      "status": "アカウント状態",
+      "projects": "プロジェクト数",
+      "open": "未完了",
+      "in_progress": "進行中",
+      "overdue": "期限超過",
+      "due_soon": "期限間近",
+      "stuck": "停滞",
+      "no_due_date": "期限なし",
+      "done": "完了",
+      "cycles": "現在のサイクル",
+      "last_activity_at": "最終アクティビティ",
+      "key": "キー",
+      "project": "プロジェクト",
+      "state": "ステータス",
+      "priority": "優先度",
+      "start_date": "開始日",
+      "target_date": "期限",
+      "completed_at": "完了日",
+      "updated_at": "最終変更",
+      "is_overdue": "期限超過の有無",
+      "created_at": "日付",
+      "item": "作業項目",
+      "action": "操作",
+      "field": "フィールド",
+      "old_value": "変更前の値",
+      "new_value": "変更後の値",
+      "yes": "はい"
+    },
+    "list": {
+      "empty": "このフィルターに一致するユーザーはいません。",
+      "no_activity": "アクティビティはまだありません",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{非公開プロジェクトのサイクル # 件} other{非公開プロジェクトのサイクル # 件}}",
+      "range": "{total} 件中 {from}-{to} 件",
+      "previous": "前のページ",
+      "next": "次のページ",
+      "sort_by": "{column}で並べ替え",
+      "open_user": "{name} の作業を開く"
+    },
+    "neglected": {
+      "unassigned_title": "未割り当ての作業",
+      "unassigned_description": "誰にも割り当てられていない未完了の作業項目です。",
+      "unassigned_empty": "未完了の作業項目にはすべて担当者がいます。",
+      "orphaned_title": "残された作業",
+      "orphaned_description": "離脱または停止されたメンバーだけに割り当てられている未完了の作業項目です。",
+      "orphaned_empty": "離脱したメンバーに残っている未完了の作業はありません。",
+      "back": "一覧に戻る"
+    },
+    "tabs": {
+      "overview": "概要",
+      "work": "作業",
+      "cycles": "サイクル",
+      "activity": "アクティビティ"
+    },
+    "person": {
+      "message": "メッセージ",
+      "joined_on": "{date} に参加",
+      "last_activity": "最終アクティビティ：{time}",
+      "timezone": "タイムゾーン"
+    },
+    "stats": {
+      "open": "未完了",
+      "in_progress": "進行中",
+      "overdue": "期限超過",
+      "due_soon": "7 日以内に期限",
+      "stuck": "7 日間変更なし",
+      "no_due_date": "期限なし",
+      "done": "過去 {days} 日間の完了",
+      "on_time": "期限内の完了",
+      "on_time_detail": "期限のある {total} 件中 {on_time} 件",
+      "on_time_none": "期限のあるものはありません"
+    },
+    "state_groups": {
+      "label": "ステータス別の作業",
+      "backlog": "バックログ",
+      "unstarted": "未開始",
+      "started": "進行中",
+      "completed": "完了",
+      "cancelled": "キャンセル",
+      "empty": "割り当てられた作業はありません。"
+    },
+    "attention": {
+      "title": "要対応",
+      "empty": "期限超過、期限間近、停滞中のものはありません。",
+      "see_all": "すべての作業を表示",
+      "hidden": "{count, plural, one{非公開プロジェクトに他 # 件の作業項目} other{非公開プロジェクトに他 # 件の作業項目}}"
+    },
+    "trend": {
+      "title": "週ごとの完了数",
+      "completed": "完了",
+      "week_of": "{date} の週",
+      "empty": "この期間に完了したものはありません。",
+      "table": "表で表示"
+    },
+    "projects": {
+      "title": "プロジェクト",
+      "empty": "どのプロジェクトのメンバーでもありません。",
+      "former": "元メンバー",
+      "private": "非公開プロジェクト"
+    },
+    "items": {
+      "overdue": "期限超過",
+      "stuck": "停滞",
+      "due": "期限：{date}",
+      "done_on": "完了：{date}",
+      "no_due_date": "期限なし",
+      "load_more": "もっと読み込む",
+      "empty": "作業項目はありません。",
+      "empty_filtered": "このフィルターに一致する作業項目はありません。",
+      "join_to_open": "この作業項目を開くにはプロジェクトに参加してください",
+      "all": "すべての作業",
+      "list": "リスト",
+      "board": "ボード",
+      "count": "{count, plural, one{# 件の作業項目} other{# 件の作業項目}}"
+    },
+    "hidden": {
+      "title": "参加していない非公開プロジェクト",
+      "description": "作業項目は件数に含まれますが、タイトルは表示されません。",
+      "join": "参加",
+      "confirm_title": "{project} に参加しますか？",
+      "confirm_description": "あなたはプロジェクトに追加され、他のメンバーにもそのことが表示されます。",
+      "confirm": "プロジェクトに参加",
+      "joining": "参加しています",
+      "cancel": "キャンセル",
+      "error": "プロジェクトに参加できませんでした。"
+    },
+    "cycles": {
+      "active": "アクティブなサイクル",
+      "upcoming": "今後のサイクル",
+      "active_empty": "アクティブなサイクルに作業はありません。",
+      "upcoming_empty": "今後のサイクルに作業はありません。",
+      "progress": "{total} 件中 {done} 件完了",
+      "points": "{total} ポイント中 {done} ポイント",
+      "days_left": "{count, plural, =0{最終日} one{残り # 日} other{残り # 日}}",
+      "starts_in": "{count, plural, =0{今日開始} one{# 日後に開始} other{# 日後に開始}}",
+      "not_started": "未開始 {count} 件",
+      "in_progress": "進行中 {count} 件",
+      "overdue": "期限超過 {count} 件",
+      "hidden": "{count, plural, one{非公開プロジェクトに他 # 件のサイクル} other{非公開プロジェクトに他 # 件のサイクル}}"
+    },
+    "activity": {
+      "title": "最近のアクティビティ",
+      "empty": "アクティビティはありません。",
+      "empty_filtered": "このフィルターに一致するアクティビティはありません。",
+      "see_all": "すべてのアクティビティを表示",
+      "created": "作成：",
+      "updated": "更新：",
+      "commented": "コメント：",
+      "deleted_item": "削除された作業項目"
+    },
+    "my_work": {
+      "title": "自分の作業",
+      "description": "ワークスペース管理者にも同じ数値が表示されます。"
+    },
+    "profile_sidebar": {
+      "completion": "完了率",
+      "created": "作成済み",
+      "assigned": "割り当て済み",
+      "pending": "未完了",
+      "completed": "完了"
+    }
+  }
+}

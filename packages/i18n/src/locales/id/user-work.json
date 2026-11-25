@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Pengguna",
+    "page_title": "{workspace} - Pengguna",
+    "user_work": "Pekerjaan pengguna",
+    "person_page_title": "{name} - Pekerjaan pengguna",
+    "restricted": {
+      "title": "Hanya admin ruang kerja yang dapat melihat halaman ini",
+      "description": "Hubungi admin ruang kerja jika Anda memerlukan ikhtisar pekerjaan tim."
+    },
+    "error": {
+      "title": "Data tidak dapat dimuat",
+      "retry": "Coba lagi"
+    },
+    "not_found": {
+      "title": "Orang ini tidak ada di ruang kerja",
+      "back": "Kembali ke daftar pengguna"
+    },
+    "role": {
+      "admin": "Admin",
+      "member": "Anggota",
+      "guest": "Tamu"
+    },
+    "status": {
+      "label": "Status akun",
+      "active": "Aktif",
+      "suspended": "Ditangguhkan",
+      "invited": "Diundang"
+    },
+    "totals": {
+      "members": "Anggota aktif",
+      "overdue": "Item kerja terlambat",
+      "unassigned": "Item kerja belum selesai yang belum ditugaskan",
+      "orphaned": "Pekerjaan belum selesai dari orang yang sudah keluar"
+    },
+    "filters": {
+      "search": "Cari berdasarkan nama atau email",
+      "role": "Peran",
+      "all_roles": "Semua peran",
+      "projects": "Proyek",
+      "all_projects": "Semua proyek",
+      "projects_count": "{count, plural, one{# proyek} other{# proyek}}",
+      "period": "Selesai dalam {days} hari terakhir",
+      "clear": "Hapus filter",
+      "date_from": "Dari",
+      "date_to": "Sampai"
+    },
+    "columns": {
+      "name": "Nama",
+      "email": "Email",
+      "role": "Peran",
+      "status": "Status akun",
+      "projects": "Jumlah proyek",
+      "open": "Belum selesai",
+      "in_progress": "Sedang berlangsung",
+      "overdue": "Terlambat",
+      "due_soon": "Segera jatuh tempo",
+      "stuck": "Macet",
+      "no_due_date": "Tanpa jatuh tempo",
+      "done": "Selesai",
+      "cycles": "Siklus saat ini",
+      "last_activity_at": "Aktivitas terakhir",
+      "key": "Kode",
+      "project": "Proyek",
+      "state": "Status",
+      "priority": "Prioritas",
+      "start_date": "Tanggal mulai",
+      "target_date": "Tanggal jatuh tempo",
+      "completed_at": "Tanggal selesai",
+      "updated_at": "Perubahan terakhir",
+      "is_overdue": "Apakah terlambat",
+      "created_at": "Tanggal",
+      "item": "Item kerja",
+      "action": "Tindakan",
+      "field": "Kolom",
+      "old_value": "Nilai lama",
+      "new_value": "Nilai baru",
+      "yes": "Ya"
+    },
+    "list": {
+      "empty": "Tidak ada pengguna yang cocok dengan filter ini.",
+      "no_activity": "Belum ada aktivitas",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# siklus di proyek pribadi} other{# siklus di proyek pribadi}}",
+      "range": "{from}-{to} dari {total}",
+      "previous": "Halaman sebelumnya",
+      "next": "Halaman berikutnya",
+      "sort_by": "Urutkan berdasarkan {column}",
+      "open_user": "Buka pekerjaan {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Pekerjaan yang belum ditugaskan",
+      "unassigned_description": "Item kerja belum selesai yang tidak ditugaskan kepada siapa pun.",
+      "unassigned_empty": "Semua item kerja yang belum selesai sudah ditugaskan.",
+      "orphaned_title": "Pekerjaan yang ditinggalkan",
+      "orphaned_description": "Item kerja belum selesai yang hanya ditugaskan kepada orang yang sudah keluar atau ditangguhkan.",
+      "orphaned_empty": "Tidak ada pekerjaan belum selesai yang tersisa pada orang yang sudah keluar.",
+      "back": "Kembali ke daftar"
+    },
+    "tabs": {
+      "overview": "Ikhtisar",
+      "work": "Pekerjaan",
+      "cycles": "Siklus",
+      "activity": "Aktivitas"
+    },
+    "person": {
+      "message": "Kirim pesan",
+      "joined_on": "Bergabung pada {date}",
+      "last_activity": "Aktivitas terakhir {time}",
+      "timezone": "Zona waktu"
+    },
+    "stats": {
+      "open": "Belum selesai",
+      "in_progress": "Sedang berlangsung",
+      "overdue": "Terlambat",
+      "due_soon": "Jatuh tempo dalam 7 hari",
+      "stuck": "Tanpa perubahan selama 7 hari",
+      "no_due_date": "Tanpa tanggal jatuh tempo",
+      "done": "Selesai dalam {days} hari",
+      "on_time": "Selesai tepat waktu",
+      "on_time_detail": "{on_time} dari {total} dengan tanggal jatuh tempo",
+      "on_time_none": "Tidak ada yang memiliki tanggal jatuh tempo"
+    },
+    "state_groups": {
+      "label": "Pekerjaan menurut status",
+      "backlog": "Backlog",
+      "unstarted": "Belum dimulai",
+      "started": "Sedang berlangsung",
+      "completed": "Selesai",
+      "cancelled": "Dibatalkan",
+      "empty": "Tidak ada pekerjaan yang ditugaskan."
+    },
+    "attention": {
+      "title": "Perlu perhatian",
+      "empty": "Tidak ada yang terlambat, segera jatuh tempo, atau macet.",
+      "see_all": "Lihat semua pekerjaan",
+      "hidden": "{count, plural, one{# item kerja lagi di proyek pribadi} other{# item kerja lagi di proyek pribadi}}"
+    },
+    "trend": {
+      "title": "Selesai per minggu",
+      "completed": "Selesai",
+      "week_of": "Pekan {date}",
+      "empty": "Tidak ada yang selesai dalam periode ini.",
+      "table": "Tampilkan sebagai tabel"
+    },
+    "projects": {
+      "title": "Proyek",
+      "empty": "Bukan anggota proyek mana pun.",
+      "former": "Bukan anggota lagi",
+      "private": "Proyek pribadi"
+    },
+    "items": {
+      "overdue": "Terlambat",
+      "stuck": "Macet",
+      "due": "Jatuh tempo {date}",
+      "done_on": "Selesai {date}",
+      "no_due_date": "Tanpa tanggal jatuh tempo",
+      "load_more": "Muat lebih banyak",
+      "empty": "Tidak ada item kerja.",
+      "empty_filtered": "Tidak ada item kerja yang cocok dengan filter ini.",
+      "join_to_open": "Bergabunglah dengan proyek untuk membuka item kerja ini",
+      "all": "Semua pekerjaan",
+      "list": "Daftar",
+      "board": "Papan",
+      "count": "{count, plural, one{# item kerja} other{# item kerja}}"
+    },
+    "hidden": {
+      "title": "Proyek pribadi yang belum Anda ikuti",
+      "description": "Item kerjanya dihitung, tetapi judulnya tidak ditampilkan.",
+      "join": "Bergabung",
+      "confirm_title": "Bergabung dengan {project}?",
+      "confirm_description": "Anda akan ditambahkan ke proyek ini, dan anggota lainnya akan melihatnya.",
+      "confirm": "Bergabung dengan proyek",
+      "joining": "Sedang bergabung",
+      "cancel": "Batal",
+      "error": "Tidak dapat bergabung dengan proyek."
+    },
+    "cycles": {
+      "active": "Siklus aktif",
+      "upcoming": "Siklus mendatang",
+      "active_empty": "Tidak ada pekerjaan dalam siklus aktif.",
+      "upcoming_empty": "Tidak ada pekerjaan dalam siklus mendatang.",
+      "progress": "{done} dari {total} selesai",
+      "points": "{done} dari {total} poin",
+      "days_left": "{count, plural, =0{Hari terakhir} one{# hari tersisa} other{# hari tersisa}}",
+      "starts_in": "{count, plural, =0{Dimulai hari ini} one{Dimulai dalam # hari} other{Dimulai dalam # hari}}",
+      "not_started": "{count} belum dimulai",
+      "in_progress": "{count} sedang berlangsung",
+      "overdue": "{count} terlambat",
+      "hidden": "{count, plural, one{# siklus lagi di proyek pribadi} other{# siklus lagi di proyek pribadi}}"
+    },
+    "activity": {
+      "title": "Aktivitas terkini",
+      "empty": "Tidak ada aktivitas.",
+      "empty_filtered": "Tidak ada aktivitas yang cocok dengan filter ini.",
+      "see_all": "Lihat semua aktivitas",
+      "created": "membuat",
+      "updated": "memperbarui",
+      "commented": "mengomentari",
+      "deleted_item": "item kerja yang dihapus"
+    },
+    "my_work": {
+      "title": "Pekerjaan saya",
+      "description": "Admin ruang kerja melihat angka yang sama."
+    },
+    "profile_sidebar": {
+      "completion": "Persentase penyelesaian",
+      "created": "Dibuat",
+      "assigned": "Ditugaskan",
+      "pending": "Tertunda",
+      "completed": "Selesai"
+    }
+  }
+}

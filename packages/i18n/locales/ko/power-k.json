@@ -88,6 +88,7 @@
       "nav_created_workspace_work_items": "생성한 작업 항목으로 이동",
       "nav_subscribed_workspace_work_items": "구독한 작업 항목으로 이동",
       "nav_workspace_analytics": "작업 공간 분석으로 이동",
+      "nav_workspace_users": "사용자로 이동",
       "nav_workspace_drafts": "작업 공간 초안으로 이동",
       "nav_workspace_archives": "작업 공간 아카이브로 이동",
       "open_workspace_setting": "작업 공간 설정 열기",

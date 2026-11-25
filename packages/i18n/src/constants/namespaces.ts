@@ -31,6 +31,7 @@ export const NAMESPACES = [
   "template",
   "tour",
   "update",
+  "user-work",
   "wiki",
   "work-item",
   "work-item-type",

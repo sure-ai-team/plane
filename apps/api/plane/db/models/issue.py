@@ -442,6 +442,10 @@ class IssueActivity(ProjectBaseModel):
         verbose_name_plural = "Issue Activities"
         db_table = "issue_activities"
         ordering = ("-created_at",)
+        indexes = [
+            # Newest activity of a person in a workspace (Users and User Work pages)
+            models.Index(fields=["actor", "workspace", "-created_at"], name="issue_activity_actor_idx"),
+        ]
 
     def __str__(self):
         """Return issue of the comment"""

@@ -50,6 +50,9 @@ class WorkspaceUserPreferenceViewSet(BaseAPIView):
                                     WorkspaceUserPreference.UserPreferenceKeys.DRAFTS,
                                     WorkspaceUserPreference.UserPreferenceKeys.YOUR_WORK,
                                     WorkspaceUserPreference.UserPreferenceKeys.STICKIES,
+                                    # Only shown to workspace admins; pinned for everyone so
+                                    # that it is there when a member becomes an admin.
+                                    WorkspaceUserPreference.UserPreferenceKeys.USERS,
                                 ]
                                 else False
                             ),

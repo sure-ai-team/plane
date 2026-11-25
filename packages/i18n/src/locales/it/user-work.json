@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Utenti",
+    "page_title": "{workspace} - Utenti",
+    "user_work": "Lavoro dell'utente",
+    "person_page_title": "{name} - Lavoro dell'utente",
+    "restricted": {
+      "title": "Solo gli amministratori dello spazio di lavoro possono vedere questa pagina",
+      "description": "Si rivolga a un amministratore dello spazio di lavoro se Le serve una panoramica del lavoro del team."
+    },
+    "error": {
+      "title": "Impossibile caricare i dati",
+      "retry": "Riprova"
+    },
+    "not_found": {
+      "title": "Questa persona non fa parte dello spazio di lavoro",
+      "back": "Torna agli utenti"
+    },
+    "role": {
+      "admin": "Amministratore",
+      "member": "Membro",
+      "guest": "Ospite"
+    },
+    "status": {
+      "label": "Stato utente",
+      "active": "Attivo",
+      "suspended": "Sospeso",
+      "invited": "Invitato"
+    },
+    "totals": {
+      "members": "Membri attivi",
+      "overdue": "Elementi di lavoro in ritardo",
+      "unassigned": "Elementi di lavoro aperti non assegnati",
+      "orphaned": "Lavoro aperto lasciato da ex membri"
+    },
+    "filters": {
+      "search": "Cerca per nome o email",
+      "role": "Ruolo",
+      "all_roles": "Tutti i ruoli",
+      "projects": "Progetti",
+      "all_projects": "Tutti i progetti",
+      "projects_count": "{count, plural, one{# progetto} many{# progetti} other{# progetti}}",
+      "period": "Completati negli ultimi {days} giorni",
+      "clear": "Cancella filtri",
+      "date_from": "Dal",
+      "date_to": "Al"
+    },
+    "columns": {
+      "name": "Nome",
+      "email": "Email",
+      "role": "Ruolo",
+      "status": "Stato utente",
+      "projects": "Progetti",
+      "open": "Aperti",
+      "in_progress": "In corso",
+      "overdue": "In ritardo",
+      "due_soon": "In scadenza",
+      "stuck": "Fermi",
+      "no_due_date": "Senza scadenza",
+      "done": "Completati",
+      "cycles": "Ciclo attuale",
+      "last_activity_at": "Ultima attività",
+      "key": "Chiave",
+      "project": "Progetto",
+      "state": "Stato",
+      "priority": "Priorità",
+      "start_date": "Data di inizio",
+      "target_date": "Scadenza",
+      "completed_at": "Completato il",
+      "updated_at": "Ultima modifica",
+      "is_overdue": "È in ritardo",
+      "created_at": "Data",
+      "item": "Elemento di lavoro",
+      "action": "Azione",
+      "field": "Campo",
+      "old_value": "Valore precedente",
+      "new_value": "Nuovo valore",
+      "yes": "Sì"
+    },
+    "list": {
+      "empty": "Nessun utente corrisponde a questi filtri.",
+      "no_activity": "Ancora nessuna attività",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# ciclo in un progetto privato} many{# cicli in progetti privati} other{# cicli in progetti privati}}",
+      "range": "{from}-{to} di {total}",
+      "previous": "Pagina precedente",
+      "next": "Pagina successiva",
+      "sort_by": "Ordina per {column}",
+      "open_user": "Apri il lavoro di {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Lavoro non assegnato",
+      "unassigned_description": "Elementi di lavoro aperti che non sono assegnati a nessuno.",
+      "unassigned_empty": "Ogni elemento di lavoro aperto ha un assegnatario.",
+      "orphaned_title": "Lavoro lasciato in sospeso",
+      "orphaned_description": "Elementi di lavoro aperti assegnati solo a persone che se ne sono andate o sono state sospese.",
+      "orphaned_empty": "Nessun lavoro aperto è rimasto a ex membri.",
+      "back": "Torna all'elenco"
+    },
+    "tabs": {
+      "overview": "Panoramica",
+      "work": "Lavoro",
+      "cycles": "Cicli",
+      "activity": "Attività"
+    },
+    "person": {
+      "message": "Messaggio",
+      "joined_on": "Membro dal {date}",
+      "last_activity": "Ultima attività: {time}",
+      "timezone": "Fuso orario"
+    },
+    "stats": {
+      "open": "Aperti",
+      "in_progress": "In corso",
+      "overdue": "In ritardo",
+      "due_soon": "In scadenza entro 7 giorni",
+      "stuck": "Nessuna modifica da 7 giorni",
+      "no_due_date": "Senza scadenza",
+      "done": "Completati in {days} giorni",
+      "on_time": "Completati in tempo",
+      "on_time_detail": "{on_time} di {total} con scadenza",
+      "on_time_none": "Nessun elemento con scadenza"
+    },
+    "state_groups": {
+      "label": "Lavoro per stato",
+      "backlog": "Backlog",
+      "unstarted": "Da fare",
+      "started": "In corso",
+      "completed": "Completato",
+      "cancelled": "Annullato",
+      "empty": "Nessun lavoro assegnato."
+    },
+    "attention": {
+      "title": "Richiede attenzione",
+      "empty": "Nulla è in ritardo, in scadenza o fermo.",
+      "see_all": "Vedi tutto il lavoro",
+      "hidden": "{count, plural, one{# altro elemento di lavoro in un progetto privato} many{# altri elementi di lavoro in progetti privati} other{# altri elementi di lavoro in progetti privati}}"
+    },
+    "trend": {
+      "title": "Completati per settimana",
+      "completed": "Completati",
+      "week_of": "Settimana del {date}",
+      "empty": "Nulla è stato completato in questo periodo.",
+      "table": "Mostra come tabella"
+    },
+    "projects": {
+      "title": "Progetti",
+      "empty": "Non è membro di alcun progetto.",
+      "former": "Non è più membro",
+      "private": "Progetto privato"
+    },
+    "items": {
+      "overdue": "In ritardo",
+      "stuck": "Fermo",
+      "due": "Scade il {date}",
+      "done_on": "Completato il {date}",
+      "no_due_date": "Senza scadenza",
+      "load_more": "Carica di più",
+      "empty": "Nessun elemento di lavoro.",
+      "empty_filtered": "Nessun elemento di lavoro corrisponde a questi filtri.",
+      "join_to_open": "Partecipi al progetto per aprire questo elemento di lavoro",
+      "all": "Tutto il lavoro",
+      "list": "Lista",
+      "board": "Schede",
+      "count": "{count, plural, one{# elemento di lavoro} many{# elementi di lavoro} other{# elementi di lavoro}}"
+    },
+    "hidden": {
+      "title": "Progetti privati a cui Lei non partecipa",
+      "description": "I loro elementi di lavoro vengono conteggiati, ma i titoli non vengono mostrati.",
+      "join": "Partecipa",
+      "confirm_title": "Partecipare a {project}?",
+      "confirm_description": "Lei verrà aggiunto al progetto e gli altri membri lo vedranno.",
+      "confirm": "Partecipa al progetto",
+      "joining": "Adesione in corso",
+      "cancel": "Annulla",
+      "error": "Impossibile partecipare al progetto."
+    },
+    "cycles": {
+      "active": "Cicli attivi",
+      "upcoming": "Cicli in arrivo",
+      "active_empty": "Nessun lavoro in un ciclo attivo.",
+      "upcoming_empty": "Nessun lavoro in un ciclo in arrivo.",
+      "progress": "{done} di {total} completati",
+      "points": "{done} di {total} punti",
+      "days_left": "{count, plural, =0{Ultimo giorno} one{# giorno rimanente} many{# giorni rimanenti} other{# giorni rimanenti}}",
+      "starts_in": "{count, plural, =0{Inizia oggi} one{Inizia tra # giorno} many{Inizia tra # giorni} other{Inizia tra # giorni}}",
+      "not_started": "{count, plural, one{# non iniziato} many{# non iniziati} other{# non iniziati}}",
+      "in_progress": "{count} in corso",
+      "overdue": "{count} in ritardo",
+      "hidden": "{count, plural, one{# altro ciclo in un progetto privato} many{# altri cicli in progetti privati} other{# altri cicli in progetti privati}}"
+    },
+    "activity": {
+      "title": "Attività recente",
+      "empty": "Nessuna attività.",
+      "empty_filtered": "Nessuna attività corrisponde a questi filtri.",
+      "see_all": "Vedi tutta l'attività",
+      "created": "ha creato",
+      "updated": "ha aggiornato",
+      "commented": "ha commentato",
+      "deleted_item": "un elemento di lavoro eliminato"
+    },
+    "my_work": {
+      "title": "Il mio lavoro",
+      "description": "Gli amministratori dello spazio di lavoro vedono gli stessi numeri."
+    },
+    "profile_sidebar": {
+      "completion": "Percentuale di completamento",
+      "created": "Creati",
+      "assigned": "Assegnati",
+      "pending": "In sospeso",
+      "completed": "Completati"
+    }
+  }
+}

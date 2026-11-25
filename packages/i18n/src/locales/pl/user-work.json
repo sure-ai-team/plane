@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Użytkownicy",
+    "page_title": "{workspace} - Użytkownicy",
+    "user_work": "Praca użytkownika",
+    "person_page_title": "{name} - Praca użytkownika",
+    "restricted": {
+      "title": "Tę stronę mogą zobaczyć tylko administratorzy przestrzeni roboczej",
+      "description": "Aby uzyskać wgląd w pracę zespołu, należy zwrócić się do administratora przestrzeni roboczej."
+    },
+    "error": {
+      "title": "Nie udało się wczytać danych",
+      "retry": "Spróbuj ponownie"
+    },
+    "not_found": {
+      "title": "Tej osoby nie ma w przestrzeni roboczej",
+      "back": "Wróć do użytkowników"
+    },
+    "role": {
+      "admin": "Administrator",
+      "member": "Członek",
+      "guest": "Gość"
+    },
+    "status": {
+      "label": "Status",
+      "active": "Aktywny",
+      "suspended": "Zawieszony",
+      "invited": "Zaproszony"
+    },
+    "totals": {
+      "members": "Aktywni członkowie",
+      "overdue": "Elementy pracy po terminie",
+      "unassigned": "Nieprzypisane otwarte elementy pracy",
+      "orphaned": "Otwarta praca pozostawiona przez byłych członków"
+    },
+    "filters": {
+      "search": "Szukaj po nazwie lub adresie e-mail",
+      "role": "Rola",
+      "all_roles": "Wszystkie role",
+      "projects": "Projekty",
+      "all_projects": "Wszystkie projekty",
+      "projects_count": "{count, plural, one{# projekt} few{# projekty} many{# projektów} other{# projektu}}",
+      "period": "Zakończone w ciągu ostatnich {days} dni",
+      "clear": "Wyczyść filtry",
+      "date_from": "Od",
+      "date_to": "Do"
+    },
+    "columns": {
+      "name": "Nazwa",
+      "email": "E-mail",
+      "role": "Rola",
+      "status": "Status",
+      "projects": "Projekty",
+      "open": "Otwarte",
+      "in_progress": "W trakcie",
+      "overdue": "Po terminie",
+      "due_soon": "Bliski termin",
+      "stuck": "Bez postępu",
+      "no_due_date": "Bez terminu",
+      "done": "Zakończone",
+      "cycles": "Bieżący cykl",
+      "last_activity_at": "Ostatnia aktywność",
+      "key": "Klucz",
+      "project": "Projekt",
+      "state": "Stan",
+      "priority": "Priorytet",
+      "start_date": "Data rozpoczęcia",
+      "target_date": "Termin",
+      "completed_at": "Data ukończenia",
+      "updated_at": "Ostatnia zmiana",
+      "is_overdue": "Czy po terminie",
+      "created_at": "Data",
+      "item": "Element pracy",
+      "action": "Działanie",
+      "field": "Pole",
+      "old_value": "Stara wartość",
+      "new_value": "Nowa wartość",
+      "yes": "Tak"
+    },
+    "list": {
+      "empty": "Brak użytkowników pasujących do tych filtrów.",
+      "no_activity": "Brak aktywności",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# cykl w prywatnym projekcie} few{# cykle w prywatnych projektach} many{# cykli w prywatnych projektach} other{# cyklu w prywatnych projektach}}",
+      "range": "{from}-{to} z {total}",
+      "previous": "Poprzednia strona",
+      "next": "Następna strona",
+      "sort_by": "Sortuj według: {column}",
+      "open_user": "Otwórz pracę użytkownika {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Nieprzypisana praca",
+      "unassigned_description": "Otwarte elementy pracy, do których nikt nie jest przypisany.",
+      "unassigned_empty": "Każdy otwarty element pracy ma przypisaną osobę.",
+      "orphaned_title": "Porzucona praca",
+      "orphaned_description": "Otwarte elementy pracy przypisane wyłącznie do osób, które odeszły lub zostały zawieszone.",
+      "orphaned_empty": "Byli członkowie nie pozostawili otwartej pracy.",
+      "back": "Wróć do listy"
+    },
+    "tabs": {
+      "overview": "Przegląd",
+      "work": "Praca",
+      "cycles": "Cykle",
+      "activity": "Aktywność"
+    },
+    "person": {
+      "message": "Napisz wiadomość",
+      "joined_on": "Data dołączenia: {date}",
+      "last_activity": "Ostatnia aktywność: {time}",
+      "timezone": "Strefa czasowa"
+    },
+    "stats": {
+      "open": "Otwarte",
+      "in_progress": "W trakcie",
+      "overdue": "Po terminie",
+      "due_soon": "Termin w ciągu 7 dni",
+      "stuck": "Bez zmian od 7 dni",
+      "no_due_date": "Bez terminu",
+      "done": "Zakończone w ciągu {days} dni",
+      "on_time": "Zakończone w terminie",
+      "on_time_detail": "{on_time} z {total} z terminem",
+      "on_time_none": "Nic z terminem"
+    },
+    "state_groups": {
+      "label": "Praca według stanu",
+      "backlog": "Backlog",
+      "unstarted": "Do zrobienia",
+      "started": "W trakcie",
+      "completed": "Zakończone",
+      "cancelled": "Anulowane",
+      "empty": "Brak przypisanej pracy."
+    },
+    "attention": {
+      "title": "Wymaga uwagi",
+      "empty": "Nic nie jest po terminie, bliskie terminu ani bez postępu.",
+      "see_all": "Zobacz całą pracę",
+      "hidden": "{count, plural, one{Jeszcze # element pracy w prywatnym projekcie} few{Jeszcze # elementy pracy w prywatnych projektach} many{Jeszcze # elementów pracy w prywatnych projektach} other{Jeszcze # elementu pracy w prywatnych projektach}}"
+    },
+    "trend": {
+      "title": "Zakończone tygodniowo",
+      "completed": "Zakończone",
+      "week_of": "Tydzień od {date}",
+      "empty": "W tym okresie nic nie zakończono.",
+      "table": "Pokaż jako tabelę"
+    },
+    "projects": {
+      "title": "Projekty",
+      "empty": "Nie należy do żadnego projektu.",
+      "former": "Nie należy już do projektu",
+      "private": "Prywatny projekt"
+    },
+    "items": {
+      "overdue": "Po terminie",
+      "stuck": "Bez postępu",
+      "due": "Termin: {date}",
+      "done_on": "Zakończono: {date}",
+      "no_due_date": "Bez terminu",
+      "load_more": "Załaduj więcej",
+      "empty": "Brak elementów pracy.",
+      "empty_filtered": "Brak elementów pracy pasujących do tych filtrów.",
+      "join_to_open": "Aby otworzyć ten element pracy, należy dołączyć do projektu",
+      "all": "Cała praca",
+      "list": "Lista",
+      "board": "Tablica",
+      "count": "{count, plural, one{# element pracy} few{# elementy pracy} many{# elementów pracy} other{# elementu pracy}}"
+    },
+    "hidden": {
+      "title": "Prywatne projekty, do których jeszcze nie dołączono",
+      "description": "Ich elementy pracy są liczone, ale ich tytuły nie są pokazywane.",
+      "join": "Dołącz",
+      "confirm_title": "Dołączyć do projektu {project}?",
+      "confirm_description": "Nastąpi dodanie do projektu, co będzie widoczne dla pozostałych członków.",
+      "confirm": "Dołącz do projektu",
+      "joining": "Dołączanie",
+      "cancel": "Anuluj",
+      "error": "Nie udało się dołączyć do projektu."
+    },
+    "cycles": {
+      "active": "Aktywne cykle",
+      "upcoming": "Nadchodzące cykle",
+      "active_empty": "Brak pracy w aktywnym cyklu.",
+      "upcoming_empty": "Brak pracy w nadchodzącym cyklu.",
+      "progress": "Zakończone: {done} z {total}",
+      "points": "Punkty: {done} z {total}",
+      "days_left": "{count, plural, =0{Ostatni dzień} one{Pozostał # dzień} few{Pozostały # dni} many{Pozostało # dni} other{Pozostało # dnia}}",
+      "starts_in": "{count, plural, =0{Zaczyna się dzisiaj} one{Zaczyna się za # dzień} few{Zaczyna się za # dni} many{Zaczyna się za # dni} other{Zaczyna się za # dnia}}",
+      "not_started": "Nierozpoczęte: {count}",
+      "in_progress": "W trakcie: {count}",
+      "overdue": "Po terminie: {count}",
+      "hidden": "{count, plural, one{Jeszcze # cykl w prywatnym projekcie} few{Jeszcze # cykle w prywatnych projektach} many{Jeszcze # cykli w prywatnych projektach} other{Jeszcze # cyklu w prywatnych projektach}}"
+    },
+    "activity": {
+      "title": "Ostatnia aktywność",
+      "empty": "Brak aktywności.",
+      "empty_filtered": "Brak aktywności pasującej do tych filtrów.",
+      "see_all": "Zobacz całą aktywność",
+      "created": "utworzono",
+      "updated": "zaktualizowano",
+      "commented": "skomentowano",
+      "deleted_item": "usunięty element pracy"
+    },
+    "my_work": {
+      "title": "Moja praca",
+      "description": "Administratorzy przestrzeni roboczej widzą te same liczby."
+    },
+    "profile_sidebar": {
+      "completion": "Procent ukończenia",
+      "created": "Utworzone",
+      "assigned": "Przypisane",
+      "pending": "Oczekujące",
+      "completed": "Zakończone"
+    }
+  }
+}
