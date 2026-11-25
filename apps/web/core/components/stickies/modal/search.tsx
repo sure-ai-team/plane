@@ -4,29 +4,31 @@
  * See the LICENSE file for details.
  */
 
-import { useCallback, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { debounce } from "lodash-es";
 import { observer } from "mobx-react";
-import { useParams } from "next/navigation";
 // plane hooks
 import { useOutsideClickDetector } from "@plane/hooks";
 // helpers
 import { useTranslation } from "@plane/i18n";
 import { SearchIcon, CloseIcon } from "@plane/propel/icons";
+import type { TStickyScope } from "@plane/types";
 import { cn } from "@plane/utils";
 import { useSticky } from "@/hooks/use-stickies";
 import { IconButton } from "@plane/propel/icon-button";
 
-export const StickySearch = observer(function StickySearch() {
-  // router
-  const { workspaceSlug } = useParams();
+export const StickySearch = observer(function StickySearch(props: TStickyScope) {
+  const { workspaceSlug, projectId } = props;
   // hooks
-  const { searchQuery, updateSearchQuery, fetchWorkspaceStickies } = useSticky();
+  const { getList, updateSearchQuery, fetchStickies: fetchStickiesOfScope } = useSticky();
   const { t } = useTranslation();
   // refs
   const inputRef = useRef<HTMLInputElement>(null);
+  // derived values
+  const scope = { workspaceSlug, projectId };
+  const { searchQuery } = getList(scope);
   // states
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(searchQuery !== "");
 
   // outside click detector hook
   useOutsideClickDetector(inputRef, () => {
@@ -35,21 +37,19 @@ export const StickySearch = observer(function StickySearch() {
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") {
       if (searchQuery && searchQuery.trim() !== "") {
-        updateSearchQuery("");
+        updateSearchQuery(scope, "");
         fetchStickies();
       } else setIsSearchOpen(false);
     }
   };
 
   const fetchStickies = async () => {
-    await fetchWorkspaceStickies(workspaceSlug.toString());
+    await fetchStickiesOfScope({ workspaceSlug, projectId });
   };
 
-  const debouncedSearch = useCallback(
-    debounce(async () => {
-      await fetchStickies();
-    }, 500),
-    [fetchWorkspaceStickies]
+  const debouncedSearch = useMemo(
+    () => debounce(() => void fetchStickiesOfScope({ workspaceSlug, projectId }), 500),
+    [fetchStickiesOfScope, workspaceSlug, projectId]
   );
 
   return (
@@ -81,7 +81,7 @@ export const StickySearch = observer(function StickySearch() {
           placeholder={t("stickies.search_placeholder")}
           value={searchQuery}
           onChange={(e) => {
-            updateSearchQuery(e.target.value);
+            updateSearchQuery(scope, e.target.value);
             debouncedSearch();
           }}
           onKeyDown={handleInputKeyDown}
@@ -91,7 +91,7 @@ export const StickySearch = observer(function StickySearch() {
             type="button"
             className="grid place-items-center"
             onClick={() => {
-              updateSearchQuery("");
+              updateSearchQuery(scope, "");
               setIsSearchOpen(false);
               fetchStickies();
             }}

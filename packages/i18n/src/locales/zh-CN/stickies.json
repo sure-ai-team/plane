@@ -54,6 +54,18 @@
         "title": "便签未移除",
         "message": "无法移除便签"
       }
+    },
+    "view_only": "仅查看",
+    "project": {
+      "empty_state": {
+        "title": "集中管理此项目的笔记。",
+        "description": "您在此处添加的 Stickies 属于此项目。项目成员与您共享的 Stickies 也会显示在此处。"
+      }
+    },
+    "conflict": {
+      "title": "在您编辑期间，其他人更改了此 Sticky。",
+      "use_theirs": "使用对方的版本",
+      "keep_mine": "保留我的版本"
     }
   }
 }

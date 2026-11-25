@@ -11,7 +11,15 @@ import { useParams, usePathname } from "next/navigation";
 import { EUserPermissionsLevel, EUserPermissions } from "@plane/constants";
 import { useTranslation } from "@plane/i18n";
 import { MessageSquare } from "lucide-react";
-import { CycleIcon, IntakeIcon, ModuleIcon, PageIcon, ViewsIcon, WorkItemsIcon } from "@plane/propel/icons";
+import {
+  CycleIcon,
+  IntakeIcon,
+  ModuleIcon,
+  MultipleStickyIcon,
+  PageIcon,
+  ViewsIcon,
+  WorkItemsIcon,
+} from "@plane/propel/icons";
 import { useChatAvailability } from "@/components/chat/hooks/use-chat-availability";
 import type { EUserProjectRoles } from "@plane/types";
 // plane ui
@@ -125,6 +133,16 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
         sortOrder: 5,
       },
       {
+        i18n_key: "sidebar.stickies",
+        key: "stickies",
+        name: "Stickies",
+        href: `/${workspaceSlug}/projects/${projectId}/stickies`,
+        icon: MultipleStickyIcon,
+        access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER, EUserPermissions.GUEST],
+        shouldRender: true,
+        sortOrder: 6,
+      },
+      {
         i18n_key: "sidebar.intake",
         key: "intake",
         name: "Intake",
@@ -132,7 +150,7 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
         icon: IntakeIcon,
         access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER, EUserPermissions.GUEST],
         shouldRender: project?.inbox_view ?? false,
-        sortOrder: 6,
+        sortOrder: 7,
       },
       {
         i18n_key: "chat.nav.project_chat",
@@ -143,7 +161,7 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
         icon: MessageSquare,
         access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER],
         shouldRender: isChatAvailable,
-        sortOrder: 7,
+        sortOrder: 8,
       },
     ],
     [project, isChatAvailable]

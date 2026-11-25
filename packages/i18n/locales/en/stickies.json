@@ -54,6 +54,18 @@
         "title": "Sticky not removed",
         "message": "The sticky could not be removed"
       }
+    },
+    "view_only": "View only",
+    "project": {
+      "empty_state": {
+        "title": "Notes for this project, in one place.",
+        "description": "Stickies you add here belong to this project. Stickies that project members share with you appear here too."
+      }
+    },
+    "conflict": {
+      "title": "Someone else changed this sticky while you were editing.",
+      "use_theirs": "Use their version",
+      "keep_mine": "Keep my version"
     }
   }
 }

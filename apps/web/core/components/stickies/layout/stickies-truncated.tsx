@@ -26,12 +26,12 @@ export const StickiesTruncated = observer(function StickiesTruncated(props: Stic
   // navigation
   const { workspaceSlug } = useParams();
   // store hooks
-  const { fetchWorkspaceStickies } = useSticky();
+  const { fetchStickies } = useSticky();
   const { t } = useTranslation();
 
   useSWR(
     workspaceSlug ? `WORKSPACE_STICKIES_${workspaceSlug}` : null,
-    workspaceSlug ? () => fetchWorkspaceStickies(workspaceSlug.toString()) : null,
+    workspaceSlug ? () => fetchStickies({ workspaceSlug: workspaceSlug.toString() }) : null,
     { revalidateIfStale: false, revalidateOnFocus: false }
   );
 

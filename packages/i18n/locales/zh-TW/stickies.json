@@ -54,6 +54,18 @@
         "title": "便利貼未移除",
         "message": "無法移除便利貼"
       }
+    },
+    "view_only": "僅供檢視",
+    "project": {
+      "empty_state": {
+        "title": "集中管理此專案的筆記。",
+        "description": "您在此處新增的 Stickies 屬於此專案。專案成員與您共用的 Stickies 也會顯示在此處。"
+      }
+    },
+    "conflict": {
+      "title": "在您編輯期間，其他人變更了此 Sticky。",
+      "use_theirs": "使用對方的版本",
+      "keep_mine": "保留我的版本"
     }
   }
 }

@@ -54,6 +54,18 @@
         "title": "Catatan tempel tidak dihapus",
         "message": "Catatan tempel tidak dapat dihapus"
       }
+    },
+    "view_only": "Hanya lihat",
+    "project": {
+      "empty_state": {
+        "title": "Catatan untuk proyek ini, di satu tempat.",
+        "description": "Stickies yang Anda tambahkan di sini menjadi bagian dari proyek ini. Stickies yang dibagikan anggota proyek kepada Anda juga muncul di sini."
+      }
+    },
+    "conflict": {
+      "title": "Orang lain mengubah Sticky ini saat Anda mengeditnya.",
+      "use_theirs": "Gunakan versi mereka",
+      "keep_mine": "Pertahankan versi saya"
     }
   }
 }

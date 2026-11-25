@@ -28,6 +28,7 @@ interface StickyEditorWrapperProps extends Omit<
   workspaceSlug: string;
   workspaceId: string;
   projectId?: string;
+  editable?: boolean;
   accessSpecifier?: EIssueCommentAccessSpecifier;
   handleAccessChange?: (accessKey: EIssueCommentAccessSpecifier) => void;
   showAccessSpecifier?: boolean;
@@ -39,7 +40,11 @@ interface StickyEditorWrapperProps extends Omit<
   duplicateFile: TFileHandler["duplicate"];
   parentClassName?: string;
   handleColorChange: (data: Partial<TSticky>) => Promise<void>;
-  handleDelete: () => void;
+  handleDelete: (() => void) | undefined;
+}
+
+function isMutableRefObject<T>(forwardedRef: React.ForwardedRef<T>): forwardedRef is React.MutableRefObject<T | null> {
+  return !!forwardedRef && typeof forwardedRef === "object" && "current" in forwardedRef;
 }
 
 export const StickyEditor = React.forwardRef(function StickyEditor(
@@ -51,6 +56,7 @@ export const StickyEditor = React.forwardRef(function StickyEditor(
     workspaceSlug,
     workspaceId,
     projectId,
+    editable = true,
     handleDelete,
     handleColorChange,
     showToolbarInitially = true,
@@ -74,9 +80,6 @@ export const StickyEditor = React.forwardRef(function StickyEditor(
   });
   // editor config
   const { getEditorFileHandlers } = useEditorConfig();
-  function isMutableRefObject<T>(ref: React.ForwardedRef<T>): ref is React.MutableRefObject<T | null> {
-    return !!ref && typeof ref === "object" && "current" in ref;
-  }
   // derived values
   const editorRef = isMutableRefObject<EditorRefApi>(ref) ? ref.current : null;
 
@@ -90,7 +93,7 @@ export const StickyEditor = React.forwardRef(function StickyEditor(
         ref={ref}
         disabledExtensions={[...liteTextEditorExtensions.disabled, "enter-key"]}
         flaggedExtensions={liteTextEditorExtensions.flagged}
-        editable
+        editable={editable}
         fileHandler={getEditorFileHandlers({
           projectId,
           uploadFile,
@@ -106,7 +109,7 @@ export const StickyEditor = React.forwardRef(function StickyEditor(
         containerClassName={cn(containerClassName, "relative")}
         {...rest}
       />
-      {showToolbar && (
+      {showToolbar && editable && (
         <div
           className={cn("h-[60px] origin-top px-4 transition-all duration-300 ease-out", {
             "max-h-[60px] scale-y-100 opacity-100": isFocused,

@@ -54,6 +54,18 @@
         "title": "Sticky non rimosso",
         "message": "Lo sticky non può essere rimosso"
       }
+    },
+    "view_only": "Sola lettura",
+    "project": {
+      "empty_state": {
+        "title": "Le note di questo progetto, in un unico posto.",
+        "description": "Gli Stickies aggiunti qui appartengono a questo progetto. Qui compaiono anche gli Stickies che i membri del progetto condividono con Lei."
+      }
+    },
+    "conflict": {
+      "title": "Un’altra persona ha modificato questo Sticky durante la Sua modifica.",
+      "use_theirs": "Usa l’altra versione",
+      "keep_mine": "Mantieni la mia versione"
     }
   }
 }

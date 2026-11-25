@@ -54,6 +54,18 @@
         "title": "Mazanie zlyhalo",
         "message": "Poznámku sa nepodarilo zmazať"
       }
+    },
+    "view_only": "Iba na čítanie",
+    "project": {
+      "empty_state": {
+        "title": "Poznámky k tomuto projektu na jednom mieste.",
+        "description": "Stickies, ktoré sem pridáte, patria k tomuto projektu. Zobrazia sa tu aj Stickies, ktoré s vami zdieľajú členovia projektu."
+      }
+    },
+    "conflict": {
+      "title": "Tento Sticky počas vašich úprav zmenil niekto iný.",
+      "use_theirs": "Použiť ich verziu",
+      "keep_mine": "Ponechať moju verziu"
     }
   }
 }

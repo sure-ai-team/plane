@@ -54,6 +54,18 @@
         "title": "Mazání selhalo",
         "message": "Poznámku nelze smazat"
       }
+    },
+    "view_only": "Pouze pro čtení",
+    "project": {
+      "empty_state": {
+        "title": "Poznámky k tomuto projektu na jednom místě.",
+        "description": "Stickies, které sem přidáte, patří k tomuto projektu. Zobrazí se zde i Stickies, které s vámi sdílejí členové projektu."
+      }
+    },
+    "conflict": {
+      "title": "Tento Sticky během vašich úprav změnil někdo jiný.",
+      "use_theirs": "Použít jejich verzi",
+      "keep_mine": "Ponechat moji verzi"
     }
   }
 }

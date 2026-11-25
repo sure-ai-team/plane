@@ -54,6 +54,18 @@
         "title": "Anotação não removida",
         "message": "A anotação não pôde ser removida"
       }
+    },
+    "view_only": "Somente visualização",
+    "project": {
+      "empty_state": {
+        "title": "As anotações deste projeto em um só lugar.",
+        "description": "Os Stickies que você adiciona aqui pertencem a este projeto. Os Stickies que membros do projeto compartilham com você também aparecem aqui."
+      }
+    },
+    "conflict": {
+      "title": "Outra pessoa alterou este Sticky enquanto você o editava.",
+      "use_theirs": "Usar a outra versão",
+      "keep_mine": "Manter minha versão"
     }
   }
 }

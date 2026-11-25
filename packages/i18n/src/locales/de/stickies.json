@@ -54,6 +54,18 @@
         "title": "Löschen fehlgeschlagen",
         "message": "Notiz konnte nicht gelöscht werden"
       }
+    },
+    "view_only": "Nur Ansicht",
+    "project": {
+      "empty_state": {
+        "title": "Notizen zu diesem Projekt an einem Ort.",
+        "description": "Hier hinzugefügte Stickies gehören zu diesem Projekt. Auch Stickies, die Projektmitglieder mit Ihnen teilen, werden hier angezeigt."
+      }
+    },
+    "conflict": {
+      "title": "Dieser Sticky wurde während Ihrer Bearbeitung von einer anderen Person geändert.",
+      "use_theirs": "Andere Version verwenden",
+      "keep_mine": "Meine Version behalten"
     }
   }
 }

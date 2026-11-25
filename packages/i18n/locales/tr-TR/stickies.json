@@ -54,6 +54,18 @@
         "title": "Yapışkan not kaldırılamadı",
         "message": "Yapışkan not kaldırılamadı"
       }
+    },
+    "view_only": "Yalnızca görüntüleme",
+    "project": {
+      "empty_state": {
+        "title": "Bu projenin notları tek bir yerde.",
+        "description": "Buraya eklediğiniz Stickies bu projeye aittir. Proje üyelerinin sizinle paylaştığı Stickies de burada görünür."
+      }
+    },
+    "conflict": {
+      "title": "Siz düzenlerken başka biri bu Sticky üzerinde değişiklik yaptı.",
+      "use_theirs": "Diğer sürümü kullan",
+      "keep_mine": "Benim sürümümü koru"
     }
   }
 }

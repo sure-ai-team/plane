@@ -54,6 +54,18 @@
         "title": "Notiță neștearsă",
         "message": "Notița nu a putut fi ștearsă"
       }
+    },
+    "view_only": "Doar vizualizare",
+    "project": {
+      "empty_state": {
+        "title": "Notele acestui proiect, într-un singur loc.",
+        "description": "Stickies adăugate aici aparțin acestui proiect. Aici apar și Stickies partajate cu dumneavoastră de membrii proiectului."
+      }
+    },
+    "conflict": {
+      "title": "Altcineva a modificat acest Sticky în timp ce îl editați.",
+      "use_theirs": "Folosește cealaltă versiune",
+      "keep_mine": "Păstrează versiunea mea"
     }
   }
 }

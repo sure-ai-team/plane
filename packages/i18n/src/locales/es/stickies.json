@@ -54,6 +54,18 @@
         "title": "Nota adhesiva no eliminada",
         "message": "No se pudo eliminar la nota adhesiva"
       }
+    },
+    "view_only": "Solo lectura",
+    "project": {
+      "empty_state": {
+        "title": "Las notas de este proyecto, en un solo lugar.",
+        "description": "Los Stickies que agregue aquí pertenecen a este proyecto. También aparecen aquí los Stickies que los miembros del proyecto comparten con usted."
+      }
+    },
+    "conflict": {
+      "title": "Otra persona modificó este Sticky mientras usted lo editaba.",
+      "use_theirs": "Usar la otra versión",
+      "keep_mine": "Conservar mi versión"
     }
   }
 }

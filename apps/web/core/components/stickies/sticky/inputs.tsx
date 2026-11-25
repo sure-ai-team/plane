@@ -5,7 +5,6 @@
  */
 
 import { useCallback, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 // plane imports
 import type { EditorRefApi } from "@plane/editor";
@@ -22,24 +21,35 @@ import { useWorkspace } from "@/hooks/store/use-workspace";
 type TProps = {
   stickyData: Partial<TSticky> | undefined;
   workspaceSlug: string;
+  projectId?: string;
   handleUpdate: (payload: Partial<TSticky>) => void;
   stickyId: string | undefined;
   showToolbar?: boolean;
+  isEditable: boolean;
+  isStickiesPage: boolean;
   handleChange: (data: Partial<TSticky>) => Promise<void>;
-  handleDelete: () => void;
+  handleDelete: (() => void) | undefined;
 };
 
 export function StickyInput(props: TProps) {
-  const { stickyData, workspaceSlug, handleUpdate, stickyId, handleDelete, handleChange, showToolbar } = props;
+  const {
+    stickyData,
+    workspaceSlug,
+    projectId,
+    handleUpdate,
+    stickyId,
+    handleDelete,
+    handleChange,
+    showToolbar,
+    isEditable,
+    isStickiesPage,
+  } = props;
   // refs
   const editorRef = useRef<EditorRefApi>(null);
-  // navigation
-  const pathname = usePathname();
   // store hooks
   const { getWorkspaceBySlug } = useWorkspace();
   // derived values
   const workspaceId = getWorkspaceBySlug(workspaceSlug)?.id?.toString() ?? "";
-  const isStickiesPage = pathname?.includes("stickies");
   // form info
   const { handleSubmit, reset, control } = useForm<TSticky>({
     defaultValues: {
@@ -76,13 +86,17 @@ export function StickyInput(props: TProps) {
             value={null}
             workspaceSlug={workspaceSlug}
             workspaceId={workspaceId}
-            onChange={(_description, description_html) => {
+            projectId={projectId}
+            editable={isEditable}
+            onChange={(_description, description_html, options) => {
+              // opening a shared sticky must not save it
+              if (projectId && (!isEditable || options?.isMigrationUpdate)) return;
               onChange(description_html);
               handleSubmit(handleFormSubmit)();
             }}
             placeholder={(_, value) => {
               const isContentEmpty = isCommentEmpty(value);
-              if (!isContentEmpty) return "";
+              if (!isContentEmpty || !isEditable) return "";
               return "Click to type here";
             }}
             containerClassName={cn(

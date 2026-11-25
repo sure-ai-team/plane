@@ -54,6 +54,18 @@
         "title": "Post-it non supprimé",
         "message": "Le post-it n’a pas pu être supprimé"
       }
+    },
+    "view_only": "Lecture seule",
+    "project": {
+      "empty_state": {
+        "title": "Les notes de ce projet, au même endroit.",
+        "description": "Les Stickies que vous ajoutez ici appartiennent à ce projet. Les Stickies que les membres du projet partagent avec vous s’affichent également ici."
+      }
+    },
+    "conflict": {
+      "title": "Une autre personne a modifié ce Sticky pendant que vous le modifiiez.",
+      "use_theirs": "Utiliser l’autre version",
+      "keep_mine": "Conserver ma version"
     }
   }
 }

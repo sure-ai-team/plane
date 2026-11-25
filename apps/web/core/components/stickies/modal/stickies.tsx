@@ -25,9 +25,11 @@ export const Stickies = observer(function Stickies(props: TProps) {
   // navigation
   const { workspaceSlug } = useParams();
   // store hooks
-  const { creatingSticky, toggleShowNewSticky } = useSticky();
+  const { getList, toggleShowNewSticky } = useSticky();
   // sticky operations
   const { stickyOperations } = useStickyOperations({ workspaceSlug: workspaceSlug?.toString() });
+  // derived values
+  const { isCreating } = getList({ workspaceSlug: workspaceSlug?.toString() ?? "" });
 
   return (
     <div className="min-h-[620px] p-6 pb-0">
@@ -40,17 +42,17 @@ export const Stickies = observer(function Stickies(props: TProps) {
         </div>
         {/* actions */}
         <div className="flex gap-2">
-          <StickySearch />
+          <StickySearch workspaceSlug={workspaceSlug?.toString() ?? ""} />
           <button
             onClick={() => {
               toggleShowNewSticky(true);
               stickyOperations.create();
             }}
             className="my-auto flex gap-1 text-13 font-medium text-accent-primary"
-            disabled={creatingSticky}
+            disabled={isCreating}
           >
             <PlusIcon className="my-auto size-4" /> <span>Add sticky</span>
-            {creatingSticky && (
+            {isCreating && (
               <div className="ml-2 flex items-center justify-center">
                 <div
                   className={`h-4 w-4 animate-spin rounded-full border-2 border-accent-strong border-t-transparent`}

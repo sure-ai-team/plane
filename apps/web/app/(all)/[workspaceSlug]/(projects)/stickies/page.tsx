@@ -7,13 +7,14 @@
 // components
 import { PageHead } from "@/components/core/page-title";
 import { StickiesInfinite } from "@/components/stickies/layout/stickies-infinite";
+import type { Route } from "./+types/page";
 
-export default function WorkspaceStickiesPage() {
+export default function WorkspaceStickiesPage({ params }: Route.ComponentProps) {
   return (
     <>
       <PageHead title="Your stickies" />
       <div className="relative h-full w-full overflow-hidden overflow-y-auto">
-        <StickiesInfinite />
+        <StickiesInfinite workspaceSlug={params.workspaceSlug} />
       </div>
     </>
   );

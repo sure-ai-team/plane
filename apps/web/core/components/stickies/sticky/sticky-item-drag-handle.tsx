@@ -4,7 +4,7 @@
  * See the LICENSE file for details.
  */
 
-import { observer } from "mobx-react";
+import { forwardRef } from "react";
 // ui
 import { DragHandle } from "@plane/ui";
 // helper
@@ -14,19 +14,16 @@ type Props = {
   isDragging: boolean;
 };
 
-export const StickyItemDragHandle = observer(function StickyItemDragHandle(props: Props) {
+/** Shown while hovering the sticky; a handle, so that text in the sticky can still be selected. */
+export const StickyItemDragHandle = forwardRef(function StickyItemDragHandle(
+  props: Props,
+  ref: React.ForwardedRef<HTMLButtonElement | null>
+) {
   const { isDragging } = props;
 
   return (
-    <div
-      className={cn(
-        "absolute top-3 left-1/2 mr-2 hidden -translate-x-1/2 rotate-90 cursor-grab items-center justify-center rounded-sm text-placeholder group-hover/sticky:flex",
-        {
-          "cursor-grabbing": isDragging,
-        }
-      )}
-    >
-      <DragHandle className="bg-transparent" />
+    <div className="absolute top-2 left-1/2 z-[1] hidden -translate-x-1/2 rotate-90 text-placeholder group-hover/sticky-item:flex">
+      <DragHandle ref={ref} className={cn("bg-transparent", { "cursor-grabbing": isDragging })} />
     </div>
   );
 });

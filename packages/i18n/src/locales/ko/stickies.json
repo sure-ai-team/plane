@@ -54,6 +54,18 @@
         "title": "스티키 제거되지 않음",
         "message": "스티키를 제거할 수 없습니다"
       }
+    },
+    "view_only": "보기 전용",
+    "project": {
+      "empty_state": {
+        "title": "이 프로젝트의 메모를 한곳에서 관리하세요.",
+        "description": "여기에 추가한 Stickies는 이 프로젝트에 속합니다. 프로젝트 멤버가 공유한 Stickies도 여기에 표시됩니다."
+      }
+    },
+    "conflict": {
+      "title": "편집하는 동안 다른 사용자가 이 Sticky를 변경했습니다.",
+      "use_theirs": "상대방 버전 사용",
+      "keep_mine": "내 버전 유지"
     }
   }
 }

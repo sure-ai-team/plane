@@ -54,6 +54,18 @@
         "title": "Chưa xóa ghi chú",
         "message": "Không thể xóa ghi chú"
       }
+    },
+    "view_only": "Chỉ xem",
+    "project": {
+      "empty_state": {
+        "title": "Ghi chú của dự án này, tập trung một nơi.",
+        "description": "Stickies bạn thêm ở đây thuộc về dự án này. Stickies mà thành viên dự án chia sẻ với bạn cũng hiển thị ở đây."
+      }
+    },
+    "conflict": {
+      "title": "Người khác đã thay đổi Sticky này trong khi bạn đang chỉnh sửa.",
+      "use_theirs": "Dùng phiên bản của họ",
+      "keep_mine": "Giữ phiên bản của tôi"
     }
   }
 }

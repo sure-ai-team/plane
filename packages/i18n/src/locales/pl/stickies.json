@@ -54,6 +54,18 @@
         "title": "Usunięcie się nie powiodło",
         "message": "Nie można usunąć notatki"
       }
+    },
+    "view_only": "Tylko podgląd",
+    "project": {
+      "empty_state": {
+        "title": "Notatki do tego projektu w jednym miejscu.",
+        "description": "Dodane tutaj Stickies należą do tego projektu. Wyświetlane są tu również Stickies udostępnione przez członków projektu."
+      }
+    },
+    "conflict": {
+      "title": "Ten Sticky został zmieniony przez inną osobę podczas edycji.",
+      "use_theirs": "Użyj innej wersji",
+      "keep_mine": "Zachowaj moją wersję"
     }
   }
 }
