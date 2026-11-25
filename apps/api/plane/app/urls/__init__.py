@@ -19,6 +19,7 @@ from .search import urlpatterns as search_urls
 from .state import urlpatterns as state_urls
 from .sticky import urlpatterns as sticky_urls
 from .user import urlpatterns as user_urls
+from .user_work import urlpatterns as user_work_urls
 from .views import urlpatterns as view_urls
 from .webhook import urlpatterns as webhook_urls
 from .workspace import urlpatterns as workspace_urls
@@ -44,6 +45,7 @@ urlpatterns = [
     *state_urls,
     *sticky_urls,
     *user_urls,
+    *user_work_urls,
     *view_urls,
     *workspace_urls,
     *api_urls,
