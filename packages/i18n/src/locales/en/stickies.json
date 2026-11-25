@@ -105,6 +105,20 @@
           "message": "Someone may have left the project. Please check the people and try again."
         }
       }
+    },
+    "pin": {
+      "pin": "Pin to overview",
+      "unpin": "Unpin from overview",
+      "needs_project": "Share with the whole project to pin it to the overview",
+      "will_unpin": "Saving this also unpins the sticky from the project overview."
+    },
+    "overview": {
+      "pinned": "Pinned stickies",
+      "empty": {
+        "title": "No pinned stickies yet",
+        "description": "Pin a sticky shared with the whole project, and everyone in the project sees it here."
+      },
+      "view_all": "View all stickies"
     }
   }
 }

@@ -105,6 +105,20 @@
           "message": "Alguém pode ter saído do projeto. Verifique as pessoas e tente novamente."
         }
       }
+    },
+    "pin": {
+      "pin": "Fixar na visão geral",
+      "unpin": "Desafixar da visão geral",
+      "needs_project": "Compartilhe com o projeto inteiro para fixar na visão geral",
+      "will_unpin": "Salvar também desafixará o Sticky da visão geral do projeto."
+    },
+    "overview": {
+      "pinned": "Stickies fixados",
+      "empty": {
+        "title": "Ainda não há Stickies fixados",
+        "description": "Fixe um Sticky compartilhado com o projeto inteiro e todos o verão aqui."
+      },
+      "view_all": "Ver todos os Stickies"
     }
   }
 }

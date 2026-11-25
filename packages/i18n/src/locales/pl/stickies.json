@@ -105,6 +105,20 @@
           "message": "Ktoś mógł opuścić projekt. Należy sprawdzić wybrane osoby i spróbować ponownie."
         }
       }
+    },
+    "pin": {
+      "pin": "Przypnij do przeglądu",
+      "unpin": "Odepnij od przeglądu",
+      "needs_project": "Aby przypiąć do przeglądu, należy udostępnić całemu projektowi",
+      "will_unpin": "Zapisanie spowoduje też odpięcie tego Sticky od przeglądu projektu."
+    },
+    "overview": {
+      "pinned": "Przypięte Stickies",
+      "empty": {
+        "title": "Brak przypiętych Stickies",
+        "description": "Po przypięciu Sticky udostępnionego całemu projektowi będą go tu widzieć wszyscy w projekcie."
+      },
+      "view_all": "Pokaż wszystkie Stickies"
     }
   }
 }

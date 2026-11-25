@@ -105,6 +105,20 @@
           "message": "Qualcuno potrebbe aver lasciato il progetto. Verifichi le persone e riprovi."
         }
       }
+    },
+    "pin": {
+      "pin": "Fissa nella panoramica",
+      "unpin": "Rimuovi dalla panoramica",
+      "needs_project": "Condivida con l’intero progetto per fissarlo nella panoramica",
+      "will_unpin": "Salvando, lo Sticky verrà anche rimosso dalla panoramica del progetto."
+    },
+    "overview": {
+      "pinned": "Stickies fissati",
+      "empty": {
+        "title": "Nessuno Sticky fissato",
+        "description": "Fissi uno Sticky condiviso con l’intero progetto: tutti lo vedranno qui."
+      },
+      "view_all": "Mostra tutti gli Stickies"
     }
   }
 }

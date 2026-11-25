@@ -24,6 +24,7 @@ export type TOperations = {
   resolveConflict: (stickyId: string, keep: "mine" | "theirs") => Promise<void>;
   /** resolves to whether it was saved */
   updateSharing: (stickyId: string, sharing: TStickySharing) => Promise<boolean>;
+  updatePin: (stickyId: string, isPinned: boolean) => Promise<void>;
   updatePosition: (sourceId: string, destinationId: string, edge: "left" | "right") => Promise<void>;
 };
 
@@ -44,6 +45,7 @@ export const useStickyOperations = (props: TProps) => {
     updateSticky,
     resolveConflict,
     updateSharing,
+    updatePin,
     deleteSticky,
     updateStickyPosition,
   } = useSticky();
@@ -168,6 +170,18 @@ export const useStickyOperations = (props: TProps) => {
           return false;
         }
       },
+      updatePin: async (stickyId: string, isPinned: boolean) => {
+        try {
+          await updatePin(scope, stickyId, isPinned);
+        } catch (error) {
+          console.error("Error in pinning sticky:", error);
+          setToast({
+            type: TOAST_TYPE.ERROR,
+            title: t("stickies.toasts.not_updated.title"),
+            message: t("stickies.toasts.not_updated.message"),
+          });
+        }
+      },
       updatePosition: async (sourceId: string, destinationId: string, edge: "left" | "right") => {
         try {
           if (!workspaceSlug) throw new Error("Missing required fields");
@@ -193,6 +207,7 @@ export const useStickyOperations = (props: TProps) => {
       scope,
       stickies,
       t,
+      updatePin,
       updateSharing,
       updateSticky,
       updateStickyPosition,

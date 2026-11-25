@@ -105,6 +105,20 @@
           "message": "可能有人已離開專案。請檢查人員後再試一次。"
         }
       }
+    },
+    "pin": {
+      "pin": "釘選至總覽",
+      "unpin": "從總覽取消釘選",
+      "needs_project": "與整個專案共用後才能釘選至總覽",
+      "will_unpin": "儲存後，此 Sticky 也將從專案總覽取消釘選。"
+    },
+    "overview": {
+      "pinned": "已釘選的 Stickies",
+      "empty": {
+        "title": "尚無已釘選的 Stickies",
+        "description": "釘選與整個專案共用的 Sticky 後，專案中的所有人都能在此處看到。"
+      },
+      "view_all": "檢視所有 Stickies"
     }
   }
 }

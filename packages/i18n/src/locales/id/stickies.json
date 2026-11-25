@@ -105,6 +105,20 @@
           "message": "Mungkin ada yang keluar dari proyek. Periksa daftar orang dan coba lagi."
         }
       }
+    },
+    "pin": {
+      "pin": "Sematkan ke ringkasan",
+      "unpin": "Lepas dari ringkasan",
+      "needs_project": "Bagikan ke seluruh proyek untuk menyematkannya ke ringkasan",
+      "will_unpin": "Menyimpan ini juga melepas Sticky dari ringkasan proyek."
+    },
+    "overview": {
+      "pinned": "Stickies yang disematkan",
+      "empty": {
+        "title": "Belum ada Stickies yang disematkan",
+        "description": "Sematkan Sticky yang dibagikan ke seluruh proyek agar semua orang di proyek melihatnya di sini."
+      },
+      "view_all": "Lihat semua Stickies"
     }
   }
 }

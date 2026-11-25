@@ -105,6 +105,20 @@
           "message": "Möglicherweise hat jemand das Projekt verlassen. Bitte die Personen prüfen und erneut versuchen."
         }
       }
+    },
+    "pin": {
+      "pin": "An Übersicht anheften",
+      "unpin": "Von Übersicht lösen",
+      "needs_project": "Zum Anheften an die Übersicht mit dem gesamten Projekt teilen",
+      "will_unpin": "Beim Speichern wird der Sticky auch von der Projektübersicht gelöst."
+    },
+    "overview": {
+      "pinned": "Angeheftete Stickies",
+      "empty": {
+        "title": "Noch keine angehefteten Stickies",
+        "description": "Ein mit dem gesamten Projekt geteilter Sticky kann angeheftet werden und ist dann hier für alle im Projekt sichtbar."
+      },
+      "view_all": "Alle Stickies anzeigen"
     }
   }
 }

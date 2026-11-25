@@ -59,4 +59,6 @@ export type TSticky = {
 export type TStickyScope = {
   workspaceSlug: string;
   projectId?: string;
+  /** only the stickies pinned to the project overview */
+  isPinned?: boolean;
 };

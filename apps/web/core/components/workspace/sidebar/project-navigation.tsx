@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { EUserPermissionsLevel, EUserPermissions } from "@plane/constants";
 import { useTranslation } from "@plane/i18n";
-import { MessageSquare } from "lucide-react";
+import { LayoutPanelTop, MessageSquare } from "lucide-react";
 import {
   CycleIcon,
   IntakeIcon,
@@ -82,6 +82,16 @@ export const ProjectNavigation = observer(function ProjectNavigation(props: TPro
   const baseNavigation = useCallback(
     // oxlint-disable-next-line no-shadow -- same names as the props on purpose (mirrors use-navigation-items.ts)
     (workspaceSlug: string, projectId: string): TNavigationItem[] => [
+      {
+        i18n_key: "common.overview",
+        key: "overview",
+        name: "Overview",
+        href: `/${workspaceSlug}/projects/${projectId}/overview`,
+        icon: LayoutPanelTop,
+        access: [EUserPermissions.ADMIN, EUserPermissions.MEMBER, EUserPermissions.GUEST],
+        shouldRender: true,
+        sortOrder: 0,
+      },
       {
         i18n_key: "sidebar.work_items",
         key: "work_items",

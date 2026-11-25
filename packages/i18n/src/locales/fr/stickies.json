@@ -105,6 +105,20 @@
           "message": "Une personne a peut-être quitté le projet. Vérifiez les personnes et réessayez."
         }
       }
+    },
+    "pin": {
+      "pin": "Épingler à la vue d’ensemble",
+      "unpin": "Désépingler de la vue d’ensemble",
+      "needs_project": "Partagez avec tout le projet pour l’épingler à la vue d’ensemble",
+      "will_unpin": "L’enregistrement désépinglera aussi le Sticky de la vue d’ensemble du projet."
+    },
+    "overview": {
+      "pinned": "Stickies épinglés",
+      "empty": {
+        "title": "Aucun Sticky épinglé pour l’instant",
+        "description": "Épinglez un Sticky partagé avec tout le projet pour que chacun le voie ici."
+      },
+      "view_all": "Voir tous les Stickies"
     }
   }
 }

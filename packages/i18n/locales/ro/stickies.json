@@ -105,6 +105,20 @@
           "message": "Este posibil ca cineva să fi părăsit proiectul. Verificați persoanele și încercați din nou."
         }
       }
+    },
+    "pin": {
+      "pin": "Fixați în prezentare",
+      "unpin": "Anulați fixarea din prezentare",
+      "needs_project": "Partajați cu întregul proiect pentru a fixa în prezentare",
+      "will_unpin": "Salvarea va anula și fixarea acestui Sticky din prezentarea proiectului."
+    },
+    "overview": {
+      "pinned": "Stickies fixate",
+      "empty": {
+        "title": "Nu există încă Stickies fixate",
+        "description": "Fixați un Sticky partajat cu întregul proiect și toți îl vor vedea aici."
+      },
+      "view_all": "Vedeți toate Stickies"
     }
   }
 }

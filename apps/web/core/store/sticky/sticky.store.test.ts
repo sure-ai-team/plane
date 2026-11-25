@@ -74,6 +74,7 @@ beforeEach(() => {
     getSticky: vi.fn(),
     updateSticky: vi.fn(),
     updateSharing: vi.fn(),
+    updatePin: vi.fn(),
     deleteSticky: vi.fn(),
   };
   store = new StickyStore(service as unknown as TStickyServiceLike);
@@ -464,6 +465,73 @@ describe("sharing", () => {
     await expect(store.updateSharing(PROJECT, "s1", sharing)).rejects.toMatchObject({ status: 400 });
 
     expect(store.stickies.s1).toEqual(makeSticky());
+  });
+});
+
+describe("pinning", () => {
+  const PINNED: TStickyScope = { ...PROJECT, isPinned: true };
+  const pinned = (id: string, pinned_at: string | null, overrides: Partial<TSticky> = {}) =>
+    makeSticky({ id, pinned_at, access: EStickyAccess.PROJECT, ...overrides });
+
+  const loadPinned = async (...stickies: TSticky[]) => {
+    service.getStickies.mockResolvedValueOnce(page(stickies));
+    await store.fetchStickies(PINNED);
+  };
+
+  it("lists the last pinned first, apart from the project's stickies", async () => {
+    await loadProject(makeSticky());
+    await loadPinned(pinned("a", "2026-01-01", { sort_order: 9 }), pinned("b", "2026-01-02", { sort_order: 1 }));
+
+    expect(store.getStickyIds(PINNED)).toEqual(["b", "a"]);
+    expect(store.getStickyIds(PROJECT)).toEqual(["s1"]);
+  });
+
+  it("adds a sticky pinned elsewhere and drops an unpinned one", async () => {
+    await loadProject(pinned("s1", null));
+    await loadPinned(pinned("a", "2026-01-01"));
+    service.updatePin.mockResolvedValueOnce(pinned("s1", "2026-01-03"));
+    await store.updatePin(PROJECT, "s1", true);
+    expect(store.getStickyIds(PINNED)).toEqual(["s1", "a"]);
+
+    service.updatePin.mockResolvedValueOnce(pinned("a", null));
+    await store.updatePin(PROJECT, "a", false);
+    expect(store.getStickyIds(PINNED)).toEqual(["s1"]);
+    expect(service.updatePin).toHaveBeenLastCalledWith(PROJECT, "a", false);
+
+    // and back
+    service.updatePin.mockResolvedValueOnce(pinned("a", "2026-01-04"));
+    await store.updatePin(PROJECT, "a", true);
+    expect(store.getStickyIds(PINNED)).toEqual(["a", "s1"]);
+  });
+
+  it("drops a sticky that is no longer shared with the whole project", async () => {
+    await loadPinned(pinned("a", "2026-01-01"));
+    service.updateSharing.mockResolvedValueOnce(pinned("a", null, { access: EStickyAccess.PRIVATE }));
+    await store.updateSharing(PROJECT, "a", {
+      access: EStickyAccess.PRIVATE,
+      project_permission: "view",
+      members: [],
+    });
+
+    expect(store.getStickyIds(PINNED)).toEqual([]);
+  });
+
+  it("a deleted sticky leaves every list", async () => {
+    await loadProject(pinned("a", "2026-01-01"));
+    await loadPinned(pinned("a", "2026-01-01"));
+    service.deleteSticky.mockResolvedValueOnce(undefined);
+    await store.deleteSticky(PROJECT, "a");
+
+    expect(store.getStickyIds(PINNED)).toEqual([]);
+    expect(store.getStickyIds(PROJECT)).toEqual([]);
+  });
+
+  it("changes nothing when it is refused", async () => {
+    await loadProject(pinned("s1", null));
+    service.updatePin.mockRejectedValueOnce(requestError(400));
+    await expect(store.updatePin(PROJECT, "s1", true)).rejects.toMatchObject({ status: 400 });
+
+    expect(store.stickies.s1.pinned_at).toBeNull();
   });
 });
 

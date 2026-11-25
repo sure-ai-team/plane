@@ -105,6 +105,20 @@
           "message": "Có thể ai đó đã rời dự án. Vui lòng kiểm tra danh sách và thử lại."
         }
       }
+    },
+    "pin": {
+      "pin": "Ghim vào tổng quan",
+      "unpin": "Bỏ ghim khỏi tổng quan",
+      "needs_project": "Chia sẻ với toàn bộ dự án để ghim vào tổng quan",
+      "will_unpin": "Khi lưu, Sticky cũng sẽ được bỏ ghim khỏi tổng quan dự án."
+    },
+    "overview": {
+      "pinned": "Stickies đã ghim",
+      "empty": {
+        "title": "Chưa có Stickies nào được ghim",
+        "description": "Ghim một Sticky được chia sẻ với toàn bộ dự án để mọi người trong dự án thấy tại đây."
+      },
+      "view_all": "Xem tất cả Stickies"
     }
   }
 }

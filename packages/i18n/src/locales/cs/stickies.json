@@ -105,6 +105,20 @@
           "message": "Někdo mohl projekt opustit. Zkontrolujte vybrané lidi a zkuste to znovu."
         }
       }
+    },
+    "pin": {
+      "pin": "Připnout na přehled",
+      "unpin": "Odepnout z přehledu",
+      "needs_project": "Chcete-li připnout na přehled, sdílejte s celým projektem",
+      "will_unpin": "Uložením se Sticky také odepne z přehledu projektu."
+    },
+    "overview": {
+      "pinned": "Připnuté Stickies",
+      "empty": {
+        "title": "Zatím žádné připnuté Stickies",
+        "description": "Připněte Sticky sdílený s celým projektem a uvidí ho zde všichni v projektu."
+      },
+      "view_all": "Zobrazit všechny Stickies"
     }
   }
 }

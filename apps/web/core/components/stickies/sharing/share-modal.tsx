@@ -164,6 +164,10 @@ export const ShareStickyModal = observer(function ShareStickyModal(props: Props)
           <p className="text-12 text-danger-primary">{t("stickies.sharing.lose_access")}</p>
         )}
 
+        {!!sticky.pinned_at && access !== EStickyAccess.PROJECT && (
+          <p className="text-12 text-tertiary">{t("stickies.pin.will_unpin")}</p>
+        )}
+
         {access === EStickyAccess.PROJECT && (
           <div className="flex items-center justify-between gap-2 text-13 text-primary">
             <span>{t("stickies.sharing.everyone_can")}</span>

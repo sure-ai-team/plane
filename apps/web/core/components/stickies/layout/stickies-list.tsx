@@ -37,6 +37,10 @@ type TStickiesLayout = {
   projectId?: string;
   /** the full page, where stickies can be reordered, as opposed to a widget or a modal */
   isStickiesPage?: boolean;
+  /** only the stickies pinned to the project overview */
+  isPinned?: boolean;
+  /** shown instead of the default empty state */
+  emptyState?: React.ReactNode;
   /** a sticky to scroll to and point out */
   linkedStickyId?: string;
   intersectionElement?: React.ReactNode | null;
@@ -47,7 +51,16 @@ type TProps = TStickiesLayout & {
 };
 
 export const StickiesList = observer(function StickiesList(props: TProps) {
-  const { workspaceSlug, projectId, isStickiesPage = false, linkedStickyId, intersectionElement, columnCount } = props;
+  const {
+    workspaceSlug,
+    projectId,
+    isStickiesPage = false,
+    isPinned,
+    emptyState,
+    linkedStickyId,
+    intersectionElement,
+    columnCount,
+  } = props;
   // theme hook
   const { resolvedTheme } = useTheme();
   // plane hooks
@@ -58,8 +71,8 @@ export const StickiesList = observer(function StickiesList(props: TProps) {
   // sticky operations
   const { stickyOperations } = useStickyOperations({ workspaceSlug, projectId });
   // derived values
-  const { searchQuery, loader } = getList({ workspaceSlug, projectId });
-  const stickyIds = getStickyIds({ workspaceSlug, projectId });
+  const { searchQuery, loader } = getList({ workspaceSlug, projectId, isPinned });
+  const stickyIds = getStickyIds({ workspaceSlug, projectId, isPinned });
   const itemWidth = `${100 / columnCount}%`;
   const canCreateSticky = projectId
     ? allowPermissions(
@@ -89,6 +102,7 @@ export const StickiesList = observer(function StickiesList(props: TProps) {
   }
 
   if (loader === "loaded" && stickyIds.length === 0) {
+    if (emptyState) return <>{emptyState}</>;
     return (
       <div className="grid size-full place-items-center">
         {isStickiesPage ? (

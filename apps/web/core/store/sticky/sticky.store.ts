@@ -39,7 +39,7 @@ type TStickyDraft = {
 
 export type TStickyServiceLike = Pick<
   StickyService,
-  "createSticky" | "getStickies" | "getSticky" | "updateSticky" | "updateSharing" | "deleteSticky"
+  "createSticky" | "getStickies" | "getSticky" | "updateSticky" | "updateSharing" | "updatePin" | "deleteSticky"
 >;
 
 export interface IStickyStore {
@@ -66,6 +66,7 @@ export interface IStickyStore {
   resolveConflict: (scope: TStickyScope, id: string, keep: "mine" | "theirs") => Promise<void>;
   fetchSticky: (scope: TStickyScope, id: string) => Promise<void>;
   updateSharing: (scope: TStickyScope, id: string, sharing: TStickySharing) => Promise<void>;
+  updatePin: (scope: TStickyScope, id: string, isPinned: boolean) => Promise<void>;
   deleteSticky: (scope: TStickyScope, id: string) => Promise<void>;
   updateStickyPosition: (
     scope: TStickyScope,
@@ -91,8 +92,10 @@ const EMPTY_LIST: TStickyList = Object.freeze({
 
 const hasContent = (updates: Partial<TSticky>) => CONTENT_FIELDS.some((field) => field in updates);
 
-const getScopeKey = ({ workspaceSlug, projectId }: TStickyScope) =>
-  projectId ? `${workspaceSlug}/${projectId}` : workspaceSlug;
+const PINNED_SUFFIX = "/pinned";
+
+const getScopeKey = ({ workspaceSlug, projectId, isPinned }: TStickyScope) =>
+  `${projectId ? `${workspaceSlug}/${projectId}` : workspaceSlug}${isPinned ? PINNED_SUFFIX : ""}`;
 
 export class StickyStore implements IStickyStore {
   lists: Record<string, TStickyList> = {};
@@ -128,6 +131,7 @@ export class StickyStore implements IStickyStore {
       resolveConflict: action,
       fetchSticky: action,
       updateSharing: action,
+      updatePin: action,
       updateActiveStickyId: action,
       toggleShowNewSticky: action,
       fetchRecentSticky: action,
@@ -142,13 +146,18 @@ export class StickyStore implements IStickyStore {
 
   getStickyIds = (scope: TStickyScope) => this.getSortedIds(getScopeKey(scope));
 
-  private getSortedIds = computedFn((scopeKey: string) =>
-    orderBy(
-      (this.lists[scopeKey]?.stickyIds ?? []).map((stickyId) => this.stickies[stickyId]).filter(Boolean),
-      ["sort_order"],
-      ["desc"]
-    ).map((sticky) => sticky.id)
-  );
+  private getSortedIds = computedFn((scopeKey: string) => {
+    const stickies = (this.lists[scopeKey]?.stickyIds ?? []).map((stickyId) => this.stickies[stickyId]).filter(Boolean);
+    const sortedStickies = scopeKey.endsWith(PINNED_SUFFIX)
+      ? // the last pinned first, without those unpinned since the list was fetched
+        orderBy(
+          stickies.filter((sticky) => !!sticky.pinned_at),
+          ["pinned_at"],
+          ["desc"]
+        )
+      : orderBy(stickies, ["sort_order"], ["desc"]);
+    return sortedStickies.map((sticky) => sticky.id);
+  });
 
   // helpers
 
@@ -191,8 +200,9 @@ export class StickyStore implements IStickyStore {
   };
 
   private forget = (scope: TStickyScope, id: string) => {
-    const list = this.ensureList(scope);
-    list.stickyIds = list.stickyIds.filter((stickyId) => stickyId !== id);
+    Object.values(this.lists).forEach((list) => {
+      if (list.stickyIds.includes(id)) list.stickyIds = list.stickyIds.filter((stickyId) => stickyId !== id);
+    });
     this.drafts.delete(id);
     delete this.conflicts[id];
     delete this.stickies[id];
@@ -467,6 +477,23 @@ export class StickyStore implements IStickyStore {
       runInAction(() => {
         if (sticky) this.adopt(sticky);
         else this.forget(scope, id);
+      });
+    } catch (error) {
+      const status = (error as TStickyRequestError)?.status;
+      if (status === 403 || status === 404) void this.refreshSticky(scope, id);
+      throw error;
+    }
+  };
+
+  updatePin = async (scope: TStickyScope, id: string, isPinned: boolean) => {
+    // a save that is still running would bring back the previous state
+    await this.drafts.get(id)?.running?.catch(() => undefined);
+    try {
+      const sticky = await this.stickyService.updatePin(scope, id, isPinned);
+      runInAction(() => {
+        this.adopt(sticky);
+        const pinnedList = this.lists[getScopeKey({ ...scope, isPinned: true })];
+        if (isPinned && pinnedList && !pinnedList.stickyIds.includes(id)) pinnedList.stickyIds.push(id);
       });
     } catch (error) {
       const status = (error as TStickyRequestError)?.status;

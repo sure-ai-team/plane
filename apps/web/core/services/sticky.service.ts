@@ -55,6 +55,7 @@ export class StickyService extends APIService {
         cursor,
         per_page: per_page || STICKIES_PER_PAGE,
         query,
+        pinned: scope.isPinned ? "true" : undefined,
       },
     })
       .then((res) => res?.data)
@@ -83,6 +84,15 @@ export class StickyService extends APIService {
   async updateSharing(scope: TStickyScope, id: string, sharing: TStickySharing): Promise<TSticky | undefined> {
     return this.put(`${this.getBasePath(scope)}${id}/shares/`, sharing)
       .then((res) => (res?.status === 204 ? undefined : res?.data))
+      .catch((err) => {
+        throw toRequestError(err);
+      });
+  }
+
+  async updatePin(scope: TStickyScope, id: string, isPinned: boolean): Promise<TSticky> {
+    const url = `${this.getBasePath(scope)}${id}/pin/`;
+    return (isPinned ? this.post(url) : this.delete(url))
+      .then((res) => res?.data)
       .catch((err) => {
         throw toRequestError(err);
       });

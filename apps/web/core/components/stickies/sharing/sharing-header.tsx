@@ -6,10 +6,11 @@
 
 import { useState } from "react";
 import { observer } from "mobx-react";
-import { Lock, Users } from "lucide-react";
+import { Lock, Pin, PinOff, Users } from "lucide-react";
 // plane imports
 import { useTranslation } from "@plane/i18n";
 import { ProjectIcon } from "@plane/propel/icons";
+import { Tooltip } from "@plane/propel/tooltip";
 import type { TSticky } from "@plane/types";
 import { EStickyAccess } from "@plane/types";
 import { Avatar } from "@plane/ui";
@@ -18,6 +19,7 @@ import { cn, getFileURL } from "@plane/utils";
 import { useMember } from "@/hooks/store/use-member";
 import { useUser } from "@/hooks/store/user";
 // local imports
+import { useStickyOperations } from "../sticky/use-operations";
 import { ShareStickyModal } from "./share-modal";
 
 type Props = {
@@ -26,7 +28,7 @@ type Props = {
   sticky: TSticky;
 };
 
-/** Who a project sticky is shared with and whose it is. Opens the share dialog for those who may change it. */
+/** Who a project sticky is shared with, whose it is and whether it is pinned, and the means to change that. */
 export const StickySharingHeader = observer(function StickySharingHeader(props: Props) {
   const { workspaceSlug, projectId, sticky } = props;
   // states
@@ -36,7 +38,13 @@ export const StickySharingHeader = observer(function StickySharingHeader(props: 
   // store hooks
   const { data: currentUser } = useUser();
   const { getUserDetails } = useMember();
+  // sticky operations
+  const { stickyOperations } = useStickyOperations({ workspaceSlug, projectId });
   // derived values
+  const canManage = sticky.my_permission === "manage";
+  const isPinned = !!sticky.pinned_at;
+  const canPin = sticky.access === EStickyAccess.PROJECT;
+  const pinLabel = t(`stickies.pin.${!canPin ? "needs_project" : isPinned ? "unpin" : "pin"}`);
   const owner = sticky.owner && sticky.owner !== currentUser?.id ? getUserDetails(sticky.owner) : undefined;
   const access = sticky.access ?? EStickyAccess.PRIVATE;
   const Icon = { [EStickyAccess.PRIVATE]: Lock, [EStickyAccess.MEMBERS]: Users, [EStickyAccess.PROJECT]: ProjectIcon }[
@@ -57,7 +65,7 @@ export const StickySharingHeader = observer(function StickySharingHeader(props: 
 
   return (
     <div className="flex items-center justify-between gap-2 px-3 pt-2 pb-3 text-11 text-primary/60">
-      {sticky.my_permission === "manage" ? (
+      {canManage ? (
         <>
           <button
             type="button"
@@ -81,9 +89,43 @@ export const StickySharingHeader = observer(function StickySharingHeader(props: 
           {content}
         </div>
       )}
-      {owner && (
-        <Avatar name={owner.display_name} src={getFileURL(owner.avatar_url)} size="sm" showTooltip className="text-9" />
-      )}
+      <div className="flex flex-shrink-0 items-center gap-1.5">
+        {canManage ? (
+          <Tooltip tooltipContent={pinLabel}>
+            <button
+              type="button"
+              aria-label={pinLabel}
+              aria-pressed={isPinned}
+              aria-disabled={!canPin}
+              className={cn("group/pin grid size-5 place-items-center rounded-sm", {
+                "hover:bg-primary/10 hover:text-primary": canPin,
+                "cursor-not-allowed opacity-40": !canPin,
+                "text-primary": isPinned,
+              })}
+              onClick={() => {
+                if (canPin) void stickyOperations.updatePin(sticky.id, !isPinned);
+              }}
+            >
+              <Pin
+                className={cn("size-3", { "fill-current": isPinned, "group-hover/pin:hidden": isPinned })}
+                aria-hidden
+              />
+              {isPinned && <PinOff className="hidden size-3 group-hover/pin:block" aria-hidden />}
+            </button>
+          </Tooltip>
+        ) : (
+          isPinned && <Pin className="size-3 fill-current" aria-label={t("stickies.overview.pinned")} />
+        )}
+        {owner && (
+          <Avatar
+            name={owner.display_name}
+            src={getFileURL(owner.avatar_url)}
+            size="sm"
+            showTooltip
+            className="text-9"
+          />
+        )}
+      </div>
     </div>
   );
 });

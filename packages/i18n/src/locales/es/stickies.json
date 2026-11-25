@@ -105,6 +105,20 @@
           "message": "Es posible que alguien haya dejado el proyecto. Revise las personas e inténtelo de nuevo."
         }
       }
+    },
+    "pin": {
+      "pin": "Fijar en el resumen",
+      "unpin": "Quitar del resumen",
+      "needs_project": "Comparta con todo el proyecto para fijarlo en el resumen",
+      "will_unpin": "Al guardar, el Sticky también se quitará del resumen del proyecto."
+    },
+    "overview": {
+      "pinned": "Stickies fijados",
+      "empty": {
+        "title": "Aún no hay Stickies fijados",
+        "description": "Fije un Sticky compartido con todo el proyecto y todos lo verán aquí."
+      },
+      "view_all": "Ver todos los Stickies"
     }
   }
 }

@@ -105,6 +105,20 @@
           "message": "Biri projeden ayrılmış olabilir. Kişileri kontrol edip yeniden deneyin."
         }
       }
+    },
+    "pin": {
+      "pin": "Genel bakışa sabitle",
+      "unpin": "Genel bakıştan kaldır",
+      "needs_project": "Genel bakışa sabitlemek için tüm projeyle paylaşın",
+      "will_unpin": "Kaydettiğinizde Sticky proje genel bakışından da kaldırılır."
+    },
+    "overview": {
+      "pinned": "Sabitlenmiş Stickies",
+      "empty": {
+        "title": "Henüz sabitlenmiş Stickies yok",
+        "description": "Tüm projeyle paylaşılan bir Sticky sabitleyin; projedeki herkes burada görsün."
+      },
+      "view_all": "Tüm Stickies öğelerini görüntüle"
     }
   }
 }
