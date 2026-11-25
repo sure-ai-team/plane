@@ -9,6 +9,7 @@ Set CHROME_PATH if Chrome is not in a standard location. Every file keeps its pa
 format and pixel size, so no code that imports these assets has to change.
 """
 
+import base64
 import math
 import os
 import random
@@ -224,6 +225,39 @@ def replace_badge(path):
     return True
 
 
+INTER = ROOT / "apps/web/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2"
+
+# Lines of the stickies illustration that name the upstream product:
+# box to clear, left edge and baseline of the new line, font size, new line.
+STICKIES_LINES = [
+    ((222, 648, 690, 724), 225, 679, 27.8, "Let’s start using stickies"),
+    ((2096, 548, 2440, 584), 2099, 572, 23.1, "Rethink on the new banner"),
+    ((2062, 950, 2440, 984), 2064, 975, 23.0, "use the mobile app. Visually"),
+]
+
+
+def text_svg(size, lines, color):
+    font = base64.b64encode(INTER.read_bytes()).decode()
+    texts = "".join(
+        f'<text x="{x}" y="{y}" font-family="Inter" font-size="{px}" font-weight="475" fill="{color}">{text}</text>'
+        for x, y, px, text in lines
+    )
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {size[0]} {size[1]}"><style>@font-face{{font-family:Inter;'
+        f"font-weight:100 900;src:url(data:font/woff2;base64,{font})}}</style>{texts}</svg>"
+    )
+
+
+def reword_stickies(path, color):
+    """Reword the lines of the stickies empty state that name the upstream product."""
+    img = Image.open(path).convert("RGBA")
+    draw = ImageDraw.Draw(img)
+    for (x0, y0, x1, y1), *_ in STICKIES_LINES:
+        draw.rectangle([x0, y0, x1, y1], fill=img.getpixel((x1, y1)))
+    img.alpha_composite(render(text_svg(img.size, [line[1:] for line in STICKIES_LINES], color), *img.size))
+    img.save(path, quality=90, method=6)
+
+
 def main():
     done = []
 
@@ -295,6 +329,13 @@ def main():
     ]:
         p = ROOT / rel
         if p.exists() and replace_badge(p):
+            add(p)
+
+    # Illustrations that name the upstream product
+    for theme, color in (("light", "#41505F"), ("dark", "#D0CDD4")):
+        p = ROOT / f"apps/web/app/assets/empty-state/stickies/stickies-{theme}.webp"
+        if p.exists() and INTER.exists():
+            reword_stickies(p, color)
             add(p)
 
     for p in done:
