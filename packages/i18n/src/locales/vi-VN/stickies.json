@@ -66,6 +66,45 @@
       "title": "Người khác đã thay đổi Sticky này trong khi bạn đang chỉnh sửa.",
       "use_theirs": "Dùng phiên bản của họ",
       "keep_mine": "Giữ phiên bản của tôi"
+    },
+    "sharing": {
+      "title": "Chia sẻ Sticky",
+      "access": {
+        "private": {
+          "label": "Riêng tư",
+          "description": "Chỉ chủ sở hữu có thể xem."
+        },
+        "members": {
+          "label": "Những người cụ thể",
+          "description": "Chỉ chủ sở hữu, quản trị viên dự án và những người bạn chọn."
+        },
+        "project": {
+          "label": "Toàn bộ dự án",
+          "description": "Tất cả thành viên của dự án này."
+        }
+      },
+      "permission": {
+        "view": "Có thể xem",
+        "edit": "Có thể chỉnh sửa"
+      },
+      "everyone_can": "Mọi người trong dự án",
+      "people": "Mọi người",
+      "guests_hint": "Khách chỉ thấy nếu bạn thêm họ tại đây.",
+      "search": "Tìm thành viên dự án",
+      "no_people": "Không tìm thấy ai",
+      "remove_person": "Xóa {name}",
+      "choose_someone": "Chọn ít nhất một người.",
+      "lose_access": "Chỉ chủ sở hữu thấy Sticky này. Bạn sẽ mất quyền truy cập.",
+      "shared_with": "{count, plural, one {# người} other {# người}}",
+      "notification": "{name} đã chia sẻ một Sticky với bạn",
+      "unavailable": "Sticky này không còn khả dụng với bạn.",
+      "toasts": {
+        "updated": "Đã cập nhật chia sẻ",
+        "not_updated": {
+          "title": "Chưa cập nhật chia sẻ",
+          "message": "Có thể ai đó đã rời dự án. Vui lòng kiểm tra danh sách và thử lại."
+        }
+      }
     }
   }
 }

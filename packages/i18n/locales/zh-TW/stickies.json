@@ -66,6 +66,45 @@
       "title": "在您編輯期間，其他人變更了此 Sticky。",
       "use_theirs": "使用對方的版本",
       "keep_mine": "保留我的版本"
+    },
+    "sharing": {
+      "title": "共用 Sticky",
+      "access": {
+        "private": {
+          "label": "私人",
+          "description": "僅擁有者可檢視。"
+        },
+        "members": {
+          "label": "特定人員",
+          "description": "僅擁有者、專案管理員和您選擇的人員。"
+        },
+        "project": {
+          "label": "整個專案",
+          "description": "此專案的所有成員。"
+        }
+      },
+      "permission": {
+        "view": "可檢視",
+        "edit": "可編輯"
+      },
+      "everyone_can": "專案中的所有人",
+      "people": "人員",
+      "guests_hint": "僅當您在此處新增訪客後，訪客才能檢視。",
+      "search": "搜尋專案成員",
+      "no_people": "找不到人員",
+      "remove_person": "移除 {name}",
+      "choose_someone": "請至少選擇一人。",
+      "lose_access": "此 Sticky 將僅對擁有者顯示。您將失去存取權限。",
+      "shared_with": "{count, plural, one {# 人} other {# 人}}",
+      "notification": "{name} 與您共用了 Sticky",
+      "unavailable": "您已無法存取此 Sticky。",
+      "toasts": {
+        "updated": "共用設定已更新",
+        "not_updated": {
+          "title": "共用設定未更新",
+          "message": "可能有人已離開專案。請檢查人員後再試一次。"
+        }
+      }
     }
   }
 }

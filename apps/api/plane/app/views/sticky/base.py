@@ -18,6 +18,7 @@ from plane.app.serializers import ProjectStickySerializer, StickySharingSerializ
 from plane.db.models import Sticky, StickyAccess, StickyShare, Workspace
 
 from ..base import BaseViewSet
+from .notifications import ids_who_can_see, notify_shared, withdraw
 
 # Fields whose concurrent edits would overwrite each other
 CONTENT_FIELDS = {"name", "description", "description_html"}
@@ -117,6 +118,7 @@ class ProjectStickyViewSet(ProjectStickyBaseViewSet):
             sticky = self.get_locked_sticky(pk)
             self.require_manage(sticky)
             sticky.delete()
+            withdraw(sticky)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -130,6 +132,9 @@ class ProjectStickyShareViewSet(ProjectStickyBaseViewSet):
             if not serializer.is_valid():
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             data = serializer.validated_data
+            permissions = {item["member_id"]: item["permission"] for item in data["members"]}
+            current_shares = {share.member_id: share for share in StickyShare.objects.filter(sticky=sticky)}
+            could_see_ids = ids_who_can_see(sticky, current_shares)
 
             sticky.access = data["access"]
             sticky.project_permission = data["project_permission"]
@@ -138,7 +143,9 @@ class ProjectStickyShareViewSet(ProjectStickyBaseViewSet):
                 sticky.pinned_at = None
                 sticky.pinned_by = None
             sticky.save()
-            self.replace_shares(sticky, {item["member_id"]: item["permission"] for item in data["members"]})
+            self.replace_shares(sticky, current_shares, permissions)
+            withdraw(sticky, except_for=ids_who_can_see(sticky, permissions))
+            notify_shared(sticky, request.user, permissions, could_see_ids)
 
         # An admin who made someone else's sticky private can no longer see it
         sticky = self.get_queryset().filter(pk=pk).first()
@@ -146,9 +153,7 @@ class ProjectStickyShareViewSet(ProjectStickyBaseViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(self.serialize(sticky), status=status.HTTP_200_OK)
 
-    def replace_shares(self, sticky, permissions):
-        current = {share.member_id: share for share in StickyShare.objects.filter(sticky=sticky)}
-
+    def replace_shares(self, sticky, current, permissions):
         StickyShare.objects.filter(sticky=sticky).exclude(member_id__in=list(permissions)).delete()
         for member_id, permission in permissions.items():
             share = current.get(member_id)

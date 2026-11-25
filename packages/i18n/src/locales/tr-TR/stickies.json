@@ -66,6 +66,45 @@
       "title": "Siz düzenlerken başka biri bu Sticky üzerinde değişiklik yaptı.",
       "use_theirs": "Diğer sürümü kullan",
       "keep_mine": "Benim sürümümü koru"
+    },
+    "sharing": {
+      "title": "Sticky paylaş",
+      "access": {
+        "private": {
+          "label": "Özel",
+          "description": "Yalnızca sahibi görebilir."
+        },
+        "members": {
+          "label": "Belirli kişiler",
+          "description": "Yalnızca sahibi, proje yöneticileri ve seçtiğiniz kişiler."
+        },
+        "project": {
+          "label": "Tüm proje",
+          "description": "Bu projenin tüm üyeleri."
+        }
+      },
+      "permission": {
+        "view": "Görüntüleyebilir",
+        "edit": "Düzenleyebilir"
+      },
+      "everyone_can": "Projedeki herkes",
+      "people": "Kişiler",
+      "guests_hint": "Misafirler yalnızca buraya eklerseniz görebilir.",
+      "search": "Proje üyelerini ara",
+      "no_people": "Kişi bulunamadı",
+      "remove_person": "{name} kişisini kaldır",
+      "choose_someone": "En az bir kişi seçin.",
+      "lose_access": "Bu Sticky yalnızca sahibine görünecek. Erişiminizi kaybedeceksiniz.",
+      "shared_with": "{count, plural, one {# kişi} other {# kişi}}",
+      "notification": "{name} sizinle bir Sticky paylaştı",
+      "unavailable": "Bu Sticky artık sizin için kullanılamıyor.",
+      "toasts": {
+        "updated": "Paylaşım güncellendi",
+        "not_updated": {
+          "title": "Paylaşım güncellenemedi",
+          "message": "Biri projeden ayrılmış olabilir. Kişileri kontrol edip yeniden deneyin."
+        }
+      }
     }
   }
 }

@@ -23,13 +23,14 @@ type Props = {
   workspaceSlug: string;
   projectId?: string;
   isStickiesPage: boolean;
+  isLinked: boolean;
   itemWidth: string;
   handleDrop: (sourceId: string, destinationId: string, edge: TDropEdge) => void;
   handleLayout: () => void;
 };
 
 export const StickyDNDWrapper = observer(function StickyDNDWrapper(props: Props) {
-  const { stickyId, workspaceSlug, projectId, isStickiesPage, itemWidth, handleDrop, handleLayout } = props;
+  const { stickyId, workspaceSlug, projectId, isStickiesPage, isLinked, itemWidth, handleDrop, handleLayout } = props;
   // states
   const [isDragging, setIsDragging] = useState(false);
   const [dropEdge, setDropEdge] = useState<TDropEdge | null>(null);
@@ -40,6 +41,11 @@ export const StickyDNDWrapper = observer(function StickyDNDWrapper(props: Props)
   const { stickies } = useSticky();
   // derived values
   const canMove = isStickiesPage && (!projectId || (stickies[stickyId]?.my_permission ?? "view") !== "view");
+
+  useEffect(() => {
+    // after the layout has positioned the note
+    if (isLinked) requestAnimationFrame(() => elementRef.current?.scrollIntoView({ block: "center" }));
+  }, [isLinked]);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -96,6 +102,7 @@ export const StickyDNDWrapper = observer(function StickyDNDWrapper(props: Props)
         workspaceSlug={workspaceSlug}
         projectId={projectId}
         stickyId={stickyId}
+        className={cn({ "ring-2 ring-accent-strong": isLinked })}
         isStickiesPage={isStickiesPage}
         handleLayout={handleLayout}
       />

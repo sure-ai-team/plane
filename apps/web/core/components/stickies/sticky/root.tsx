@@ -7,9 +7,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from "lodash-es";
 import { observer } from "mobx-react";
-import { Lock, Minimize2 } from "lucide-react";
+import { Minimize2 } from "lucide-react";
 // plane imports
-import { useTranslation } from "@plane/i18n";
 import type { TSticky } from "@plane/types";
 import { cn } from "@plane/utils";
 // hooks
@@ -17,6 +16,7 @@ import { useSticky } from "@/hooks/use-stickies";
 // components
 import { STICKY_COLORS_LIST } from "../../editor/sticky-editor/color-palette";
 import { StickyDeleteModal } from "../delete-modal";
+import { StickySharingHeader } from "../sharing/sharing-header";
 import { StickyConflict } from "./conflict";
 import { StickyInput } from "./inputs";
 import { getRandomStickyColor, useStickyOperations } from "./use-operations";
@@ -44,8 +44,6 @@ export const StickyNote = observer(function StickyNote(props: TProps) {
   } = props;
   // states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  // plane hooks
-  const { t } = useTranslation();
   // store hooks
   const { stickies, conflicts, revisions, markStickyDirty } = useSticky();
   // sticky operations
@@ -127,11 +125,8 @@ export const StickyNote = observer(function StickyNote(props: TProps) {
             <Minimize2 className="size-4" />
           </button>
         )}
-        {!canEdit && (
-          <div className="flex items-center gap-1 px-4 pt-3 pb-2 text-11 text-primary/50">
-            <Lock className="size-3 flex-shrink-0" />
-            {t("stickies.view_only")}
-          </div>
+        {projectId && stickyId && stickies[stickyId] && (
+          <StickySharingHeader workspaceSlug={workspaceSlug} projectId={projectId} sticky={stickies[stickyId]} />
         )}
         {hasConflict && <StickyConflict handleResolve={handleResolveConflict} />}
         {/* inputs */}

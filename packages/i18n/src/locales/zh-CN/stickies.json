@@ -66,6 +66,45 @@
       "title": "在您编辑期间，其他人更改了此 Sticky。",
       "use_theirs": "使用对方的版本",
       "keep_mine": "保留我的版本"
+    },
+    "sharing": {
+      "title": "共享 Sticky",
+      "access": {
+        "private": {
+          "label": "私有",
+          "description": "仅所有者可见。"
+        },
+        "members": {
+          "label": "特定人员",
+          "description": "仅所有者、项目管理员和您选择的人员。"
+        },
+        "project": {
+          "label": "整个项目",
+          "description": "此项目的所有成员。"
+        }
+      },
+      "permission": {
+        "view": "可查看",
+        "edit": "可编辑"
+      },
+      "everyone_can": "项目中的所有人",
+      "people": "人员",
+      "guests_hint": "仅当您在此处添加访客后，访客才能看到。",
+      "search": "搜索项目成员",
+      "no_people": "未找到人员",
+      "remove_person": "移除 {name}",
+      "choose_someone": "请至少选择一人。",
+      "lose_access": "此 Sticky 将仅对所有者可见。您将失去访问权限。",
+      "shared_with": "{count, plural, one {# 人} other {# 人}}",
+      "notification": "{name} 与您共享了 Sticky",
+      "unavailable": "您已无法访问此 Sticky。",
+      "toasts": {
+        "updated": "共享设置已更新",
+        "not_updated": {
+          "title": "共享设置未更新",
+          "message": "可能有人已离开项目。请检查人员后重试。"
+        }
+      }
     }
   }
 }

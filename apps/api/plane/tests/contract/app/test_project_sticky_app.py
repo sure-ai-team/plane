@@ -418,6 +418,97 @@ class TestSharing:
         assert not StickyShare.objects.filter(sticky=sticky).exists()
 
 
+class TestShareNotifications:
+    def inbox(self, world, user):
+        base = f"/api/workspaces/{world.workspace.slug}/users/notifications/"
+        rows = client_for(user).get(base).json()
+        unread = client_for(user).get(f"{base}unread/").json()["total_unread_notifications_count"]
+        # the badge must always match what the inbox lists
+        assert unread == len([row for row in rows if row["read_at"] is None])
+        return rows
+
+    def test_person_shared_with_by_name_is_notified_once(self, world):
+        sticky = world.sticky()
+        members = StickyAccess.MEMBERS
+        world.share(world.owner, sticky, members, {world.member: "view"})
+        world.share(world.owner, sticky, members, {world.member: "edit", world.guest: "view"})
+
+        (row,) = self.inbox(world, world.member)
+        assert row["entity_name"] == "sticky"
+        assert row["data"] == {"type": "shared", "sticky_id": str(sticky.id), "permission": "view"}
+        assert row["triggered_by"] == str(world.owner.id)
+        assert row["project"] == str(world.project.id)
+        assert len(self.inbox(world, world.guest)) == 1
+        assert self.inbox(world, world.other) == []
+        assert self.inbox(world, world.owner) == []
+
+    def test_rows_do_not_contain_the_text(self, world):
+        sticky = world.sticky()
+        Sticky.objects.filter(pk=sticky.pk).update(name="secret", description_html="<p>secret</p>")
+        world.share(world.owner, sticky, StickyAccess.MEMBERS, {world.member: "view"})
+
+        assert "secret" not in str(self.inbox(world, world.member))
+
+    def test_sharing_with_the_whole_project_notifies_nobody(self, world):
+        world.share(world.owner, world.sticky(), StickyAccess.PROJECT)
+
+        for user in (world.member, world.other, world.admin, world.guest):
+            assert self.inbox(world, user) == []
+
+    def test_only_those_who_gain_access_are_notified(self, world):
+        sticky = world.sticky(StickyAccess.PROJECT)
+        world.share(world.owner, sticky, StickyAccess.PROJECT, {world.member: "edit", world.guest: "view"})
+
+        assert self.inbox(world, world.member) == []  # could already see it
+        assert len(self.inbox(world, world.guest)) == 1  # could not
+
+    def test_admin_sharing_with_themselves_is_not_notified(self, world):
+        sticky = world.sticky(StickyAccess.MEMBERS, shares={world.member: "view"})
+        world.share(world.admin, sticky, StickyAccess.MEMBERS, {world.admin: "view", world.other: "view"})
+
+        assert self.inbox(world, world.admin) == []
+        assert len(self.inbox(world, world.other)) == 1
+
+    def test_row_is_withdrawn_with_the_access(self, world):
+        sticky = world.sticky()
+        members = StickyAccess.MEMBERS
+        world.share(world.owner, sticky, members, {world.member: "view", world.other: "view", world.guest: "view"})
+        world.share(world.owner, sticky, members, {world.other: "view", world.guest: "view"})
+        assert self.inbox(world, world.member) == []
+        assert len(self.inbox(world, world.other)) == 1
+
+        # everyone but guests keeps seeing it
+        world.share(world.owner, sticky, StickyAccess.PROJECT)
+        assert len(self.inbox(world, world.other)) == 1
+        assert self.inbox(world, world.guest) == []
+
+        world.share(world.owner, sticky, StickyAccess.PRIVATE)
+        assert self.inbox(world, world.other) == []
+
+        # sharing again notifies again
+        world.share(world.owner, sticky, members, {world.member: "view"})
+        assert len(self.inbox(world, world.member)) == 1
+
+    def test_row_is_withdrawn_when_the_sticky_is_deleted(self, world):
+        sticky = world.sticky()
+        world.share(world.owner, sticky, StickyAccess.MEMBERS, {world.member: "view"})
+        client_for(world.owner).delete(world.url(sticky))
+
+        assert self.inbox(world, world.member) == []
+
+    def test_refused_sharing_notifies_nobody(self, world):
+        sticky = world.sticky()
+        assert world.share(world.other, sticky, StickyAccess.MEMBERS, {world.member: "view"}).status_code == NOT_FOUND
+        assert (
+            world.share(
+                world.owner, sticky, StickyAccess.MEMBERS, {world.member: "view", world.guest: "edit"}
+            ).status_code
+            == BAD_REQUEST
+        )
+
+        assert self.inbox(world, world.member) == []
+
+
 class TestPin:
     def test_pin_is_shared_and_idempotent(self, world):
         sticky = world.sticky(StickyAccess.PROJECT)

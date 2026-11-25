@@ -5,6 +5,7 @@
  */
 
 import { observer } from "mobx-react";
+import { useSearchParams } from "next/navigation";
 // plane imports
 import { useTranslation } from "@plane/i18n";
 // components
@@ -16,6 +17,8 @@ import type { Route } from "./+types/page";
 
 function ProjectStickiesPage({ params }: Route.ComponentProps) {
   const { workspaceSlug, projectId } = params;
+  // navigation
+  const linkedStickyId = useSearchParams().get("sticky") ?? undefined;
   // plane hooks
   const { t } = useTranslation();
   // store hooks
@@ -28,7 +31,12 @@ function ProjectStickiesPage({ params }: Route.ComponentProps) {
     <>
       <PageHead title={pageTitle} />
       <div className="relative h-full w-full overflow-hidden overflow-y-auto">
-        <StickiesInfinite key={projectId} workspaceSlug={workspaceSlug} projectId={projectId} />
+        <StickiesInfinite
+          key={projectId}
+          workspaceSlug={workspaceSlug}
+          projectId={projectId}
+          linkedStickyId={linkedStickyId}
+        />
       </div>
     </>
   );

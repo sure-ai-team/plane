@@ -66,6 +66,45 @@
       "title": "Tento Sticky počas vašich úprav zmenil niekto iný.",
       "use_theirs": "Použiť ich verziu",
       "keep_mine": "Ponechať moju verziu"
+    },
+    "sharing": {
+      "title": "Zdieľať Sticky",
+      "access": {
+        "private": {
+          "label": "Súkromný",
+          "description": "Vidí ho iba vlastník."
+        },
+        "members": {
+          "label": "Konkrétni ľudia",
+          "description": "Iba vlastník, správcovia projektu a ľudia, ktorých vyberiete."
+        },
+        "project": {
+          "label": "Celý projekt",
+          "description": "Všetci členovia tohto projektu."
+        }
+      },
+      "permission": {
+        "view": "Môže zobraziť",
+        "edit": "Môže upravovať"
+      },
+      "everyone_can": "Všetci v projekte",
+      "people": "Ľudia",
+      "guests_hint": "Hostia ho uvidia, iba ak ich sem pridáte.",
+      "search": "Hľadať členov projektu",
+      "no_people": "Nikto sa nenašiel",
+      "remove_person": "Odobrať: {name}",
+      "choose_someone": "Vyberte aspoň jednu osobu.",
+      "lose_access": "Tento Sticky uvidí iba vlastník. Stratíte k nemu prístup.",
+      "shared_with": "{count, plural, one {# osoba} few {# osoby} many {# osoby} other {# osôb}}",
+      "notification": "{name} s vami zdieľa Sticky",
+      "unavailable": "Tento Sticky už pre vás nie je dostupný.",
+      "toasts": {
+        "updated": "Zdieľanie bolo aktualizované",
+        "not_updated": {
+          "title": "Zdieľanie nebolo aktualizované",
+          "message": "Niekto mohol opustiť projekt. Skontrolujte vybraných ľudí a skúste to znova."
+        }
+      }
     }
   }
 }

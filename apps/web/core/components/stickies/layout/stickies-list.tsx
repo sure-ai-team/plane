@@ -37,6 +37,8 @@ type TStickiesLayout = {
   projectId?: string;
   /** the full page, where stickies can be reordered, as opposed to a widget or a modal */
   isStickiesPage?: boolean;
+  /** a sticky to scroll to and point out */
+  linkedStickyId?: string;
   intersectionElement?: React.ReactNode | null;
 };
 
@@ -45,7 +47,7 @@ type TProps = TStickiesLayout & {
 };
 
 export const StickiesList = observer(function StickiesList(props: TProps) {
-  const { workspaceSlug, projectId, isStickiesPage = false, intersectionElement, columnCount } = props;
+  const { workspaceSlug, projectId, isStickiesPage = false, linkedStickyId, intersectionElement, columnCount } = props;
   // theme hook
   const { resolvedTheme } = useTheme();
   // plane hooks
@@ -133,6 +135,7 @@ export const StickiesList = observer(function StickiesList(props: TProps) {
             workspaceSlug={workspaceSlug}
             projectId={projectId}
             isStickiesPage={isStickiesPage}
+            isLinked={stickyId === linkedStickyId}
             itemWidth={itemWidth}
             handleDrop={handleDrop}
             handleLayout={handleLayout}

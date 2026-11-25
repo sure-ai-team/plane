@@ -66,6 +66,45 @@
       "title": "編集中に、ほかのユーザーがこの Sticky を変更しました。",
       "use_theirs": "相手のバージョンを使用",
       "keep_mine": "自分のバージョンを保持"
+    },
+    "sharing": {
+      "title": "Sticky を共有",
+      "access": {
+        "private": {
+          "label": "非公開",
+          "description": "所有者のみが閲覧できます。"
+        },
+        "members": {
+          "label": "特定のユーザー",
+          "description": "所有者、プロジェクト管理者、選択したユーザーのみ。"
+        },
+        "project": {
+          "label": "プロジェクト全体",
+          "description": "このプロジェクトのすべてのメンバー。"
+        }
+      },
+      "permission": {
+        "view": "閲覧可",
+        "edit": "編集可"
+      },
+      "everyone_can": "プロジェクトの全員",
+      "people": "ユーザー",
+      "guests_hint": "ゲストは、ここに追加した場合のみ閲覧できます。",
+      "search": "プロジェクトメンバーを検索",
+      "no_people": "ユーザーが見つかりません",
+      "remove_person": "{name}さんを削除",
+      "choose_someone": "1 人以上選択してください。",
+      "lose_access": "この Sticky は所有者のみが閲覧できるようになり、あなたはアクセスできなくなります。",
+      "shared_with": "{count, plural, one {# 人} other {# 人}}",
+      "notification": "{name}さんが Sticky を共有しました",
+      "unavailable": "この Sticky は利用できなくなりました。",
+      "toasts": {
+        "updated": "共有設定を更新しました",
+        "not_updated": {
+          "title": "共有設定を更新できませんでした",
+          "message": "プロジェクトを離れたユーザーがいる可能性があります。ユーザーを確認して、もう一度お試しください。"
+        }
+      }
     }
   }
 }

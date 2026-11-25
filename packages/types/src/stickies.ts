@@ -23,6 +23,13 @@ export type TStickyShare = {
   permission: TStickyPermission;
 };
 
+/** The complete sharing state of a sticky; saving it replaces the previous one. */
+export type TStickySharing = {
+  access: EStickyAccess;
+  project_permission: TStickyPermission;
+  members: TStickyShare[];
+};
+
 export type TSticky = {
   created_at?: string | undefined;
   created_by?: string | undefined;

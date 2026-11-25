@@ -66,6 +66,45 @@
       "title": "Une autre personne a modifié ce Sticky pendant que vous le modifiiez.",
       "use_theirs": "Utiliser l’autre version",
       "keep_mine": "Conserver ma version"
+    },
+    "sharing": {
+      "title": "Partager le Sticky",
+      "access": {
+        "private": {
+          "label": "Privé",
+          "description": "Seul son propriétaire peut le voir."
+        },
+        "members": {
+          "label": "Personnes spécifiques",
+          "description": "Uniquement le propriétaire, les administrateurs du projet et les personnes que vous choisissez."
+        },
+        "project": {
+          "label": "Projet entier",
+          "description": "Tous les membres de ce projet."
+        }
+      },
+      "permission": {
+        "view": "Peut consulter",
+        "edit": "Peut modifier"
+      },
+      "everyone_can": "Toutes les personnes du projet",
+      "people": "Personnes",
+      "guests_hint": "Les invités ne le voient que si vous les ajoutez ici.",
+      "search": "Rechercher des membres du projet",
+      "no_people": "Aucune personne trouvée",
+      "remove_person": "Retirer {name}",
+      "choose_someone": "Choisissez au moins une personne.",
+      "lose_access": "Seul le propriétaire verra ce Sticky. Vous n’y aurez plus accès.",
+      "shared_with": "{count, plural, one {# personne} many {# personnes} other {# personnes}}",
+      "notification": "{name} a partagé un Sticky avec vous",
+      "unavailable": "Ce Sticky n’est plus disponible pour vous.",
+      "toasts": {
+        "updated": "Partage mis à jour",
+        "not_updated": {
+          "title": "Partage non mis à jour",
+          "message": "Une personne a peut-être quitté le projet. Vérifiez les personnes et réessayez."
+        }
+      }
     }
   }
 }

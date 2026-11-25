@@ -66,6 +66,45 @@
       "title": "Orang lain mengubah Sticky ini saat Anda mengeditnya.",
       "use_theirs": "Gunakan versi mereka",
       "keep_mine": "Pertahankan versi saya"
+    },
+    "sharing": {
+      "title": "Bagikan Sticky",
+      "access": {
+        "private": {
+          "label": "Pribadi",
+          "description": "Hanya pemilik yang dapat melihatnya."
+        },
+        "members": {
+          "label": "Orang tertentu",
+          "description": "Hanya pemilik, admin proyek, dan orang yang Anda pilih."
+        },
+        "project": {
+          "label": "Seluruh proyek",
+          "description": "Semua anggota proyek ini."
+        }
+      },
+      "permission": {
+        "view": "Dapat melihat",
+        "edit": "Dapat mengedit"
+      },
+      "everyone_can": "Semua orang di proyek",
+      "people": "Orang",
+      "guests_hint": "Tamu hanya melihatnya jika Anda menambahkannya di sini.",
+      "search": "Cari anggota proyek",
+      "no_people": "Tidak ada orang yang ditemukan",
+      "remove_person": "Hapus {name}",
+      "choose_someone": "Pilih setidaknya satu orang.",
+      "lose_access": "Hanya pemilik yang akan melihat Sticky ini. Anda akan kehilangan akses.",
+      "shared_with": "{count, plural, one {# orang} other {# orang}}",
+      "notification": "{name} membagikan Sticky kepada Anda",
+      "unavailable": "Sticky ini tidak lagi tersedia untuk Anda.",
+      "toasts": {
+        "updated": "Berbagi diperbarui",
+        "not_updated": {
+          "title": "Berbagi tidak diperbarui",
+          "message": "Mungkin ada yang keluar dari proyek. Periksa daftar orang dan coba lagi."
+        }
+      }
     }
   }
 }

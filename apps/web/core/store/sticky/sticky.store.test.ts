@@ -6,7 +6,8 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
-import type { TSticky, TStickyScope } from "@plane/types";
+import { EStickyAccess } from "@plane/types";
+import type { TSticky, TStickyScope, TStickySharing } from "@plane/types";
 import type { TStickyListResponse, TStickyRequestError } from "@/services/sticky.service";
 import { StickyStore } from "./sticky.store";
 import type { TStickyServiceLike } from "./sticky.store";
@@ -72,6 +73,7 @@ beforeEach(() => {
     getStickies: vi.fn(),
     getSticky: vi.fn(),
     updateSticky: vi.fn(),
+    updateSharing: vi.fn(),
     deleteSticky: vi.fn(),
   };
   store = new StickyStore(service as unknown as TStickyServiceLike);
@@ -404,6 +406,83 @@ describe("deleting", () => {
     await saving;
 
     expect(store.stickies.s1).toBeUndefined();
+  });
+});
+
+describe("sharing", () => {
+  const sharing: TStickySharing = { access: EStickyAccess.PROJECT, project_permission: "edit", members: [] };
+
+  beforeEach(() => loadProject(makeSticky()));
+
+  it("shows the saved sharing", async () => {
+    service.updateSharing.mockResolvedValueOnce(makeSticky({ access: EStickyAccess.PROJECT }));
+    await store.updateSharing(PROJECT, "s1", sharing);
+
+    expect(service.updateSharing).toHaveBeenCalledWith(PROJECT, "s1", sharing);
+    expect(store.stickies.s1.access).toBe(EStickyAccess.PROJECT);
+    expect(store.revisions.s1).toBeUndefined();
+  });
+
+  it("keeps what is being typed", async () => {
+    store.markStickyDirty(PROJECT, "s1");
+    service.updateSharing.mockResolvedValueOnce(
+      makeSticky({ access: EStickyAccess.PROJECT, description_html: "<p>theirs</p>", content_version: 2 })
+    );
+    await store.updateSharing(PROJECT, "s1", sharing);
+
+    expect(store.stickies.s1).toMatchObject({
+      access: EStickyAccess.PROJECT,
+      description_html: "<p>one</p>",
+      content_version: 1,
+    });
+  });
+
+  it("waits for a running save, whose response has the previous sharing", async () => {
+    const save = deferred<TSticky>();
+    service.updateSticky.mockReturnValueOnce(save.promise);
+    const saving = store.updateSticky(PROJECT, "s1", { description_html: "<p>two</p>" });
+    service.updateSharing.mockResolvedValueOnce(
+      makeSticky({ access: EStickyAccess.PROJECT, description_html: "<p>two</p>", content_version: 2 })
+    );
+    const sharingSaved = store.updateSharing(PROJECT, "s1", sharing);
+    expect(service.updateSharing).not.toHaveBeenCalled();
+    save.resolve(makeSticky({ access: EStickyAccess.PRIVATE, description_html: "<p>two</p>", content_version: 2 }));
+    await Promise.all([saving, sharingSaved]);
+
+    expect(store.stickies.s1.access).toBe(EStickyAccess.PROJECT);
+  });
+
+  it("removes the sticky when the user can no longer see it", async () => {
+    service.updateSharing.mockResolvedValueOnce(undefined);
+    await store.updateSharing(PROJECT, "s1", { ...sharing, access: EStickyAccess.PRIVATE });
+
+    expect(store.getStickyIds(PROJECT)).toEqual([]);
+  });
+
+  it("changes nothing when it is refused", async () => {
+    service.updateSharing.mockRejectedValueOnce(requestError(400));
+    await expect(store.updateSharing(PROJECT, "s1", sharing)).rejects.toMatchObject({ status: 400 });
+
+    expect(store.stickies.s1).toEqual(makeSticky());
+  });
+});
+
+describe("a linked sticky", () => {
+  beforeEach(() => loadProject(makeSticky()));
+
+  it("is added to the list once", async () => {
+    service.getSticky.mockResolvedValue(makeSticky({ id: "old", sort_order: 1 }));
+    await store.fetchSticky(PROJECT, "old");
+    await store.fetchSticky(PROJECT, "old");
+
+    expect(store.getStickyIds(PROJECT)).toEqual(["s1", "old"]);
+  });
+
+  it("that cannot be seen is not added", async () => {
+    service.getSticky.mockRejectedValueOnce(requestError(404));
+    await expect(store.fetchSticky(PROJECT, "old")).rejects.toMatchObject({ status: 404 });
+
+    expect(store.getStickyIds(PROJECT)).toEqual(["s1"]);
   });
 });
 

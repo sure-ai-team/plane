@@ -8,7 +8,7 @@ import { useCallback, useMemo } from "react";
 // plane types
 import { useTranslation } from "@plane/i18n";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
-import type { TSticky, TStickyScope } from "@plane/types";
+import type { TSticky, TStickyScope, TStickySharing } from "@plane/types";
 // plane utils
 import { isCommentEmpty } from "@plane/utils";
 // components
@@ -22,6 +22,8 @@ export type TOperations = {
   update: (stickyId: string, data: Partial<TSticky>) => Promise<void>;
   remove: (stickyId: string) => Promise<void>;
   resolveConflict: (stickyId: string, keep: "mine" | "theirs") => Promise<void>;
+  /** resolves to whether it was saved */
+  updateSharing: (stickyId: string, sharing: TStickySharing) => Promise<boolean>;
   updatePosition: (sourceId: string, destinationId: string, edge: "left" | "right") => Promise<void>;
 };
 
@@ -35,8 +37,16 @@ export const getRandomStickyColor = (): string => {
 export const useStickyOperations = (props: TProps) => {
   const { workspaceSlug, projectId } = props;
   // store hooks
-  const { stickies, getStickyIds, createSticky, updateSticky, resolveConflict, deleteSticky, updateStickyPosition } =
-    useSticky();
+  const {
+    stickies,
+    getStickyIds,
+    createSticky,
+    updateSticky,
+    resolveConflict,
+    updateSharing,
+    deleteSticky,
+    updateStickyPosition,
+  } = useSticky();
   const { data: currentUser } = useUser();
   // derived values
   const currentUserId = currentUser?.id;
@@ -140,6 +150,24 @@ export const useStickyOperations = (props: TProps) => {
           });
         }
       },
+      updateSharing: async (stickyId: string, sharing: TStickySharing) => {
+        try {
+          await updateSharing(scope, stickyId, sharing);
+          setToast({
+            type: TOAST_TYPE.SUCCESS,
+            title: t("stickies.sharing.toasts.updated"),
+          });
+          return true;
+        } catch (error) {
+          console.error("Error in sharing sticky:", error);
+          setToast({
+            type: TOAST_TYPE.ERROR,
+            title: t("stickies.sharing.toasts.not_updated.title"),
+            message: t("stickies.sharing.toasts.not_updated.message"),
+          });
+          return false;
+        }
+      },
       updatePosition: async (sourceId: string, destinationId: string, edge: "left" | "right") => {
         try {
           if (!workspaceSlug) throw new Error("Missing required fields");
@@ -165,6 +193,7 @@ export const useStickyOperations = (props: TProps) => {
       scope,
       stickies,
       t,
+      updateSharing,
       updateSticky,
       updateStickyPosition,
       workspaceSlug,

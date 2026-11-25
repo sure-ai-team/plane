@@ -6,7 +6,7 @@
 
 // helpers
 import { STICKIES_PER_PAGE, API_BASE_URL } from "@plane/constants";
-import type { TPaginationInfo, TSticky, TStickyScope } from "@plane/types";
+import type { TPaginationInfo, TSticky, TStickyScope, TStickySharing } from "@plane/types";
 // services
 import { APIService } from "@/services/api.service";
 
@@ -74,6 +74,15 @@ export class StickyService extends APIService {
   async updateSticky(scope: TStickyScope, id: string, data: Partial<TSticky>): Promise<TSticky> {
     return this.patch(`${this.getBasePath(scope)}${id}/`, data)
       .then((res) => res?.data)
+      .catch((err) => {
+        throw toRequestError(err);
+      });
+  }
+
+  /** Resolves to undefined when the user can no longer see the sticky afterwards. */
+  async updateSharing(scope: TStickyScope, id: string, sharing: TStickySharing): Promise<TSticky | undefined> {
+    return this.put(`${this.getBasePath(scope)}${id}/shares/`, sharing)
+      .then((res) => (res?.status === 204 ? undefined : res?.data))
       .catch((err) => {
         throw toRequestError(err);
       });

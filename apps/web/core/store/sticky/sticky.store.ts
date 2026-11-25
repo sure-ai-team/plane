@@ -8,7 +8,7 @@ import { orderBy, pick } from "lodash-es";
 import { observable, action, makeObservable, runInAction } from "mobx";
 import { computedFn } from "mobx-utils";
 import { STICKIES_PER_PAGE } from "@plane/constants";
-import type { TLoader, TPaginationInfo, TSticky, TStickyScope } from "@plane/types";
+import type { TLoader, TPaginationInfo, TSticky, TStickyScope, TStickySharing } from "@plane/types";
 import { StickyService } from "@/services/sticky.service";
 import type { TStickyRequestError } from "@/services/sticky.service";
 
@@ -39,7 +39,7 @@ type TStickyDraft = {
 
 export type TStickyServiceLike = Pick<
   StickyService,
-  "createSticky" | "getStickies" | "getSticky" | "updateSticky" | "deleteSticky"
+  "createSticky" | "getStickies" | "getSticky" | "updateSticky" | "updateSharing" | "deleteSticky"
 >;
 
 export interface IStickyStore {
@@ -64,6 +64,8 @@ export interface IStickyStore {
   markStickyDirty: (scope: TStickyScope, id: string) => void;
   updateSticky: (scope: TStickyScope, id: string, updates: Partial<TSticky>) => Promise<void>;
   resolveConflict: (scope: TStickyScope, id: string, keep: "mine" | "theirs") => Promise<void>;
+  fetchSticky: (scope: TStickyScope, id: string) => Promise<void>;
+  updateSharing: (scope: TStickyScope, id: string, sharing: TStickySharing) => Promise<void>;
   deleteSticky: (scope: TStickyScope, id: string) => Promise<void>;
   updateStickyPosition: (
     scope: TStickyScope,
@@ -124,6 +126,8 @@ export class StickyStore implements IStickyStore {
       fetchStickies: action,
       createSticky: action,
       resolveConflict: action,
+      fetchSticky: action,
+      updateSharing: action,
       updateActiveStickyId: action,
       toggleShowNewSticky: action,
       fetchRecentSticky: action,
@@ -443,6 +447,32 @@ export class StickyStore implements IStickyStore {
     draft.confirmed = theirs;
     draft.baseVersion = theirs.content_version ?? draft.baseVersion;
     await this.updateSticky(scope, id, draft.pending);
+  };
+
+  /** Make sure a sticky is in the list, e.g. one that was linked to. Rejects when it cannot be seen. */
+  fetchSticky = async (scope: TStickyScope, id: string) => {
+    const sticky = await this.stickyService.getSticky(scope, id);
+    runInAction(() => {
+      const list = this.ensureList(scope);
+      this.adopt(sticky);
+      if (!list.stickyIds.includes(id)) list.stickyIds.push(id);
+    });
+  };
+
+  updateSharing = async (scope: TStickyScope, id: string, sharing: TStickySharing) => {
+    // a save that is still running would bring back the previous sharing
+    await this.drafts.get(id)?.running?.catch(() => undefined);
+    try {
+      const sticky = await this.stickyService.updateSharing(scope, id, sharing);
+      runInAction(() => {
+        if (sticky) this.adopt(sticky);
+        else this.forget(scope, id);
+      });
+    } catch (error) {
+      const status = (error as TStickyRequestError)?.status;
+      if (status === 403 || status === 404) void this.refreshSticky(scope, id);
+      throw error;
+    }
   };
 
   deleteSticky = async (scope: TStickyScope, id: string) => {
