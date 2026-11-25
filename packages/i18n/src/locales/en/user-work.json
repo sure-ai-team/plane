@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Users",
+    "page_title": "{workspace} - Users",
+    "user_work": "User work",
+    "person_page_title": "{name} - User work",
+    "restricted": {
+      "title": "Only workspace admins can see this page",
+      "description": "Ask a workspace admin if you need an overview of the team's work."
+    },
+    "error": {
+      "title": "The data could not be loaded",
+      "retry": "Try again"
+    },
+    "not_found": {
+      "title": "This person is not in the workspace",
+      "back": "Back to users"
+    },
+    "role": {
+      "admin": "Admin",
+      "member": "Member",
+      "guest": "Guest"
+    },
+    "status": {
+      "label": "Status",
+      "active": "Active",
+      "suspended": "Suspended",
+      "invited": "Invited"
+    },
+    "totals": {
+      "members": "Active members",
+      "overdue": "Overdue work items",
+      "unassigned": "Unassigned open work items",
+      "orphaned": "Open work left by former members"
+    },
+    "filters": {
+      "search": "Search by name or email",
+      "role": "Role",
+      "all_roles": "All roles",
+      "projects": "Projects",
+      "all_projects": "All projects",
+      "projects_count": "{count, plural, one{# project} other{# projects}}",
+      "period": "Done in the last {days} days",
+      "clear": "Clear filters",
+      "date_from": "From",
+      "date_to": "To"
+    },
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "projects": "Projects",
+      "open": "Open",
+      "in_progress": "In progress",
+      "overdue": "Overdue",
+      "due_soon": "Due soon",
+      "stuck": "Stuck",
+      "no_due_date": "No due date",
+      "done": "Done",
+      "cycles": "Current cycle",
+      "last_activity_at": "Last activity",
+      "key": "Key",
+      "project": "Project",
+      "state": "State",
+      "priority": "Priority",
+      "start_date": "Start date",
+      "target_date": "Due date",
+      "completed_at": "Completed on",
+      "updated_at": "Last change",
+      "is_overdue": "Is overdue",
+      "created_at": "Date",
+      "item": "Work item",
+      "action": "Action",
+      "field": "Field",
+      "old_value": "Old value",
+      "new_value": "New value",
+      "yes": "Yes"
+    },
+    "list": {
+      "empty": "No users match these filters.",
+      "no_activity": "No activity yet",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# cycle in a private project} other{# cycles in private projects}}",
+      "range": "{from}-{to} of {total}",
+      "previous": "Previous page",
+      "next": "Next page",
+      "sort_by": "Sort by {column}",
+      "open_user": "Open the work of {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Unassigned work",
+      "unassigned_description": "Open work items that nobody is assigned to.",
+      "unassigned_empty": "Every open work item has an assignee.",
+      "orphaned_title": "Work left behind",
+      "orphaned_description": "Open work items assigned only to people who left or were suspended.",
+      "orphaned_empty": "No open work is left with former members.",
+      "back": "Back to the list"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "work": "Work",
+      "cycles": "Cycles",
+      "activity": "Activity"
+    },
+    "person": {
+      "message": "Message",
+      "joined_on": "Joined on {date}",
+      "last_activity": "Last activity {time}",
+      "timezone": "Time zone"
+    },
+    "stats": {
+      "open": "Open",
+      "in_progress": "In progress",
+      "overdue": "Overdue",
+      "due_soon": "Due in 7 days",
+      "stuck": "No change for 7 days",
+      "no_due_date": "No due date",
+      "done": "Done in {days} days",
+      "on_time": "Done on time",
+      "on_time_detail": "{on_time} of {total} with a due date",
+      "on_time_none": "Nothing with a due date"
+    },
+    "state_groups": {
+      "label": "Work by state",
+      "backlog": "Backlog",
+      "unstarted": "Todo",
+      "started": "In progress",
+      "completed": "Done",
+      "cancelled": "Cancelled",
+      "empty": "No assigned work."
+    },
+    "attention": {
+      "title": "Needs attention",
+      "empty": "Nothing is overdue, due soon or stuck.",
+      "see_all": "See all work",
+      "hidden": "{count, plural, one{# more work item in a private project} other{# more work items in private projects}}"
+    },
+    "trend": {
+      "title": "Completed per week",
+      "completed": "Completed",
+      "week_of": "Week of {date}",
+      "empty": "Nothing was completed in this period.",
+      "table": "Show as a table"
+    },
+    "projects": {
+      "title": "Projects",
+      "empty": "Not a member of any project.",
+      "former": "No longer a member",
+      "private": "Private project"
+    },
+    "items": {
+      "overdue": "Overdue",
+      "stuck": "Stuck",
+      "due": "Due {date}",
+      "done_on": "Done {date}",
+      "no_due_date": "No due date",
+      "load_more": "Load more",
+      "empty": "No work items.",
+      "empty_filtered": "No work items match these filters.",
+      "join_to_open": "Join the project to open this work item",
+      "all": "All work",
+      "list": "List",
+      "board": "Board",
+      "count": "{count, plural, one{# work item} other{# work items}}"
+    },
+    "hidden": {
+      "title": "Private projects you have not joined",
+      "description": "Their work items are counted, but their titles are not shown.",
+      "join": "Join",
+      "confirm_title": "Join {project}?",
+      "confirm_description": "You will be added to the project, and its other members will see it.",
+      "confirm": "Join project",
+      "joining": "Joining",
+      "cancel": "Cancel",
+      "error": "The project could not be joined."
+    },
+    "cycles": {
+      "active": "Active cycles",
+      "upcoming": "Upcoming cycles",
+      "active_empty": "No work in an active cycle.",
+      "upcoming_empty": "No work in an upcoming cycle.",
+      "progress": "{done} of {total} done",
+      "points": "{done} of {total} points",
+      "days_left": "{count, plural, =0{Last day} one{# day left} other{# days left}}",
+      "starts_in": "{count, plural, =0{Starts today} one{Starts in # day} other{Starts in # days}}",
+      "not_started": "{count} not started",
+      "in_progress": "{count} in progress",
+      "overdue": "{count} overdue",
+      "hidden": "{count, plural, one{# more cycle in a private project} other{# more cycles in private projects}}"
+    },
+    "activity": {
+      "title": "Recent activity",
+      "empty": "No activity.",
+      "empty_filtered": "No activity matches these filters.",
+      "see_all": "See all activity",
+      "created": "created",
+      "updated": "updated",
+      "commented": "commented on",
+      "deleted_item": "a deleted work item"
+    },
+    "my_work": {
+      "title": "My work",
+      "description": "Workspace admins see the same numbers."
+    },
+    "profile_sidebar": {
+      "completion": "Completion percentage",
+      "created": "Created",
+      "assigned": "Assigned",
+      "pending": "Pending",
+      "completed": "Completed"
+    }
+  }
+}

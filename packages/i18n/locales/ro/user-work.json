@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Utilizatori",
+    "page_title": "{workspace} - Utilizatori",
+    "user_work": "Munca utilizatorului",
+    "person_page_title": "{name} - Munca utilizatorului",
+    "restricted": {
+      "title": "Doar administratorii spațiului de lucru pot vedea această pagină",
+      "description": "Adresați-vă unui administrator al spațiului de lucru dacă aveți nevoie de o prezentare generală a muncii echipei."
+    },
+    "error": {
+      "title": "Datele nu au putut fi încărcate",
+      "retry": "Încercați din nou"
+    },
+    "not_found": {
+      "title": "Această persoană nu face parte din spațiul de lucru",
+      "back": "Înapoi la utilizatori"
+    },
+    "role": {
+      "admin": "Administrator",
+      "member": "Membru",
+      "guest": "Invitat"
+    },
+    "status": {
+      "label": "Statut",
+      "active": "Activ",
+      "suspended": "Suspendat",
+      "invited": "Invitație trimisă"
+    },
+    "totals": {
+      "members": "Membri activi",
+      "overdue": "Activități întârziate",
+      "unassigned": "Activități deschise fără responsabil",
+      "orphaned": "Activități deschise rămase de la persoane plecate"
+    },
+    "filters": {
+      "search": "Căutați după nume sau email",
+      "role": "Rol",
+      "all_roles": "Toate rolurile",
+      "projects": "Proiecte",
+      "all_projects": "Toate proiectele",
+      "projects_count": "{count, plural, one{# proiect} few{# proiecte} other{# de proiecte}}",
+      "period": "Finalizate în {days, plural, one{ultima zi} few{ultimele # zile} other{ultimele # de zile}}",
+      "clear": "Ștergeți filtrele",
+      "date_from": "De la",
+      "date_to": "Până la"
+    },
+    "columns": {
+      "name": "Nume",
+      "email": "Email",
+      "role": "Rol",
+      "status": "Statut",
+      "projects": "Proiecte",
+      "open": "Deschise",
+      "in_progress": "În desfășurare",
+      "overdue": "Întârziate",
+      "due_soon": "Termen apropiat",
+      "stuck": "Fără progres",
+      "no_due_date": "Fără termen",
+      "done": "Finalizate",
+      "cycles": "Ciclu curent",
+      "last_activity_at": "Ultima activitate",
+      "key": "Cheie",
+      "project": "Proiect",
+      "state": "Stare",
+      "priority": "Prioritate",
+      "start_date": "Data de început",
+      "target_date": "Data limită",
+      "completed_at": "Finalizată la",
+      "updated_at": "Ultima modificare",
+      "is_overdue": "Este întârziată",
+      "created_at": "Data",
+      "item": "Activitate",
+      "action": "Acțiune",
+      "field": "Câmp",
+      "old_value": "Valoare veche",
+      "new_value": "Valoare nouă",
+      "yes": "Da"
+    },
+    "list": {
+      "empty": "Niciun utilizator nu corespunde acestor filtre.",
+      "no_activity": "Încă nicio acțiune",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# ciclu într-un proiect privat} few{# cicluri în proiecte private} other{# de cicluri în proiecte private}}",
+      "range": "{from}-{to} din {total}",
+      "previous": "Pagina anterioară",
+      "next": "Pagina următoare",
+      "sort_by": "Sortați după {column}",
+      "open_user": "Deschideți munca utilizatorului {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Activități fără responsabil",
+      "unassigned_description": "Activități deschise care nu sunt atribuite nimănui.",
+      "unassigned_empty": "Fiecare activitate deschisă are un responsabil.",
+      "orphaned_title": "Activități rămase în urmă",
+      "orphaned_description": "Activități deschise atribuite doar unor persoane care au plecat sau au fost suspendate.",
+      "orphaned_empty": "Nu au rămas activități deschise la persoane plecate.",
+      "back": "Înapoi la listă"
+    },
+    "tabs": {
+      "overview": "Prezentare generală",
+      "work": "Muncă",
+      "cycles": "Cicluri",
+      "activity": "Activitate"
+    },
+    "person": {
+      "message": "Mesaj",
+      "joined_on": "Membru din {date}",
+      "last_activity": "Ultima activitate: {time}",
+      "timezone": "Fus orar"
+    },
+    "stats": {
+      "open": "Deschise",
+      "in_progress": "În desfășurare",
+      "overdue": "Întârziate",
+      "due_soon": "Cu termen în 7 zile",
+      "stuck": "Nicio modificare de 7 zile",
+      "no_due_date": "Fără termen",
+      "done": "Finalizate în {days, plural, one{# zi} few{# zile} other{# de zile}}",
+      "on_time": "Finalizate la timp",
+      "on_time_detail": "{on_time} din {total} cu dată limită",
+      "on_time_none": "Nimic cu dată limită"
+    },
+    "state_groups": {
+      "label": "Activități după stare",
+      "backlog": "Restante",
+      "unstarted": "De făcut",
+      "started": "În desfășurare",
+      "completed": "Finalizate",
+      "cancelled": "Anulate",
+      "empty": "Nicio activitate atribuită."
+    },
+    "attention": {
+      "title": "Necesită atenție",
+      "empty": "Nimic nu este întârziat, aproape de termen sau fără progres.",
+      "see_all": "Vedeți toate activitățile",
+      "hidden": "{count, plural, one{Încă # activitate într-un proiect privat} few{Încă # activități în proiecte private} other{Încă # de activități în proiecte private}}"
+    },
+    "trend": {
+      "title": "Finalizate pe săptămână",
+      "completed": "Finalizate",
+      "week_of": "Săptămâna din {date}",
+      "empty": "Nu s-a finalizat nimic în această perioadă.",
+      "table": "Afișați ca tabel"
+    },
+    "projects": {
+      "title": "Proiecte",
+      "empty": "Nu este membru în niciun proiect.",
+      "former": "Nu mai este membru",
+      "private": "Proiect privat"
+    },
+    "items": {
+      "overdue": "Întârziată",
+      "stuck": "Fără progres",
+      "due": "Termen: {date}",
+      "done_on": "Finalizată la {date}",
+      "no_due_date": "Fără termen",
+      "load_more": "Încărcați mai mult",
+      "empty": "Nu există activități.",
+      "empty_filtered": "Nicio activitate nu corespunde acestor filtre.",
+      "join_to_open": "Alăturați-vă proiectului pentru a deschide această activitate",
+      "all": "Toate activitățile",
+      "list": "Listă",
+      "board": "Tablă",
+      "count": "{count, plural, one{# activitate} few{# activități} other{# de activități}}"
+    },
+    "hidden": {
+      "title": "Proiecte private la care nu v-ați alăturat",
+      "description": "Activitățile lor sunt numărate, dar titlurile nu sunt afișate.",
+      "join": "Alăturați-vă",
+      "confirm_title": "Vă alăturați proiectului {project}?",
+      "confirm_description": "Veți fi adăugat în proiect, iar ceilalți membri vor vedea acest lucru.",
+      "confirm": "Alăturați-vă proiectului",
+      "joining": "Alăturare în curs",
+      "cancel": "Anulare",
+      "error": "Alăturarea la proiect nu a reușit."
+    },
+    "cycles": {
+      "active": "Cicluri active",
+      "upcoming": "Cicluri viitoare",
+      "active_empty": "Nicio activitate într-un ciclu activ.",
+      "upcoming_empty": "Nicio activitate într-un ciclu viitor.",
+      "progress": "{done} din {total} finalizate",
+      "points": "{done} din {total} puncte",
+      "days_left": "{count, plural, =0{Ultima zi} one{# zi rămasă} few{# zile rămase} other{# de zile rămase}}",
+      "starts_in": "{count, plural, =0{Începe astăzi} one{Începe în # zi} few{Începe în # zile} other{Începe în # de zile}}",
+      "not_started": "{count, plural, one{# neîncepută} few{# neîncepute} other{# neîncepute}}",
+      "in_progress": "{count} în desfășurare",
+      "overdue": "{count, plural, one{# întârziată} few{# întârziate} other{# întârziate}}",
+      "hidden": "{count, plural, one{Încă # ciclu într-un proiect privat} few{Încă # cicluri în proiecte private} other{Încă # de cicluri în proiecte private}}"
+    },
+    "activity": {
+      "title": "Activitate recentă",
+      "empty": "Nicio acțiune.",
+      "empty_filtered": "Nicio acțiune nu corespunde acestor filtre.",
+      "see_all": "Vedeți toate acțiunile",
+      "created": "a creat",
+      "updated": "a actualizat",
+      "commented": "a comentat la",
+      "deleted_item": "o activitate ștearsă"
+    },
+    "my_work": {
+      "title": "Munca mea",
+      "description": "Administratorii spațiului de lucru văd aceleași cifre."
+    },
+    "profile_sidebar": {
+      "completion": "Procent de finalizare",
+      "created": "Create",
+      "assigned": "Atribuite",
+      "pending": "În așteptare",
+      "completed": "Finalizate"
+    }
+  }
+}

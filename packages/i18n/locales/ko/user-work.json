@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "사용자",
+    "page_title": "{workspace} - 사용자",
+    "user_work": "사용자 작업",
+    "person_page_title": "{name} - 사용자 작업",
+    "restricted": {
+      "title": "작업 공간 관리자만 이 페이지를 볼 수 있습니다",
+      "description": "팀의 작업 현황이 필요하면 작업 공간 관리자에게 문의하세요."
+    },
+    "error": {
+      "title": "데이터를 불러올 수 없습니다",
+      "retry": "다시 시도"
+    },
+    "not_found": {
+      "title": "이 사용자는 작업 공간에 없습니다",
+      "back": "사용자 목록으로 돌아가기"
+    },
+    "role": {
+      "admin": "관리자",
+      "member": "멤버",
+      "guest": "게스트"
+    },
+    "status": {
+      "label": "계정 상태",
+      "active": "활성",
+      "suspended": "정지됨",
+      "invited": "초대됨"
+    },
+    "totals": {
+      "members": "활성 멤버",
+      "overdue": "기한 초과 작업 항목",
+      "unassigned": "미할당 미완료 작업 항목",
+      "orphaned": "이전 멤버가 남긴 미완료 작업"
+    },
+    "filters": {
+      "search": "이름 또는 이메일로 검색",
+      "role": "역할",
+      "all_roles": "모든 역할",
+      "projects": "프로젝트",
+      "all_projects": "모든 프로젝트",
+      "projects_count": "{count, plural, one{프로젝트 #개} other{프로젝트 #개}}",
+      "period": "최근 {days}일 동안 완료",
+      "clear": "필터 지우기",
+      "date_from": "시작일",
+      "date_to": "종료일"
+    },
+    "columns": {
+      "name": "이름",
+      "email": "이메일",
+      "role": "역할",
+      "status": "계정 상태",
+      "projects": "프로젝트 수",
+      "open": "미완료",
+      "in_progress": "진행 중",
+      "overdue": "기한 초과",
+      "due_soon": "마감 임박",
+      "stuck": "정체",
+      "no_due_date": "마감일 없음",
+      "done": "완료",
+      "cycles": "현재 사이클",
+      "last_activity_at": "최근 활동",
+      "key": "키",
+      "project": "프로젝트",
+      "state": "상태",
+      "priority": "우선순위",
+      "start_date": "시작 날짜",
+      "target_date": "마감일",
+      "completed_at": "완료일",
+      "updated_at": "마지막 변경",
+      "is_overdue": "기한 초과 여부",
+      "created_at": "날짜",
+      "item": "작업 항목",
+      "action": "동작",
+      "field": "필드",
+      "old_value": "이전 값",
+      "new_value": "새 값",
+      "yes": "예"
+    },
+    "list": {
+      "empty": "이 필터와 일치하는 사용자가 없습니다.",
+      "no_activity": "아직 활동이 없습니다",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{비공개 프로젝트의 사이클 #개} other{비공개 프로젝트의 사이클 #개}}",
+      "range": "{total}명 중 {from}-{to}",
+      "previous": "이전 페이지",
+      "next": "다음 페이지",
+      "sort_by": "{column} 기준으로 정렬",
+      "open_user": "{name}의 작업 열기"
+    },
+    "neglected": {
+      "unassigned_title": "미할당 작업",
+      "unassigned_description": "아무에게도 할당되지 않은 미완료 작업 항목입니다.",
+      "unassigned_empty": "모든 미완료 작업 항목에 담당자가 있습니다.",
+      "orphaned_title": "남겨진 작업",
+      "orphaned_description": "떠났거나 정지된 사람에게만 할당된 미완료 작업 항목입니다.",
+      "orphaned_empty": "이전 멤버에게 남아 있는 미완료 작업이 없습니다.",
+      "back": "목록으로 돌아가기"
+    },
+    "tabs": {
+      "overview": "개요",
+      "work": "작업",
+      "cycles": "사이클",
+      "activity": "활동"
+    },
+    "person": {
+      "message": "메시지",
+      "joined_on": "{date}에 가입",
+      "last_activity": "최근 활동: {time}",
+      "timezone": "시간대"
+    },
+    "stats": {
+      "open": "미완료",
+      "in_progress": "진행 중",
+      "overdue": "기한 초과",
+      "due_soon": "7일 이내 마감",
+      "stuck": "7일 동안 변경 없음",
+      "no_due_date": "마감일 없음",
+      "done": "최근 {days}일간 완료",
+      "on_time": "기한 내 완료",
+      "on_time_detail": "마감일이 있는 {total}개 중 {on_time}개",
+      "on_time_none": "마감일이 있는 항목 없음"
+    },
+    "state_groups": {
+      "label": "상태별 작업",
+      "backlog": "백로그",
+      "unstarted": "시작되지 않음",
+      "started": "진행 중",
+      "completed": "완료",
+      "cancelled": "취소됨",
+      "empty": "할당된 작업이 없습니다."
+    },
+    "attention": {
+      "title": "주의 필요",
+      "empty": "기한이 초과되었거나 마감이 임박했거나 정체된 작업이 없습니다.",
+      "see_all": "모든 작업 보기",
+      "hidden": "{count, plural, one{비공개 프로젝트에 작업 항목 #개 더 있음} other{비공개 프로젝트에 작업 항목 #개 더 있음}}"
+    },
+    "trend": {
+      "title": "주별 완료",
+      "completed": "완료됨",
+      "week_of": "{date} 주간",
+      "empty": "이 기간에 완료된 작업이 없습니다.",
+      "table": "표로 보기"
+    },
+    "projects": {
+      "title": "프로젝트",
+      "empty": "어떤 프로젝트의 멤버도 아닙니다.",
+      "former": "더 이상 멤버 아님",
+      "private": "비공개 프로젝트"
+    },
+    "items": {
+      "overdue": "기한 초과",
+      "stuck": "정체",
+      "due": "마감 {date}",
+      "done_on": "완료 {date}",
+      "no_due_date": "마감일 없음",
+      "load_more": "더 보기",
+      "empty": "작업 항목이 없습니다.",
+      "empty_filtered": "이 필터와 일치하는 작업 항목이 없습니다.",
+      "join_to_open": "이 작업 항목을 열려면 프로젝트에 참여하세요",
+      "all": "모든 작업",
+      "list": "목록",
+      "board": "보드",
+      "count": "{count, plural, one{작업 항목 #개} other{작업 항목 #개}}"
+    },
+    "hidden": {
+      "title": "참여하지 않은 비공개 프로젝트",
+      "description": "작업 항목 수는 집계되지만 제목은 표시되지 않습니다.",
+      "join": "참여",
+      "confirm_title": "{project} 프로젝트에 참여하시겠습니까?",
+      "confirm_description": "프로젝트에 추가되며 다른 멤버들이 이를 볼 수 있습니다.",
+      "confirm": "프로젝트 참여",
+      "joining": "참여 중",
+      "cancel": "취소",
+      "error": "프로젝트에 참여할 수 없습니다."
+    },
+    "cycles": {
+      "active": "활성 사이클",
+      "upcoming": "다가오는 사이클",
+      "active_empty": "활성 사이클에 작업이 없습니다.",
+      "upcoming_empty": "다가오는 사이클에 작업이 없습니다.",
+      "progress": "{total}개 중 {done}개 완료",
+      "points": "{total}포인트 중 {done}포인트",
+      "days_left": "{count, plural, =0{마지막 날} one{#일 남음} other{#일 남음}}",
+      "starts_in": "{count, plural, =0{오늘 시작} one{#일 후 시작} other{#일 후 시작}}",
+      "not_started": "시작되지 않음 {count}개",
+      "in_progress": "진행 중 {count}개",
+      "overdue": "기한 초과 {count}개",
+      "hidden": "{count, plural, one{비공개 프로젝트에 사이클 #개 더 있음} other{비공개 프로젝트에 사이클 #개 더 있음}}"
+    },
+    "activity": {
+      "title": "최근 활동",
+      "empty": "활동이 없습니다.",
+      "empty_filtered": "이 필터와 일치하는 활동이 없습니다.",
+      "see_all": "모든 활동 보기",
+      "created": "생성:",
+      "updated": "업데이트:",
+      "commented": "댓글:",
+      "deleted_item": "삭제된 작업 항목"
+    },
+    "my_work": {
+      "title": "나의 작업",
+      "description": "작업 공간 관리자에게도 같은 수치가 표시됩니다."
+    },
+    "profile_sidebar": {
+      "completion": "완료율",
+      "created": "생성됨",
+      "assigned": "할당됨",
+      "pending": "대기 중",
+      "completed": "완료됨"
+    }
+  }
+}

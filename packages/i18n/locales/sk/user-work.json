@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Používatelia",
+    "page_title": "{workspace} - Používatelia",
+    "user_work": "Práca používateľa",
+    "person_page_title": "{name} - Práca používateľa",
+    "restricted": {
+      "title": "Túto stránku môžu zobraziť iba správcovia pracovného priestoru",
+      "description": "Ak potrebujete prehľad o práci tímu, požiadajte správcu pracovného priestoru."
+    },
+    "error": {
+      "title": "Údaje sa nepodarilo načítať",
+      "retry": "Skúsiť znova"
+    },
+    "not_found": {
+      "title": "Táto osoba nie je v pracovnom priestore",
+      "back": "Späť na používateľov"
+    },
+    "role": {
+      "admin": "Správca",
+      "member": "Člen",
+      "guest": "Hosť"
+    },
+    "status": {
+      "label": "Status",
+      "active": "Aktívny",
+      "suspended": "Pozastavený",
+      "invited": "Pozvaný"
+    },
+    "totals": {
+      "members": "Aktívni členovia",
+      "overdue": "Pracovné položky po termíne",
+      "unassigned": "Nepriradené otvorené pracovné položky",
+      "orphaned": "Otvorená práca po bývalých členoch"
+    },
+    "filters": {
+      "search": "Hľadať podľa mena alebo e-mailu",
+      "role": "Rola",
+      "all_roles": "Všetky roly",
+      "projects": "Projekty",
+      "all_projects": "Všetky projekty",
+      "projects_count": "{count, plural, one{# projekt} few{# projekty} many{# projektu} other{# projektov}}",
+      "period": "Dokončené za posledných {days} dní",
+      "clear": "Vymazať filtre",
+      "date_from": "Od",
+      "date_to": "Do"
+    },
+    "columns": {
+      "name": "Meno",
+      "email": "E-mail",
+      "role": "Rola",
+      "status": "Status",
+      "projects": "Projekty",
+      "open": "Otvorené",
+      "in_progress": "Prebieha",
+      "overdue": "Po termíne",
+      "due_soon": "Blízky termín",
+      "stuck": "Bez posunu",
+      "no_due_date": "Bez termínu",
+      "done": "Dokončené",
+      "cycles": "Aktuálny cyklus",
+      "last_activity_at": "Posledná aktivita",
+      "key": "Kľúč",
+      "project": "Projekt",
+      "state": "Stav",
+      "priority": "Priorita",
+      "start_date": "Dátum začiatku",
+      "target_date": "Termín",
+      "completed_at": "Dátum dokončenia",
+      "updated_at": "Posledná zmena",
+      "is_overdue": "Je po termíne",
+      "created_at": "Dátum",
+      "item": "Pracovná položka",
+      "action": "Akcia",
+      "field": "Pole",
+      "old_value": "Stará hodnota",
+      "new_value": "Nová hodnota",
+      "yes": "Áno"
+    },
+    "list": {
+      "empty": "Týmto filtrom nezodpovedajú žiadni používatelia.",
+      "no_activity": "Zatiaľ žiadna aktivita",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# cyklus v súkromnom projekte} few{# cykly v súkromných projektoch} many{# cyklu v súkromných projektoch} other{# cyklov v súkromných projektoch}}",
+      "range": "{from}-{to} z {total}",
+      "previous": "Predchádzajúca stránka",
+      "next": "Ďalšia stránka",
+      "sort_by": "Zoradiť podľa: {column}",
+      "open_user": "Otvoriť prácu používateľa {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Nepriradená práca",
+      "unassigned_description": "Otvorené pracovné položky, ku ktorým nie je nikto priradený.",
+      "unassigned_empty": "Každá otvorená pracovná položka je niekomu priradená.",
+      "orphaned_title": "Opustená práca",
+      "orphaned_description": "Otvorené pracovné položky priradené iba ľuďom, ktorí odišli alebo boli pozastavení.",
+      "orphaned_empty": "Po bývalých členoch nezostala žiadna otvorená práca.",
+      "back": "Späť na zoznam"
+    },
+    "tabs": {
+      "overview": "Prehľad",
+      "work": "Práca",
+      "cycles": "Cykly",
+      "activity": "Aktivita"
+    },
+    "person": {
+      "message": "Napísať správu",
+      "joined_on": "Dátum pripojenia: {date}",
+      "last_activity": "Posledná aktivita: {time}",
+      "timezone": "Časové pásmo"
+    },
+    "stats": {
+      "open": "Otvorené",
+      "in_progress": "Prebieha",
+      "overdue": "Po termíne",
+      "due_soon": "Termín do 7 dní",
+      "stuck": "Bez zmeny 7 dní",
+      "no_due_date": "Bez termínu",
+      "done": "Dokončené za {days} dní",
+      "on_time": "Dokončené včas",
+      "on_time_detail": "{on_time} z {total} s termínom",
+      "on_time_none": "Nič s termínom"
+    },
+    "state_groups": {
+      "label": "Práca podľa stavu",
+      "backlog": "Backlog",
+      "unstarted": "Na vybavenie",
+      "started": "Prebieha",
+      "completed": "Dokončené",
+      "cancelled": "Zrušené",
+      "empty": "Žiadna priradená práca."
+    },
+    "attention": {
+      "title": "Vyžaduje pozornosť",
+      "empty": "Nič nie je po termíne, pred blízkym termínom ani bez posunu.",
+      "see_all": "Zobraziť všetku prácu",
+      "hidden": "{count, plural, one{Ešte # pracovná položka v súkromnom projekte} few{Ešte # pracovné položky v súkromných projektoch} many{Ešte # pracovnej položky v súkromných projektoch} other{Ešte # pracovných položiek v súkromných projektoch}}"
+    },
+    "trend": {
+      "title": "Dokončené po týždňoch",
+      "completed": "Dokončené",
+      "week_of": "Týždeň od {date}",
+      "empty": "V tomto období nebolo nič dokončené.",
+      "table": "Zobraziť ako tabuľku"
+    },
+    "projects": {
+      "title": "Projekty",
+      "empty": "Nepatrí do žiadneho projektu.",
+      "former": "Už do projektu nepatrí",
+      "private": "Súkromný projekt"
+    },
+    "items": {
+      "overdue": "Po termíne",
+      "stuck": "Bez posunu",
+      "due": "Termín: {date}",
+      "done_on": "Dokončené: {date}",
+      "no_due_date": "Bez termínu",
+      "load_more": "Načítať viac",
+      "empty": "Žiadne pracovné položky.",
+      "empty_filtered": "Týmto filtrom nezodpovedajú žiadne pracovné položky.",
+      "join_to_open": "Ak chcete otvoriť túto pracovnú položku, pripojte sa k projektu",
+      "all": "Všetka práca",
+      "list": "Zoznam",
+      "board": "Nástenka",
+      "count": "{count, plural, one{# pracovná položka} few{# pracovné položky} many{# pracovnej položky} other{# pracovných položiek}}"
+    },
+    "hidden": {
+      "title": "Súkromné projekty, ku ktorým nie ste pripojení",
+      "description": "Ich pracovné položky sa započítavajú, ale ich názvy sa nezobrazujú.",
+      "join": "Pripojiť sa",
+      "confirm_title": "Pripojiť sa k projektu {project}?",
+      "confirm_description": "Budete pridaní do projektu a jeho ostatní členovia to uvidia.",
+      "confirm": "Pripojiť sa k projektu",
+      "joining": "Pripájanie",
+      "cancel": "Zrušiť",
+      "error": "K projektu sa nepodarilo pripojiť."
+    },
+    "cycles": {
+      "active": "Aktívne cykly",
+      "upcoming": "Nadchádzajúce cykly",
+      "active_empty": "Žiadna práca v aktívnom cykle.",
+      "upcoming_empty": "Žiadna práca v nadchádzajúcom cykle.",
+      "progress": "Dokončené: {done} z {total}",
+      "points": "Body: {done} z {total}",
+      "days_left": "{count, plural, =0{Posledný deň} one{Zostáva # deň} few{Zostávajú # dni} many{Zostáva # dňa} other{Zostáva # dní}}",
+      "starts_in": "{count, plural, =0{Začína sa dnes} one{Začína sa o # deň} few{Začína sa o # dni} many{Začína sa o # dňa} other{Začína sa o # dní}}",
+      "not_started": "Nezačaté: {count}",
+      "in_progress": "Prebieha: {count}",
+      "overdue": "Po termíne: {count}",
+      "hidden": "{count, plural, one{Ešte # cyklus v súkromnom projekte} few{Ešte # cykly v súkromných projektoch} many{Ešte # cyklu v súkromných projektoch} other{Ešte # cyklov v súkromných projektoch}}"
+    },
+    "activity": {
+      "title": "Nedávna aktivita",
+      "empty": "Žiadna aktivita.",
+      "empty_filtered": "Týmto filtrom nezodpovedá žiadna aktivita.",
+      "see_all": "Zobraziť všetku aktivitu",
+      "created": "vytvorené:",
+      "updated": "upravené:",
+      "commented": "okomentované:",
+      "deleted_item": "vymazaná pracovná položka"
+    },
+    "my_work": {
+      "title": "Moja práca",
+      "description": "Správcovia pracovného priestoru vidia rovnaké čísla."
+    },
+    "profile_sidebar": {
+      "completion": "Percento dokončenia",
+      "created": "Vytvorené",
+      "assigned": "Priradené",
+      "pending": "Čakajúce",
+      "completed": "Dokončené"
+    }
+  }
+}

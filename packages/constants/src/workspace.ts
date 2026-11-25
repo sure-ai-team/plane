@@ -228,6 +228,14 @@ export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS: Record<string, IWorkspa
     access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
     highlight: (pathname: string, url: string) => pathname.includes(url),
   },
+  users: {
+    key: "users",
+    labelTranslationKey: "users_work.label",
+    href: `/users/`,
+    access: [EUserWorkspaceRoles.ADMIN],
+    // Links to the page itself may leave out the last slash
+    highlight: (pathname: string, url: string) => `${pathname}/`.includes(url),
+  },
   archives: {
     key: "archives",
     labelTranslationKey: "archives",
@@ -242,6 +250,7 @@ export const WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebar
   WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["analytics"],
   WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["dashboards"],
   WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["reports"],
+  WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["users"],
   WORKSPACE_SIDEBAR_DYNAMIC_NAVIGATION_ITEMS["archives"],
 ];
 

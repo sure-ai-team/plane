@@ -16,6 +16,7 @@ import {
   PenSquare,
   Settings,
   TextSearch,
+  Users,
 } from "lucide-react";
 import { useParams } from "next/navigation";
 // plane imports
@@ -47,6 +48,7 @@ export type TPowerKNavigationCommandKeys =
   | "nav_created_workspace_work_items"
   | "nav_subscribed_workspace_work_items"
   | "nav_workspace_analytics"
+  | "nav_workspace_users"
   | "nav_workspace_drafts"
   | "nav_workspace_archives"
   | "open_workspace_setting"
@@ -82,6 +84,12 @@ export const usePowerKNavigationCommandsRecord = (): Record<TPowerKNavigationCom
   const hasWorkspaceMemberLevelPermissions = (ctx: TPowerKContext) =>
     allowPermissions(
       [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
+      EUserPermissionsLevel.WORKSPACE,
+      ctx.params.workspaceSlug?.toString()
+    );
+  const hasWorkspaceAdminLevelPermissions = (ctx: TPowerKContext) =>
+    allowPermissions(
+      [EUserWorkspaceRoles.ADMIN],
       EUserPermissionsLevel.WORKSPACE,
       ctx.params.workspaceSlug?.toString()
     );
@@ -287,6 +295,18 @@ export const usePowerKNavigationCommandsRecord = (): Record<TPowerKNavigationCom
       action: (ctx) => handlePowerKNavigate(ctx, [ctx.params.workspaceSlug?.toString(), "analytics", "overview"]),
       isEnabled: (ctx) => baseWorkspaceConditions(ctx) && hasWorkspaceMemberLevelPermissions(ctx),
       isVisible: (ctx) => baseWorkspaceConditions(ctx) && hasWorkspaceMemberLevelPermissions(ctx),
+      closeOnSelect: true,
+    },
+    nav_workspace_users: {
+      id: "nav_workspace_users",
+      type: "action",
+      group: "navigation",
+      i18n_title: "power_k.navigation_actions.nav_workspace_users",
+      icon: Users,
+      keySequence: "gu",
+      action: (ctx) => handlePowerKNavigate(ctx, [ctx.params.workspaceSlug?.toString(), "users"]),
+      isEnabled: (ctx) => baseWorkspaceConditions(ctx) && hasWorkspaceAdminLevelPermissions(ctx),
+      isVisible: (ctx) => baseWorkspaceConditions(ctx) && hasWorkspaceAdminLevelPermissions(ctx),
       closeOnSelect: true,
     },
     nav_workspace_drafts: {

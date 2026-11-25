@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Benutzer",
+    "page_title": "{workspace} - Benutzer",
+    "user_work": "Arbeit des Benutzers",
+    "person_page_title": "{name} - Arbeit des Benutzers",
+    "restricted": {
+      "title": "Nur Arbeitsbereichs-Admins können diese Seite sehen",
+      "description": "Wenden Sie sich an einen Arbeitsbereichs-Admin, wenn Sie einen Überblick über die Arbeit des Teams benötigen."
+    },
+    "error": {
+      "title": "Die Daten konnten nicht geladen werden",
+      "retry": "Erneut versuchen"
+    },
+    "not_found": {
+      "title": "Diese Person ist nicht im Arbeitsbereich",
+      "back": "Zurück zu den Benutzern"
+    },
+    "role": {
+      "admin": "Administrator",
+      "member": "Mitglied",
+      "guest": "Gast"
+    },
+    "status": {
+      "label": "Kontostatus",
+      "active": "Aktiv",
+      "suspended": "Gesperrt",
+      "invited": "Eingeladen"
+    },
+    "totals": {
+      "members": "Aktive Mitglieder",
+      "overdue": "Überfällige Arbeitselemente",
+      "unassigned": "Nicht zugewiesene offene Arbeitselemente",
+      "orphaned": "Offene Arbeit von ausgeschiedenen Personen"
+    },
+    "filters": {
+      "search": "Nach Name oder E-Mail suchen",
+      "role": "Rolle",
+      "all_roles": "Alle Rollen",
+      "projects": "Projekte",
+      "all_projects": "Alle Projekte",
+      "projects_count": "{count, plural, one{# Projekt} other{# Projekte}}",
+      "period": "In den letzten {days} Tagen abgeschlossen",
+      "clear": "Filter zurücksetzen",
+      "date_from": "Von",
+      "date_to": "Bis"
+    },
+    "columns": {
+      "name": "Name",
+      "email": "E-Mail",
+      "role": "Rolle",
+      "status": "Kontostatus",
+      "projects": "Projekte",
+      "open": "Offen",
+      "in_progress": "In Bearbeitung",
+      "overdue": "Überfällig",
+      "due_soon": "Bald fällig",
+      "stuck": "Stillstand",
+      "no_due_date": "Ohne Fälligkeit",
+      "done": "Abgeschlossen",
+      "cycles": "Aktueller Zyklus",
+      "last_activity_at": "Letzte Aktivität",
+      "key": "Schlüssel",
+      "project": "Projekt",
+      "state": "Status",
+      "priority": "Priorität",
+      "start_date": "Startdatum",
+      "target_date": "Fälligkeitsdatum",
+      "completed_at": "Abgeschlossen am",
+      "updated_at": "Letzte Änderung",
+      "is_overdue": "Ist überfällig",
+      "created_at": "Datum",
+      "item": "Arbeitselement",
+      "action": "Aktion",
+      "field": "Feld",
+      "old_value": "Alter Wert",
+      "new_value": "Neuer Wert",
+      "yes": "Ja"
+    },
+    "list": {
+      "empty": "Keine Benutzer entsprechen diesen Filtern.",
+      "no_activity": "Noch keine Aktivität",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# Zyklus in einem privaten Projekt} other{# Zyklen in privaten Projekten}}",
+      "range": "{from}-{to} von {total}",
+      "previous": "Vorherige Seite",
+      "next": "Nächste Seite",
+      "sort_by": "Nach {column} sortieren",
+      "open_user": "Arbeit von {name} öffnen"
+    },
+    "neglected": {
+      "unassigned_title": "Nicht zugewiesene Arbeit",
+      "unassigned_description": "Offene Arbeitselemente, die niemandem zugewiesen sind.",
+      "unassigned_empty": "Alle offenen Arbeitselemente sind jemandem zugewiesen.",
+      "orphaned_title": "Zurückgelassene Arbeit",
+      "orphaned_description": "Offene Arbeitselemente, die nur ausgeschiedenen oder gesperrten Personen zugewiesen sind.",
+      "orphaned_empty": "Es gibt keine offene Arbeit von ausgeschiedenen Personen.",
+      "back": "Zurück zur Liste"
+    },
+    "tabs": {
+      "overview": "Übersicht",
+      "work": "Arbeit",
+      "cycles": "Zyklen",
+      "activity": "Aktivität"
+    },
+    "person": {
+      "message": "Nachricht",
+      "joined_on": "Beigetreten am {date}",
+      "last_activity": "Letzte Aktivität: {time}",
+      "timezone": "Zeitzone"
+    },
+    "stats": {
+      "open": "Offen",
+      "in_progress": "In Bearbeitung",
+      "overdue": "Überfällig",
+      "due_soon": "In 7 Tagen fällig",
+      "stuck": "Seit 7 Tagen unverändert",
+      "no_due_date": "Ohne Fälligkeit",
+      "done": "In {days} Tagen abgeschlossen",
+      "on_time": "Pünktlich abgeschlossen",
+      "on_time_detail": "{on_time} von {total} mit Fälligkeitsdatum",
+      "on_time_none": "Nichts mit Fälligkeitsdatum"
+    },
+    "state_groups": {
+      "label": "Arbeit nach Status",
+      "backlog": "Backlog",
+      "unstarted": "Zu erledigen",
+      "started": "In Bearbeitung",
+      "completed": "Abgeschlossen",
+      "cancelled": "Abgebrochen",
+      "empty": "Keine zugewiesene Arbeit."
+    },
+    "attention": {
+      "title": "Benötigt Aufmerksamkeit",
+      "empty": "Nichts ist überfällig, bald fällig oder im Stillstand.",
+      "see_all": "Gesamte Arbeit anzeigen",
+      "hidden": "{count, plural, one{# weiteres Arbeitselement in einem privaten Projekt} other{# weitere Arbeitselemente in privaten Projekten}}"
+    },
+    "trend": {
+      "title": "Abgeschlossen pro Woche",
+      "completed": "Abgeschlossen",
+      "week_of": "Woche ab {date}",
+      "empty": "In diesem Zeitraum wurde nichts abgeschlossen.",
+      "table": "Als Tabelle anzeigen"
+    },
+    "projects": {
+      "title": "Projekte",
+      "empty": "In keinem Projekt Mitglied.",
+      "former": "Nicht mehr Mitglied",
+      "private": "Privates Projekt"
+    },
+    "items": {
+      "overdue": "Überfällig",
+      "stuck": "Stillstand",
+      "due": "Fällig am {date}",
+      "done_on": "Abgeschlossen am {date}",
+      "no_due_date": "Ohne Fälligkeit",
+      "load_more": "Mehr laden",
+      "empty": "Keine Arbeitselemente.",
+      "empty_filtered": "Keine Arbeitselemente entsprechen diesen Filtern.",
+      "join_to_open": "Dem Projekt beitreten, um dieses Arbeitselement zu öffnen",
+      "all": "Gesamte Arbeit",
+      "list": "Liste",
+      "board": "Kanban",
+      "count": "{count, plural, one{# Arbeitselement} other{# Arbeitselemente}}"
+    },
+    "hidden": {
+      "title": "Private Projekte, denen Sie nicht beigetreten sind",
+      "description": "Ihre Arbeitselemente werden mitgezählt, die Titel jedoch nicht angezeigt.",
+      "join": "Beitreten",
+      "confirm_title": "{project} beitreten?",
+      "confirm_description": "Sie werden dem Projekt hinzugefügt, und die anderen Mitglieder können dies sehen.",
+      "confirm": "Projekt beitreten",
+      "joining": "Beitritt läuft",
+      "cancel": "Abbrechen",
+      "error": "Der Beitritt zum Projekt ist fehlgeschlagen."
+    },
+    "cycles": {
+      "active": "Aktive Zyklen",
+      "upcoming": "Bevorstehende Zyklen",
+      "active_empty": "Keine Arbeit in einem aktiven Zyklus.",
+      "upcoming_empty": "Keine Arbeit in einem bevorstehenden Zyklus.",
+      "progress": "{done} von {total} abgeschlossen",
+      "points": "{done} von {total} Punkten",
+      "days_left": "{count, plural, =0{Letzter Tag} one{# Tag übrig} other{# Tage übrig}}",
+      "starts_in": "{count, plural, =0{Beginnt heute} one{Beginnt in # Tag} other{Beginnt in # Tagen}}",
+      "not_started": "{count} nicht begonnen",
+      "in_progress": "{count} in Bearbeitung",
+      "overdue": "{count} überfällig",
+      "hidden": "{count, plural, one{# weiterer Zyklus in einem privaten Projekt} other{# weitere Zyklen in privaten Projekten}}"
+    },
+    "activity": {
+      "title": "Letzte Aktivitäten",
+      "empty": "Keine Aktivitäten.",
+      "empty_filtered": "Keine Aktivitäten entsprechen diesen Filtern.",
+      "see_all": "Alle Aktivitäten anzeigen",
+      "created": "erstellte",
+      "updated": "aktualisierte",
+      "commented": "kommentierte",
+      "deleted_item": "ein gelöschtes Arbeitselement"
+    },
+    "my_work": {
+      "title": "Meine Arbeit",
+      "description": "Arbeitsbereichs-Admins sehen dieselben Zahlen."
+    },
+    "profile_sidebar": {
+      "completion": "Fertigstellungsgrad in Prozent",
+      "created": "Erstellt",
+      "assigned": "Zugewiesen",
+      "pending": "Ausstehend",
+      "completed": "Abgeschlossen"
+    }
+  }
+}

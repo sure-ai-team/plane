@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "用户",
+    "page_title": "{workspace} - 用户",
+    "user_work": "用户工作",
+    "person_page_title": "{name} - 用户工作",
+    "restricted": {
+      "title": "只有工作区管理员可以查看此页面",
+      "description": "如果您需要了解团队的工作概况，请联系工作区管理员。"
+    },
+    "error": {
+      "title": "无法加载数据",
+      "retry": "重试"
+    },
+    "not_found": {
+      "title": "此人不在该工作区中",
+      "back": "返回用户列表"
+    },
+    "role": {
+      "admin": "管理员",
+      "member": "成员",
+      "guest": "访客"
+    },
+    "status": {
+      "label": "账户状态",
+      "active": "活跃",
+      "suspended": "已停用",
+      "invited": "已邀请"
+    },
+    "totals": {
+      "members": "活跃成员",
+      "overdue": "逾期工作项",
+      "unassigned": "未分配的未完成工作项",
+      "orphaned": "已离开人员遗留的未完成工作"
+    },
+    "filters": {
+      "search": "按姓名或邮箱搜索",
+      "role": "角色",
+      "all_roles": "所有角色",
+      "projects": "项目",
+      "all_projects": "所有项目",
+      "projects_count": "{count, plural, one{# 个项目} other{# 个项目}}",
+      "period": "最近 {days} 天内完成",
+      "clear": "清除过滤器",
+      "date_from": "开始日期",
+      "date_to": "结束日期"
+    },
+    "columns": {
+      "name": "名称",
+      "email": "邮箱",
+      "role": "角色",
+      "status": "账户状态",
+      "projects": "项目数",
+      "open": "未完成",
+      "in_progress": "进行中",
+      "overdue": "已逾期",
+      "due_soon": "即将到期",
+      "stuck": "停滞",
+      "no_due_date": "无截止日期",
+      "done": "已完成",
+      "cycles": "当前周期",
+      "last_activity_at": "最后活动",
+      "key": "编号",
+      "project": "项目",
+      "state": "状态",
+      "priority": "优先级",
+      "start_date": "开始日期",
+      "target_date": "截止日期",
+      "completed_at": "完成日期",
+      "updated_at": "最后更改",
+      "is_overdue": "是否逾期",
+      "created_at": "日期",
+      "item": "工作项",
+      "action": "操作",
+      "field": "字段",
+      "old_value": "旧值",
+      "new_value": "新值",
+      "yes": "是"
+    },
+    "list": {
+      "empty": "没有符合这些筛选条件的用户。",
+      "no_activity": "暂无活动",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{私有项目中的 # 个周期} other{私有项目中的 # 个周期}}",
+      "range": "第 {from}-{to} 条，共 {total} 条",
+      "previous": "上一页",
+      "next": "下一页",
+      "sort_by": "按{column}排序",
+      "open_user": "打开 {name} 的工作"
+    },
+    "neglected": {
+      "unassigned_title": "未分配的工作",
+      "unassigned_description": "尚未分配给任何人的未完成工作项。",
+      "unassigned_empty": "所有未完成的工作项都有负责人。",
+      "orphaned_title": "遗留的工作",
+      "orphaned_description": "仅分配给已离开或已停用人员的未完成工作项。",
+      "orphaned_empty": "已离开的人员没有遗留未完成的工作。",
+      "back": "返回列表"
+    },
+    "tabs": {
+      "overview": "概览",
+      "work": "工作",
+      "cycles": "周期",
+      "activity": "活动"
+    },
+    "person": {
+      "message": "发消息",
+      "joined_on": "加入于 {date}",
+      "last_activity": "最后活动：{time}",
+      "timezone": "时区"
+    },
+    "stats": {
+      "open": "未完成",
+      "in_progress": "进行中",
+      "overdue": "已逾期",
+      "due_soon": "7 天内到期",
+      "stuck": "7 天无更改",
+      "no_due_date": "无截止日期",
+      "done": "最近 {days} 天完成",
+      "on_time": "按时完成",
+      "on_time_detail": "{total} 个有截止日期的工作项中的 {on_time} 个",
+      "on_time_none": "没有设置截止日期的工作项"
+    },
+    "state_groups": {
+      "label": "按状态划分的工作",
+      "backlog": "待办",
+      "unstarted": "未开始",
+      "started": "进行中",
+      "completed": "已完成",
+      "cancelled": "已取消",
+      "empty": "没有已分配的工作。"
+    },
+    "attention": {
+      "title": "需要关注",
+      "empty": "没有逾期、即将到期或停滞的工作。",
+      "see_all": "查看全部工作",
+      "hidden": "{count, plural, one{私有项目中还有 # 个工作项} other{私有项目中还有 # 个工作项}}"
+    },
+    "trend": {
+      "title": "每周完成情况",
+      "completed": "已完成",
+      "week_of": "{date} 所在周",
+      "empty": "此期间没有完成任何工作。",
+      "table": "以表格显示"
+    },
+    "projects": {
+      "title": "项目",
+      "empty": "不是任何项目的成员。",
+      "former": "已不是成员",
+      "private": "私有项目"
+    },
+    "items": {
+      "overdue": "已逾期",
+      "stuck": "停滞",
+      "due": "截止于 {date}",
+      "done_on": "完成于 {date}",
+      "no_due_date": "无截止日期",
+      "load_more": "加载更多",
+      "empty": "没有工作项。",
+      "empty_filtered": "没有符合这些筛选条件的工作项。",
+      "join_to_open": "加入项目以打开此工作项",
+      "all": "全部工作",
+      "list": "列表",
+      "board": "看板",
+      "count": "{count, plural, one{# 个工作项} other{# 个工作项}}"
+    },
+    "hidden": {
+      "title": "您尚未加入的私有项目",
+      "description": "其中的工作项会计入总数，但不显示标题。",
+      "join": "加入",
+      "confirm_title": "要加入 {project} 吗？",
+      "confirm_description": "您将被添加到该项目，项目的其他成员会看到这一变动。",
+      "confirm": "加入项目",
+      "joining": "正在加入",
+      "cancel": "取消",
+      "error": "无法加入该项目。"
+    },
+    "cycles": {
+      "active": "活动周期",
+      "upcoming": "即将到来的周期",
+      "active_empty": "活动周期中没有工作。",
+      "upcoming_empty": "即将到来的周期中没有工作。",
+      "progress": "已完成 {done}/{total}",
+      "points": "{done}/{total} 点数",
+      "days_left": "{count, plural, =0{最后一天} one{剩余 # 天} other{剩余 # 天}}",
+      "starts_in": "{count, plural, =0{今天开始} one{# 天后开始} other{# 天后开始}}",
+      "not_started": "{count} 个未开始",
+      "in_progress": "{count} 个进行中",
+      "overdue": "{count} 个已逾期",
+      "hidden": "{count, plural, one{私有项目中还有 # 个周期} other{私有项目中还有 # 个周期}}"
+    },
+    "activity": {
+      "title": "最近活动",
+      "empty": "没有活动。",
+      "empty_filtered": "没有符合这些筛选条件的活动。",
+      "see_all": "查看全部活动",
+      "created": "创建了",
+      "updated": "更新了",
+      "commented": "评论了",
+      "deleted_item": "一个已删除的工作项"
+    },
+    "my_work": {
+      "title": "我的工作",
+      "description": "工作区管理员看到的数字与此相同。"
+    },
+    "profile_sidebar": {
+      "completion": "完成率",
+      "created": "已创建",
+      "assigned": "已分配",
+      "pending": "待处理",
+      "completed": "已完成"
+    }
+  }
+}

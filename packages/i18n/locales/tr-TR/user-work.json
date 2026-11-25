@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Kullanıcılar",
+    "page_title": "{workspace} - Kullanıcılar",
+    "user_work": "Kullanıcının işleri",
+    "person_page_title": "{name} - Kullanıcının işleri",
+    "restricted": {
+      "title": "Bu sayfayı yalnızca çalışma alanı yöneticileri görebilir",
+      "description": "Ekibin işlerine genel bir bakışa ihtiyacınız varsa bir çalışma alanı yöneticisine başvurun."
+    },
+    "error": {
+      "title": "Veriler yüklenemedi",
+      "retry": "Tekrar dene"
+    },
+    "not_found": {
+      "title": "Bu kişi çalışma alanında değil",
+      "back": "Kullanıcılara dön"
+    },
+    "role": {
+      "admin": "Yönetici",
+      "member": "Üye",
+      "guest": "Misafir"
+    },
+    "status": {
+      "label": "Üyelik durumu",
+      "active": "Aktif",
+      "suspended": "Askıya alındı",
+      "invited": "Davet edildi"
+    },
+    "totals": {
+      "members": "Aktif üyeler",
+      "overdue": "Gecikmiş iş öğeleri",
+      "unassigned": "Atanmamış açık iş öğeleri",
+      "orphaned": "Ayrılan kişilerden kalan açık işler"
+    },
+    "filters": {
+      "search": "Ada veya e-postaya göre ara",
+      "role": "Rol",
+      "all_roles": "Tüm roller",
+      "projects": "Projeler",
+      "all_projects": "Tüm projeler",
+      "projects_count": "{count, plural, one{# proje} other{# proje}}",
+      "period": "Son {days} günde tamamlanan",
+      "clear": "Filtreleri temizle",
+      "date_from": "Başlangıç",
+      "date_to": "Bitiş"
+    },
+    "columns": {
+      "name": "Ad",
+      "email": "E-posta",
+      "role": "Rol",
+      "status": "Üyelik durumu",
+      "projects": "Projeler",
+      "open": "Açık",
+      "in_progress": "Devam eden",
+      "overdue": "Gecikmiş",
+      "due_soon": "Son tarihi yakın",
+      "stuck": "Takılmış",
+      "no_due_date": "Son tarihi yok",
+      "done": "Tamamlanan",
+      "cycles": "Mevcut döngü",
+      "last_activity_at": "Son aktivite",
+      "key": "Anahtar",
+      "project": "Proje",
+      "state": "Durum",
+      "priority": "Öncelik",
+      "start_date": "Başlangıç tarihi",
+      "target_date": "Son tarih",
+      "completed_at": "Tamamlanma tarihi",
+      "updated_at": "Son değişiklik",
+      "is_overdue": "Gecikti mi",
+      "created_at": "Tarih",
+      "item": "İş öğesi",
+      "action": "İşlem",
+      "field": "Alan",
+      "old_value": "Eski değer",
+      "new_value": "Yeni değer",
+      "yes": "Evet"
+    },
+    "list": {
+      "empty": "Bu filtrelerle eşleşen kullanıcı yok.",
+      "no_activity": "Henüz aktivite yok",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{Özel projelerde # döngü} other{Özel projelerde # döngü}}",
+      "range": "{from}-{to} / {total}",
+      "previous": "Önceki sayfa",
+      "next": "Sonraki sayfa",
+      "sort_by": "Sırala: {column}",
+      "open_user": "{name} adlı kullanıcının işlerini aç"
+    },
+    "neglected": {
+      "unassigned_title": "Atanmamış işler",
+      "unassigned_description": "Kimseye atanmamış açık iş öğeleri.",
+      "unassigned_empty": "Her açık iş öğesinin bir atananı var.",
+      "orphaned_title": "Sahipsiz kalan işler",
+      "orphaned_description": "Yalnızca ayrılan veya askıya alınan kişilere atanmış açık iş öğeleri.",
+      "orphaned_empty": "Ayrılan kişilerden kalan açık iş yok.",
+      "back": "Listeye dön"
+    },
+    "tabs": {
+      "overview": "Genel Bakış",
+      "work": "İşler",
+      "cycles": "Döngüler",
+      "activity": "Aktivite"
+    },
+    "person": {
+      "message": "Mesaj gönder",
+      "joined_on": "Katılma tarihi: {date}",
+      "last_activity": "Son aktivite: {time}",
+      "timezone": "Saat dilimi"
+    },
+    "stats": {
+      "open": "Açık",
+      "in_progress": "Devam eden",
+      "overdue": "Gecikmiş",
+      "due_soon": "Son tarihi 7 gün içinde",
+      "stuck": "7 gündür değişmeyen",
+      "no_due_date": "Son tarihi yok",
+      "done": "{days} günde tamamlanan",
+      "on_time": "Zamanında tamamlanan",
+      "on_time_detail": "Son tarihli {total} öğeden {on_time} tanesi",
+      "on_time_none": "Son tarihli öğe yok"
+    },
+    "state_groups": {
+      "label": "Duruma göre işler",
+      "backlog": "Bekleme Listesi",
+      "unstarted": "Yapılacak",
+      "started": "Devam ediyor",
+      "completed": "Tamamlandı",
+      "cancelled": "İptal Edildi",
+      "empty": "Atanmış iş yok."
+    },
+    "attention": {
+      "title": "Dikkat gerektiriyor",
+      "empty": "Gecikmiş, son tarihi yakın veya takılmış iş yok.",
+      "see_all": "Tüm işleri gör",
+      "hidden": "{count, plural, one{Özel projelerde # iş öğesi daha} other{Özel projelerde # iş öğesi daha}}"
+    },
+    "trend": {
+      "title": "Haftalık tamamlanan",
+      "completed": "Tamamlanan",
+      "week_of": "{date} haftası",
+      "empty": "Bu dönemde hiçbir şey tamamlanmadı.",
+      "table": "Tablo olarak göster"
+    },
+    "projects": {
+      "title": "Projeler",
+      "empty": "Hiçbir projenin üyesi değil.",
+      "former": "Artık üye değil",
+      "private": "Özel proje"
+    },
+    "items": {
+      "overdue": "Gecikmiş",
+      "stuck": "Takılmış",
+      "due": "Son tarih: {date}",
+      "done_on": "Tamamlandı: {date}",
+      "no_due_date": "Son tarihi yok",
+      "load_more": "Daha fazla yükle",
+      "empty": "İş öğesi yok.",
+      "empty_filtered": "Bu filtrelerle eşleşen iş öğesi yok.",
+      "join_to_open": "Bu iş öğesini açmak için projeye katılın",
+      "all": "Tüm işler",
+      "list": "Liste",
+      "board": "Pano",
+      "count": "{count, plural, one{# iş öğesi} other{# iş öğesi}}"
+    },
+    "hidden": {
+      "title": "Katılmadığınız özel projeler",
+      "description": "Bu projelerdeki iş öğeleri sayılır ancak başlıkları gösterilmez.",
+      "join": "Katıl",
+      "confirm_title": "{project} projesine katılmak istiyor musunuz?",
+      "confirm_description": "Projeye ekleneceksiniz ve projenin diğer üyeleri bunu görecek.",
+      "confirm": "Projeye katıl",
+      "joining": "Katılınıyor",
+      "cancel": "İptal",
+      "error": "Projeye katılınamadı."
+    },
+    "cycles": {
+      "active": "Aktif döngüler",
+      "upcoming": "Yaklaşan döngüler",
+      "active_empty": "Aktif bir döngüde iş yok.",
+      "upcoming_empty": "Yaklaşan bir döngüde iş yok.",
+      "progress": "{done} / {total} tamamlandı",
+      "points": "{done} / {total} puan",
+      "days_left": "{count, plural, =0{Son gün} one{# gün kaldı} other{# gün kaldı}}",
+      "starts_in": "{count, plural, =0{Bugün başlıyor} one{# gün sonra başlıyor} other{# gün sonra başlıyor}}",
+      "not_started": "{count} başlatılmadı",
+      "in_progress": "{count} devam ediyor",
+      "overdue": "{count} gecikmiş",
+      "hidden": "{count, plural, one{Özel projelerde # döngü daha} other{Özel projelerde # döngü daha}}"
+    },
+    "activity": {
+      "title": "Son aktiviteler",
+      "empty": "Aktivite yok.",
+      "empty_filtered": "Bu filtrelerle eşleşen aktivite yok.",
+      "see_all": "Tüm aktiviteleri gör",
+      "created": "oluşturuldu:",
+      "updated": "güncellendi:",
+      "commented": "yorum yapıldı:",
+      "deleted_item": "silinmiş bir iş öğesi"
+    },
+    "my_work": {
+      "title": "İşlerim",
+      "description": "Çalışma alanı yöneticileri de aynı sayıları görür."
+    },
+    "profile_sidebar": {
+      "completion": "Tamamlanma yüzdesi",
+      "created": "Oluşturulan",
+      "assigned": "Atanan",
+      "pending": "Beklemede",
+      "completed": "Tamamlandı"
+    }
+  }
+}

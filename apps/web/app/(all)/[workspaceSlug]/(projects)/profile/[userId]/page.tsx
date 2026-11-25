@@ -4,9 +4,10 @@
  * See the LICENSE file for details.
  */
 
+import { observer } from "mobx-react";
 import useSWR from "swr";
 // plane imports
-import { GROUP_CHOICES } from "@plane/constants";
+import { EUserPermissions, EUserPermissionsLevel, GROUP_CHOICES } from "@plane/constants";
 import { useTranslation } from "@plane/i18n";
 import type { IUserStateDistribution, TStateGroups } from "@plane/types";
 import { ContentWrapper } from "@plane/ui";
@@ -17,17 +18,25 @@ import { ProfilePriorityDistribution } from "@/components/profile/overview/prior
 import { ProfileStateDistribution } from "@/components/profile/overview/state-distribution";
 import { ProfileStats } from "@/components/profile/overview/stats";
 import { ProfileWorkload } from "@/components/profile/overview/workload";
+import { MyWorkOverview } from "@/components/users-work/person/root";
 // constants
 import { USER_PROFILE_DATA } from "@plane/constants";
+// hooks
+import { useUser, useUserPermissions } from "@/hooks/store/user";
 // services
 import { UserService } from "@/services/user.service";
 import type { Route } from "./+types/page";
 const userService = new UserService();
 
-export default function ProfileOverviewPage({ params }: Route.ComponentProps) {
+function ProfileOverviewPage({ params }: Route.ComponentProps) {
   const { workspaceSlug, userId } = params;
 
   const { t } = useTranslation();
+  const { data: currentUser } = useUser();
+  const { allowPermissions } = useUserPermissions();
+  const isOwnProfile =
+    currentUser?.id === userId &&
+    allowPermissions([EUserPermissions.ADMIN, EUserPermissions.MEMBER], EUserPermissionsLevel.WORKSPACE);
   const { data: userProfile } = useSWR(USER_PROFILE_DATA(workspaceSlug, userId), () =>
     userService.getUserProfileData(workspaceSlug, userId)
   );
@@ -43,6 +52,7 @@ export default function ProfileOverviewPage({ params }: Route.ComponentProps) {
     <>
       <PageHead title={t("profile.page_label")} />
       <ContentWrapper className="space-y-7">
+        {isOwnProfile && <MyWorkOverview workspaceSlug={workspaceSlug} userId={userId} />}
         <ProfileStats userProfile={userProfile} />
         <ProfileWorkload stateDistribution={stateDistribution} />
         <div className="grid grid-cols-1 items-stretch gap-5 xl:grid-cols-2">
@@ -54,3 +64,5 @@ export default function ProfileOverviewPage({ params }: Route.ComponentProps) {
     </>
   );
 }
+
+export default observer(ProfileOverviewPage);

@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "使用者",
+    "page_title": "{workspace} - 使用者",
+    "user_work": "使用者工作",
+    "person_page_title": "{name} - 使用者工作",
+    "restricted": {
+      "title": "只有工作區管理員可以檢視此頁面",
+      "description": "如果您需要了解團隊的工作概況，請洽詢工作區管理員。"
+    },
+    "error": {
+      "title": "無法載入資料",
+      "retry": "重試"
+    },
+    "not_found": {
+      "title": "此人不在這個工作區中",
+      "back": "返回使用者清單"
+    },
+    "role": {
+      "admin": "管理員",
+      "member": "成員",
+      "guest": "訪客"
+    },
+    "status": {
+      "label": "帳戶狀態",
+      "active": "活躍",
+      "suspended": "已停權",
+      "invited": "已邀請"
+    },
+    "totals": {
+      "members": "活躍成員",
+      "overdue": "逾期工作事項",
+      "unassigned": "未指派的未完成工作事項",
+      "orphaned": "已離開人員留下的未完成工作"
+    },
+    "filters": {
+      "search": "依姓名或電子郵件搜尋",
+      "role": "角色",
+      "all_roles": "所有角色",
+      "projects": "專案",
+      "all_projects": "所有專案",
+      "projects_count": "{count, plural, one{# 個專案} other{# 個專案}}",
+      "period": "過去 {days} 天內完成",
+      "clear": "清除過濾器",
+      "date_from": "開始日期",
+      "date_to": "結束日期"
+    },
+    "columns": {
+      "name": "名稱",
+      "email": "電子郵件",
+      "role": "角色",
+      "status": "帳戶狀態",
+      "projects": "專案數",
+      "open": "未完成",
+      "in_progress": "進行中",
+      "overdue": "已逾期",
+      "due_soon": "即將到期",
+      "stuck": "停滯",
+      "no_due_date": "無截止日期",
+      "done": "已完成",
+      "cycles": "目前週期",
+      "last_activity_at": "最後活動",
+      "key": "編號",
+      "project": "專案",
+      "state": "狀態",
+      "priority": "優先順序",
+      "start_date": "開始日期",
+      "target_date": "截止日期",
+      "completed_at": "完成日期",
+      "updated_at": "最後變更",
+      "is_overdue": "是否逾期",
+      "created_at": "日期",
+      "item": "工作事項",
+      "action": "動作",
+      "field": "欄位",
+      "old_value": "舊值",
+      "new_value": "新值",
+      "yes": "是"
+    },
+    "list": {
+      "empty": "沒有符合這些篩選條件的使用者。",
+      "no_activity": "尚無活動",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{私人專案中的 # 個週期} other{私人專案中的 # 個週期}}",
+      "range": "第 {from}-{to} 筆，共 {total} 筆",
+      "previous": "上一頁",
+      "next": "下一頁",
+      "sort_by": "依{column}排序",
+      "open_user": "開啟 {name} 的工作"
+    },
+    "neglected": {
+      "unassigned_title": "未指派的工作",
+      "unassigned_description": "尚未指派給任何人的未完成工作事項。",
+      "unassigned_empty": "所有未完成的工作事項都有指派對象。",
+      "orphaned_title": "遺留的工作",
+      "orphaned_description": "僅指派給已離開或已停權人員的未完成工作事項。",
+      "orphaned_empty": "已離開的人員沒有留下未完成的工作。",
+      "back": "返回清單"
+    },
+    "tabs": {
+      "overview": "概覽",
+      "work": "工作",
+      "cycles": "週期",
+      "activity": "活動"
+    },
+    "person": {
+      "message": "傳送訊息",
+      "joined_on": "加入於 {date}",
+      "last_activity": "最後活動：{time}",
+      "timezone": "時區"
+    },
+    "stats": {
+      "open": "未完成",
+      "in_progress": "進行中",
+      "overdue": "已逾期",
+      "due_soon": "7 天內到期",
+      "stuck": "7 天未變更",
+      "no_due_date": "無截止日期",
+      "done": "過去 {days} 天完成",
+      "on_time": "準時完成",
+      "on_time_detail": "{total} 個有截止日期的工作事項中的 {on_time} 個",
+      "on_time_none": "沒有設定截止日期的工作事項"
+    },
+    "state_groups": {
+      "label": "依狀態劃分的工作",
+      "backlog": "待辦事項",
+      "unstarted": "未開始",
+      "started": "進行中",
+      "completed": "已完成",
+      "cancelled": "已取消",
+      "empty": "沒有已指派的工作。"
+    },
+    "attention": {
+      "title": "需要注意",
+      "empty": "沒有逾期、即將到期或停滯的工作。",
+      "see_all": "檢視所有工作",
+      "hidden": "{count, plural, one{私人專案中還有 # 個工作事項} other{私人專案中還有 # 個工作事項}}"
+    },
+    "trend": {
+      "title": "每週完成情況",
+      "completed": "已完成",
+      "week_of": "{date} 當週",
+      "empty": "這段期間沒有完成任何工作。",
+      "table": "以表格顯示"
+    },
+    "projects": {
+      "title": "專案",
+      "empty": "不是任何專案的成員。",
+      "former": "已非成員",
+      "private": "私人專案"
+    },
+    "items": {
+      "overdue": "已逾期",
+      "stuck": "停滯",
+      "due": "截止於 {date}",
+      "done_on": "完成於 {date}",
+      "no_due_date": "無截止日期",
+      "load_more": "載入更多",
+      "empty": "沒有工作事項。",
+      "empty_filtered": "沒有符合這些篩選條件的工作事項。",
+      "join_to_open": "加入專案以開啟此工作事項",
+      "all": "所有工作",
+      "list": "清單",
+      "board": "看板",
+      "count": "{count, plural, one{# 個工作事項} other{# 個工作事項}}"
+    },
+    "hidden": {
+      "title": "您尚未加入的私人專案",
+      "description": "其中的工作事項會計入總數，但不會顯示標題。",
+      "join": "加入",
+      "confirm_title": "要加入 {project} 嗎？",
+      "confirm_description": "您將被加入該專案，專案的其他成員會看到此變更。",
+      "confirm": "加入專案",
+      "joining": "正在加入",
+      "cancel": "取消",
+      "error": "無法加入該專案。"
+    },
+    "cycles": {
+      "active": "進行中的週期",
+      "upcoming": "即將到來的週期",
+      "active_empty": "進行中的週期沒有工作。",
+      "upcoming_empty": "即將到來的週期沒有工作。",
+      "progress": "已完成 {done}/{total}",
+      "points": "{done}/{total} 點數",
+      "days_left": "{count, plural, =0{最後一天} one{剩餘 # 天} other{剩餘 # 天}}",
+      "starts_in": "{count, plural, =0{今天開始} one{# 天後開始} other{# 天後開始}}",
+      "not_started": "{count} 個未開始",
+      "in_progress": "{count} 個進行中",
+      "overdue": "{count} 個已逾期",
+      "hidden": "{count, plural, one{私人專案中還有 # 個週期} other{私人專案中還有 # 個週期}}"
+    },
+    "activity": {
+      "title": "最近活動",
+      "empty": "沒有活動。",
+      "empty_filtered": "沒有符合這些篩選條件的活動。",
+      "see_all": "檢視所有活動",
+      "created": "建立了",
+      "updated": "更新了",
+      "commented": "留言於",
+      "deleted_item": "一個已刪除的工作事項"
+    },
+    "my_work": {
+      "title": "我的工作",
+      "description": "工作區管理員看到的數字與此相同。"
+    },
+    "profile_sidebar": {
+      "completion": "完成率",
+      "created": "已建立",
+      "assigned": "已指派",
+      "pending": "待處理",
+      "completed": "已完成"
+    }
+  }
+}

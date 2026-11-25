@@ -31,6 +31,12 @@ export const extendedRoutes: RouteConfigEntry[] = [
           route(":workspaceSlug/reports/:reportId", "./(all)/[workspaceSlug]/(projects)/reports/[reportId]/page.tsx"),
         ]),
 
+        // Users
+        layout("./(all)/[workspaceSlug]/(projects)/users/layout.tsx", [
+          route(":workspaceSlug/users", "./(all)/[workspaceSlug]/(projects)/users/page.tsx"),
+          route(":workspaceSlug/users/:userId/:tab?", "./(all)/[workspaceSlug]/(projects)/users/[userId]/page.tsx"),
+        ]),
+
         // Cycle report
         layout("./(all)/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/layout.tsx", [
           layout("./(all)/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/cycles/(report)/layout.tsx", [

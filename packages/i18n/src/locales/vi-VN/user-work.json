@@ -1,0 +1,214 @@
+{
+  "users_work": {
+    "label": "Người dùng",
+    "page_title": "{workspace} - Người dùng",
+    "user_work": "Công việc của người dùng",
+    "person_page_title": "{name} - Công việc của người dùng",
+    "restricted": {
+      "title": "Chỉ quản trị viên không gian làm việc mới có thể xem trang này",
+      "description": "Hãy liên hệ với quản trị viên không gian làm việc nếu bạn cần xem tổng quan công việc của nhóm."
+    },
+    "error": {
+      "title": "Không thể tải dữ liệu",
+      "retry": "Thử lại"
+    },
+    "not_found": {
+      "title": "Người này không có trong không gian làm việc",
+      "back": "Quay lại danh sách người dùng"
+    },
+    "role": {
+      "admin": "Quản trị viên",
+      "member": "Thành viên",
+      "guest": "Khách"
+    },
+    "status": {
+      "label": "Trạng thái tài khoản",
+      "active": "Đang hoạt động",
+      "suspended": "Bị đình chỉ",
+      "invited": "Đã mời"
+    },
+    "totals": {
+      "members": "Thành viên đang hoạt động",
+      "overdue": "Mục công việc quá hạn",
+      "unassigned": "Mục công việc chưa hoàn thành và chưa phân công",
+      "orphaned": "Công việc chưa hoàn thành của những người đã rời đi"
+    },
+    "filters": {
+      "search": "Tìm kiếm theo tên hoặc email",
+      "role": "Vai trò",
+      "all_roles": "Tất cả vai trò",
+      "projects": "Dự án",
+      "all_projects": "Tất cả dự án",
+      "projects_count": "{count, plural, one{# dự án} other{# dự án}}",
+      "period": "Đã hoàn thành trong {days} ngày qua",
+      "clear": "Xóa bộ lọc",
+      "date_from": "Từ ngày",
+      "date_to": "Đến ngày"
+    },
+    "columns": {
+      "name": "Tên",
+      "email": "Email",
+      "role": "Vai trò",
+      "status": "Trạng thái tài khoản",
+      "projects": "Số dự án",
+      "open": "Chưa hoàn thành",
+      "in_progress": "Đang tiến hành",
+      "overdue": "Quá hạn",
+      "due_soon": "Sắp đến hạn",
+      "stuck": "Đình trệ",
+      "no_due_date": "Không có hạn",
+      "done": "Đã hoàn thành",
+      "cycles": "Chu kỳ hiện tại",
+      "last_activity_at": "Hoạt động gần nhất",
+      "key": "Mã",
+      "project": "Dự án",
+      "state": "Trạng thái",
+      "priority": "Ưu tiên",
+      "start_date": "Ngày bắt đầu",
+      "target_date": "Ngày hết hạn",
+      "completed_at": "Ngày hoàn thành",
+      "updated_at": "Thay đổi gần nhất",
+      "is_overdue": "Có quá hạn",
+      "created_at": "Ngày",
+      "item": "Mục công việc",
+      "action": "Hành động",
+      "field": "Trường",
+      "old_value": "Giá trị cũ",
+      "new_value": "Giá trị mới",
+      "yes": "Có"
+    },
+    "list": {
+      "empty": "Không có người dùng nào khớp với các bộ lọc này.",
+      "no_activity": "Chưa có hoạt động",
+      "more_cycles": "+{count}",
+      "hidden_cycles": "{count, plural, one{# chu kỳ trong dự án riêng tư} other{# chu kỳ trong dự án riêng tư}}",
+      "range": "{from}-{to} trên {total}",
+      "previous": "Trang trước",
+      "next": "Trang sau",
+      "sort_by": "Sắp xếp theo {column}",
+      "open_user": "Mở công việc của {name}"
+    },
+    "neglected": {
+      "unassigned_title": "Công việc chưa phân công",
+      "unassigned_description": "Các mục công việc chưa hoàn thành và chưa được giao cho ai.",
+      "unassigned_empty": "Mọi mục công việc chưa hoàn thành đều có người phụ trách.",
+      "orphaned_title": "Công việc bị bỏ lại",
+      "orphaned_description": "Các mục công việc chưa hoàn thành chỉ được giao cho những người đã rời đi hoặc bị đình chỉ.",
+      "orphaned_empty": "Không có công việc chưa hoàn thành nào của những người đã rời đi.",
+      "back": "Quay lại danh sách"
+    },
+    "tabs": {
+      "overview": "Tổng quan",
+      "work": "Công việc",
+      "cycles": "Chu kỳ",
+      "activity": "Hoạt động"
+    },
+    "person": {
+      "message": "Nhắn tin",
+      "joined_on": "Tham gia vào {date}",
+      "last_activity": "Hoạt động gần nhất: {time}",
+      "timezone": "Múi giờ"
+    },
+    "stats": {
+      "open": "Chưa hoàn thành",
+      "in_progress": "Đang tiến hành",
+      "overdue": "Quá hạn",
+      "due_soon": "Đến hạn trong 7 ngày",
+      "stuck": "Không thay đổi trong 7 ngày",
+      "no_due_date": "Không có ngày hết hạn",
+      "done": "Đã hoàn thành trong {days} ngày",
+      "on_time": "Hoàn thành đúng hạn",
+      "on_time_detail": "{on_time} trên {total} mục có ngày hết hạn",
+      "on_time_none": "Không có mục nào có ngày hết hạn"
+    },
+    "state_groups": {
+      "label": "Công việc theo trạng thái",
+      "backlog": "Tồn đọng",
+      "unstarted": "Chưa bắt đầu",
+      "started": "Đang tiến hành",
+      "completed": "Đã hoàn thành",
+      "cancelled": "Đã hủy",
+      "empty": "Không có công việc nào được giao."
+    },
+    "attention": {
+      "title": "Cần chú ý",
+      "empty": "Không có mục nào quá hạn, sắp đến hạn hoặc đình trệ.",
+      "see_all": "Xem tất cả công việc",
+      "hidden": "{count, plural, one{Thêm # mục công việc trong dự án riêng tư} other{Thêm # mục công việc trong dự án riêng tư}}"
+    },
+    "trend": {
+      "title": "Hoàn thành theo tuần",
+      "completed": "Đã hoàn thành",
+      "week_of": "Tuần của {date}",
+      "empty": "Không có mục nào được hoàn thành trong khoảng thời gian này.",
+      "table": "Hiển thị dạng bảng"
+    },
+    "projects": {
+      "title": "Dự án",
+      "empty": "Không phải là thành viên của dự án nào.",
+      "former": "Không còn là thành viên",
+      "private": "Dự án riêng tư"
+    },
+    "items": {
+      "overdue": "Quá hạn",
+      "stuck": "Đình trệ",
+      "due": "Hết hạn {date}",
+      "done_on": "Hoàn thành {date}",
+      "no_due_date": "Không có ngày hết hạn",
+      "load_more": "Tải thêm",
+      "empty": "Không có mục công việc nào.",
+      "empty_filtered": "Không có mục công việc nào khớp với các bộ lọc này.",
+      "join_to_open": "Tham gia dự án để mở mục công việc này",
+      "all": "Tất cả công việc",
+      "list": "Danh sách",
+      "board": "Kanban",
+      "count": "{count, plural, one{# mục công việc} other{# mục công việc}}"
+    },
+    "hidden": {
+      "title": "Dự án riêng tư bạn chưa tham gia",
+      "description": "Các mục công việc của những dự án này được tính nhưng tiêu đề không được hiển thị.",
+      "join": "Tham gia",
+      "confirm_title": "Tham gia {project}?",
+      "confirm_description": "Bạn sẽ được thêm vào dự án và các thành viên khác của dự án sẽ thấy điều này.",
+      "confirm": "Tham gia dự án",
+      "joining": "Đang tham gia",
+      "cancel": "Hủy",
+      "error": "Không thể tham gia dự án."
+    },
+    "cycles": {
+      "active": "Chu kỳ hoạt động",
+      "upcoming": "Chu kỳ sắp tới",
+      "active_empty": "Không có công việc nào trong chu kỳ hoạt động.",
+      "upcoming_empty": "Không có công việc nào trong chu kỳ sắp tới.",
+      "progress": "Đã hoàn thành {done} trên {total}",
+      "points": "{done} trên {total} điểm",
+      "days_left": "{count, plural, =0{Ngày cuối cùng} one{Còn # ngày} other{Còn # ngày}}",
+      "starts_in": "{count, plural, =0{Bắt đầu hôm nay} one{Bắt đầu sau # ngày} other{Bắt đầu sau # ngày}}",
+      "not_started": "{count} chưa bắt đầu",
+      "in_progress": "{count} đang tiến hành",
+      "overdue": "{count} quá hạn",
+      "hidden": "{count, plural, one{Thêm # chu kỳ trong dự án riêng tư} other{Thêm # chu kỳ trong dự án riêng tư}}"
+    },
+    "activity": {
+      "title": "Hoạt động gần đây",
+      "empty": "Không có hoạt động nào.",
+      "empty_filtered": "Không có hoạt động nào khớp với các bộ lọc này.",
+      "see_all": "Xem tất cả hoạt động",
+      "created": "đã tạo",
+      "updated": "đã cập nhật",
+      "commented": "đã bình luận về",
+      "deleted_item": "một mục công việc đã bị xóa"
+    },
+    "my_work": {
+      "title": "Công việc của tôi",
+      "description": "Quản trị viên không gian làm việc cũng thấy các con số này."
+    },
+    "profile_sidebar": {
+      "completion": "Tỷ lệ hoàn thành",
+      "created": "Đã tạo",
+      "assigned": "Đã giao",
+      "pending": "Đang chờ xử lý",
+      "completed": "Đã hoàn thành"
+    }
+  }
+}
