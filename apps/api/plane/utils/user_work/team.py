@@ -15,6 +15,7 @@ from plane.db.models import (
     IssueAssignee,
     ProjectMember,
     User,
+    Workspace,
     WorkspaceMember,
     WorkspaceMemberInvite,
 )
@@ -52,8 +53,10 @@ def full_name(user: User) -> str:
 
 def last_activity(slug: str, user_ids) -> Dict[Any, Any]:
     """Latest work item change or comment of each user. One index probe per user."""
+    # The workspace id, not its slug: a join would keep the index from being read in order.
+    workspace_id = Workspace.objects.filter(slug=slug).values_list("id", flat=True).first()
     latest = (
-        IssueActivity.objects.filter(actor_id=OuterRef("pk"), workspace__slug=slug)
+        IssueActivity.objects.filter(actor_id=OuterRef("pk"), workspace_id=workspace_id)
         .order_by("-created_at")
         .values("created_at")[:1]
     )

@@ -45,7 +45,7 @@ TEAM_COLUMNS = (
 )
 ITEM_COLUMNS = (
     "key",
-    "name",
+    "item",
     "project",
     "state",
     "priority",
@@ -125,7 +125,7 @@ class UserWorkExportEndpoint(UserWorkBaseView):
         return [
             {
                 "key": f"{item['project_identifier']}-{item['sequence_id']}",
-                "name": item["name"],
+                "item": item["name"],
                 "project": item["project_name"],
                 "state": item["state_name"],
                 "priority": labels.get(f"priority_{item['priority']}", item["priority"]),
