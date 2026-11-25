@@ -340,7 +340,18 @@ class StickySerializer(BaseSerializer):
     class Meta:
         model = Sticky
         fields = "__all__"
-        read_only_fields = ["workspace", "owner"]
+        # project, sharing and pinning are only set by the project sticky endpoints;
+        # writable here, they would let a user place a sticky in any project
+        read_only_fields = [
+            "workspace",
+            "owner",
+            "project",
+            "access",
+            "project_permission",
+            "pinned_at",
+            "pinned_by",
+            "content_version",
+        ]
         extra_kwargs = {"name": {"required": False}}
 
     def validate(self, data):

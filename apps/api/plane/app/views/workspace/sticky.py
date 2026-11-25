@@ -23,7 +23,8 @@ class WorkspaceStickyViewSet(BaseViewSet):
             super()
             .get_queryset()
             .filter(workspace__slug=self.kwargs.get("slug"))
-            .filter(owner_id=self.request.user.id)
+            # project stickies have their own endpoints and never mix with personal ones
+            .filter(owner_id=self.request.user.id, project__isnull=True)
             .select_related("workspace", "owner")
             .distinct()
         )

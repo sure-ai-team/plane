@@ -83,6 +83,8 @@ from .workspace.cycle import WorkspaceCyclesEndpoint
 from .workspace.quick_link import QuickLinkViewSet
 from .workspace.sticky import WorkspaceStickyViewSet
 
+from .sticky.base import ProjectStickyPinViewSet, ProjectStickyShareViewSet, ProjectStickyViewSet
+
 from .state.base import StateViewSet, IntakeStateEndpoint
 from .view.base import (
     WorkspaceViewViewSet,
