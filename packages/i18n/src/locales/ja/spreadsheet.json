@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "データファイル",
+    "upload": "アップロード",
+    "upload_files": "ファイルをアップロード",
+    "drop_here": "ドロップしてデータファイルに追加",
+    "drop_hint": "Excel（.xlsx）または CSV、各 {size} MB まで",
+    "search_placeholder": "ファイルを検索",
+    "no_results": "「{query}」に一致するファイルはありません",
+    "load_error": "データファイルを読み込めませんでした。",
+    "empty": {
+      "title": "データファイルはまだありません",
+      "description": "Excel または CSV ファイルをアップロードすると、ここで閲覧・検索・フィルターができます。",
+      "guest_description": "プロジェクトメンバーが追加したスプレッドシートがここに表示されます。"
+    },
+    "card": {
+      "open": "{name} を開く",
+      "actions": "ファイルの操作",
+      "sheets": "{count, plural, one {# シート} other {# シート}}",
+      "rows": "{count, plural, one {# 行} other {# 行}}"
+    },
+    "status": {
+      "uploading": "アップロード中 {progress}%",
+      "processing": "処理中……",
+      "ready": "完了",
+      "failed": "アップロードに失敗しました"
+    },
+    "actions": {
+      "rename": "名前を変更",
+      "replace": "ファイルを置き換え",
+      "download": "ダウンロード",
+      "delete": "削除",
+      "retry": "アップロードを再試行",
+      "dismiss": "閉じる"
+    },
+    "rename": {
+      "label": "ファイル名",
+      "error": "ファイル名を変更できませんでした。"
+    },
+    "delete": {
+      "title": "データファイルを削除",
+      "content": "「{name}」はこのプロジェクトの全員に対して削除されます。この操作は元に戻せません。",
+      "deleting": "削除中",
+      "success": "ファイルを削除しました",
+      "error": "ファイルを削除できませんでした。"
+    },
+    "errors": {
+      "title": "ファイルを追加できませんでした",
+      "unsupported_type": "「{name}」はサポートされていません。Excel（.xlsx）または CSV ファイルをアップロードしてください。",
+      "file_too_large": "「{name}」は {limit} MB を超えています。",
+      "empty_file": "「{name}」は空です。",
+      "too_many_rows": "このファイルは {limit, number} 行を超えており、ビューアーで表示できる範囲を超えています。",
+      "too_many_columns": "このファイルは {limit, number} 列を超えており、ビューアーで表示できる範囲を超えています。",
+      "too_many_sheets": "このブックには {limit, number} を超えるシートがあります。",
+      "zip_bomb": "このファイルは展開すると異常に大きくなるため、安全のためブロックされました。",
+      "corrupt": "このファイルを読み取れませんでした。破損しているか、正しい Excel または CSV ファイルではない可能性があります。",
+      "timeout": "このファイルの読み取りに時間がかかりすぎました。",
+      "download_failed": "ファイルをダウンロードできませんでした。接続を確認して、もう一度お試しください。",
+      "upload_failed": "アップロードが完了しませんでした。もう一度お試しください。",
+      "unknown": "問題が発生しました。もう一度お試しください。",
+      "copy_failed": "クリップボードにコピーできませんでした。",
+      "export_failed": "ビューをエクスポートできませんでした。"
+    },
+    "viewer": {
+      "not_found": "このファイルは存在しません。",
+      "load_failed": "このファイルを開けませんでした",
+      "loading": {
+        "cache": "ファイルを開いています……",
+        "download": "ファイルをダウンロードしています……",
+        "parse": "スプレッドシートを読み込んでいます……"
+      },
+      "download": "元のファイルをダウンロード",
+      "export": "ビューを CSV でエクスポート",
+      "columns": "{count, plural, one {# 列} other {# 列}}",
+      "rows_filtered": "{total} 行中 {visible} 行",
+      "sheets": "シート",
+      "header_toggle": "先頭行を見出しにする",
+      "density": "行の密度",
+      "compact": "コンパクト",
+      "comfortable": "ゆったり",
+      "search_placeholder": "シート内を検索",
+      "match_count": "{current} / {total}",
+      "no_matches": "一致なし",
+      "matches_truncated": "最初の {limit} 件を表示しています",
+      "next_match": "次の一致",
+      "previous_match": "前の一致",
+      "clear_search": "検索をクリア",
+      "empty_sheet": "このシートは空です。",
+      "no_rows_match": "現在のフィルターに一致する行はありません。",
+      "copied": "{count, plural, one {# 個のセルをコピーしました} other {# 個のセルをコピーしました}}",
+      "selection": {
+        "count": "データの個数",
+        "sum": "合計",
+        "avg": "平均"
+      }
+    },
+    "column": {
+      "menu": "列 {column} のオプション",
+      "types": {
+        "text": "テキスト",
+        "number": "数値",
+        "date": "日付",
+        "boolean": "真偽値"
+      },
+      "stats": {
+        "count": "値",
+        "empty": "空白",
+        "distinct": "一意",
+        "sum": "合計",
+        "avg": "平均",
+        "min": "最小",
+        "max": "最大"
+      },
+      "sort_asc": "昇順で並べ替え",
+      "sort_desc": "降順で並べ替え",
+      "sorted_asc": "昇順",
+      "sorted_desc": "降順",
+      "clear_sort": "並べ替えを解除",
+      "add_filter": "フィルターを追加"
+    },
+    "filter": {
+      "active": "適用中のフィルター",
+      "operator": "条件",
+      "value": "値",
+      "apply": "適用",
+      "remove": "フィルターを削除",
+      "clear_all": "すべてクリア",
+      "operators": {
+        "contains": "を含む",
+        "not_contains": "を含まない",
+        "equals": "と等しい",
+        "not_equals": "と等しくない",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "が空白",
+        "not_empty": "が空白でない"
+      }
+    }
+  }
+}

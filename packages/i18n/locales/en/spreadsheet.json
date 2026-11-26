@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "Data files",
+    "upload": "Upload",
+    "upload_files": "Upload files",
+    "drop_here": "Drop to add to Data files",
+    "drop_hint": "Excel (.xlsx) or CSV, up to {size} MB each",
+    "search_placeholder": "Search files",
+    "no_results": "No files match \"{query}\"",
+    "load_error": "Couldn't load data files.",
+    "empty": {
+      "title": "No data files yet",
+      "description": "Upload Excel or CSV files to browse, search and filter them right here.",
+      "guest_description": "Spreadsheets added by project members will show up here."
+    },
+    "card": {
+      "open": "Open {name}",
+      "actions": "File actions",
+      "sheets": "{count, plural, one {# sheet} other {# sheets}}",
+      "rows": "{count, plural, one {# row} other {# rows}}"
+    },
+    "status": {
+      "uploading": "Uploading {progress}%",
+      "processing": "Processing…",
+      "ready": "Ready",
+      "failed": "Upload failed"
+    },
+    "actions": {
+      "rename": "Rename",
+      "replace": "Replace file",
+      "download": "Download",
+      "delete": "Delete",
+      "retry": "Retry upload",
+      "dismiss": "Dismiss"
+    },
+    "rename": {
+      "label": "File name",
+      "error": "Couldn't rename the file."
+    },
+    "delete": {
+      "title": "Delete data file",
+      "content": "\"{name}\" will be removed for everyone in this project. This can't be undone.",
+      "deleting": "Deleting",
+      "success": "File deleted",
+      "error": "Couldn't delete the file."
+    },
+    "errors": {
+      "title": "Couldn't add the file",
+      "unsupported_type": "\"{name}\" isn't supported. Upload an Excel (.xlsx) or CSV file.",
+      "file_too_large": "\"{name}\" is larger than {limit} MB.",
+      "empty_file": "\"{name}\" is empty.",
+      "too_many_rows": "This file has more than {limit, number} rows, which is more than the viewer can show.",
+      "too_many_columns": "This file has more than {limit, number} columns, which is more than the viewer can show.",
+      "too_many_sheets": "This workbook has more than {limit, number} sheets.",
+      "zip_bomb": "This file expands to an unusually large size, so it was blocked for safety.",
+      "corrupt": "This file couldn't be read. It may be damaged or not a real Excel or CSV file.",
+      "timeout": "Reading this file took too long.",
+      "download_failed": "Couldn't download the file. Check your connection and try again.",
+      "upload_failed": "The upload didn't finish. Try again.",
+      "unknown": "Something went wrong. Try again.",
+      "copy_failed": "Couldn't copy to the clipboard.",
+      "export_failed": "Couldn't export the view."
+    },
+    "viewer": {
+      "not_found": "This file no longer exists.",
+      "load_failed": "Couldn't open this file",
+      "loading": {
+        "cache": "Opening file…",
+        "download": "Downloading file…",
+        "parse": "Reading spreadsheet…"
+      },
+      "download": "Download original",
+      "export": "Export view as CSV",
+      "columns": "{count, plural, one {# column} other {# columns}}",
+      "rows_filtered": "{visible} of {total} rows",
+      "sheets": "Sheets",
+      "header_toggle": "First row is header",
+      "density": "Row density",
+      "compact": "Compact",
+      "comfortable": "Comfortable",
+      "search_placeholder": "Find in sheet",
+      "match_count": "{current} of {total}",
+      "no_matches": "No matches",
+      "matches_truncated": "Showing the first {limit} matches",
+      "next_match": "Next match",
+      "previous_match": "Previous match",
+      "clear_search": "Clear search",
+      "empty_sheet": "This sheet is empty.",
+      "no_rows_match": "No rows match the current filters.",
+      "copied": "{count, plural, one {Copied # cell} other {Copied # cells}}",
+      "selection": {
+        "count": "Count",
+        "sum": "Sum",
+        "avg": "Average"
+      }
+    },
+    "column": {
+      "menu": "Column {column} options",
+      "types": {
+        "text": "Text",
+        "number": "Number",
+        "date": "Date",
+        "boolean": "True/false"
+      },
+      "stats": {
+        "count": "Values",
+        "empty": "Empty",
+        "distinct": "Distinct",
+        "sum": "Sum",
+        "avg": "Average",
+        "min": "Min",
+        "max": "Max"
+      },
+      "sort_asc": "Sort ascending",
+      "sort_desc": "Sort descending",
+      "sorted_asc": "ascending",
+      "sorted_desc": "descending",
+      "clear_sort": "Clear sort",
+      "add_filter": "Add filter"
+    },
+    "filter": {
+      "active": "Active filters",
+      "operator": "Condition",
+      "value": "Value",
+      "apply": "Apply",
+      "remove": "Remove filter",
+      "clear_all": "Clear all",
+      "operators": {
+        "contains": "contains",
+        "not_contains": "does not contain",
+        "equals": "is",
+        "not_equals": "is not",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "is empty",
+        "not_empty": "is not empty"
+      }
+    }
+  }
+}

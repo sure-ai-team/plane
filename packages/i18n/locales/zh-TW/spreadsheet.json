@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "資料檔案",
+    "upload": "上傳",
+    "upload_files": "上傳檔案",
+    "drop_here": "拖放至此以新增到資料檔案",
+    "drop_hint": "Excel（.xlsx）或 CSV，每個最大 {size} MB",
+    "search_placeholder": "搜尋檔案",
+    "no_results": "沒有符合「{query}」的檔案",
+    "load_error": "無法載入資料檔案。",
+    "empty": {
+      "title": "尚無資料檔案",
+      "description": "上傳 Excel 或 CSV 檔案，即可在此直接瀏覽、搜尋和篩選。",
+      "guest_description": "專案成員新增的試算表將顯示在此處。"
+    },
+    "card": {
+      "open": "開啟 {name}",
+      "actions": "檔案動作",
+      "sheets": "{count, plural, one {# 個工作表} other {# 個工作表}}",
+      "rows": "{count, plural, one {# 列} other {# 列}}"
+    },
+    "status": {
+      "uploading": "正在上傳 {progress}%",
+      "processing": "正在處理…",
+      "ready": "就緒",
+      "failed": "上傳失敗"
+    },
+    "actions": {
+      "rename": "重新命名",
+      "replace": "取代檔案",
+      "download": "下載",
+      "delete": "刪除",
+      "retry": "重試上傳",
+      "dismiss": "關閉"
+    },
+    "rename": {
+      "label": "檔案名稱",
+      "error": "無法重新命名檔案。"
+    },
+    "delete": {
+      "title": "刪除資料檔案",
+      "content": "將為此專案中的所有人移除「{name}」。此動作無法復原。",
+      "deleting": "正在刪除",
+      "success": "檔案已刪除",
+      "error": "無法刪除檔案。"
+    },
+    "errors": {
+      "title": "無法新增檔案",
+      "unsupported_type": "不支援「{name}」。請上傳 Excel（.xlsx）或 CSV 檔案。",
+      "file_too_large": "「{name}」超過 {limit} MB。",
+      "empty_file": "「{name}」是空的。",
+      "too_many_rows": "此檔案超過 {limit, number} 列，超出檢視器可顯示的範圍。",
+      "too_many_columns": "此檔案超過 {limit, number} 欄，超出檢視器可顯示的範圍。",
+      "too_many_sheets": "此活頁簿包含超過 {limit, number} 個工作表。",
+      "zip_bomb": "此檔案解壓縮後體積異常龐大，基於安全考量已被封鎖。",
+      "corrupt": "無法讀取此檔案。檔案可能已損毀，或不是有效的 Excel 或 CSV 檔案。",
+      "timeout": "讀取此檔案耗時過久。",
+      "download_failed": "無法下載檔案。請檢查網路連線後重試。",
+      "upload_failed": "上傳未完成。請重試。",
+      "unknown": "發生問題。請重試。",
+      "copy_failed": "無法複製到剪貼簿。",
+      "export_failed": "無法匯出檢視。"
+    },
+    "viewer": {
+      "not_found": "此檔案已不存在。",
+      "load_failed": "無法開啟此檔案",
+      "loading": {
+        "cache": "正在開啟檔案…",
+        "download": "正在下載檔案…",
+        "parse": "正在讀取試算表…"
+      },
+      "download": "下載原始檔案",
+      "export": "將檢視匯出為 CSV",
+      "columns": "{count, plural, one {# 欄} other {# 欄}}",
+      "rows_filtered": "{visible} / {total} 列",
+      "sheets": "工作表",
+      "header_toggle": "第一列為標題",
+      "density": "列密度",
+      "compact": "緊湊",
+      "comfortable": "寬鬆",
+      "search_placeholder": "在工作表中尋找",
+      "match_count": "第 {current} 個，共 {total} 個",
+      "no_matches": "沒有相符項目",
+      "matches_truncated": "僅顯示前 {limit} 個相符項目",
+      "next_match": "下一個相符項目",
+      "previous_match": "上一個相符項目",
+      "clear_search": "清除搜尋",
+      "empty_sheet": "此工作表是空的。",
+      "no_rows_match": "沒有符合目前篩選條件的列。",
+      "copied": "{count, plural, one {已複製 # 個儲存格} other {已複製 # 個儲存格}}",
+      "selection": {
+        "count": "計數",
+        "sum": "加總",
+        "avg": "平均值"
+      }
+    },
+    "column": {
+      "menu": "{column} 欄選項",
+      "types": {
+        "text": "文字",
+        "number": "數字",
+        "date": "日期",
+        "boolean": "真/假"
+      },
+      "stats": {
+        "count": "值",
+        "empty": "空白",
+        "distinct": "唯一值",
+        "sum": "加總",
+        "avg": "平均值",
+        "min": "最小值",
+        "max": "最大值"
+      },
+      "sort_asc": "遞增排序",
+      "sort_desc": "遞減排序",
+      "sorted_asc": "遞增",
+      "sorted_desc": "遞減",
+      "clear_sort": "清除排序",
+      "add_filter": "新增篩選"
+    },
+    "filter": {
+      "active": "已套用的篩選",
+      "operator": "條件",
+      "value": "值",
+      "apply": "套用",
+      "remove": "移除篩選",
+      "clear_all": "全部清除",
+      "operators": {
+        "contains": "包含",
+        "not_contains": "不包含",
+        "equals": "等於",
+        "not_equals": "不等於",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "為空白",
+        "not_empty": "不為空白"
+      }
+    }
+  }
+}

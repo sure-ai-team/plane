@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "프로젝트 개요 섹션",
+      "readme": "README",
+      "data": "데이터 파일"
+    },
+    "hero": {
+      "members": "{count, plural, one {멤버 #명} other {멤버 #명}}",
+      "no_lead": "리더 없음",
+      "created": "{date}에 생성됨",
+      "show_more": "더 보기",
+      "show_less": "접기"
+    },
+    "readme": {
+      "templates": {
+        "title": "프로젝트 README 만들기",
+        "description": "이 프로젝트가 무엇인지, 어떻게 동작하는지, 어떻게 참여할 수 있는지 모두가 한곳에서 확인할 수 있게 하세요.",
+        "product": {
+          "title": "제품 가이드라인",
+          "description": "목표, 사용자, 범위, 그리고 결정의 바탕이 되는 원칙."
+        },
+        "architecture": {
+          "title": "아키텍처",
+          "description": "시스템, 구성 요소, 데이터 흐름, 주요 기술 결정."
+        },
+        "onboarding": {
+          "title": "온보딩",
+          "description": "새 팀원이 첫 주에 필요한 모든 것."
+        },
+        "blank": {
+          "title": "빈 문서",
+          "description": "빈 페이지에서 원하는 대로 작성을 시작합니다."
+        },
+        "creating": "README를 만드는 중…",
+        "create_error": "README를 만들지 못했습니다. 다시 시도하세요."
+      },
+      "empty": {
+        "title": "아직 README가 없습니다",
+        "description": "관리자나 멤버가 추가하면 이 프로젝트의 내용과 시작 방법을 이곳에서 확인할 수 있습니다."
+      },
+      "load_error": {
+        "title": "README를 불러오지 못했습니다",
+        "description": "연결을 확인하고 다시 시도하세요.",
+        "retry": "다시 시도"
+      },
+      "unavailable": {
+        "title": "이 README를 사용할 수 없습니다",
+        "description": "README 페이지가 보관, 삭제되었거나 비공개로 전환되었습니다."
+      },
+      "guest_unavailable": {
+        "title": "게스트는 README를 볼 수 없습니다",
+        "description": "이 프로젝트는 게스트와 페이지를 공유하지 않습니다. 접근 권한이 필요하면 프로젝트 관리자에게 문의하세요."
+      },
+      "last_edited": "마지막 편집: {name}",
+      "edit": "편집",
+      "done": "완료",
+      "status": {
+        "editing": "편집 중",
+        "saving": "저장 중…",
+        "saved": "저장됨",
+        "offline": "오프라인 상태입니다. 다시 연결되면 변경 사항이 동기화됩니다"
+      },
+      "menu": {
+        "label": "README 옵션",
+        "copy_markdown": "Markdown으로 복사",
+        "copied": "Markdown을 클립보드에 복사했습니다.",
+        "import_markdown": ".md 가져오기",
+        "open_in_pages": "페이지에서 열기"
+      },
+      "import": {
+        "confirm_title": "README를 바꾸시겠습니까?",
+        "confirm_description": "README의 모든 내용이 {fileName}의 내용으로 바뀝니다. 보고 있는 모든 사용자에게 바로 반영됩니다.",
+        "confirm_button": "바꾸기",
+        "confirm_loading": "바꾸는 중",
+        "success": "README를 {fileName}의 내용으로 바꿨습니다.",
+        "error": "파일을 읽을 수 없습니다. Markdown(.md) 파일을 선택하세요."
+      }
+    },
+    "outline": {
+      "title": "이 페이지의 내용",
+      "contents": "목차",
+      "empty": "README에 제목을 추가하면 목차가 만들어집니다.",
+      "copy_link": "{section} 링크 복사",
+      "link_copied": "섹션 링크를 복사했습니다."
+    }
+  }
+}

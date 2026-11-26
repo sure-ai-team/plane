@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "데이터 파일",
+    "upload": "업로드",
+    "upload_files": "파일 업로드",
+    "drop_here": "놓아서 데이터 파일에 추가",
+    "drop_hint": "Excel(.xlsx) 또는 CSV, 파일당 최대 {size}MB",
+    "search_placeholder": "파일 검색",
+    "no_results": "\"{query}\"와(과) 일치하는 파일이 없습니다",
+    "load_error": "데이터 파일을 불러오지 못했습니다.",
+    "empty": {
+      "title": "아직 데이터 파일이 없습니다",
+      "description": "Excel 또는 CSV 파일을 업로드하면 여기에서 바로 탐색, 검색, 필터링할 수 있습니다.",
+      "guest_description": "프로젝트 멤버가 추가한 스프레드시트가 여기에 표시됩니다."
+    },
+    "card": {
+      "open": "{name} 열기",
+      "actions": "파일 작업",
+      "sheets": "{count, plural, one {시트 #개} other {시트 #개}}",
+      "rows": "{count, plural, one {#행} other {#행}}"
+    },
+    "status": {
+      "uploading": "업로드 중 {progress}%",
+      "processing": "처리 중…",
+      "ready": "준비됨",
+      "failed": "업로드 실패"
+    },
+    "actions": {
+      "rename": "이름 바꾸기",
+      "replace": "파일 교체",
+      "download": "다운로드",
+      "delete": "삭제",
+      "retry": "업로드 다시 시도",
+      "dismiss": "닫기"
+    },
+    "rename": {
+      "label": "파일 이름",
+      "error": "파일 이름을 바꾸지 못했습니다."
+    },
+    "delete": {
+      "title": "데이터 파일 삭제",
+      "content": "\"{name}\"이(가) 이 프로젝트의 모든 사용자에게서 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "deleting": "삭제 중",
+      "success": "파일이 삭제되었습니다",
+      "error": "파일을 삭제하지 못했습니다."
+    },
+    "errors": {
+      "title": "파일을 추가하지 못했습니다",
+      "unsupported_type": "\"{name}\"은(는) 지원되지 않습니다. Excel(.xlsx) 또는 CSV 파일을 업로드하십시오.",
+      "file_too_large": "\"{name}\"이(가) {limit}MB보다 큽니다.",
+      "empty_file": "\"{name}\"이(가) 비어 있습니다.",
+      "too_many_rows": "이 파일은 {limit, number}행을 초과하여 뷰어에서 표시할 수 있는 범위를 넘습니다.",
+      "too_many_columns": "이 파일은 {limit, number}열을 초과하여 뷰어에서 표시할 수 있는 범위를 넘습니다.",
+      "too_many_sheets": "이 통합 문서에는 시트가 {limit, number}개를 초과합니다.",
+      "zip_bomb": "이 파일은 압축을 풀면 비정상적으로 커지므로 안전을 위해 차단되었습니다.",
+      "corrupt": "이 파일을 읽을 수 없습니다. 손상되었거나 실제 Excel 또는 CSV 파일이 아닐 수 있습니다.",
+      "timeout": "이 파일을 읽는 데 시간이 너무 오래 걸렸습니다.",
+      "download_failed": "파일을 다운로드하지 못했습니다. 연결을 확인하고 다시 시도하십시오.",
+      "upload_failed": "업로드가 완료되지 않았습니다. 다시 시도하십시오.",
+      "unknown": "문제가 발생했습니다. 다시 시도하십시오.",
+      "copy_failed": "클립보드에 복사하지 못했습니다.",
+      "export_failed": "보기를 내보내지 못했습니다."
+    },
+    "viewer": {
+      "not_found": "이 파일은 더 이상 존재하지 않습니다.",
+      "load_failed": "이 파일을 열지 못했습니다",
+      "loading": {
+        "cache": "파일 여는 중…",
+        "download": "파일 다운로드 중…",
+        "parse": "스프레드시트 읽는 중…"
+      },
+      "download": "원본 다운로드",
+      "export": "보기를 CSV로 내보내기",
+      "columns": "{count, plural, one {#열} other {#열}}",
+      "rows_filtered": "{total}행 중 {visible}행",
+      "sheets": "시트",
+      "header_toggle": "첫 행을 머리글로 사용",
+      "density": "행 밀도",
+      "compact": "좁게",
+      "comfortable": "넓게",
+      "search_placeholder": "시트에서 찾기",
+      "match_count": "{current}/{total}",
+      "no_matches": "일치 항목 없음",
+      "matches_truncated": "처음 {limit}개의 일치 항목만 표시합니다",
+      "next_match": "다음 일치 항목",
+      "previous_match": "이전 일치 항목",
+      "clear_search": "검색 지우기",
+      "empty_sheet": "이 시트는 비어 있습니다.",
+      "no_rows_match": "현재 필터와 일치하는 행이 없습니다.",
+      "copied": "{count, plural, one {셀 #개를 복사했습니다} other {셀 #개를 복사했습니다}}",
+      "selection": {
+        "count": "개수",
+        "sum": "합계",
+        "avg": "평균"
+      }
+    },
+    "column": {
+      "menu": "{column} 열 옵션",
+      "types": {
+        "text": "텍스트",
+        "number": "숫자",
+        "date": "날짜",
+        "boolean": "참/거짓"
+      },
+      "stats": {
+        "count": "값",
+        "empty": "빈 셀",
+        "distinct": "고유 값",
+        "sum": "합계",
+        "avg": "평균",
+        "min": "최솟값",
+        "max": "최댓값"
+      },
+      "sort_asc": "오름차순 정렬",
+      "sort_desc": "내림차순 정렬",
+      "sorted_asc": "오름차순",
+      "sorted_desc": "내림차순",
+      "clear_sort": "정렬 해제",
+      "add_filter": "필터 추가"
+    },
+    "filter": {
+      "active": "적용된 필터",
+      "operator": "조건",
+      "value": "값",
+      "apply": "적용",
+      "remove": "필터 제거",
+      "clear_all": "모두 지우기",
+      "operators": {
+        "contains": "포함",
+        "not_contains": "포함하지 않음",
+        "equals": "같음",
+        "not_equals": "같지 않음",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "비어 있음",
+        "not_empty": "비어 있지 않음"
+      }
+    }
+  }
+}

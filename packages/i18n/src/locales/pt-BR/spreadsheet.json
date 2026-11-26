@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "Arquivos de dados",
+    "upload": "Enviar",
+    "upload_files": "Enviar arquivos",
+    "drop_here": "Solte para adicionar aos arquivos de dados",
+    "drop_hint": "Excel (.xlsx) ou CSV, até {size} MB cada",
+    "search_placeholder": "Pesquisar arquivos",
+    "no_results": "Nenhum arquivo corresponde a \"{query}\"",
+    "load_error": "Não foi possível carregar os arquivos de dados.",
+    "empty": {
+      "title": "Nenhum arquivo de dados ainda",
+      "description": "Envie arquivos Excel ou CSV para navegar, pesquisar e filtrar diretamente aqui.",
+      "guest_description": "As planilhas adicionadas pelos membros do projeto aparecerão aqui."
+    },
+    "card": {
+      "open": "Abrir {name}",
+      "actions": "Ações do arquivo",
+      "sheets": "{count, plural, one {# planilha} many {# planilhas} other {# planilhas}}",
+      "rows": "{count, plural, one {# linha} many {# linhas} other {# linhas}}"
+    },
+    "status": {
+      "uploading": "Enviando {progress}%",
+      "processing": "Processando…",
+      "ready": "Pronto",
+      "failed": "Falha no envio"
+    },
+    "actions": {
+      "rename": "Renomear",
+      "replace": "Substituir arquivo",
+      "download": "Baixar",
+      "delete": "Excluir",
+      "retry": "Tentar enviar novamente",
+      "dismiss": "Dispensar"
+    },
+    "rename": {
+      "label": "Nome do arquivo",
+      "error": "Não foi possível renomear o arquivo."
+    },
+    "delete": {
+      "title": "Excluir arquivo de dados",
+      "content": "\"{name}\" será removido para todos neste projeto. Essa ação não pode ser desfeita.",
+      "deleting": "Excluindo",
+      "success": "Arquivo excluído",
+      "error": "Não foi possível excluir o arquivo."
+    },
+    "errors": {
+      "title": "Não foi possível adicionar o arquivo",
+      "unsupported_type": "\"{name}\" não é compatível. Envie um arquivo Excel (.xlsx) ou CSV.",
+      "file_too_large": "\"{name}\" tem mais de {limit} MB.",
+      "empty_file": "\"{name}\" está vazio.",
+      "too_many_rows": "Este arquivo tem mais de {limit, number} linhas, mais do que o visualizador consegue exibir.",
+      "too_many_columns": "Este arquivo tem mais de {limit, number} colunas, mais do que o visualizador consegue exibir.",
+      "too_many_sheets": "Esta pasta de trabalho tem mais de {limit, number} planilhas.",
+      "zip_bomb": "Este arquivo se expande para um tamanho anormalmente grande e foi bloqueado por segurança.",
+      "corrupt": "Não foi possível ler este arquivo. Ele pode estar danificado ou não ser um arquivo Excel ou CSV válido.",
+      "timeout": "A leitura deste arquivo demorou demais.",
+      "download_failed": "Não foi possível baixar o arquivo. Verifique sua conexão e tente novamente.",
+      "upload_failed": "O envio não foi concluído. Tente novamente.",
+      "unknown": "Algo deu errado. Tente novamente.",
+      "copy_failed": "Não foi possível copiar para a área de transferência.",
+      "export_failed": "Não foi possível exportar a visualização."
+    },
+    "viewer": {
+      "not_found": "Este arquivo não existe mais.",
+      "load_failed": "Não foi possível abrir este arquivo",
+      "loading": {
+        "cache": "Abrindo arquivo…",
+        "download": "Baixando arquivo…",
+        "parse": "Lendo planilha…"
+      },
+      "download": "Baixar original",
+      "export": "Exportar visualização como CSV",
+      "columns": "{count, plural, one {# coluna} many {# colunas} other {# colunas}}",
+      "rows_filtered": "{visible} de {total} linhas",
+      "sheets": "Planilhas",
+      "header_toggle": "A primeira linha é o cabeçalho",
+      "density": "Densidade das linhas",
+      "compact": "Compacta",
+      "comfortable": "Confortável",
+      "search_placeholder": "Localizar na planilha",
+      "match_count": "{current} de {total}",
+      "no_matches": "Nenhum resultado",
+      "matches_truncated": "Mostrando os primeiros {limit} resultados",
+      "next_match": "Próximo resultado",
+      "previous_match": "Resultado anterior",
+      "clear_search": "Limpar pesquisa",
+      "empty_sheet": "Esta planilha está vazia.",
+      "no_rows_match": "Nenhuma linha corresponde aos filtros atuais.",
+      "copied": "{count, plural, one {# célula copiada} many {# células copiadas} other {# células copiadas}}",
+      "selection": {
+        "count": "Contagem",
+        "sum": "Soma",
+        "avg": "Média"
+      }
+    },
+    "column": {
+      "menu": "Opções da coluna {column}",
+      "types": {
+        "text": "Texto",
+        "number": "Número",
+        "date": "Data",
+        "boolean": "Verdadeiro/falso"
+      },
+      "stats": {
+        "count": "Valores",
+        "empty": "Vazias",
+        "distinct": "Distintos",
+        "sum": "Soma",
+        "avg": "Média",
+        "min": "Mín.",
+        "max": "Máx."
+      },
+      "sort_asc": "Ordem crescente",
+      "sort_desc": "Ordem decrescente",
+      "sorted_asc": "crescente",
+      "sorted_desc": "decrescente",
+      "clear_sort": "Remover ordenação",
+      "add_filter": "Adicionar filtro"
+    },
+    "filter": {
+      "active": "Filtros ativos",
+      "operator": "Condição",
+      "value": "Valor",
+      "apply": "Aplicar",
+      "remove": "Remover filtro",
+      "clear_all": "Limpar tudo",
+      "operators": {
+        "contains": "contém",
+        "not_contains": "não contém",
+        "equals": "é",
+        "not_equals": "não é",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "está vazio",
+        "not_empty": "não está vazio"
+      }
+    }
+  }
+}

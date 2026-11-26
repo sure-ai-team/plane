@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "Veri dosyaları",
+    "upload": "Yükle",
+    "upload_files": "Dosya yükle",
+    "drop_here": "Veri dosyalarına eklemek için bırakın",
+    "drop_hint": "Excel (.xlsx) veya CSV, her biri en fazla {size} MB",
+    "search_placeholder": "Dosyalarda ara",
+    "no_results": "\"{query}\" ile eşleşen dosya yok",
+    "load_error": "Veri dosyaları yüklenemedi.",
+    "empty": {
+      "title": "Henüz veri dosyası yok",
+      "description": "Excel veya CSV dosyalarını yükleyerek burada göz atabilir, arayabilir ve filtreleyebilirsiniz.",
+      "guest_description": "Proje üyelerinin eklediği tablolar burada görünecek."
+    },
+    "card": {
+      "open": "{name} dosyasını aç",
+      "actions": "Dosya işlemleri",
+      "sheets": "{count, plural, one {# sayfa} other {# sayfa}}",
+      "rows": "{count, plural, one {# satır} other {# satır}}"
+    },
+    "status": {
+      "uploading": "Yükleniyor %{progress}",
+      "processing": "İşleniyor…",
+      "ready": "Hazır",
+      "failed": "Yükleme başarısız"
+    },
+    "actions": {
+      "rename": "Yeniden adlandır",
+      "replace": "Dosyayı değiştir",
+      "download": "İndir",
+      "delete": "Sil",
+      "retry": "Yüklemeyi yeniden dene",
+      "dismiss": "Kapat"
+    },
+    "rename": {
+      "label": "Dosya adı",
+      "error": "Dosya yeniden adlandırılamadı."
+    },
+    "delete": {
+      "title": "Veri dosyasını sil",
+      "content": "\"{name}\" bu projedeki herkes için kaldırılacak. Bu işlem geri alınamaz.",
+      "deleting": "Siliniyor",
+      "success": "Dosya silindi",
+      "error": "Dosya silinemedi."
+    },
+    "errors": {
+      "title": "Dosya eklenemedi",
+      "unsupported_type": "\"{name}\" desteklenmiyor. Bir Excel (.xlsx) veya CSV dosyası yükleyin.",
+      "file_too_large": "\"{name}\" {limit} MB'tan büyük.",
+      "empty_file": "\"{name}\" boş.",
+      "too_many_rows": "Bu dosyada {limit, number} satırdan fazla var; görüntüleyicinin gösterebileceğinden fazla.",
+      "too_many_columns": "Bu dosyada {limit, number} sütundan fazla var; görüntüleyicinin gösterebileceğinden fazla.",
+      "too_many_sheets": "Bu çalışma kitabında {limit, number} sayfadan fazla var.",
+      "zip_bomb": "Bu dosya olağan dışı büyük bir boyuta açılıyor, bu nedenle güvenlik için engellendi.",
+      "corrupt": "Bu dosya okunamadı. Hasarlı olabilir ya da gerçek bir Excel veya CSV dosyası olmayabilir.",
+      "timeout": "Bu dosyanın okunması çok uzun sürdü.",
+      "download_failed": "Dosya indirilemedi. Bağlantınızı kontrol edip yeniden deneyin.",
+      "upload_failed": "Yükleme tamamlanmadı. Yeniden deneyin.",
+      "unknown": "Bir sorun oluştu. Yeniden deneyin.",
+      "copy_failed": "Panoya kopyalanamadı.",
+      "export_failed": "Görünüm dışa aktarılamadı."
+    },
+    "viewer": {
+      "not_found": "Bu dosya artık mevcut değil.",
+      "load_failed": "Bu dosya açılamadı",
+      "loading": {
+        "cache": "Dosya açılıyor…",
+        "download": "Dosya indiriliyor…",
+        "parse": "Tablo okunuyor…"
+      },
+      "download": "Orijinali indir",
+      "export": "Görünümü CSV olarak dışa aktar",
+      "columns": "{count, plural, one {# sütun} other {# sütun}}",
+      "rows_filtered": "{total} satırdan {visible}",
+      "sheets": "Sayfalar",
+      "header_toggle": "İlk satır başlıktır",
+      "density": "Satır yoğunluğu",
+      "compact": "Sıkı",
+      "comfortable": "Rahat",
+      "search_placeholder": "Sayfada bul",
+      "match_count": "{current} / {total}",
+      "no_matches": "Eşleşme yok",
+      "matches_truncated": "İlk {limit} eşleşme gösteriliyor",
+      "next_match": "Sonraki eşleşme",
+      "previous_match": "Önceki eşleşme",
+      "clear_search": "Aramayı temizle",
+      "empty_sheet": "Bu sayfa boş.",
+      "no_rows_match": "Geçerli filtrelerle eşleşen satır yok.",
+      "copied": "{count, plural, one {# hücre kopyalandı} other {# hücre kopyalandı}}",
+      "selection": {
+        "count": "Sayı",
+        "sum": "Toplam",
+        "avg": "Ortalama"
+      }
+    },
+    "column": {
+      "menu": "{column} sütunu seçenekleri",
+      "types": {
+        "text": "Metin",
+        "number": "Sayı",
+        "date": "Tarih",
+        "boolean": "Doğru/yanlış"
+      },
+      "stats": {
+        "count": "Değerler",
+        "empty": "Boş",
+        "distinct": "Benzersiz",
+        "sum": "Toplam",
+        "avg": "Ortalama",
+        "min": "En az",
+        "max": "En çok"
+      },
+      "sort_asc": "Artan sırala",
+      "sort_desc": "Azalan sırala",
+      "sorted_asc": "artan",
+      "sorted_desc": "azalan",
+      "clear_sort": "Sıralamayı kaldır",
+      "add_filter": "Filtre ekle"
+    },
+    "filter": {
+      "active": "Etkin filtreler",
+      "operator": "Koşul",
+      "value": "Değer",
+      "apply": "Uygula",
+      "remove": "Filtreyi kaldır",
+      "clear_all": "Tümünü temizle",
+      "operators": {
+        "contains": "içerir",
+        "not_contains": "içermez",
+        "equals": "eşittir",
+        "not_equals": "eşit değildir",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "boş",
+        "not_empty": "boş değil"
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "spreadsheet": {
+    "title": "Fichiers de données",
+    "upload": "Importer",
+    "upload_files": "Importer des fichiers",
+    "drop_here": "Déposez pour ajouter aux fichiers de données",
+    "drop_hint": "Excel (.xlsx) ou CSV, jusqu'à {size} Mo chacun",
+    "search_placeholder": "Rechercher des fichiers",
+    "no_results": "Aucun fichier ne correspond à « {query} »",
+    "load_error": "Impossible de charger les fichiers de données.",
+    "empty": {
+      "title": "Aucun fichier de données pour l'instant",
+      "description": "Importez des fichiers Excel ou CSV pour les parcourir, les rechercher et les filtrer ici même.",
+      "guest_description": "Les feuilles de calcul ajoutées par les membres du projet apparaîtront ici."
+    },
+    "card": {
+      "open": "Ouvrir {name}",
+      "actions": "Actions du fichier",
+      "sheets": "{count, plural, one {# feuille} many {# feuilles} other {# feuilles}}",
+      "rows": "{count, plural, one {# ligne} many {# lignes} other {# lignes}}"
+    },
+    "status": {
+      "uploading": "Importation {progress} %",
+      "processing": "Traitement…",
+      "ready": "Prêt",
+      "failed": "Échec de l'importation"
+    },
+    "actions": {
+      "rename": "Renommer",
+      "replace": "Remplacer le fichier",
+      "download": "Télécharger",
+      "delete": "Supprimer",
+      "retry": "Réessayer l'importation",
+      "dismiss": "Ignorer"
+    },
+    "rename": {
+      "label": "Nom du fichier",
+      "error": "Impossible de renommer le fichier."
+    },
+    "delete": {
+      "title": "Supprimer le fichier de données",
+      "content": "« {name} » sera supprimé pour tous les membres de ce projet. Cette action est irréversible.",
+      "deleting": "Suppression",
+      "success": "Fichier supprimé",
+      "error": "Impossible de supprimer le fichier."
+    },
+    "errors": {
+      "title": "Impossible d'ajouter le fichier",
+      "unsupported_type": "« {name} » n'est pas pris en charge. Importez un fichier Excel (.xlsx) ou CSV.",
+      "file_too_large": "« {name} » dépasse {limit} Mo.",
+      "empty_file": "« {name} » est vide.",
+      "too_many_rows": "Ce fichier contient plus de {limit, number} lignes, ce qui dépasse ce que la visionneuse peut afficher.",
+      "too_many_columns": "Ce fichier contient plus de {limit, number} colonnes, ce qui dépasse ce que la visionneuse peut afficher.",
+      "too_many_sheets": "Ce classeur contient plus de {limit, number} feuilles.",
+      "zip_bomb": "Ce fichier se décompresse à une taille anormalement grande ; il a été bloqué par sécurité.",
+      "corrupt": "Ce fichier est illisible. Il est peut-être endommagé ou n'est pas un vrai fichier Excel ou CSV.",
+      "timeout": "La lecture de ce fichier a pris trop de temps.",
+      "download_failed": "Impossible de télécharger le fichier. Vérifiez votre connexion et réessayez.",
+      "upload_failed": "L'importation n'a pas abouti. Réessayez.",
+      "unknown": "Une erreur s'est produite. Réessayez.",
+      "copy_failed": "Impossible de copier dans le presse-papiers.",
+      "export_failed": "Impossible d'exporter la vue."
+    },
+    "viewer": {
+      "not_found": "Ce fichier n'existe plus.",
+      "load_failed": "Impossible d'ouvrir ce fichier",
+      "loading": {
+        "cache": "Ouverture du fichier…",
+        "download": "Téléchargement du fichier…",
+        "parse": "Lecture de la feuille de calcul…"
+      },
+      "download": "Télécharger l'original",
+      "export": "Exporter la vue en CSV",
+      "columns": "{count, plural, one {# colonne} many {# colonnes} other {# colonnes}}",
+      "rows_filtered": "{visible} lignes sur {total}",
+      "sheets": "Feuilles",
+      "header_toggle": "La première ligne est l'en-tête",
+      "density": "Densité des lignes",
+      "compact": "Compacte",
+      "comfortable": "Confortable",
+      "search_placeholder": "Rechercher dans la feuille",
+      "match_count": "{current} sur {total}",
+      "no_matches": "Aucun résultat",
+      "matches_truncated": "Affichage des {limit} premiers résultats",
+      "next_match": "Résultat suivant",
+      "previous_match": "Résultat précédent",
+      "clear_search": "Effacer la recherche",
+      "empty_sheet": "Cette feuille est vide.",
+      "no_rows_match": "Aucune ligne ne correspond aux filtres actuels.",
+      "copied": "{count, plural, one {# cellule copiée} many {# cellules copiées} other {# cellules copiées}}",
+      "selection": {
+        "count": "Nombre",
+        "sum": "Somme",
+        "avg": "Moyenne"
+      }
+    },
+    "column": {
+      "menu": "Options de la colonne {column}",
+      "types": {
+        "text": "Texte",
+        "number": "Nombre",
+        "date": "Date",
+        "boolean": "Vrai/faux"
+      },
+      "stats": {
+        "count": "Valeurs",
+        "empty": "Vides",
+        "distinct": "Distinctes",
+        "sum": "Somme",
+        "avg": "Moyenne",
+        "min": "Min",
+        "max": "Max"
+      },
+      "sort_asc": "Tri croissant",
+      "sort_desc": "Tri décroissant",
+      "sorted_asc": "croissant",
+      "sorted_desc": "décroissant",
+      "clear_sort": "Retirer le tri",
+      "add_filter": "Ajouter un filtre"
+    },
+    "filter": {
+      "active": "Filtres actifs",
+      "operator": "Condition",
+      "value": "Valeur",
+      "apply": "Appliquer",
+      "remove": "Retirer le filtre",
+      "clear_all": "Tout effacer",
+      "operators": {
+        "contains": "contient",
+        "not_contains": "ne contient pas",
+        "equals": "est",
+        "not_equals": "n'est pas",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "est vide",
+        "not_empty": "n'est pas vide"
+      }
+    }
+  }
+}

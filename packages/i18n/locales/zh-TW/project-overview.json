@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "專案概覽區段",
+      "readme": "README",
+      "data": "資料檔案"
+    },
+    "hero": {
+      "members": "{count, plural, one {# 位成員} other {# 位成員}}",
+      "no_lead": "未設定負責人",
+      "created": "建立於 {date}",
+      "show_more": "顯示更多",
+      "show_less": "收合"
+    },
+    "readme": {
+      "templates": {
+        "title": "建立專案 README",
+        "description": "為所有人提供一個了解此專案是什麼、如何運作以及如何參與的統一入口。",
+        "product": {
+          "title": "產品指南",
+          "description": "目標、使用者、範圍以及決策背後的原則。"
+        },
+        "architecture": {
+          "title": "架構",
+          "description": "系統、元件、資料流與關鍵技術決策。"
+        },
+        "onboarding": {
+          "title": "新成員指南",
+          "description": "新成員第一週所需的一切。"
+        },
+        "blank": {
+          "title": "空白",
+          "description": "從空白頁面開始，按您的方式撰寫。"
+        },
+        "creating": "正在建立 README…",
+        "create_error": "無法建立 README，請再試一次。"
+      },
+      "empty": {
+        "title": "尚無 README",
+        "description": "管理員或成員新增後，這裡會介紹此專案的內容以及如何開始。"
+      },
+      "load_error": {
+        "title": "無法載入 README",
+        "description": "請檢查網路連線後再試一次。",
+        "retry": "重試"
+      },
+      "unavailable": {
+        "title": "此 README 無法使用",
+        "description": "其頁面已被封存、刪除或設為私人。"
+      },
+      "guest_unavailable": {
+        "title": "訪客無法檢視 README",
+        "description": "此專案未與訪客共用頁面。如需存取，請聯絡專案管理員。"
+      },
+      "last_edited": "最後編輯者：{name}",
+      "edit": "編輯",
+      "done": "完成",
+      "status": {
+        "editing": "正在編輯",
+        "saving": "正在儲存…",
+        "saved": "已儲存",
+        "offline": "已離線，重新連線後將同步變更"
+      },
+      "menu": {
+        "label": "README 選項",
+        "copy_markdown": "複製為 Markdown",
+        "copied": "已將 Markdown 複製到剪貼簿。",
+        "import_markdown": "匯入 .md",
+        "open_in_pages": "在頁面中開啟"
+      },
+      "import": {
+        "confirm_title": "要取代 README 嗎？",
+        "confirm_description": "README 的所有內容將被取代為 {fileName} 的內容。正在檢視的人會立即看到變更。",
+        "confirm_button": "取代",
+        "confirm_loading": "正在取代",
+        "success": "已用 {fileName} 取代 README。",
+        "error": "無法讀取該檔案。請選擇 Markdown (.md) 檔案。"
+      }
+    },
+    "outline": {
+      "title": "本頁內容",
+      "contents": "目錄",
+      "empty": "在 README 中新增標題即可產生目錄。",
+      "copy_link": "複製「{section}」的連結",
+      "link_copied": "已複製章節連結。"
+    }
+  }
+}

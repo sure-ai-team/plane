@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Secțiunile prezentării proiectului",
+      "readme": "README",
+      "data": "Fișiere de date"
+    },
+    "hero": {
+      "members": "{count, plural, one {# membru} few {# membri} other {# de membri}}",
+      "no_lead": "Fără responsabil",
+      "created": "Creat pe {date}",
+      "show_more": "Afișați mai mult",
+      "show_less": "Afișați mai puțin"
+    },
+    "readme": {
+      "templates": {
+        "title": "Creați fișierul README al proiectului",
+        "description": "Oferiți tuturor un singur loc în care să afle despre ce este acest proiect, cum funcționează și cum se pot implica.",
+        "product": {
+          "title": "Ghid de produs",
+          "description": "Obiective, utilizatori, domeniu și principiile din spatele deciziilor."
+        },
+        "architecture": {
+          "title": "Arhitectură",
+          "description": "Sisteme, componente, fluxul datelor și deciziile tehnice importante."
+        },
+        "onboarding": {
+          "title": "Integrare",
+          "description": "Tot ce îi trebuie unui coleg nou în prima săptămână."
+        },
+        "blank": {
+          "title": "Gol",
+          "description": "Porniți de la o pagină goală și scrieți-o în felul dumneavoastră."
+        },
+        "creating": "Se creează README…",
+        "create_error": "Nu s-a putut crea README. Vă rugăm să încercați din nou."
+      },
+      "empty": {
+        "title": "Încă nu există README",
+        "description": "Când un administrator sau un membru va adăuga unul, acesta va explica despre ce este proiectul și cum se începe."
+      },
+      "load_error": {
+        "title": "Nu s-a putut încărca README",
+        "description": "Verificați conexiunea și încercați din nou.",
+        "retry": "Încercați din nou"
+      },
+      "unavailable": {
+        "title": "Acest README nu este disponibil",
+        "description": "Pagina sa a fost arhivată, ștearsă sau făcută privată."
+      },
+      "guest_unavailable": {
+        "title": "README nu este disponibil pentru invitați",
+        "description": "Acest proiect nu își partajează paginile cu invitații. Solicitați acces unui administrator al proiectului."
+      },
+      "last_edited": "Editat ultima dată de {name}",
+      "edit": "Editați",
+      "done": "Gata",
+      "status": {
+        "editing": "Editare",
+        "saving": "Se salvează…",
+        "saved": "Salvat",
+        "offline": "Offline, modificările se vor sincroniza la reconectare"
+      },
+      "menu": {
+        "label": "Opțiuni README",
+        "copy_markdown": "Copiați ca Markdown",
+        "copied": "Markdown copiat în clipboard.",
+        "import_markdown": "Importați .md",
+        "open_in_pages": "Deschideți în Pagini"
+      },
+      "import": {
+        "confirm_title": "Înlocuiți README?",
+        "confirm_description": "Tot conținutul README va fi înlocuit cu conținutul fișierului {fileName}. Cei care îl vizualizează vor vedea imediat schimbarea.",
+        "confirm_button": "Înlocuiți",
+        "confirm_loading": "Se înlocuiește",
+        "success": "README a fost înlocuit cu {fileName}.",
+        "error": "Fișierul nu a putut fi citit. Alegeți un fișier Markdown (.md)."
+      }
+    },
+    "outline": {
+      "title": "Pe această pagină",
+      "contents": "Cuprins",
+      "empty": "Adăugați titluri în README pentru a crea un cuprins.",
+      "copy_link": "Copiați linkul către {section}",
+      "link_copied": "Linkul către secțiune a fost copiat."
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Các phần tổng quan dự án",
+      "readme": "README",
+      "data": "Tệp dữ liệu"
+    },
+    "hero": {
+      "members": "{count, plural, one {# thành viên} other {# thành viên}}",
+      "no_lead": "Chưa có người phụ trách",
+      "created": "Tạo ngày {date}",
+      "show_more": "Xem thêm",
+      "show_less": "Thu gọn"
+    },
+    "readme": {
+      "templates": {
+        "title": "Tạo README cho dự án",
+        "description": "Cung cấp cho mọi người một nơi duy nhất để tìm hiểu dự án này là gì, hoạt động ra sao và cách tham gia.",
+        "product": {
+          "title": "Hướng dẫn sản phẩm",
+          "description": "Mục tiêu, người dùng, phạm vi và các nguyên tắc đằng sau quyết định."
+        },
+        "architecture": {
+          "title": "Kiến trúc",
+          "description": "Hệ thống, thành phần, luồng dữ liệu và các quyết định kỹ thuật chính."
+        },
+        "onboarding": {
+          "title": "Hội nhập",
+          "description": "Mọi thứ một thành viên mới cần trong tuần đầu tiên."
+        },
+        "blank": {
+          "title": "Trống",
+          "description": "Bắt đầu từ một trang trống và viết theo cách của bạn."
+        },
+        "creating": "Đang tạo README…",
+        "create_error": "Không thể tạo README. Vui lòng thử lại."
+      },
+      "empty": {
+        "title": "Chưa có README",
+        "description": "Khi quản trị viên hoặc thành viên thêm README, nó sẽ giải thích dự án này nói về điều gì và cách bắt đầu."
+      },
+      "load_error": {
+        "title": "Không thể tải README",
+        "description": "Kiểm tra kết nối của bạn và thử lại.",
+        "retry": "Thử lại"
+      },
+      "unavailable": {
+        "title": "README này không khả dụng",
+        "description": "Trang của nó đã bị lưu trữ, xóa hoặc chuyển sang riêng tư."
+      },
+      "guest_unavailable": {
+        "title": "README không khả dụng cho khách",
+        "description": "Dự án này không chia sẻ các trang với khách. Hãy liên hệ quản trị viên dự án nếu bạn cần quyền truy cập."
+      },
+      "last_edited": "Chỉnh sửa lần cuối bởi {name}",
+      "edit": "Chỉnh sửa",
+      "done": "Xong",
+      "status": {
+        "editing": "Đang chỉnh sửa",
+        "saving": "Đang lưu…",
+        "saved": "Đã lưu",
+        "offline": "Ngoại tuyến, các thay đổi sẽ được đồng bộ khi bạn kết nối lại"
+      },
+      "menu": {
+        "label": "Tùy chọn README",
+        "copy_markdown": "Sao chép dưới dạng Markdown",
+        "copied": "Đã sao chép Markdown vào bộ nhớ tạm.",
+        "import_markdown": "Nhập .md",
+        "open_in_pages": "Mở trong Trang"
+      },
+      "import": {
+        "confirm_title": "Thay thế README?",
+        "confirm_description": "Toàn bộ nội dung README sẽ được thay bằng nội dung của {fileName}. Bất kỳ ai đang xem sẽ thấy thay đổi ngay lập tức.",
+        "confirm_button": "Thay thế",
+        "confirm_loading": "Đang thay thế",
+        "success": "Đã thay README bằng {fileName}.",
+        "error": "Không thể đọc tệp đó. Hãy chọn một tệp Markdown (.md)."
+      }
+    },
+    "outline": {
+      "title": "Trên trang này",
+      "contents": "Mục lục",
+      "empty": "Thêm tiêu đề vào README để tạo mục lục.",
+      "copy_link": "Sao chép liên kết đến {section}",
+      "link_copied": "Đã sao chép liên kết đến mục."
+    }
+  }
+}

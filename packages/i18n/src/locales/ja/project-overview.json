@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "プロジェクト概要のセクション",
+      "readme": "README",
+      "data": "データファイル"
+    },
+    "hero": {
+      "members": "{count, plural, one {メンバー # 人} other {メンバー # 人}}",
+      "no_lead": "リーダー未設定",
+      "created": "{date} に作成",
+      "show_more": "もっと見る",
+      "show_less": "折りたたむ"
+    },
+    "readme": {
+      "templates": {
+        "title": "プロジェクトの README を作成",
+        "description": "このプロジェクトが何をするのか、どのように動くのか、どう参加すればよいのかを、誰もが 1 か所で確認できるようにします。",
+        "product": {
+          "title": "プロダクトガイドライン",
+          "description": "目標、ユーザー、スコープ、そして判断の拠り所となる原則。"
+        },
+        "architecture": {
+          "title": "アーキテクチャ",
+          "description": "システム、コンポーネント、データフロー、主要な技術的判断。"
+        },
+        "onboarding": {
+          "title": "オンボーディング",
+          "description": "新しいメンバーが最初の 1 週間に必要なことすべて。"
+        },
+        "blank": {
+          "title": "空白",
+          "description": "空のページから自由に書き始めます。"
+        },
+        "creating": "README を作成しています……",
+        "create_error": "README を作成できませんでした。もう一度お試しください。"
+      },
+      "empty": {
+        "title": "README はまだありません",
+        "description": "管理者またはメンバーが追加すると、このプロジェクトの概要と始め方がここに表示されます。"
+      },
+      "load_error": {
+        "title": "README を読み込めませんでした",
+        "description": "接続を確認して、もう一度お試しください。",
+        "retry": "再試行"
+      },
+      "unavailable": {
+        "title": "この README は利用できません",
+        "description": "README のページがアーカイブ、削除、または非公開にされました。"
+      },
+      "guest_unavailable": {
+        "title": "README はゲストには表示されません",
+        "description": "このプロジェクトはページをゲストと共有していません。アクセスが必要な場合は、プロジェクト管理者にお問い合わせください。"
+      },
+      "last_edited": "最終編集者: {name}",
+      "edit": "編集",
+      "done": "完了",
+      "status": {
+        "editing": "編集中",
+        "saving": "保存中……",
+        "saved": "保存済み",
+        "offline": "オフラインです。再接続すると変更が同期されます"
+      },
+      "menu": {
+        "label": "README のオプション",
+        "copy_markdown": "Markdown としてコピー",
+        "copied": "Markdown をクリップボードにコピーしました。",
+        "import_markdown": ".md をインポート",
+        "open_in_pages": "ページで開く"
+      },
+      "import": {
+        "confirm_title": "README を置き換えますか？",
+        "confirm_description": "README の内容はすべて {fileName} の内容に置き換えられます。閲覧中のユーザーにもすぐに反映されます。",
+        "confirm_button": "置き換える",
+        "confirm_loading": "置き換え中",
+        "success": "README を {fileName} の内容に置き換えました。",
+        "error": "ファイルを読み込めませんでした。Markdown (.md) ファイルを選択してください。"
+      }
+    },
+    "outline": {
+      "title": "このページの内容",
+      "contents": "目次",
+      "empty": "README に見出しを追加すると、目次が作成されます。",
+      "copy_link": "「{section}」へのリンクをコピー",
+      "link_copied": "セクションへのリンクをコピーしました。"
+    }
+  }
+}
