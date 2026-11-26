@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "File di dati",
+    "upload": "Carica",
+    "upload_files": "Carica file",
+    "drop_here": "Rilascia per aggiungere ai file di dati",
+    "drop_hint": "Excel (.xlsx) o CSV, fino a {size} MB ciascuno",
+    "search_placeholder": "Cerca file",
+    "no_results": "Nessun file corrisponde a «{query}»",
+    "load_error": "Impossibile caricare i file di dati.",
+    "empty": {
+      "title": "Ancora nessun file di dati",
+      "description": "Carichi file Excel o CSV per sfogliarli, cercarli e filtrarli direttamente qui.",
+      "guest_description": "I fogli di calcolo aggiunti dai membri del progetto appariranno qui."
+    },
+    "card": {
+      "open": "Apri {name}",
+      "actions": "Azioni del file",
+      "sheets": "{count, plural, one {# foglio} many {# fogli} other {# fogli}}",
+      "rows": "{count, plural, one {# riga} many {# righe} other {# righe}}"
+    },
+    "status": {
+      "uploading": "Caricamento {progress}%",
+      "processing": "Elaborazione…",
+      "ready": "Pronto",
+      "failed": "Caricamento non riuscito"
+    },
+    "actions": {
+      "rename": "Rinomina",
+      "replace": "Sostituisci file",
+      "download": "Scarica",
+      "delete": "Elimina",
+      "retry": "Riprova il caricamento",
+      "dismiss": "Ignora"
+    },
+    "rename": {
+      "label": "Nome del file",
+      "error": "Impossibile rinominare il file."
+    },
+    "delete": {
+      "title": "Elimina file di dati",
+      "content": "«{name}» verrà rimosso per tutti in questo progetto. L'operazione non può essere annullata.",
+      "deleting": "Eliminazione",
+      "success": "File eliminato",
+      "error": "Impossibile eliminare il file."
+    },
+    "errors": {
+      "title": "Impossibile aggiungere il file",
+      "unsupported_type": "«{name}» non è supportato. Carichi un file Excel (.xlsx) o CSV.",
+      "file_too_large": "«{name}» supera {limit} MB.",
+      "empty_file": "«{name}» è vuoto.",
+      "too_many_rows": "Questo file ha più di {limit, number} righe, oltre quanto il visualizzatore può mostrare.",
+      "too_many_columns": "Questo file ha più di {limit, number} colonne, oltre quanto il visualizzatore può mostrare.",
+      "too_many_sheets": "Questa cartella di lavoro ha più di {limit, number} fogli.",
+      "zip_bomb": "Questo file si espande a dimensioni insolitamente grandi ed è stato bloccato per sicurezza.",
+      "corrupt": "Impossibile leggere questo file. Potrebbe essere danneggiato o non essere un vero file Excel o CSV.",
+      "timeout": "La lettura di questo file ha richiesto troppo tempo.",
+      "download_failed": "Impossibile scaricare il file. Controlli la connessione e riprovi.",
+      "upload_failed": "Il caricamento non è stato completato. Riprovi.",
+      "unknown": "Si è verificato un errore. Riprovi.",
+      "copy_failed": "Impossibile copiare negli appunti.",
+      "copy_too_large": "Questa selezione è troppo grande per essere copiata (oltre {limit, number} celle).",
+      "export_failed": "Impossibile esportare la vista."
+    },
+    "viewer": {
+      "not_found": "Questo file non esiste più.",
+      "load_failed": "Impossibile aprire questo file",
+      "loading": {
+        "cache": "Apertura del file…",
+        "download": "Download del file…",
+        "parse": "Lettura del foglio di calcolo…"
+      },
+      "download": "Scarica l'originale",
+      "export": "Esporta vista come CSV",
+      "columns": "{count, plural, one {# colonna} many {# colonne} other {# colonne}}",
+      "rows_filtered": "{visible} di {total} righe",
+      "sheets": "Fogli",
+      "header_toggle": "La prima riga è l'intestazione",
+      "density": "Densità delle righe",
+      "compact": "Compatta",
+      "comfortable": "Comoda",
+      "search_placeholder": "Trova nel foglio",
+      "match_count": "{current} di {total}",
+      "no_matches": "Nessuna corrispondenza",
+      "matches_truncated": "Vengono mostrate le prime {limit} corrispondenze",
+      "next_match": "Corrispondenza successiva",
+      "previous_match": "Corrispondenza precedente",
+      "clear_search": "Cancella ricerca",
+      "empty_sheet": "Questo foglio è vuoto.",
+      "no_rows_match": "Nessuna riga corrisponde ai filtri attuali.",
+      "copied": "{count, plural, one {# cella copiata} many {# celle copiate} other {# celle copiate}}",
+      "selection": {
+        "count": "Conteggio",
+        "sum": "Somma",
+        "avg": "Media"
+      }
+    },
+    "column": {
+      "menu": "Opzioni della colonna {column}",
+      "types": {
+        "text": "Testo",
+        "number": "Numero",
+        "date": "Data",
+        "boolean": "Vero/falso"
+      },
+      "stats": {
+        "count": "Valori",
+        "empty": "Vuote",
+        "distinct": "Distinti",
+        "sum": "Somma",
+        "avg": "Media",
+        "min": "Min",
+        "max": "Max"
+      },
+      "sort_asc": "Ordine crescente",
+      "sort_desc": "Ordine decrescente",
+      "sorted_asc": "crescente",
+      "sorted_desc": "decrescente",
+      "clear_sort": "Rimuovi ordinamento",
+      "add_filter": "Aggiungi filtro"
+    },
+    "filter": {
+      "active": "Filtri attivi",
+      "operator": "Condizione",
+      "value": "Valore",
+      "apply": "Applica",
+      "remove": "Rimuovi filtro",
+      "clear_all": "Cancella tutto",
+      "operators": {
+        "contains": "contiene",
+        "not_contains": "non contiene",
+        "equals": "è",
+        "not_equals": "non è",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "è vuoto",
+        "not_empty": "non è vuoto"
+      }
+    }
+  }
+}

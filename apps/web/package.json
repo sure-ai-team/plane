@@ -40,6 +40,7 @@
     "@react-pdf/renderer": "catalog:",
     "@react-router/node": "catalog:",
     "@tanstack/react-table": "catalog:",
+    "@tanstack/react-virtual": "catalog:",
     "axios": "catalog:",
     "clsx": "catalog:",
     "cmdk": "catalog:",

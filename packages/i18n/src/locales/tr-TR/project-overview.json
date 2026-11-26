@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Proje genel bakış bölümleri",
+      "readme": "README",
+      "data": "Veri dosyaları"
+    },
+    "hero": {
+      "members": "{count, plural, one {# üye} other {# üye}}",
+      "no_lead": "Lider yok",
+      "created": "{date} tarihinde oluşturuldu",
+      "show_more": "Daha fazla göster",
+      "show_less": "Daha az göster"
+    },
+    "readme": {
+      "templates": {
+        "title": "Projenin README dosyasını oluşturun",
+        "description": "Herkesin bu projenin ne olduğunu, nasıl çalıştığını ve nasıl katkıda bulunabileceğini öğrenebileceği tek bir yer sunun.",
+        "product": {
+          "title": "Ürün yönergeleri",
+          "description": "Hedefler, kullanıcılar, kapsam ve kararların ardındaki ilkeler."
+        },
+        "architecture": {
+          "title": "Mimari",
+          "description": "Sistemler, bileşenler, veri akışı ve önemli teknik kararlar."
+        },
+        "onboarding": {
+          "title": "Oryantasyon",
+          "description": "Yeni bir ekip arkadaşının ilk haftasında ihtiyaç duyduğu her şey."
+        },
+        "blank": {
+          "title": "Boş",
+          "description": "Boş bir sayfayla başlayın ve dilediğiniz gibi yazın."
+        },
+        "creating": "README oluşturuluyor…",
+        "create_error": "README oluşturulamadı. Lütfen tekrar deneyin."
+      },
+      "empty": {
+        "title": "Henüz README yok",
+        "description": "Bir yönetici veya üye eklediğinde, bu projenin ne hakkında olduğunu ve nasıl başlanacağını açıklayacak."
+      },
+      "load_error": {
+        "title": "README yüklenemedi",
+        "description": "Bağlantınızı kontrol edip tekrar deneyin.",
+        "retry": "Tekrar dene"
+      },
+      "unavailable": {
+        "title": "Bu README kullanılamıyor",
+        "description": "Sayfası arşivlendi, silindi veya gizli yapıldı."
+      },
+      "guest_unavailable": {
+        "title": "README misafirler tarafından görüntülenemez",
+        "description": "Bu proje sayfalarını misafirlerle paylaşmıyor. Erişim için bir proje yöneticisine başvurun."
+      },
+      "last_edited": "Son düzenleyen: {name}",
+      "edit": "Düzenle",
+      "done": "Bitti",
+      "status": {
+        "editing": "Düzenleniyor",
+        "saving": "Kaydediliyor…",
+        "saved": "Kaydedildi",
+        "offline": "Çevrimdışı, değişiklikler yeniden bağlandığınızda eşitlenecek"
+      },
+      "menu": {
+        "label": "README seçenekleri",
+        "copy_markdown": "Markdown olarak kopyala",
+        "copied": "Markdown panoya kopyalandı.",
+        "import_markdown": ".md içe aktar",
+        "open_in_pages": "Sayfalar'da aç"
+      },
+      "import": {
+        "confirm_title": "README değiştirilsin mi?",
+        "confirm_description": "README'nin tüm içeriği {fileName} dosyasının içeriğiyle değiştirilecek. Görüntüleyen herkes değişikliği hemen görecek.",
+        "confirm_button": "Değiştir",
+        "confirm_loading": "Değiştiriliyor",
+        "success": "README, {fileName} ile değiştirildi.",
+        "error": "Dosya okunamadı. Bir Markdown (.md) dosyası seçin."
+      }
+    },
+    "outline": {
+      "title": "Bu sayfada",
+      "contents": "İçindekiler",
+      "empty": "Bir ana hat oluşturmak için README'ye başlıklar ekleyin.",
+      "copy_link": "{section} bölümünün bağlantısını kopyala",
+      "link_copied": "Bölüm bağlantısı kopyalandı."
+    }
+  }
+}

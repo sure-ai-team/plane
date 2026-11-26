@@ -168,6 +168,14 @@ class S3Storage(S3Boto3Storage):
             log_exception(e)
             return None
 
+    def get_object(self, object_name):
+        """Open an S3 object for streaming. Returns the boto3 response (``Body``, ``ContentLength``, ...) or None."""
+        try:
+            return self.s3_client.get_object(Bucket=self.aws_storage_bucket_name, Key=object_name)
+        except ClientError as e:
+            log_exception(e)
+            return None
+
     def copy_object(self, object_name, new_object_name):
         """Copy an S3 object to a new location"""
         try:

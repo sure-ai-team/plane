@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Časti prehľadu projektu",
+      "readme": "README",
+      "data": "Dátové súbory"
+    },
+    "hero": {
+      "members": "{count, plural, one {# člen} few {# členovia} many {# člena} other {# členov}}",
+      "no_lead": "Bez vedúceho",
+      "created": "Vytvorené {date}",
+      "show_more": "Zobraziť viac",
+      "show_less": "Zobraziť menej"
+    },
+    "readme": {
+      "templates": {
+        "title": "Vytvorte README projektu",
+        "description": "Jedno miesto, kde sa každý dozvie, o čom je tento projekt, ako funguje a ako sa zapojiť.",
+        "product": {
+          "title": "Produktové zásady",
+          "description": "Ciele, používatelia, rozsah a princípy, na ktorých stoja rozhodnutia."
+        },
+        "architecture": {
+          "title": "Architektúra",
+          "description": "Systémy, komponenty, tok dát a kľúčové technické rozhodnutia."
+        },
+        "onboarding": {
+          "title": "Zaškolenie",
+          "description": "Všetko, čo nový kolega potrebuje v prvom týždni."
+        },
+        "blank": {
+          "title": "Prázdne",
+          "description": "Začnite prázdnou stránkou a píšte po svojom."
+        },
+        "creating": "Vytvára sa README…",
+        "create_error": "README sa nepodarilo vytvoriť. Skúste to prosím znova."
+      },
+      "empty": {
+        "title": "Zatiaľ žiadne README",
+        "description": "Keď ho správca alebo člen pridá, vysvetlí, o čom je tento projekt a ako začať."
+      },
+      "load_error": {
+        "title": "README sa nepodarilo načítať",
+        "description": "Skontrolujte pripojenie a skúste to znova.",
+        "retry": "Skúsiť znova"
+      },
+      "unavailable": {
+        "title": "Toto README nie je dostupné",
+        "description": "Jeho stránka bola archivovaná, odstránená alebo nastavená ako súkromná."
+      },
+      "guest_unavailable": {
+        "title": "README nie je dostupné pre hostí",
+        "description": "Tento projekt nezdieľa svoje stránky s hosťami. O prístup požiadajte správcu projektu."
+      },
+      "last_edited": "Naposledy upravil(a) {name}",
+      "edit": "Upraviť",
+      "done": "Hotovo",
+      "status": {
+        "editing": "Úpravy",
+        "saving": "Ukladá sa…",
+        "saved": "Uložené",
+        "offline": "Offline, zmeny sa zosynchronizujú po opätovnom pripojení"
+      },
+      "menu": {
+        "label": "Možnosti README",
+        "copy_markdown": "Kopírovať ako Markdown",
+        "copied": "Markdown bol skopírovaný do schránky.",
+        "import_markdown": "Importovať .md",
+        "open_in_pages": "Otvoriť v Stránkach"
+      },
+      "import": {
+        "confirm_title": "Nahradiť README?",
+        "confirm_description": "Celý obsah README sa nahradí obsahom súboru {fileName}. Všetci, ktorí ho práve zobrazujú, uvidia zmenu okamžite.",
+        "confirm_button": "Nahradiť",
+        "confirm_loading": "Nahrádza sa",
+        "success": "README bolo nahradené súborom {fileName}.",
+        "error": "Súbor sa nepodarilo prečítať. Vyberte súbor Markdown (.md)."
+      }
+    },
+    "outline": {
+      "title": "Na tejto stránke",
+      "contents": "Obsah",
+      "empty": "Pridajte do README nadpisy a vytvorte tak osnovu.",
+      "copy_link": "Kopírovať odkaz na {section}",
+      "link_copied": "Odkaz na sekciu bol skopírovaný."
+    }
+  }
+}

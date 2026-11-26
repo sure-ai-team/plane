@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "File data",
+    "upload": "Unggah",
+    "upload_files": "Unggah file",
+    "drop_here": "Lepaskan untuk menambahkan ke File data",
+    "drop_hint": "Excel (.xlsx) atau CSV, maksimal {size} MB per file",
+    "search_placeholder": "Cari file",
+    "no_results": "Tidak ada file yang cocok dengan \"{query}\"",
+    "load_error": "File data tidak dapat dimuat.",
+    "empty": {
+      "title": "Belum ada file data",
+      "description": "Unggah file Excel atau CSV untuk menelusuri, mencari, dan memfilternya langsung di sini.",
+      "guest_description": "Spreadsheet yang ditambahkan anggota proyek akan muncul di sini."
+    },
+    "card": {
+      "open": "Buka {name}",
+      "actions": "Tindakan file",
+      "sheets": "{count, plural, one {# sheet} other {# sheet}}",
+      "rows": "{count, plural, one {# baris} other {# baris}}"
+    },
+    "status": {
+      "uploading": "Mengunggah {progress}%",
+      "processing": "Memproses…",
+      "ready": "Siap",
+      "failed": "Unggahan gagal"
+    },
+    "actions": {
+      "rename": "Ganti nama",
+      "replace": "Ganti file",
+      "download": "Unduh",
+      "delete": "Hapus",
+      "retry": "Coba unggah lagi",
+      "dismiss": "Tutup"
+    },
+    "rename": {
+      "label": "Nama file",
+      "error": "Nama file tidak dapat diganti."
+    },
+    "delete": {
+      "title": "Hapus file data",
+      "content": "\"{name}\" akan dihapus untuk semua orang di proyek ini. Tindakan ini tidak dapat dibatalkan.",
+      "deleting": "Menghapus",
+      "success": "File dihapus",
+      "error": "File tidak dapat dihapus."
+    },
+    "errors": {
+      "title": "File tidak dapat ditambahkan",
+      "unsupported_type": "\"{name}\" tidak didukung. Unggah file Excel (.xlsx) atau CSV.",
+      "file_too_large": "\"{name}\" lebih besar dari {limit} MB.",
+      "empty_file": "\"{name}\" kosong.",
+      "too_many_rows": "File ini memiliki lebih dari {limit, number} baris, melebihi yang dapat ditampilkan penampil.",
+      "too_many_columns": "File ini memiliki lebih dari {limit, number} kolom, melebihi yang dapat ditampilkan penampil.",
+      "too_many_sheets": "Workbook ini memiliki lebih dari {limit, number} sheet.",
+      "zip_bomb": "File ini mengembang ke ukuran yang sangat besar, sehingga diblokir demi keamanan.",
+      "corrupt": "File ini tidak dapat dibaca. File mungkin rusak atau bukan file Excel atau CSV yang sebenarnya.",
+      "timeout": "Pembacaan file ini memakan waktu terlalu lama.",
+      "download_failed": "File tidak dapat diunduh. Periksa koneksi Anda dan coba lagi.",
+      "upload_failed": "Unggahan tidak selesai. Coba lagi.",
+      "unknown": "Terjadi kesalahan. Coba lagi.",
+      "copy_failed": "Tidak dapat menyalin ke papan klip.",
+      "copy_too_large": "Pilihan ini terlalu besar untuk disalin (lebih dari {limit, number} sel).",
+      "export_failed": "Tampilan tidak dapat diekspor."
+    },
+    "viewer": {
+      "not_found": "File ini sudah tidak ada.",
+      "load_failed": "File ini tidak dapat dibuka",
+      "loading": {
+        "cache": "Membuka file…",
+        "download": "Mengunduh file…",
+        "parse": "Membaca spreadsheet…"
+      },
+      "download": "Unduh file asli",
+      "export": "Ekspor tampilan sebagai CSV",
+      "columns": "{count, plural, one {# kolom} other {# kolom}}",
+      "rows_filtered": "{visible} dari {total} baris",
+      "sheets": "Sheet",
+      "header_toggle": "Baris pertama adalah header",
+      "density": "Kerapatan baris",
+      "compact": "Rapat",
+      "comfortable": "Longgar",
+      "search_placeholder": "Cari di sheet",
+      "match_count": "{current} dari {total}",
+      "no_matches": "Tidak ada yang cocok",
+      "matches_truncated": "Menampilkan {limit} hasil pertama",
+      "next_match": "Hasil berikutnya",
+      "previous_match": "Hasil sebelumnya",
+      "clear_search": "Hapus pencarian",
+      "empty_sheet": "Sheet ini kosong.",
+      "no_rows_match": "Tidak ada baris yang cocok dengan filter saat ini.",
+      "copied": "{count, plural, one {# sel disalin} other {# sel disalin}}",
+      "selection": {
+        "count": "Jumlah",
+        "sum": "Total",
+        "avg": "Rata-rata"
+      }
+    },
+    "column": {
+      "menu": "Opsi kolom {column}",
+      "types": {
+        "text": "Teks",
+        "number": "Angka",
+        "date": "Tanggal",
+        "boolean": "Benar/salah"
+      },
+      "stats": {
+        "count": "Nilai",
+        "empty": "Kosong",
+        "distinct": "Unik",
+        "sum": "Total",
+        "avg": "Rata-rata",
+        "min": "Min",
+        "max": "Maks"
+      },
+      "sort_asc": "Urutkan naik",
+      "sort_desc": "Urutkan turun",
+      "sorted_asc": "naik",
+      "sorted_desc": "turun",
+      "clear_sort": "Hapus pengurutan",
+      "add_filter": "Tambah filter"
+    },
+    "filter": {
+      "active": "Filter aktif",
+      "operator": "Kondisi",
+      "value": "Nilai",
+      "apply": "Terapkan",
+      "remove": "Hapus filter",
+      "clear_all": "Hapus semua",
+      "operators": {
+        "contains": "berisi",
+        "not_contains": "tidak berisi",
+        "equals": "adalah",
+        "not_equals": "bukan",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "kosong",
+        "not_empty": "tidak kosong"
+      }
+    }
+  }
+}

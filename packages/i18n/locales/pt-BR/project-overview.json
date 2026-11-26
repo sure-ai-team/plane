@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Seções da visão geral do projeto",
+      "readme": "README",
+      "data": "Arquivos de dados"
+    },
+    "hero": {
+      "members": "{count, plural, one {# membro} many {# membros} other {# membros}}",
+      "no_lead": "Sem responsável",
+      "created": "Criado em {date}",
+      "show_more": "Mostrar mais",
+      "show_less": "Mostrar menos"
+    },
+    "readme": {
+      "templates": {
+        "title": "Criar o README do projeto",
+        "description": "Ofereça a todos um único lugar para entender o que é este projeto, como ele funciona e como participar.",
+        "product": {
+          "title": "Diretrizes de produto",
+          "description": "Objetivos, usuários, escopo e os princípios por trás das decisões."
+        },
+        "architecture": {
+          "title": "Arquitetura",
+          "description": "Sistemas, componentes, fluxo de dados e decisões técnicas importantes."
+        },
+        "onboarding": {
+          "title": "Integração",
+          "description": "Tudo o que um novo colega precisa na primeira semana."
+        },
+        "blank": {
+          "title": "Em branco",
+          "description": "Comece com uma página vazia e escreva do seu jeito."
+        },
+        "creating": "Criando o README…",
+        "create_error": "Não foi possível criar o README. Tente novamente."
+      },
+      "empty": {
+        "title": "Ainda não há README",
+        "description": "Quando um administrador ou membro adicionar um, ele explicará do que se trata este projeto e como começar."
+      },
+      "load_error": {
+        "title": "Não foi possível carregar o README",
+        "description": "Verifique sua conexão e tente novamente.",
+        "retry": "Tentar novamente"
+      },
+      "unavailable": {
+        "title": "Este README não está disponível",
+        "description": "A página dele foi arquivada, excluída ou tornada privada."
+      },
+      "guest_unavailable": {
+        "title": "O README não está disponível para convidados",
+        "description": "Este projeto não compartilha suas páginas com convidados. Peça acesso a um administrador do projeto."
+      },
+      "last_edited": "Última edição por {name}",
+      "edit": "Editar",
+      "done": "Concluir",
+      "status": {
+        "editing": "Editando",
+        "saving": "Salvando…",
+        "saved": "Salvo",
+        "offline": "Offline, as alterações serão sincronizadas quando você se reconectar"
+      },
+      "menu": {
+        "label": "Opções do README",
+        "copy_markdown": "Copiar como Markdown",
+        "copied": "Markdown copiado para a área de transferência.",
+        "import_markdown": "Importar .md",
+        "open_in_pages": "Abrir em Páginas"
+      },
+      "import": {
+        "confirm_title": "Substituir o README?",
+        "confirm_description": "Todo o conteúdo do README será substituído pelo conteúdo de {fileName}. Quem estiver visualizando verá a mudança na hora.",
+        "confirm_button": "Substituir",
+        "confirm_loading": "Substituindo",
+        "success": "README substituído por {fileName}.",
+        "error": "Não foi possível ler esse arquivo. Escolha um arquivo Markdown (.md)."
+      }
+    },
+    "outline": {
+      "title": "Nesta página",
+      "contents": "Sumário",
+      "empty": "Adicione títulos ao README para criar um sumário.",
+      "copy_link": "Copiar link para {section}",
+      "link_copied": "Link da seção copiado."
+    }
+  }
+}

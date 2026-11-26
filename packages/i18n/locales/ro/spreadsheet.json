@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "Fișiere de date",
+    "upload": "Încarcă",
+    "upload_files": "Încarcă fișiere",
+    "drop_here": "Plasați aici pentru a adăuga la Fișiere de date",
+    "drop_hint": "Excel (.xlsx) sau CSV, până la {size} MB fiecare",
+    "search_placeholder": "Căutați fișiere",
+    "no_results": "Niciun fișier nu corespunde cu „{query}”",
+    "load_error": "Fișierele de date nu au putut fi încărcate.",
+    "empty": {
+      "title": "Încă nu există fișiere de date",
+      "description": "Încărcați fișiere Excel sau CSV pentru a le răsfoi, căuta și filtra chiar aici.",
+      "guest_description": "Foile de calcul adăugate de membrii proiectului vor apărea aici."
+    },
+    "card": {
+      "open": "Deschide {name}",
+      "actions": "Acțiuni pentru fișier",
+      "sheets": "{count, plural, one {# foaie} few {# foi} other {# de foi}}",
+      "rows": "{count, plural, one {# rând} few {# rânduri} other {# de rânduri}}"
+    },
+    "status": {
+      "uploading": "Se încarcă {progress}%",
+      "processing": "Se procesează…",
+      "ready": "Gata",
+      "failed": "Încărcarea a eșuat"
+    },
+    "actions": {
+      "rename": "Redenumește",
+      "replace": "Înlocuiește fișierul",
+      "download": "Descarcă",
+      "delete": "Șterge",
+      "retry": "Reîncearcă încărcarea",
+      "dismiss": "Închide"
+    },
+    "rename": {
+      "label": "Numele fișierului",
+      "error": "Fișierul nu a putut fi redenumit."
+    },
+    "delete": {
+      "title": "Ștergeți fișierul de date",
+      "content": "„{name}” va fi eliminat pentru toți membrii acestui proiect. Această acțiune nu poate fi anulată.",
+      "deleting": "Se șterge",
+      "success": "Fișier șters",
+      "error": "Fișierul nu a putut fi șters."
+    },
+    "errors": {
+      "title": "Fișierul nu a putut fi adăugat",
+      "unsupported_type": "„{name}” nu este acceptat. Încărcați un fișier Excel (.xlsx) sau CSV.",
+      "file_too_large": "„{name}” depășește {limit} MB.",
+      "empty_file": "„{name}” este gol.",
+      "too_many_rows": "Acest fișier are peste {limit, number} de rânduri, mai mult decât poate afișa vizualizatorul.",
+      "too_many_columns": "Acest fișier are peste {limit, number} de coloane, mai mult decât poate afișa vizualizatorul.",
+      "too_many_sheets": "Acest registru are peste {limit, number} de foi.",
+      "zip_bomb": "Acest fișier se extinde la o dimensiune neobișnuit de mare și a fost blocat din motive de siguranță.",
+      "corrupt": "Acest fișier nu a putut fi citit. Poate fi deteriorat sau nu este un fișier Excel ori CSV real.",
+      "timeout": "Citirea acestui fișier a durat prea mult.",
+      "download_failed": "Fișierul nu a putut fi descărcat. Verificați conexiunea și încercați din nou.",
+      "upload_failed": "Încărcarea nu s-a finalizat. Încercați din nou.",
+      "unknown": "A apărut o eroare. Încercați din nou.",
+      "copy_failed": "Nu s-a putut copia în clipboard.",
+      "copy_too_large": "Această selecție este prea mare pentru a fi copiată (peste {limit, number} de celule).",
+      "export_failed": "Vizualizarea nu a putut fi exportată."
+    },
+    "viewer": {
+      "not_found": "Acest fișier nu mai există.",
+      "load_failed": "Acest fișier nu a putut fi deschis",
+      "loading": {
+        "cache": "Se deschide fișierul…",
+        "download": "Se descarcă fișierul…",
+        "parse": "Se citește foaia de calcul…"
+      },
+      "download": "Descarcă originalul",
+      "export": "Exportă vizualizarea ca CSV",
+      "columns": "{count, plural, one {# coloană} few {# coloane} other {# de coloane}}",
+      "rows_filtered": "{visible} din {total} rânduri",
+      "sheets": "Foi",
+      "header_toggle": "Primul rând este antetul",
+      "density": "Densitatea rândurilor",
+      "compact": "Compactă",
+      "comfortable": "Confortabilă",
+      "search_placeholder": "Căutați în foaie",
+      "match_count": "{current} din {total}",
+      "no_matches": "Nicio potrivire",
+      "matches_truncated": "Se afișează primele {limit} potriviri",
+      "next_match": "Potrivirea următoare",
+      "previous_match": "Potrivirea anterioară",
+      "clear_search": "Ștergeți căutarea",
+      "empty_sheet": "Această foaie este goală.",
+      "no_rows_match": "Niciun rând nu corespunde filtrelor curente.",
+      "copied": "{count, plural, one {# celulă copiată} few {# celule copiate} other {# de celule copiate}}",
+      "selection": {
+        "count": "Număr",
+        "sum": "Sumă",
+        "avg": "Medie"
+      }
+    },
+    "column": {
+      "menu": "Opțiuni pentru coloana {column}",
+      "types": {
+        "text": "Text",
+        "number": "Număr",
+        "date": "Dată",
+        "boolean": "Adevărat/fals"
+      },
+      "stats": {
+        "count": "Valori",
+        "empty": "Goale",
+        "distinct": "Distincte",
+        "sum": "Sumă",
+        "avg": "Medie",
+        "min": "Min.",
+        "max": "Max."
+      },
+      "sort_asc": "Sortare crescătoare",
+      "sort_desc": "Sortare descrescătoare",
+      "sorted_asc": "crescător",
+      "sorted_desc": "descrescător",
+      "clear_sort": "Eliminați sortarea",
+      "add_filter": "Adăugați filtru"
+    },
+    "filter": {
+      "active": "Filtre active",
+      "operator": "Condiție",
+      "value": "Valoare",
+      "apply": "Aplică",
+      "remove": "Eliminați filtrul",
+      "clear_all": "Ștergeți tot",
+      "operators": {
+        "contains": "conține",
+        "not_contains": "nu conține",
+        "equals": "este",
+        "not_equals": "nu este",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "este gol",
+        "not_empty": "nu este gol"
+      }
+    }
+  }
+}

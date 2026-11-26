@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Project overview sections",
+      "readme": "README",
+      "data": "Data files"
+    },
+    "hero": {
+      "members": "{count, plural, one {# member} other {# members}}",
+      "no_lead": "No lead",
+      "created": "Created {date}",
+      "show_more": "Show more",
+      "show_less": "Show less"
+    },
+    "readme": {
+      "templates": {
+        "title": "Start the project README",
+        "description": "Give everyone one place to learn what this project is, how it works, and how to get involved.",
+        "product": {
+          "title": "Product guidelines",
+          "description": "Goals, users, scope, and the principles behind decisions."
+        },
+        "architecture": {
+          "title": "Architecture",
+          "description": "Systems, components, data flow, and key technical decisions."
+        },
+        "onboarding": {
+          "title": "Onboarding",
+          "description": "Everything a new teammate needs in their first week."
+        },
+        "blank": {
+          "title": "Blank",
+          "description": "Start from an empty page and write it your way."
+        },
+        "creating": "Creating README…",
+        "create_error": "Couldn't create the README. Try again."
+      },
+      "empty": {
+        "title": "No README yet",
+        "description": "When an admin or member adds one, it will explain what this project is about and how to get started."
+      },
+      "load_error": {
+        "title": "Couldn't load the README",
+        "description": "Check your connection and try again.",
+        "retry": "Try again"
+      },
+      "unavailable": {
+        "title": "This README isn't available",
+        "description": "Its page was archived, deleted, or made private."
+      },
+      "guest_unavailable": {
+        "title": "README isn’t available to guests",
+        "description": "This project doesn’t share its pages with guests. Ask a project admin if you need access."
+      },
+      "last_edited": "Last edited by {name}",
+      "edit": "Edit",
+      "done": "Done",
+      "status": {
+        "editing": "Editing",
+        "saving": "Saving…",
+        "saved": "Saved",
+        "offline": "Offline, changes will sync when you reconnect"
+      },
+      "menu": {
+        "label": "README options",
+        "copy_markdown": "Copy as Markdown",
+        "copied": "Markdown copied to the clipboard.",
+        "import_markdown": "Import .md",
+        "open_in_pages": "Open in Pages"
+      },
+      "import": {
+        "confirm_title": "Replace the README?",
+        "confirm_description": "Everything in the README will be replaced with the contents of {fileName}. Anyone viewing it will see the change right away.",
+        "confirm_button": "Replace",
+        "confirm_loading": "Replacing",
+        "success": "README replaced with {fileName}.",
+        "error": "Couldn't read that file. Choose a Markdown (.md) file."
+      }
+    },
+    "outline": {
+      "title": "On this page",
+      "contents": "Contents",
+      "empty": "Add headings to the README to build an outline.",
+      "copy_link": "Copy link to {section}",
+      "link_copied": "Link to the section copied."
+    }
+  }
+}

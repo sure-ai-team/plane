@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "Dátové súbory",
+    "upload": "Nahrať",
+    "upload_files": "Nahrať súbory",
+    "drop_here": "Pustite sem na pridanie do dátových súborov",
+    "drop_hint": "Excel (.xlsx) alebo CSV, každý do {size} MB",
+    "search_placeholder": "Hľadať súbory",
+    "no_results": "Hľadaniu „{query}“ nezodpovedá žiadny súbor",
+    "load_error": "Dátové súbory sa nepodarilo načítať.",
+    "empty": {
+      "title": "Zatiaľ žiadne dátové súbory",
+      "description": "Nahrajte súbory Excel alebo CSV a prehliadajte, prehľadávajte a filtrujte ich priamo tu.",
+      "guest_description": "Tu sa zobrazia tabuľky pridané členmi projektu."
+    },
+    "card": {
+      "open": "Otvoriť {name}",
+      "actions": "Akcie súboru",
+      "sheets": "{count, plural, one {# hárok} few {# hárky} many {# hárka} other {# hárkov}}",
+      "rows": "{count, plural, one {# riadok} few {# riadky} many {# riadka} other {# riadkov}}"
+    },
+    "status": {
+      "uploading": "Nahrávanie {progress} %",
+      "processing": "Spracúva sa…",
+      "ready": "Pripravené",
+      "failed": "Nahrávanie zlyhalo"
+    },
+    "actions": {
+      "rename": "Premenovať",
+      "replace": "Nahradiť súbor",
+      "download": "Stiahnuť",
+      "delete": "Odstrániť",
+      "retry": "Skúsiť nahrať znova",
+      "dismiss": "Zavrieť"
+    },
+    "rename": {
+      "label": "Názov súboru",
+      "error": "Súbor sa nepodarilo premenovať."
+    },
+    "delete": {
+      "title": "Odstrániť dátový súbor",
+      "content": "Súbor „{name}“ bude odstránený pre všetkých v tomto projekte. Túto akciu nie je možné vrátiť.",
+      "deleting": "Odstraňuje sa",
+      "success": "Súbor odstránený",
+      "error": "Súbor sa nepodarilo odstrániť."
+    },
+    "errors": {
+      "title": "Súbor sa nepodarilo pridať",
+      "unsupported_type": "Súbor „{name}“ nie je podporovaný. Nahrajte súbor Excel (.xlsx) alebo CSV.",
+      "file_too_large": "Súbor „{name}“ je väčší ako {limit} MB.",
+      "empty_file": "Súbor „{name}“ je prázdny.",
+      "too_many_rows": "Tento súbor má viac ako {limit, number} riadkov, čo je viac, než dokáže prehliadač zobraziť.",
+      "too_many_columns": "Tento súbor má viac ako {limit, number} stĺpcov, čo je viac, než dokáže prehliadač zobraziť.",
+      "too_many_sheets": "Tento zošit má viac ako {limit, number} hárkov.",
+      "zip_bomb": "Tento súbor sa rozbalí na nezvyčajne veľkú veľkosť, preto bol z bezpečnostných dôvodov zablokovaný.",
+      "corrupt": "Tento súbor nie je možné prečítať. Môže byť poškodený alebo nejde o skutočný súbor Excel či CSV.",
+      "timeout": "Čítanie tohto súboru trvalo príliš dlho.",
+      "download_failed": "Súbor sa nepodarilo stiahnuť. Skontrolujte pripojenie a skúste to znova.",
+      "upload_failed": "Nahrávanie sa nedokončilo. Skúste to znova.",
+      "unknown": "Niečo sa pokazilo. Skúste to znova.",
+      "copy_failed": "Kopírovanie do schránky zlyhalo.",
+      "copy_too_large": "Tento výber je príliš veľký na skopírovanie (viac ako {limit, number} buniek).",
+      "export_failed": "Zobrazenie sa nepodarilo exportovať."
+    },
+    "viewer": {
+      "not_found": "Tento súbor už neexistuje.",
+      "load_failed": "Tento súbor sa nepodarilo otvoriť",
+      "loading": {
+        "cache": "Otvára sa súbor…",
+        "download": "Sťahuje sa súbor…",
+        "parse": "Číta sa tabuľka…"
+      },
+      "download": "Stiahnuť originál",
+      "export": "Exportovať zobrazenie ako CSV",
+      "columns": "{count, plural, one {# stĺpec} few {# stĺpce} many {# stĺpca} other {# stĺpcov}}",
+      "rows_filtered": "{visible} z {total} riadkov",
+      "sheets": "Hárky",
+      "header_toggle": "Prvý riadok je hlavička",
+      "density": "Hustota riadkov",
+      "compact": "Kompaktná",
+      "comfortable": "Pohodlná",
+      "search_placeholder": "Nájsť v hárku",
+      "match_count": "{current} z {total}",
+      "no_matches": "Žiadne zhody",
+      "matches_truncated": "Zobrazuje sa prvých {limit} zhôd",
+      "next_match": "Ďalšia zhoda",
+      "previous_match": "Predchádzajúca zhoda",
+      "clear_search": "Vymazať hľadanie",
+      "empty_sheet": "Tento hárok je prázdny.",
+      "no_rows_match": "Aktuálnym filtrom nezodpovedajú žiadne riadky.",
+      "copied": "{count, plural, one {Skopírovaná # bunka} few {Skopírované # bunky} many {Skopírovanej # bunky} other {Skopírovaných # buniek}}",
+      "selection": {
+        "count": "Počet",
+        "sum": "Súčet",
+        "avg": "Priemer"
+      }
+    },
+    "column": {
+      "menu": "Možnosti stĺpca {column}",
+      "types": {
+        "text": "Text",
+        "number": "Číslo",
+        "date": "Dátum",
+        "boolean": "Pravda/nepravda"
+      },
+      "stats": {
+        "count": "Hodnoty",
+        "empty": "Prázdne",
+        "distinct": "Jedinečné",
+        "sum": "Súčet",
+        "avg": "Priemer",
+        "min": "Min.",
+        "max": "Max."
+      },
+      "sort_asc": "Zoradiť vzostupne",
+      "sort_desc": "Zoradiť zostupne",
+      "sorted_asc": "vzostupne",
+      "sorted_desc": "zostupne",
+      "clear_sort": "Zrušiť zoradenie",
+      "add_filter": "Pridať filter"
+    },
+    "filter": {
+      "active": "Aktívne filtre",
+      "operator": "Podmienka",
+      "value": "Hodnota",
+      "apply": "Použiť",
+      "remove": "Odstrániť filter",
+      "clear_all": "Vymazať všetko",
+      "operators": {
+        "contains": "obsahuje",
+        "not_contains": "neobsahuje",
+        "equals": "je",
+        "not_equals": "nie je",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "je prázdne",
+        "not_empty": "nie je prázdne"
+      }
+    }
+  }
+}

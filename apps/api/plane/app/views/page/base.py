@@ -46,6 +46,7 @@ from plane.db.models import (
     UserRecentVisit,
 )
 from plane.utils.error_codes import ERROR_CODES
+from plane.utils.project_readme import exclude_readme_pages, is_readme_page, readme_page_ids
 
 # Local imports
 from ..base import BaseAPIView, BaseViewSet
@@ -54,6 +55,17 @@ from plane.bgtasks.page_version_task import track_page_version
 from plane.bgtasks.recent_visited_task import recent_visited_task
 from plane.bgtasks.copy_s3_object import copy_s3_objects_of_description_and_assets
 from plane.app.permissions import ProjectPagePermission
+
+README_PROTECTED_ERROR = "This page is the project README. Manage it from the project's Overview page."
+
+
+def readme_protected_change(data):
+    """Whether a page update would archive the page, give it a parent or make it non-public."""
+    return (
+        data.get("archived_at") is not None
+        or data.get("parent") is not None
+        or ("access" in data and str(data.get("access")) != str(Page.PUBLIC_ACCESS))
+    )
 
 
 def unarchive_archive_page_and_descendants(page_id, archived_at):
@@ -162,6 +174,10 @@ class PageViewSet(BaseViewSet):
 
             if page.is_locked:
                 return Response({"error": "Page is locked"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # The README can't be archived, nested under another page or made private.
+            if readme_protected_change(request.data) and is_readme_page(page_id):
+                return Response({"error": README_PROTECTED_ERROR}, status=status.HTTP_400_BAD_REQUEST)
 
             parent = request.data.get("parent", None)
             if parent:
@@ -277,6 +293,10 @@ class PageViewSet(BaseViewSet):
             project_pages__deleted_at__isnull=True,
         )
 
+        # The README stays public so everyone in the project can read it.
+        if str(access) != str(Page.PUBLIC_ACCESS) and is_readme_page(page_id):
+            return Response({"error": README_PROTECTED_ERROR}, status=status.HTTP_400_BAD_REQUEST)
+
         # Only update access if the page owner is the requesting user
         if page.access != request.data.get("access", page.access) and page.owned_by_id != request.user.id:
             return Response(
@@ -289,7 +309,8 @@ class PageViewSet(BaseViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def list(self, request, slug, project_id):
-        queryset = self.get_queryset()
+        # The project README lives on the Overview page, not in the Pages list.
+        queryset = exclude_readme_pages(self.get_queryset())
         project = Project.objects.get(pk=project_id)
         if (
             ProjectMember.objects.filter(
@@ -312,6 +333,9 @@ class PageViewSet(BaseViewSet):
             projects__id=project_id,
             project_pages__deleted_at__isnull=True,
         )
+
+        if is_readme_page(page_id):
+            return Response({"error": README_PROTECTED_ERROR}, status=status.HTTP_400_BAD_REQUEST)
 
         # only the owner or admin can archive the page
         if (
@@ -372,6 +396,9 @@ class PageViewSet(BaseViewSet):
             projects__id=project_id,
             project_pages__deleted_at__isnull=True,
         )
+
+        if is_readme_page(page_id):
+            return Response({"error": README_PROTECTED_ERROR}, status=status.HTTP_400_BAD_REQUEST)
 
         if page.archived_at is None:
             return Response(
@@ -434,6 +461,7 @@ class PageViewSet(BaseViewSet):
                 )
             )
             .filter(project=True)
+            .exclude(id__in=readme_page_ids())
             .distinct()
         )
 

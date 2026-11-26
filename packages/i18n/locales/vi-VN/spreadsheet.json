@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "Tệp dữ liệu",
+    "upload": "Tải lên",
+    "upload_files": "Tải tệp lên",
+    "drop_here": "Thả để thêm vào Tệp dữ liệu",
+    "drop_hint": "Excel (.xlsx) hoặc CSV, tối đa {size} MB mỗi tệp",
+    "search_placeholder": "Tìm tệp",
+    "no_results": "Không có tệp nào khớp với \"{query}\"",
+    "load_error": "Không thể tải các tệp dữ liệu.",
+    "empty": {
+      "title": "Chưa có tệp dữ liệu",
+      "description": "Tải lên tệp Excel hoặc CSV để duyệt, tìm kiếm và lọc ngay tại đây.",
+      "guest_description": "Các bảng tính do thành viên dự án thêm sẽ hiển thị tại đây."
+    },
+    "card": {
+      "open": "Mở {name}",
+      "actions": "Thao tác với tệp",
+      "sheets": "{count, plural, one {# trang tính} other {# trang tính}}",
+      "rows": "{count, plural, one {# hàng} other {# hàng}}"
+    },
+    "status": {
+      "uploading": "Đang tải lên {progress}%",
+      "processing": "Đang xử lý…",
+      "ready": "Sẵn sàng",
+      "failed": "Tải lên thất bại"
+    },
+    "actions": {
+      "rename": "Đổi tên",
+      "replace": "Thay thế tệp",
+      "download": "Tải xuống",
+      "delete": "Xóa",
+      "retry": "Thử tải lên lại",
+      "dismiss": "Bỏ qua"
+    },
+    "rename": {
+      "label": "Tên tệp",
+      "error": "Không thể đổi tên tệp."
+    },
+    "delete": {
+      "title": "Xóa tệp dữ liệu",
+      "content": "\"{name}\" sẽ bị xóa đối với mọi người trong dự án này. Không thể hoàn tác thao tác này.",
+      "deleting": "Đang xóa",
+      "success": "Đã xóa tệp",
+      "error": "Không thể xóa tệp."
+    },
+    "errors": {
+      "title": "Không thể thêm tệp",
+      "unsupported_type": "\"{name}\" không được hỗ trợ. Hãy tải lên tệp Excel (.xlsx) hoặc CSV.",
+      "file_too_large": "\"{name}\" lớn hơn {limit} MB.",
+      "empty_file": "\"{name}\" trống.",
+      "too_many_rows": "Tệp này có hơn {limit, number} hàng, vượt quá khả năng hiển thị của trình xem.",
+      "too_many_columns": "Tệp này có hơn {limit, number} cột, vượt quá khả năng hiển thị của trình xem.",
+      "too_many_sheets": "Sổ làm việc này có hơn {limit, number} trang tính.",
+      "zip_bomb": "Tệp này giải nén ra kích thước lớn bất thường nên đã bị chặn để đảm bảo an toàn.",
+      "corrupt": "Không thể đọc tệp này. Tệp có thể bị hỏng hoặc không phải tệp Excel hay CSV thực sự.",
+      "timeout": "Việc đọc tệp này mất quá nhiều thời gian.",
+      "download_failed": "Không thể tải tệp xuống. Hãy kiểm tra kết nối và thử lại.",
+      "upload_failed": "Quá trình tải lên chưa hoàn tất. Hãy thử lại.",
+      "unknown": "Đã xảy ra lỗi. Hãy thử lại.",
+      "copy_failed": "Không thể sao chép vào bộ nhớ tạm.",
+      "copy_too_large": "Vùng chọn này quá lớn để sao chép (hơn {limit, number} ô).",
+      "export_failed": "Không thể xuất chế độ xem."
+    },
+    "viewer": {
+      "not_found": "Tệp này không còn tồn tại.",
+      "load_failed": "Không thể mở tệp này",
+      "loading": {
+        "cache": "Đang mở tệp…",
+        "download": "Đang tải tệp xuống…",
+        "parse": "Đang đọc bảng tính…"
+      },
+      "download": "Tải bản gốc xuống",
+      "export": "Xuất chế độ xem dưới dạng CSV",
+      "columns": "{count, plural, one {# cột} other {# cột}}",
+      "rows_filtered": "{visible} trên {total} hàng",
+      "sheets": "Trang tính",
+      "header_toggle": "Hàng đầu tiên là tiêu đề",
+      "density": "Mật độ hàng",
+      "compact": "Gọn",
+      "comfortable": "Thoáng",
+      "search_placeholder": "Tìm trong trang tính",
+      "match_count": "{current} / {total}",
+      "no_matches": "Không có kết quả",
+      "matches_truncated": "Đang hiển thị {limit} kết quả đầu tiên",
+      "next_match": "Kết quả tiếp theo",
+      "previous_match": "Kết quả trước",
+      "clear_search": "Xóa tìm kiếm",
+      "empty_sheet": "Trang tính này trống.",
+      "no_rows_match": "Không có hàng nào khớp với bộ lọc hiện tại.",
+      "copied": "{count, plural, one {Đã sao chép # ô} other {Đã sao chép # ô}}",
+      "selection": {
+        "count": "Số lượng",
+        "sum": "Tổng",
+        "avg": "Trung bình"
+      }
+    },
+    "column": {
+      "menu": "Tùy chọn cột {column}",
+      "types": {
+        "text": "Văn bản",
+        "number": "Số",
+        "date": "Ngày",
+        "boolean": "Đúng/sai"
+      },
+      "stats": {
+        "count": "Giá trị",
+        "empty": "Trống",
+        "distinct": "Khác nhau",
+        "sum": "Tổng",
+        "avg": "Trung bình",
+        "min": "Nhỏ nhất",
+        "max": "Lớn nhất"
+      },
+      "sort_asc": "Sắp xếp tăng dần",
+      "sort_desc": "Sắp xếp giảm dần",
+      "sorted_asc": "tăng dần",
+      "sorted_desc": "giảm dần",
+      "clear_sort": "Bỏ sắp xếp",
+      "add_filter": "Thêm bộ lọc"
+    },
+    "filter": {
+      "active": "Bộ lọc đang áp dụng",
+      "operator": "Điều kiện",
+      "value": "Giá trị",
+      "apply": "Áp dụng",
+      "remove": "Xóa bộ lọc",
+      "clear_all": "Xóa tất cả",
+      "operators": {
+        "contains": "chứa",
+        "not_contains": "không chứa",
+        "equals": "là",
+        "not_equals": "không phải là",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "trống",
+        "not_empty": "không trống"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "project_overview": {
+    "tabs": {
+      "label": "Bagian ikhtisar proyek",
+      "readme": "README",
+      "data": "File data"
+    },
+    "hero": {
+      "members": "{count, plural, one {# anggota} other {# anggota}}",
+      "no_lead": "Belum ada pemimpin",
+      "created": "Dibuat {date}",
+      "show_more": "Tampilkan lebih banyak",
+      "show_less": "Tampilkan lebih sedikit"
+    },
+    "readme": {
+      "templates": {
+        "title": "Buat README proyek",
+        "description": "Sediakan satu tempat bagi semua orang untuk mengetahui apa proyek ini, cara kerjanya, dan cara ikut terlibat.",
+        "product": {
+          "title": "Pedoman produk",
+          "description": "Tujuan, pengguna, cakupan, dan prinsip di balik keputusan."
+        },
+        "architecture": {
+          "title": "Arsitektur",
+          "description": "Sistem, komponen, alur data, dan keputusan teknis utama."
+        },
+        "onboarding": {
+          "title": "Orientasi",
+          "description": "Semua yang dibutuhkan rekan tim baru di minggu pertamanya."
+        },
+        "blank": {
+          "title": "Kosong",
+          "description": "Mulai dari halaman kosong dan tulis dengan cara Anda."
+        },
+        "creating": "Membuat README…",
+        "create_error": "Tidak dapat membuat README. Silakan coba lagi."
+      },
+      "empty": {
+        "title": "Belum ada README",
+        "description": "Setelah admin atau anggota menambahkannya, README akan menjelaskan tentang apa proyek ini dan cara memulainya."
+      },
+      "load_error": {
+        "title": "Tidak dapat memuat README",
+        "description": "Periksa koneksi Anda dan coba lagi.",
+        "retry": "Coba lagi"
+      },
+      "unavailable": {
+        "title": "README ini tidak tersedia",
+        "description": "Halamannya telah diarsipkan, dihapus, atau dijadikan privat."
+      },
+      "guest_unavailable": {
+        "title": "README tidak tersedia untuk tamu",
+        "description": "Proyek ini tidak membagikan halamannya kepada tamu. Minta akses kepada admin proyek jika Anda membutuhkannya."
+      },
+      "last_edited": "Terakhir diedit oleh {name}",
+      "edit": "Edit",
+      "done": "Selesai",
+      "status": {
+        "editing": "Mengedit",
+        "saving": "Menyimpan…",
+        "saved": "Tersimpan",
+        "offline": "Offline, perubahan akan disinkronkan saat Anda terhubung kembali"
+      },
+      "menu": {
+        "label": "Opsi README",
+        "copy_markdown": "Salin sebagai Markdown",
+        "copied": "Markdown disalin ke papan klip.",
+        "import_markdown": "Impor .md",
+        "open_in_pages": "Buka di Halaman"
+      },
+      "import": {
+        "confirm_title": "Ganti README?",
+        "confirm_description": "Seluruh isi README akan diganti dengan isi {fileName}. Siapa pun yang sedang melihatnya akan langsung melihat perubahannya.",
+        "confirm_button": "Ganti",
+        "confirm_loading": "Mengganti",
+        "success": "README diganti dengan {fileName}.",
+        "error": "Tidak dapat membaca file tersebut. Pilih file Markdown (.md)."
+      }
+    },
+    "outline": {
+      "title": "Di halaman ini",
+      "contents": "Daftar isi",
+      "empty": "Tambahkan judul ke README untuk membuat daftar isi.",
+      "copy_link": "Salin tautan ke {section}",
+      "link_copied": "Tautan ke bagian disalin."
+    }
+  }
+}

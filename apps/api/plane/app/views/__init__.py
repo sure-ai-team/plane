@@ -24,6 +24,15 @@ from .project.member import (
     ProjectMemberPreferenceEndpoint,
 )
 
+from .project.readme import ProjectReadmeEndpoint
+from .project.spreadsheet import (
+    ProjectSpreadsheetEndpoint,
+    ProjectSpreadsheetDetailEndpoint,
+    ProjectSpreadsheetReplaceEndpoint,
+    ProjectSpreadsheetContentEndpoint,
+    ProjectSpreadsheetDownloadEndpoint,
+)
+
 from .user.base import (
     UserEndpoint,
     UpdateUserOnBoardedEndpoint,

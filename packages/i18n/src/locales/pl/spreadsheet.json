@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "Pliki danych",
+    "upload": "Prześlij",
+    "upload_files": "Prześlij pliki",
+    "drop_here": "Upuść, aby dodać do plików danych",
+    "drop_hint": "Excel (.xlsx) lub CSV, do {size} MB każdy",
+    "search_placeholder": "Szukaj plików",
+    "no_results": "Brak plików pasujących do „{query}”",
+    "load_error": "Nie udało się wczytać plików danych.",
+    "empty": {
+      "title": "Brak plików danych",
+      "description": "Prześlij pliki Excel lub CSV, aby przeglądać, przeszukiwać i filtrować je bezpośrednio tutaj.",
+      "guest_description": "Arkusze dodane przez członków projektu pojawią się tutaj."
+    },
+    "card": {
+      "open": "Otwórz {name}",
+      "actions": "Akcje pliku",
+      "sheets": "{count, plural, one {# arkusz} few {# arkusze} many {# arkuszy} other {# arkusza}}",
+      "rows": "{count, plural, one {# wiersz} few {# wiersze} many {# wierszy} other {# wiersza}}"
+    },
+    "status": {
+      "uploading": "Przesyłanie {progress}%",
+      "processing": "Przetwarzanie…",
+      "ready": "Gotowe",
+      "failed": "Przesyłanie nie powiodło się"
+    },
+    "actions": {
+      "rename": "Zmień nazwę",
+      "replace": "Zastąp plik",
+      "download": "Pobierz",
+      "delete": "Usuń",
+      "retry": "Ponów przesyłanie",
+      "dismiss": "Odrzuć"
+    },
+    "rename": {
+      "label": "Nazwa pliku",
+      "error": "Nie udało się zmienić nazwy pliku."
+    },
+    "delete": {
+      "title": "Usuń plik danych",
+      "content": "„{name}” zostanie usunięty dla wszystkich w tym projekcie. Tej operacji nie można cofnąć.",
+      "deleting": "Usuwanie",
+      "success": "Plik usunięty",
+      "error": "Nie udało się usunąć pliku."
+    },
+    "errors": {
+      "title": "Nie udało się dodać pliku",
+      "unsupported_type": "Plik „{name}” nie jest obsługiwany. Prześlij plik Excel (.xlsx) lub CSV.",
+      "file_too_large": "Plik „{name}” jest większy niż {limit} MB.",
+      "empty_file": "Plik „{name}” jest pusty.",
+      "too_many_rows": "Ten plik ma ponad {limit, number} wierszy, więcej niż może wyświetlić przeglądarka.",
+      "too_many_columns": "Ten plik ma ponad {limit, number} kolumn, więcej niż może wyświetlić przeglądarka.",
+      "too_many_sheets": "Ten skoroszyt ma ponad {limit, number} arkuszy.",
+      "zip_bomb": "Ten plik rozpakowuje się do nietypowo dużego rozmiaru, dlatego został zablokowany ze względów bezpieczeństwa.",
+      "corrupt": "Nie udało się odczytać tego pliku. Może być uszkodzony lub nie jest prawdziwym plikiem Excel ani CSV.",
+      "timeout": "Odczyt tego pliku trwał zbyt długo.",
+      "download_failed": "Nie udało się pobrać pliku. Sprawdź połączenie i spróbuj ponownie.",
+      "upload_failed": "Przesyłanie nie zostało ukończone. Spróbuj ponownie.",
+      "unknown": "Coś poszło nie tak. Spróbuj ponownie.",
+      "copy_failed": "Nie udało się skopiować do schowka.",
+      "copy_too_large": "Ten zaznaczony zakres jest zbyt duży, aby go skopiować (ponad {limit, number} komórek).",
+      "export_failed": "Nie udało się wyeksportować widoku."
+    },
+    "viewer": {
+      "not_found": "Ten plik już nie istnieje.",
+      "load_failed": "Nie udało się otworzyć tego pliku",
+      "loading": {
+        "cache": "Otwieranie pliku…",
+        "download": "Pobieranie pliku…",
+        "parse": "Odczytywanie arkusza…"
+      },
+      "download": "Pobierz oryginał",
+      "export": "Eksportuj widok jako CSV",
+      "columns": "{count, plural, one {# kolumna} few {# kolumny} many {# kolumn} other {# kolumny}}",
+      "rows_filtered": "{visible} z {total} wierszy",
+      "sheets": "Arkusze",
+      "header_toggle": "Pierwszy wiersz to nagłówek",
+      "density": "Gęstość wierszy",
+      "compact": "Kompaktowa",
+      "comfortable": "Wygodna",
+      "search_placeholder": "Znajdź w arkuszu",
+      "match_count": "{current} z {total}",
+      "no_matches": "Brak wyników",
+      "matches_truncated": "Wyświetlono pierwsze {limit} wyników",
+      "next_match": "Następny wynik",
+      "previous_match": "Poprzedni wynik",
+      "clear_search": "Wyczyść wyszukiwanie",
+      "empty_sheet": "Ten arkusz jest pusty.",
+      "no_rows_match": "Żaden wiersz nie pasuje do bieżących filtrów.",
+      "copied": "{count, plural, one {Skopiowano # komórkę} few {Skopiowano # komórki} many {Skopiowano # komórek} other {Skopiowano # komórki}}",
+      "selection": {
+        "count": "Liczba",
+        "sum": "Suma",
+        "avg": "Średnia"
+      }
+    },
+    "column": {
+      "menu": "Opcje kolumny {column}",
+      "types": {
+        "text": "Tekst",
+        "number": "Liczba",
+        "date": "Data",
+        "boolean": "Prawda/fałsz"
+      },
+      "stats": {
+        "count": "Wartości",
+        "empty": "Puste",
+        "distinct": "Unikalne",
+        "sum": "Suma",
+        "avg": "Średnia",
+        "min": "Min.",
+        "max": "Maks."
+      },
+      "sort_asc": "Sortuj rosnąco",
+      "sort_desc": "Sortuj malejąco",
+      "sorted_asc": "rosnąco",
+      "sorted_desc": "malejąco",
+      "clear_sort": "Wyczyść sortowanie",
+      "add_filter": "Dodaj filtr"
+    },
+    "filter": {
+      "active": "Aktywne filtry",
+      "operator": "Warunek",
+      "value": "Wartość",
+      "apply": "Zastosuj",
+      "remove": "Usuń filtr",
+      "clear_all": "Wyczyść wszystko",
+      "operators": {
+        "contains": "zawiera",
+        "not_contains": "nie zawiera",
+        "equals": "jest",
+        "not_equals": "nie jest",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "jest puste",
+        "not_empty": "nie jest puste"
+      }
+    }
+  }
+}

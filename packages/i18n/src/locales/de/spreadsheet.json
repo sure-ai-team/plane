@@ -1,0 +1,143 @@
+{
+  "spreadsheet": {
+    "title": "Datendateien",
+    "upload": "Hochladen",
+    "upload_files": "Dateien hochladen",
+    "drop_here": "Ablegen, um zu den Datendateien hinzuzufügen",
+    "drop_hint": "Excel (.xlsx) oder CSV, jeweils bis zu {size} MB",
+    "search_placeholder": "Dateien durchsuchen",
+    "no_results": "Keine Dateien entsprechen „{query}“",
+    "load_error": "Datendateien konnten nicht geladen werden.",
+    "empty": {
+      "title": "Noch keine Datendateien",
+      "description": "Laden Sie Excel- oder CSV-Dateien hoch, um sie direkt hier zu durchsuchen und zu filtern.",
+      "guest_description": "Tabellen, die Projektmitglieder hinzufügen, werden hier angezeigt."
+    },
+    "card": {
+      "open": "{name} öffnen",
+      "actions": "Dateiaktionen",
+      "sheets": "{count, plural, one {# Blatt} other {# Blätter}}",
+      "rows": "{count, plural, one {# Zeile} other {# Zeilen}}"
+    },
+    "status": {
+      "uploading": "Wird hochgeladen {progress} %",
+      "processing": "Wird verarbeitet…",
+      "ready": "Bereit",
+      "failed": "Hochladen fehlgeschlagen"
+    },
+    "actions": {
+      "rename": "Umbenennen",
+      "replace": "Datei ersetzen",
+      "download": "Herunterladen",
+      "delete": "Löschen",
+      "retry": "Hochladen wiederholen",
+      "dismiss": "Verwerfen"
+    },
+    "rename": {
+      "label": "Dateiname",
+      "error": "Die Datei konnte nicht umbenannt werden."
+    },
+    "delete": {
+      "title": "Datendatei löschen",
+      "content": "„{name}“ wird für alle in diesem Projekt entfernt. Dies kann nicht rückgängig gemacht werden.",
+      "deleting": "Wird gelöscht",
+      "success": "Datei gelöscht",
+      "error": "Die Datei konnte nicht gelöscht werden."
+    },
+    "errors": {
+      "title": "Die Datei konnte nicht hinzugefügt werden",
+      "unsupported_type": "„{name}“ wird nicht unterstützt. Laden Sie eine Excel- (.xlsx) oder CSV-Datei hoch.",
+      "file_too_large": "„{name}“ ist größer als {limit} MB.",
+      "empty_file": "„{name}“ ist leer.",
+      "too_many_rows": "Diese Datei hat mehr als {limit, number} Zeilen und übersteigt damit die Möglichkeiten der Ansicht.",
+      "too_many_columns": "Diese Datei hat mehr als {limit, number} Spalten und übersteigt damit die Möglichkeiten der Ansicht.",
+      "too_many_sheets": "Diese Arbeitsmappe hat mehr als {limit, number} Blätter.",
+      "zip_bomb": "Diese Datei entpackt sich auf eine ungewöhnlich große Größe und wurde aus Sicherheitsgründen blockiert.",
+      "corrupt": "Diese Datei konnte nicht gelesen werden. Sie ist möglicherweise beschädigt oder keine echte Excel- oder CSV-Datei.",
+      "timeout": "Das Lesen dieser Datei hat zu lange gedauert.",
+      "download_failed": "Die Datei konnte nicht heruntergeladen werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "upload_failed": "Das Hochladen wurde nicht abgeschlossen. Versuchen Sie es erneut.",
+      "unknown": "Etwas ist schiefgelaufen. Versuchen Sie es erneut.",
+      "copy_failed": "Kopieren in die Zwischenablage nicht möglich.",
+      "copy_too_large": "Diese Auswahl ist zu groß zum Kopieren (mehr als {limit, number} Zellen).",
+      "export_failed": "Die Ansicht konnte nicht exportiert werden."
+    },
+    "viewer": {
+      "not_found": "Diese Datei existiert nicht mehr.",
+      "load_failed": "Diese Datei konnte nicht geöffnet werden",
+      "loading": {
+        "cache": "Datei wird geöffnet…",
+        "download": "Datei wird heruntergeladen…",
+        "parse": "Tabelle wird gelesen…"
+      },
+      "download": "Original herunterladen",
+      "export": "Ansicht als CSV exportieren",
+      "columns": "{count, plural, one {# Spalte} other {# Spalten}}",
+      "rows_filtered": "{visible} von {total} Zeilen",
+      "sheets": "Blätter",
+      "header_toggle": "Erste Zeile ist Kopfzeile",
+      "density": "Zeilendichte",
+      "compact": "Kompakt",
+      "comfortable": "Großzügig",
+      "search_placeholder": "Im Blatt suchen",
+      "match_count": "{current} von {total}",
+      "no_matches": "Keine Treffer",
+      "matches_truncated": "Die ersten {limit} Treffer werden angezeigt",
+      "next_match": "Nächster Treffer",
+      "previous_match": "Vorheriger Treffer",
+      "clear_search": "Suche löschen",
+      "empty_sheet": "Dieses Blatt ist leer.",
+      "no_rows_match": "Keine Zeilen entsprechen den aktuellen Filtern.",
+      "copied": "{count, plural, one {# Zelle kopiert} other {# Zellen kopiert}}",
+      "selection": {
+        "count": "Anzahl",
+        "sum": "Summe",
+        "avg": "Mittelwert"
+      }
+    },
+    "column": {
+      "menu": "Optionen für Spalte {column}",
+      "types": {
+        "text": "Text",
+        "number": "Zahl",
+        "date": "Datum",
+        "boolean": "Wahr/Falsch"
+      },
+      "stats": {
+        "count": "Werte",
+        "empty": "Leer",
+        "distinct": "Eindeutig",
+        "sum": "Summe",
+        "avg": "Mittelwert",
+        "min": "Min.",
+        "max": "Max."
+      },
+      "sort_asc": "Aufsteigend sortieren",
+      "sort_desc": "Absteigend sortieren",
+      "sorted_asc": "aufsteigend",
+      "sorted_desc": "absteigend",
+      "clear_sort": "Sortierung entfernen",
+      "add_filter": "Filter hinzufügen"
+    },
+    "filter": {
+      "active": "Aktive Filter",
+      "operator": "Bedingung",
+      "value": "Wert",
+      "apply": "Anwenden",
+      "remove": "Filter entfernen",
+      "clear_all": "Alle löschen",
+      "operators": {
+        "contains": "enthält",
+        "not_contains": "enthält nicht",
+        "equals": "ist",
+        "not_equals": "ist nicht",
+        "gt": ">",
+        "gte": "≥",
+        "lt": "<",
+        "lte": "≤",
+        "empty": "ist leer",
+        "not_empty": "ist nicht leer"
+      }
+    }
+  }
+}
