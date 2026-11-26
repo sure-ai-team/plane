@@ -55,6 +55,7 @@ from .cycle import (
     CycleUserPropertiesSerializer,
 )
 from .asset import FileAssetSerializer
+from .project_spreadsheet import ProjectSpreadsheetSerializer
 from .issue import (
     IssueCreateSerializer,
     IssueActivitySerializer,

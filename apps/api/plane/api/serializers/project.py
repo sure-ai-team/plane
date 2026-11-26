@@ -236,6 +236,7 @@ class ProjectSerializer(BaseSerializer):
             "updated_by",
             "deleted_at",
             "cover_image_url",
+            "readme_page",
         ]
 
     def validate(self, data):

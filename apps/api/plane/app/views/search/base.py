@@ -41,6 +41,7 @@ from plane.db.models import (
     ProjectPage,
     WorkspaceMember,
 )
+from plane.utils.project_readme import readme_page_ids
 
 
 class GlobalSearchEndpoint(BaseAPIView):
@@ -176,6 +177,8 @@ class GlobalSearchEndpoint(BaseAPIView):
                 projects__archived_at__isnull=True,
                 workspace__slug=slug,
             )
+            # Project READMEs live on the Overview page, not in page search.
+            .exclude(id__in=readme_page_ids())
             .annotate(
                 project_ids=Coalesce(
                     ArrayAgg("projects__id", distinct=True, filter=~Q(projects__id=True)),

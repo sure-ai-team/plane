@@ -377,6 +377,8 @@ BACKUP_SOURCE_S3_ENDPOINT_URL = os.environ.get("BACKUP_SOURCE_S3_ENDPOINT_URL", 
 BACKUP_MAX_UPLOAD_BYTES = int(os.environ.get("BACKUP_MAX_UPLOAD_BYTES", 50 * 1024**3))
 
 FILE_SIZE_LIMIT = int(os.environ.get("FILE_SIZE_LIMIT", 5242880))
+# Largest spreadsheet (.xlsx / .csv) that may be uploaded to a project's Overview page.
+SPREADSHEET_SIZE_LIMIT = int(os.environ.get("SPREADSHEET_SIZE_LIMIT", 20 * 1024 * 1024))
 
 # Unsplash Access key
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")

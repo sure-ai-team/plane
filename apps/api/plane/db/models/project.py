@@ -107,6 +107,15 @@ class Project(BaseModel):
         related_name="project_cover_image",
     )
     estimate = models.ForeignKey("db.Estimate", on_delete=models.SET_NULL, related_name="projects", null=True)
+    # The project's README, shown on the Overview page. It is an ordinary project page
+    # (edited through the page editor) that is hidden from the Pages list.
+    readme_page = models.ForeignKey(
+        "db.Page",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="readme_projects",
+    )
     archive_in = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(12)])
     close_in = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(12)])
     logo_props = models.JSONField(default=dict)

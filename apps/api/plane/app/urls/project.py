@@ -18,6 +18,12 @@ from plane.app.views import (
     UserProjectRolesEndpoint,
     ProjectArchiveUnarchiveEndpoint,
     ProjectMemberPreferenceEndpoint,
+    ProjectReadmeEndpoint,
+    ProjectSpreadsheetEndpoint,
+    ProjectSpreadsheetDetailEndpoint,
+    ProjectSpreadsheetReplaceEndpoint,
+    ProjectSpreadsheetContentEndpoint,
+    ProjectSpreadsheetDownloadEndpoint,
 )
 
 
@@ -128,5 +134,36 @@ urlpatterns = [
         "workspaces/<str:slug>/projects/<uuid:project_id>/preferences/member/<uuid:member_id>/",
         ProjectMemberPreferenceEndpoint.as_view(),
         name="project-member-preference",
+    ),
+    # Project Overview: README and spreadsheets
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/readme/",
+        ProjectReadmeEndpoint.as_view(),
+        name="project-readme",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/spreadsheets/",
+        ProjectSpreadsheetEndpoint.as_view(),
+        name="project-spreadsheets",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/spreadsheets/<uuid:asset_id>/",
+        ProjectSpreadsheetDetailEndpoint.as_view(),
+        name="project-spreadsheet",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/spreadsheets/<uuid:asset_id>/replace/",
+        ProjectSpreadsheetReplaceEndpoint.as_view(),
+        name="project-spreadsheet-replace",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/spreadsheets/<uuid:asset_id>/content/",
+        ProjectSpreadsheetContentEndpoint.as_view(),
+        name="project-spreadsheet-content",
+    ),
+    path(
+        "workspaces/<str:slug>/projects/<uuid:project_id>/spreadsheets/<uuid:asset_id>/download/",
+        ProjectSpreadsheetDownloadEndpoint.as_view(),
+        name="project-spreadsheet-download",
     ),
 ]

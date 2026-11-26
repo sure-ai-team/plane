@@ -657,7 +657,7 @@ class ProjectAssetEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST])
     def patch(self, request, slug, project_id, pk):
         # get the asset id
-        asset = FileAsset.objects.get(id=pk, workspace__slug=slug, project_id=project_id)
+        asset = non_chat_assets().get(id=pk, workspace__slug=slug, project_id=project_id)
         # get the storage metadata
         asset.is_uploaded = True
         # get the storage metadata
@@ -673,7 +673,7 @@ class ProjectAssetEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST])
     def delete(self, request, slug, project_id, pk):
         # Get the asset
-        asset = FileAsset.objects.get(id=pk, workspace__slug=slug, project_id=project_id)
+        asset = non_chat_assets().get(id=pk, workspace__slug=slug, project_id=project_id)
         # Check deleted assets
         asset.is_deleted = True
         asset.deleted_at = timezone.now()
@@ -684,7 +684,7 @@ class ProjectAssetEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST])
     def get(self, request, slug, project_id, pk):
         # get the asset id
-        asset = FileAsset.objects.get(workspace__slug=slug, project_id=project_id, pk=pk)
+        asset = non_chat_assets().get(workspace__slug=slug, project_id=project_id, pk=pk)
 
         # Check if the asset is uploaded
         if not asset.is_uploaded:

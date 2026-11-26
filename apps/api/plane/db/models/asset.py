@@ -45,12 +45,15 @@ class FileAsset(BaseModel):
         DRAFT_ISSUE_ATTACHMENT = "DRAFT_ISSUE_ATTACHMENT"
         DRAFT_ISSUE_DESCRIPTION = "DRAFT_ISSUE_DESCRIPTION"
         CHAT_ATTACHMENT = "CHAT_ATTACHMENT"
+        PROJECT_SPREADSHEET = "PROJECT_SPREADSHEET"
 
-    # Entity types that are private to a chat conversation. The generic asset
-    # endpoints must never create, serve, copy or restore these; they are only
-    # reachable through the chat attachment endpoints, which check
-    # conversation membership (docs/chat/07-security.md S1).
-    PRIVATE_ENTITY_TYPES = frozenset({EntityTypeContext.CHAT_ATTACHMENT})
+    # Entity types the generic asset endpoints must never create, serve, copy or
+    # restore. Each is only reachable through its own dedicated endpoints:
+    # - chat attachments through the chat attachment endpoints, which check
+    #   conversation membership (docs/chat/07-security.md S1);
+    # - project spreadsheets through the project spreadsheet endpoints, which
+    #   validate the file type and keep guests read-only.
+    PRIVATE_ENTITY_TYPES = frozenset({EntityTypeContext.CHAT_ATTACHMENT, EntityTypeContext.PROJECT_SPREADSHEET})
     # Entity types the generic asset endpoints may create.
     PUBLIC_ENTITY_TYPES = frozenset(EntityTypeContext.values) - PRIVATE_ENTITY_TYPES
 
@@ -119,5 +122,8 @@ class FileAsset(BaseModel):
 
         if self.entity_type == self.EntityTypeContext.CHAT_ATTACHMENT:
             return f"/api/workspaces/{self.workspace.slug}/chat/attachments/{self.id}/"
+
+        if self.entity_type == self.EntityTypeContext.PROJECT_SPREADSHEET:
+            return f"/api/workspaces/{self.workspace.slug}/projects/{self.project_id}/spreadsheets/{self.id}/content/"
 
         return None
