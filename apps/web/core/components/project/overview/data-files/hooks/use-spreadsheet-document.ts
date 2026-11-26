@@ -7,7 +7,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { TProjectSpreadsheet } from "@plane/types";
 // local imports
-import { getWorkbookCacheKey } from "../helpers/cache";
+import { getCacheScope, getWorkbookCacheKey } from "../helpers/cache";
 import { SPREADSHEET_PARSE_TIMEOUT_MS } from "../helpers/constants";
 import type { TSpreadsheetErrorShape } from "../helpers/errors";
 import { SpreadsheetError, toSpreadsheetErrorShape } from "../helpers/errors";
@@ -47,11 +47,17 @@ export const useSpreadsheetDocument = (
     let cancelled = false;
     const client = getSpreadsheetWorkerClient();
     const key = getWorkbookCacheKey(id, version);
+    const scope = getCacheScope();
     setState({ status: "loading", phase: "cache" });
+    const release = () => void client.request("release", { key }).catch(() => undefined);
 
     const load = async () => {
-      const cached = await client.request("open", { key, assetId: id, version }).catch(() => null);
-      if (cancelled) return;
+      const cached = await client.request("open", { scope, key, assetId: id, version }).catch(() => null);
+      if (cancelled) {
+        // closed while the cache answered: the cleanup's release may have run first
+        if (cached) release();
+        return;
+      }
       if (cached) {
         setState({ status: "ready", key, data: cached });
         onPreview?.(cached.preview);
@@ -68,13 +74,14 @@ export const useSpreadsheetDocument = (
       }
       if (cancelled) return;
       setState({ status: "loading", phase: "parse" });
+      // cloned, not transferred, so the request can be re-sent if the worker restarts
       const parsed = await client.request(
         "parse",
-        { key, assetId: id, version, kind, buffer, retain: true },
-        { transfer: [buffer], timeoutMs: SPREADSHEET_PARSE_TIMEOUT_MS }
+        { scope, key, assetId: id, version, kind, buffer, retain: true },
+        { timeoutMs: SPREADSHEET_PARSE_TIMEOUT_MS }
       );
       if (cancelled) {
-        void client.request("release", { key }).catch(() => undefined);
+        release();
         return;
       }
       if (!parsed.workbook) throw new SpreadsheetError("unknown");
@@ -88,7 +95,7 @@ export const useSpreadsheetDocument = (
 
     return () => {
       cancelled = true;
-      void client.request("release", { key }).catch(() => undefined);
+      release();
     };
     // onPreview is intentionally not a dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps

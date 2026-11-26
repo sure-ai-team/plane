@@ -59,6 +59,7 @@
       "upload_failed": "Yükleme tamamlanmadı. Yeniden deneyin.",
       "unknown": "Bir sorun oluştu. Yeniden deneyin.",
       "copy_failed": "Panoya kopyalanamadı.",
+      "copy_too_large": "Bu seçim kopyalanamayacak kadar büyük ({limit, number} hücreden fazla).",
       "export_failed": "Görünüm dışa aktarılamadı."
     },
     "viewer": {

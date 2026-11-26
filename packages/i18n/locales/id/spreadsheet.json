@@ -59,6 +59,7 @@
       "upload_failed": "Unggahan tidak selesai. Coba lagi.",
       "unknown": "Terjadi kesalahan. Coba lagi.",
       "copy_failed": "Tidak dapat menyalin ke papan klip.",
+      "copy_too_large": "Pilihan ini terlalu besar untuk disalin (lebih dari {limit, number} sel).",
       "export_failed": "Tampilan tidak dapat diekspor."
     },
     "viewer": {

@@ -7,6 +7,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { observer } from "mobx-react";
 import { createPortal } from "react-dom";
+import { FocusTrap } from "@headlessui/react";
 import { AlertTriangle, Download, FileDown, MoveRight, RefreshCw, Rows2, Rows3 } from "lucide-react";
 // plane imports
 import { useTranslation } from "@plane/i18n";
@@ -21,14 +22,21 @@ import { cn } from "@plane/utils";
 import { SpreadsheetDataGrid } from "../grid/data-grid";
 import { estimateColumnWidths } from "../grid/layout";
 import type { TGridDensity } from "../grid/layout";
-import { getSelectionBounds, readSelection } from "../grid/selection";
+import {
+  SELECTION_COPY_LIMIT,
+  SELECTION_MAIN_THREAD_LIMIT,
+  computeRangeStats,
+  getSelectionBounds,
+  getSelectionSize,
+  readSelection,
+} from "../grid/selection";
 import type { TCellAddress, TGridSelection } from "../grid/selection";
 import { cellToText, columnLetter } from "../helpers/cells";
 import { SPREADSHEET_ACCEPT } from "../helpers/constants";
 import { buildTsv, toExportFileName } from "../helpers/export";
 import { createNumberFormatter } from "../helpers/format";
 import type { TSortDirection, TSpreadsheetFilter, TSpreadsheetSort } from "../helpers/query";
-import { computeSelectionStats } from "../helpers/stats";
+import type { TSelectionStats } from "../helpers/stats";
 import { getProjectSpreadsheetService, useProjectSpreadsheets } from "../hooks/use-project-spreadsheets";
 import { useSpreadsheetDocument } from "../hooks/use-spreadsheet-document";
 import { useSpreadsheetSearch, useSpreadsheetView } from "../hooks/use-spreadsheet-view";
@@ -104,6 +112,10 @@ export const SpreadsheetViewer = observer(function SpreadsheetViewer(props: Prop
   const replaceInputRef = useRef<HTMLInputElement>(null);
   // preferences
   const [preferences, setPreferences] = useState<TPreferences>(() => readPreferences());
+  // modal and full-screen cover the page: aria-modal + focus trap; side-peek doesn't
+  const isModal = preferences.peekMode !== "side-peek";
+  const peekModeRef = useRef(preferences.peekMode);
+  peekModeRef.current = preferences.peekMode;
   const updatePreferences = (next: Partial<TPreferences>) =>
     setPreferences((previous) => {
       const merged = { ...previous, ...next };
@@ -214,31 +226,74 @@ export const SpreadsheetViewer = observer(function SpreadsheetViewer(props: Prop
     setScrollNonce((value) => value + 1);
   }, []);
 
-  const selectionValues = useMemo(() => {
-    if (!selection || !sheet || !view) return null;
-    return readSelection(sheet.rows, view, getSelectionBounds(selection));
-  }, [selection, sheet, view]);
+  // Status-bar stats follow the selection at most once per frame (drag-select
+  // updates on every mouse move); large ranges are summed in the worker.
+  const [statsSelection, setStatsSelection] = useState<TGridSelection>(null);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setStatsSelection(selection));
+    return () => cancelAnimationFrame(frame);
+  }, [selection]);
+  const statsBounds = statsSelection ? getSelectionBounds(statsSelection) : null;
+  const selectedCells = selection ? getSelectionSize(getSelectionBounds(selection)) : 0;
+  const isLargeSelection = !!statsBounds && getSelectionSize(statsBounds) > SELECTION_MAIN_THREAD_LIMIT;
 
-  const selectionStats = useMemo(
-    () => (selectionValues ? computeSelectionStats(selectionValues.flat()) : null),
-    [selectionValues]
-  );
-  const selectedCells = selection
-    ? (() => {
-        const bounds = getSelectionBounds(selection);
-        return (bounds.bottom - bounds.top + 1) * (bounds.right - bounds.left + 1);
-      })()
-    : 0;
+  const syncStats = useMemo<TSelectionStats | null>(() => {
+    if (!statsBounds || isLargeSelection || !sheet || !view) return null;
+    return computeRangeStats(sheet.rows, view, statsBounds);
+    // statsBounds is derived from statsSelection
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statsSelection, isLargeSelection, sheet, view]);
+
+  const [asyncStats, setAsyncStats] = useState<TSelectionStats | null>(null);
+  useEffect(() => {
+    setAsyncStats(null);
+    if (!statsBounds || !isLargeSelection || !query) return;
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      const run = async () => {
+        try {
+          const result = await getSpreadsheetWorkerClient().request("selection-stats", {
+            ...query,
+            bounds: statsBounds,
+          });
+          if (!cancelled) setAsyncStats(result);
+        } catch {
+          // stats are informational; leave them empty
+        }
+      };
+      void run();
+    }, 150);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statsSelection, isLargeSelection, query]);
+  const selectionStats = isLargeSelection ? asyncStats : syncStats;
 
   const handleCopy = useCallback(() => {
-    if (!selectionValues) return;
-    const text = buildTsv(selectionValues);
-    const count = selectionValues.reduce((sum, row) => sum + row.length, 0);
-    navigator.clipboard
-      ?.writeText(text)
+    if (!selection || !sheet || !view) return;
+    const bounds = getSelectionBounds(selection);
+    const count = getSelectionSize(bounds);
+    if (count > SELECTION_COPY_LIMIT) {
+      setToast({
+        type: TOAST_TYPE.ERROR,
+        title: t("spreadsheet.errors.copy_too_large", { limit: SELECTION_COPY_LIMIT }),
+      });
+      return;
+    }
+    const copy = async () => {
+      // small ranges are read here; large ones are serialized in the worker
+      const text =
+        count <= SELECTION_MAIN_THREAD_LIMIT || !query
+          ? buildTsv(readSelection(sheet.rows, view, bounds))
+          : (await getSpreadsheetWorkerClient().request("selection-text", { ...query, bounds })).text;
+      await navigator.clipboard.writeText(text);
+    };
+    copy()
       .then(() => setToast({ type: TOAST_TYPE.SUCCESS, title: t("spreadsheet.viewer.copied", { count }) }))
       .catch(() => setToast({ type: TOAST_TYPE.ERROR, title: t("spreadsheet.errors.copy_failed") }));
-  }, [selectionValues, t]);
+  }, [selection, sheet, view, query, t]);
 
   const getColumnTitle = useCallback(
     (column: number): string | null => {
@@ -306,6 +361,9 @@ export const SpreadsheetViewer = observer(function SpreadsheetViewer(props: Prop
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "f") {
+        // keep the browser's find unless the viewer owns the screen or has focus
+        const hasFocus = !!panelRef.current?.contains(document.activeElement);
+        if (!hasFocus && peekModeRef.current === "side-peek") return;
         event.preventDefault();
         searchRef.current?.focus();
         searchRef.current?.select();
@@ -314,13 +372,13 @@ export const SpreadsheetViewer = observer(function SpreadsheetViewer(props: Prop
       if (event.key !== "Escape" || event.defaultPrevented) return;
       const target = event.target as HTMLElement | null;
       if (target?.closest("input, textarea, select, [contenteditable='true']")) return;
-      // let popovers, menus and dialogs close first
-      if (
-        document.querySelector(
+      // let popovers, menus and other dialogs (not this panel) close first
+      const blocker = Array.from(
+        document.querySelectorAll(
           "[data-slot='popover-content'], [role='dialog'][aria-modal='true'], [role='menu'], [role='listbox']"
         )
-      )
-        return;
+      ).some((element) => element !== panelRef.current);
+      if (blocker) return;
       onClose();
     };
     document.addEventListener("keydown", handleKeyDown);
@@ -448,7 +506,9 @@ export const SpreadsheetViewer = observer(function SpreadsheetViewer(props: Prop
     <div
       ref={panelRef}
       role="dialog"
+      aria-modal={isModal || undefined}
       aria-label={spreadsheet?.name ?? t("spreadsheet.title")}
+      tabIndex={-1}
       className={cn(
         "absolute z-[25] flex flex-col overflow-hidden rounded-sm border border-subtle bg-surface-1 shadow-raised-300 transition-all duration-200",
         {
@@ -458,209 +518,227 @@ export const SpreadsheetViewer = observer(function SpreadsheetViewer(props: Prop
         }
       )}
     >
-      {/* toolbar */}
-      <div className="flex flex-col gap-2 border-b border-subtle px-4 pt-3 pb-2">
-        <div className="flex items-center gap-2">
-          <Tooltip tooltipContent={t("common.close_peek_view")}>
-            <button
-              type="button"
-              className={iconButtonClassName}
-              onClick={onClose}
-              aria-label={t("common.close_peek_view")}
+      {/*
+        Focus moves into the panel on open and returns to the opener (the card)
+        on close. Modal and full-screen modes also keep Tab inside the panel.
+        No FocusLock: popovers render in portals outside the panel.
+      */}
+      <FocusTrap
+        as="div"
+        className="contents"
+        initialFocus={panelRef}
+        features={
+          isModal
+            ? FocusTrap.features.InitialFocus | FocusTrap.features.TabLock | FocusTrap.features.RestoreFocus
+            : FocusTrap.features.InitialFocus | FocusTrap.features.RestoreFocus
+        }
+      >
+        {/* toolbar */}
+        <div className="flex flex-col gap-2 border-b border-subtle px-4 pt-3 pb-2">
+          <div className="flex items-center gap-2">
+            <Tooltip tooltipContent={t("common.close_peek_view")}>
+              <button
+                type="button"
+                className={iconButtonClassName}
+                onClick={onClose}
+                aria-label={t("common.close_peek_view")}
+              >
+                <MoveRight className="size-4" aria-hidden />
+              </button>
+            </Tooltip>
+            <CustomSelect
+              value={currentMode.key}
+              onChange={(value: TSpreadsheetPeekMode) => updatePreferences({ peekMode: value })}
+              customButton={
+                <Tooltip tooltipContent={t("common.toggle_peek_view_layout")}>
+                  <span className={iconButtonClassName} aria-label={t("common.toggle_peek_view_layout")}>
+                    <currentMode.icon className="size-4" />
+                  </span>
+                </Tooltip>
+              }
             >
-              <MoveRight className="size-4" aria-hidden />
-            </button>
-          </Tooltip>
-          <CustomSelect
-            value={currentMode.key}
-            onChange={(value: TSpreadsheetPeekMode) => updatePreferences({ peekMode: value })}
-            customButton={
-              <Tooltip tooltipContent={t("common.toggle_peek_view_layout")}>
-                <span className={iconButtonClassName} aria-label={t("common.toggle_peek_view_layout")}>
-                  <currentMode.icon className="size-4" />
-                </span>
-              </Tooltip>
-            }
-          >
-            {PEEK_MODES.map((mode) => (
-              <CustomSelect.Option key={mode.key} value={mode.key}>
-                <div
-                  className={cn(
-                    "flex items-center gap-1.5",
-                    currentMode.key === mode.key ? "text-secondary" : "text-placeholder hover:text-secondary"
-                  )}
-                >
-                  <mode.icon className="-my-1 size-4 flex-shrink-0" />
-                  {t(mode.i18n)}
-                </div>
-              </CustomSelect.Option>
-            ))}
-          </CustomSelect>
-          <div className="mx-1 h-5 w-px bg-layer-3" aria-hidden />
-          {spreadsheet && <FileTypeBadge name={spreadsheet.name} type={spreadsheet.type} size="sm" />}
-          <div className="min-w-0 flex-1">
-            <h2 className="truncate text-14 font-semibold text-primary" title={spreadsheet?.name}>
-              {spreadsheet?.name}
-            </h2>
-            {data && sheet && (
-              <p className="truncate text-11 text-tertiary">
-                {[
-                  data.workbook.sheets.length > 1
-                    ? t("spreadsheet.card.sheets", { count: data.workbook.sheets.length })
-                    : null,
-                  view && isFiltered
-                    ? t("spreadsheet.viewer.rows_filtered", {
-                        visible: format(view.length),
-                        total: format(dataRowCount),
-                      })
-                    : t("spreadsheet.card.rows", { count: dataRowCount }),
-                  t("spreadsheet.viewer.columns", { count: columns }),
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </p>
-            )}
-          </div>
-          {replaceUpload && replaceUpload.status !== "ready" && (
-            <span
-              className={cn(
-                "hidden flex-shrink-0 items-center gap-1.5 rounded-full px-2 py-0.5 text-11 sm:flex",
-                replaceUpload.status === "error" ? "bg-danger-subtle text-danger-primary" : "bg-layer-1 text-secondary"
-              )}
-            >
-              {replaceUpload.status === "uploading" &&
-                t("spreadsheet.status.uploading", { progress: replaceUpload.progress })}
-              {replaceUpload.status === "processing" && t("spreadsheet.status.processing")}
-              {replaceUpload.status === "error" && t("spreadsheet.status.failed")}
-            </span>
-          )}
-          <Tooltip tooltipContent={t("spreadsheet.viewer.export")}>
-            <button
-              type="button"
-              className={iconButtonClassName}
-              onClick={() => void handleExport()}
-              disabled={!query || isExporting}
-              aria-label={t("spreadsheet.viewer.export")}
-            >
-              <FileDown className="size-4" aria-hidden />
-            </button>
-          </Tooltip>
-          <Tooltip tooltipContent={t("spreadsheet.viewer.download")}>
-            <a
-              className={iconButtonClassName}
-              href={getProjectSpreadsheetService().getDownloadUrl(workspaceSlug, projectId, spreadsheetId)}
-              aria-label={t("spreadsheet.viewer.download")}
-            >
-              <Download className="size-4" aria-hidden />
-            </a>
-          </Tooltip>
-          {canEdit && spreadsheet && (
-            <>
-              <Tooltip tooltipContent={t("spreadsheet.actions.replace")}>
-                <button
-                  type="button"
-                  className={iconButtonClassName}
-                  onClick={() => replaceInputRef.current?.click()}
-                  disabled={replaceUpload?.status === "uploading" || replaceUpload?.status === "processing"}
-                  aria-label={t("spreadsheet.actions.replace")}
-                >
-                  <RefreshCw className="size-4" aria-hidden />
-                </button>
-              </Tooltip>
-              <input
-                ref={replaceInputRef}
-                type="file"
-                accept={SPREADSHEET_ACCEPT}
-                className="hidden"
-                onChange={(event) => {
-                  handleReplaceFile(event.target.files?.[0]);
-                  event.target.value = "";
-                }}
-              />
-            </>
-          )}
-        </div>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <SpreadsheetSearchBox
-            ref={searchRef}
-            value={searchTerm}
-            onChange={setSearchTerm}
-            matchCount={matchCount}
-            activeIndex={activeMatch}
-            isSearching={search.isSearching}
-            truncated={search.truncated}
-            onNext={() => goToMatch(activeMatch + 1)}
-            onPrevious={() => goToMatch(activeMatch - 1)}
-            onEscape={() => {
-              if (searchTerm) setSearchTerm("");
-              else document.getElementById(gridId)?.focus();
-            }}
-          />
-          <div className="ml-auto flex items-center gap-3">
-            <label className="flex cursor-pointer items-center gap-2 text-12 text-secondary">
-              <Switch
-                value={headerRow}
-                onChange={(value) => setHeaderOverrides((previous) => ({ ...previous, [sheetIndex]: value }))}
-                label={t("spreadsheet.viewer.header_toggle")}
-                disabled={!data}
-              />
-              <span className="hidden sm:inline">{t("spreadsheet.viewer.header_toggle")}</span>
-            </label>
-            <div
-              role="radiogroup"
-              aria-label={t("spreadsheet.viewer.density")}
-              className="flex items-center rounded-md border border-subtle p-0.5"
-            >
-              {(
-                [
-                  { key: "compact", icon: Rows3, label: t("spreadsheet.viewer.compact") },
-                  { key: "comfortable", icon: Rows2, label: t("spreadsheet.viewer.comfortable") },
-                ] as const
-              ).map((option) => (
-                <Tooltip key={option.key} tooltipContent={option.label}>
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={preferences.density === option.key}
-                    aria-label={option.label}
-                    onClick={() => updatePreferences({ density: option.key })}
+              {PEEK_MODES.map((mode) => (
+                <CustomSelect.Option key={mode.key} value={mode.key}>
+                  <div
                     className={cn(
-                      "flex size-6 items-center justify-center rounded-sm transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-accent-strong",
-                      preferences.density === option.key
-                        ? "bg-layer-3 text-primary"
-                        : "text-tertiary hover:text-secondary"
+                      "flex items-center gap-1.5",
+                      currentMode.key === mode.key ? "text-secondary" : "text-placeholder hover:text-secondary"
                     )}
                   >
-                    <option.icon className="size-3.5" aria-hidden />
+                    <mode.icon className="-my-1 size-4 flex-shrink-0" />
+                    {t(mode.i18n)}
+                  </div>
+                </CustomSelect.Option>
+              ))}
+            </CustomSelect>
+            <div className="mx-1 h-5 w-px bg-layer-3" aria-hidden />
+            {spreadsheet && <FileTypeBadge name={spreadsheet.name} type={spreadsheet.type} size="sm" />}
+            <div className="min-w-0 flex-1">
+              <h2 className="truncate text-14 font-semibold text-primary" title={spreadsheet?.name}>
+                {spreadsheet?.name}
+              </h2>
+              {data && sheet && (
+                <p className="truncate text-11 text-tertiary">
+                  {[
+                    data.workbook.sheets.length > 1
+                      ? t("spreadsheet.card.sheets", { count: data.workbook.sheets.length })
+                      : null,
+                    view && isFiltered
+                      ? t("spreadsheet.viewer.rows_filtered", {
+                          visible: format(view.length),
+                          total: format(dataRowCount),
+                        })
+                      : t("spreadsheet.card.rows", { count: dataRowCount }),
+                    t("spreadsheet.viewer.columns", { count: columns }),
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              )}
+            </div>
+            {replaceUpload && replaceUpload.status !== "ready" && (
+              <span
+                className={cn(
+                  "hidden flex-shrink-0 items-center gap-1.5 rounded-full px-2 py-0.5 text-11 sm:flex",
+                  replaceUpload.status === "error"
+                    ? "bg-danger-subtle text-danger-primary"
+                    : "bg-layer-1 text-secondary"
+                )}
+              >
+                {replaceUpload.status === "uploading" &&
+                  t("spreadsheet.status.uploading", { progress: replaceUpload.progress })}
+                {replaceUpload.status === "processing" && t("spreadsheet.status.processing")}
+                {replaceUpload.status === "error" && t("spreadsheet.status.failed")}
+              </span>
+            )}
+            <Tooltip tooltipContent={t("spreadsheet.viewer.export")}>
+              <button
+                type="button"
+                className={iconButtonClassName}
+                onClick={() => void handleExport()}
+                disabled={!query || isExporting}
+                aria-label={t("spreadsheet.viewer.export")}
+              >
+                <FileDown className="size-4" aria-hidden />
+              </button>
+            </Tooltip>
+            <Tooltip tooltipContent={t("spreadsheet.viewer.download")}>
+              <a
+                className={iconButtonClassName}
+                href={getProjectSpreadsheetService().getDownloadUrl(workspaceSlug, projectId, spreadsheetId)}
+                aria-label={t("spreadsheet.viewer.download")}
+              >
+                <Download className="size-4" aria-hidden />
+              </a>
+            </Tooltip>
+            {canEdit && spreadsheet && (
+              <>
+                <Tooltip tooltipContent={t("spreadsheet.actions.replace")}>
+                  <button
+                    type="button"
+                    className={iconButtonClassName}
+                    onClick={() => replaceInputRef.current?.click()}
+                    disabled={replaceUpload?.status === "uploading" || replaceUpload?.status === "processing"}
+                    aria-label={t("spreadsheet.actions.replace")}
+                  >
+                    <RefreshCw className="size-4" aria-hidden />
                   </button>
                 </Tooltip>
-              ))}
+                <input
+                  ref={replaceInputRef}
+                  type="file"
+                  accept={SPREADSHEET_ACCEPT}
+                  className="hidden"
+                  onChange={(event) => {
+                    handleReplaceFile(event.target.files?.[0]);
+                    event.target.value = "";
+                  }}
+                />
+              </>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <SpreadsheetSearchBox
+              ref={searchRef}
+              value={searchTerm}
+              onChange={setSearchTerm}
+              matchCount={matchCount}
+              activeIndex={activeMatch}
+              isSearching={search.isSearching}
+              truncated={search.truncated}
+              onNext={() => goToMatch(activeMatch + 1)}
+              onPrevious={() => goToMatch(activeMatch - 1)}
+              onEscape={() => {
+                if (searchTerm) setSearchTerm("");
+                else document.getElementById(gridId)?.focus();
+              }}
+            />
+            <div className="ml-auto flex items-center gap-3">
+              <label className="flex cursor-pointer items-center gap-2 text-12 text-secondary">
+                <Switch
+                  value={headerRow}
+                  onChange={(value) => setHeaderOverrides((previous) => ({ ...previous, [sheetIndex]: value }))}
+                  label={t("spreadsheet.viewer.header_toggle")}
+                  disabled={!data}
+                />
+                <span className="hidden sm:inline">{t("spreadsheet.viewer.header_toggle")}</span>
+              </label>
+              <div
+                role="radiogroup"
+                aria-label={t("spreadsheet.viewer.density")}
+                className="flex items-center rounded-md border border-subtle p-0.5"
+              >
+                {(
+                  [
+                    { key: "compact", icon: Rows3, label: t("spreadsheet.viewer.compact") },
+                    { key: "comfortable", icon: Rows2, label: t("spreadsheet.viewer.comfortable") },
+                  ] as const
+                ).map((option) => (
+                  <Tooltip key={option.key} tooltipContent={option.label}>
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={preferences.density === option.key}
+                      aria-label={option.label}
+                      onClick={() => updatePreferences({ density: option.key })}
+                      className={cn(
+                        "flex size-6 items-center justify-center rounded-sm transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-accent-strong",
+                        preferences.density === option.key
+                          ? "bg-layer-3 text-primary"
+                          : "text-tertiary hover:text-secondary"
+                      )}
+                    >
+                      <option.icon className="size-3.5" aria-hidden />
+                    </button>
+                  </Tooltip>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <SpreadsheetFilterBar
-        filters={filters}
-        sort={sort}
-        getColumnTitle={getColumnTitle}
-        onRemoveFilter={(id) => setFilters((previous) => previous.filter((filter) => filter.id !== id))}
-        onClearSort={() => setSort(null)}
-        onClearAll={() => {
-          setFilters([]);
-          setSort(null);
-        }}
-      />
-      {/* grid */}
-      <div className="relative min-h-0 flex-1 animate-fade-in">{renderBody()}</div>
-      {/* footer: sheet tabs + selection stats */}
-      <div className="flex min-h-9 items-stretch justify-between gap-2 border-t border-subtle bg-layer-1 pl-2">
-        {data && data.workbook.sheets.length > 0 ? (
-          <SpreadsheetSheetTabs sheets={data.workbook.sheets} activeSheet={sheetIndex} onChange={setSheetIndex} />
-        ) : (
-          <div className="flex-1" />
-        )}
-        <SpreadsheetStatusBar stats={selectionStats} selectedCells={selectedCells} />
-      </div>
+        <SpreadsheetFilterBar
+          filters={filters}
+          sort={sort}
+          getColumnTitle={getColumnTitle}
+          onRemoveFilter={(id) => setFilters((previous) => previous.filter((filter) => filter.id !== id))}
+          onClearSort={() => setSort(null)}
+          onClearAll={() => {
+            setFilters([]);
+            setSort(null);
+          }}
+        />
+        {/* grid */}
+        <div className="relative min-h-0 flex-1 animate-fade-in">{renderBody()}</div>
+        {/* footer: sheet tabs + selection stats */}
+        <div className="flex min-h-9 items-stretch justify-between gap-2 border-t border-subtle bg-layer-1 pl-2">
+          {data && data.workbook.sheets.length > 0 ? (
+            <SpreadsheetSheetTabs sheets={data.workbook.sheets} activeSheet={sheetIndex} onChange={setSheetIndex} />
+          ) : (
+            <div className="flex-1" />
+          )}
+          <SpreadsheetStatusBar stats={selectionStats} selectedCells={selectedCells} />
+        </div>
+      </FocusTrap>
     </div>
   );
 

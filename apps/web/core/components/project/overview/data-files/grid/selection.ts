@@ -5,6 +5,7 @@
  */
 
 import type { TSpreadsheetCellValue } from "@plane/types";
+import type { TSelectionStats } from "../helpers/stats";
 
 /** A cell address in view coordinates (row = position in the current view). */
 export type TCellAddress = { row: number; column: number };
@@ -93,4 +94,43 @@ export const readSelection = (
     budget -= width;
   }
   return result;
+};
+
+/** Number of cells in a selection. */
+export const getSelectionSize = (bounds: TSelectionBounds): number =>
+  (bounds.bottom - bounds.top + 1) * (bounds.right - bounds.left + 1);
+
+/** Above this many cells, selection stats and copy run in the worker. */
+export const SELECTION_MAIN_THREAD_LIMIT = 50_000;
+/** Copy refuses selections larger than this. */
+export const SELECTION_COPY_LIMIT = 1_000_000;
+
+/**
+ * Count / Sum / Average of a range read straight through the view, without
+ * materializing the range (safe for very large selections).
+ */
+export const computeRangeStats = (
+  rows: TSpreadsheetCellValue[][],
+  view: ArrayLike<number>,
+  bounds: TSelectionBounds
+): TSelectionStats => {
+  let count = 0;
+  let numericCount = 0;
+  let sum = 0;
+  const bottom = Math.min(bounds.bottom, view.length - 1);
+  for (let position = bounds.top; position <= bottom; position++) {
+    const row = rows[view[position]];
+    if (!row) continue;
+    const right = Math.min(bounds.right, row.length - 1);
+    for (let column = bounds.left; column <= right; column++) {
+      const value = row[column];
+      if (value === null || value === undefined || (typeof value === "string" && value.trim() === "")) continue;
+      count += 1;
+      if (typeof value === "number" && Number.isFinite(value)) {
+        numericCount += 1;
+        sum += value;
+      }
+    }
+  }
+  return { count, numericCount, sum, avg: numericCount ? sum / numericCount : null };
 };

@@ -6,6 +6,7 @@
 
 import { useContext } from "react";
 // lib
+import { useUser } from "@/hooks/store/user";
 import { StoreContext } from "@/lib/store-context";
 import { ProjectSpreadsheetService } from "@/services/project/project-spreadsheet.service";
 import type {
@@ -13,10 +14,16 @@ import type {
   TProjectSpreadsheetStoreOptions,
 } from "@/store/project-spreadsheet/project-spreadsheet.store";
 // local imports
-import { deleteCachedFile, getWorkbookCacheKey } from "../helpers/cache";
+import {
+  deleteCacheDatabase,
+  deleteCachedFile,
+  getCacheScope,
+  getWorkbookCacheKey,
+  setCacheScope,
+} from "../helpers/cache";
 import { SPREADSHEET_PARSE_TIMEOUT_MS } from "../helpers/constants";
 import { getSpreadsheetKind } from "../helpers/validation";
-import { getSpreadsheetWorkerClient } from "../worker/client";
+import { getSpreadsheetWorkerClient, resetSpreadsheetWorkerClient } from "../worker/client";
 
 let service: ProjectSpreadsheetService | null = null;
 
@@ -31,9 +38,11 @@ const uiOptions: TProjectSpreadsheetStoreOptions = {
     const kind = getSpreadsheetKind(file.name, file.type);
     if (!kind) return null;
     const buffer = await file.arrayBuffer();
+    // cloned, not transferred, so the request can be re-sent if the worker restarts
     const result = await getSpreadsheetWorkerClient().request(
       "parse",
       {
+        scope: getCacheScope(),
         key: getWorkbookCacheKey(spreadsheet.id, spreadsheet.updated_at),
         assetId: spreadsheet.id,
         version: spreadsheet.updated_at,
@@ -41,11 +50,27 @@ const uiOptions: TProjectSpreadsheetStoreOptions = {
         buffer,
         retain: false,
       },
-      { transfer: [buffer], timeoutMs: SPREADSHEET_PARSE_TIMEOUT_MS }
+      { timeoutMs: SPREADSHEET_PARSE_TIMEOUT_MS }
     );
     return result.preview;
   },
-  onDeleted: (spreadsheetId) => void deleteCachedFile(spreadsheetId),
+  onDeleted: (spreadsheetId) => void deleteCachedFile(getCacheScope(), spreadsheetId),
+  // a rename bumps updated_at without changing content: keep the parsed cache
+  onRenamed: (spreadsheetId, fromVersion, toVersion) =>
+    void getSpreadsheetWorkerClient()
+      .request("rekey", {
+        scope: getCacheScope(),
+        from: getWorkbookCacheKey(spreadsheetId, fromVersion),
+        to: getWorkbookCacheKey(spreadsheetId, toVersion),
+      })
+      .catch(() => undefined),
+  // sign-out: drop the worker's in-memory documents and this user's cache
+  onReset: () => {
+    const scope = getCacheScope();
+    setCacheScope(null);
+    resetSpreadsheetWorkerClient();
+    void deleteCacheDatabase(scope);
+  },
 };
 
 const configuredStores = new WeakSet<ProjectSpreadsheetStore>();
@@ -56,7 +81,10 @@ const configuredStores = new WeakSet<ProjectSpreadsheetStore>();
  */
 export const useProjectSpreadsheets = (): ProjectSpreadsheetStore => {
   const context = useContext(StoreContext);
+  const { data: currentUser } = useUser();
   if (context === undefined) throw new Error("useProjectSpreadsheets must be used within StoreProvider");
+  // the cache is per user; idempotent, so it's safe to set during render
+  setCacheScope(currentUser?.id ?? null);
   const store = context.projectSpreadsheet;
   if (!configuredStores.has(store)) {
     store.setOptions(uiOptions);

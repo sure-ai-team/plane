@@ -193,6 +193,8 @@ export class CoreRootStore {
     this.favorite = new FavoriteStore(this);
     this.stickyStore = new StickyStore();
     this.projectReadme = new ProjectReadmeStore();
+    // clears the signed-out user's Data files cache and worker before replacing the store
+    this.projectSpreadsheet.reset();
     this.projectSpreadsheet = new ProjectSpreadsheetStore(new ProjectSpreadsheetService());
     this.editorAssetStore = new EditorAssetStore();
     this.workItemFilters = new WorkItemFilterStore();

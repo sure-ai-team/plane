@@ -9,41 +9,52 @@ import { SpreadsheetError } from "../helpers/errors";
 import type { TWorkerRequestMap, TWorkerRequestType, TWorkerResponse } from "./protocol";
 
 type TPending = {
+  type: TWorkerRequestType;
+  payload: unknown;
+  transfer: Transferable[];
+  timeoutMs: number;
   resolve: (value: unknown) => void;
   reject: (error: unknown) => void;
-  timer: ReturnType<typeof setTimeout>;
+  /** set once the worker has started the job */
+  timer: ReturnType<typeof setTimeout> | null;
 };
 
-type TWorkerFactory = () => Worker;
+/** The subset of `Worker` the client uses (so tests can pass a fake). */
+export type TWorkerLike = Pick<Worker, "postMessage" | "terminate" | "addEventListener">;
+
+type TWorkerFactory = () => TWorkerLike;
 
 const defaultFactory: TWorkerFactory = () =>
   new Worker(new URL("./spreadsheet.worker.ts", import.meta.url), { type: "module", name: "plane-data-files" });
 
 /**
- * Promise wrapper around the spreadsheet worker. A request that exceeds its
- * timeout terminates the worker (a stuck parse can't be interrupted any other
- * way); the next request transparently starts a fresh one.
+ * Promise wrapper around the spreadsheet worker.
+ *
+ * Timeouts count from the moment the worker *starts* a job (it acknowledges
+ * with `{ started: true }`), so time spent queued behind another parse doesn't
+ * count. A job that overruns can only be stopped by terminating the worker;
+ * requests that were merely queued are then re-sent to a fresh worker, and
+ * only the ones already running in the old worker fail.
+ *
+ * Payloads are cloned rather than transferred by default so a queued request
+ * can be re-sent.
  */
 export class SpreadsheetWorkerClient {
-  private worker: Worker | null = null;
+  private worker: TWorkerLike | null = null;
   private nextId = 1;
   private pending = new Map<number, TPending>();
 
   constructor(private factory: TWorkerFactory = defaultFactory) {}
 
-  private ensureWorker(): Worker {
+  private ensureWorker(): TWorkerLike {
     if (this.worker) return this.worker;
     const worker = this.factory();
-    worker.addEventListener("message", (event: MessageEvent<TWorkerResponse>) => {
-      const response = event.data;
-      const pending = this.pending.get(response.id);
-      if (!pending) return;
-      clearTimeout(pending.timer);
-      this.pending.delete(response.id);
-      if (response.ok) pending.resolve(response.result);
-      else pending.reject(new SpreadsheetError(response.error.code, response.error.params));
+    worker.addEventListener("message", (event: Event) => {
+      if (this.worker !== worker) return;
+      this.handleResponse((event as MessageEvent<TWorkerResponse>).data);
     });
-    worker.addEventListener("error", (event) => {
+    worker.addEventListener("error", (event: Event) => {
+      if (this.worker !== worker) return;
       event.preventDefault();
       this.reset(new SpreadsheetError("unknown"));
     });
@@ -51,12 +62,61 @@ export class SpreadsheetWorkerClient {
     return worker;
   }
 
-  /** Terminates the worker and fails every in-flight request. */
+  private handleResponse(response: TWorkerResponse) {
+    const pending = this.pending.get(response.id);
+    if (!pending) return;
+    if ("started" in response) {
+      if (!pending.timer) pending.timer = setTimeout(() => this.handleTimeout(response.id), pending.timeoutMs);
+      return;
+    }
+    if (pending.timer) clearTimeout(pending.timer);
+    this.pending.delete(response.id);
+    if (response.ok) pending.resolve(response.result);
+    else pending.reject(new SpreadsheetError(response.error.code, response.error.params));
+  }
+
+  private handleTimeout(id: number) {
+    const timedOut = this.pending.get(id);
+    if (!timedOut) return;
+    this.pending.delete(id);
+    timedOut.reject(new SpreadsheetError("timeout"));
+    // whatever the worker is running can't be cancelled; start a fresh one
+    this.worker?.terminate();
+    this.worker = null;
+    const survivors = [...this.pending.entries()];
+    this.pending.clear();
+    for (const [pendingId, pending] of survivors) {
+      if (pending.timer) {
+        // it was running in the terminated worker
+        clearTimeout(pending.timer);
+        pending.reject(new SpreadsheetError("unknown"));
+      } else if (pending.transfer.length > 0) {
+        // its transferred buffers are gone with the old worker
+        pending.reject(new SpreadsheetError("unknown"));
+      } else {
+        this.send(pendingId, pending);
+      }
+    }
+  }
+
+  private send(id: number, pending: TPending) {
+    let worker: TWorkerLike;
+    try {
+      worker = this.ensureWorker();
+    } catch {
+      pending.reject(new SpreadsheetError("unknown"));
+      return;
+    }
+    this.pending.set(id, pending);
+    worker.postMessage({ id, type: pending.type, payload: pending.payload }, pending.transfer);
+  }
+
+  /** Terminates the worker and fails every in-flight request (e.g. on sign-out). */
   reset(error: unknown = new SpreadsheetError("unknown")) {
     this.worker?.terminate();
     this.worker = null;
     for (const pending of this.pending.values()) {
-      clearTimeout(pending.timer);
+      if (pending.timer) clearTimeout(pending.timer);
       pending.reject(error);
     }
     this.pending.clear();
@@ -67,22 +127,17 @@ export class SpreadsheetWorkerClient {
     payload: TWorkerRequestMap[K]["input"],
     options: { transfer?: Transferable[]; timeoutMs?: number } = {}
   ): Promise<TWorkerRequestMap[K]["output"]> {
-    let worker: Worker;
-    try {
-      worker = this.ensureWorker();
-    } catch {
-      return Promise.reject(new SpreadsheetError("unknown"));
-    }
     const id = this.nextId++;
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => {
-        this.pending.delete(id);
-        reject(new SpreadsheetError("timeout"));
-        // whatever the worker is doing can't be cancelled; start over
-        this.reset(new SpreadsheetError("timeout"));
-      }, options.timeoutMs ?? SPREADSHEET_QUERY_TIMEOUT_MS);
-      this.pending.set(id, { resolve: resolve as (value: unknown) => void, reject, timer });
-      worker.postMessage({ id, type, payload }, options.transfer ?? []);
+      this.send(id, {
+        type,
+        payload,
+        transfer: options.transfer ?? [],
+        timeoutMs: options.timeoutMs ?? SPREADSHEET_QUERY_TIMEOUT_MS,
+        resolve: resolve as (value: unknown) => void,
+        reject,
+        timer: null,
+      });
     });
   }
 }
@@ -93,4 +148,10 @@ let sharedClient: SpreadsheetWorkerClient | null = null;
 export const getSpreadsheetWorkerClient = (): SpreadsheetWorkerClient => {
   if (!sharedClient) sharedClient = new SpreadsheetWorkerClient();
   return sharedClient;
+};
+
+/** Drops the shared worker and everything it holds in memory (sign-out). */
+export const resetSpreadsheetWorkerClient = () => {
+  sharedClient?.reset();
+  sharedClient = null;
 };

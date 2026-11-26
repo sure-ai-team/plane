@@ -59,6 +59,7 @@
       "upload_failed": "Nahrávanie sa nedokončilo. Skúste to znova.",
       "unknown": "Niečo sa pokazilo. Skúste to znova.",
       "copy_failed": "Kopírovanie do schránky zlyhalo.",
+      "copy_too_large": "Tento výber je príliš veľký na skopírovanie (viac ako {limit, number} buniek).",
       "export_failed": "Zobrazenie sa nepodarilo exportovať."
     },
     "viewer": {

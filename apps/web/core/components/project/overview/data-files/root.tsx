@@ -22,7 +22,7 @@ import { useUserPermissions } from "@/hooks/store/user";
 // local imports
 import { DeleteSpreadsheetModal } from "./delete-modal";
 import { PendingUploadCard, SpreadsheetFileCard } from "./file-card";
-import { getCachedPreviews } from "./helpers/cache";
+import { getCachedPreviews, getCacheScope } from "./helpers/cache";
 import {
   SPREADSHEET_ACCEPT,
   SPREADSHEET_FILE_SEARCH_PARAM,
@@ -75,18 +75,23 @@ export const ProjectDataFiles = observer(function ProjectDataFiles(props: Props)
     { revalidateOnFocus: false, shouldRetryOnError: false }
   );
 
-  // previews cached from earlier visits
+  // previews cached from earlier visits, for this project's files only
+  const missingPreviewIds = spreadsheets
+    .filter((spreadsheet) => !store.previews[spreadsheet.id])
+    .map((spreadsheet) => spreadsheet.id)
+    .join(",");
   useEffect(() => {
+    if (!missingPreviewIds) return;
     let cancelled = false;
     const load = async () => {
-      const previews = await getCachedPreviews();
+      const previews = await getCachedPreviews(getCacheScope(), missingPreviewIds.split(","));
       if (!cancelled && previews.length) store.setPreviews(previews);
     };
     void load();
     return () => {
       cancelled = true;
     };
-  }, [store]);
+  }, [store, missingPreviewIds]);
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase();
@@ -148,6 +153,13 @@ export const ProjectDataFiles = observer(function ProjectDataFiles(props: Props)
       ),
     [setSearchParams]
   );
+
+  // a `?file=` pointing at another project's file is dropped, not opened
+  const openedSpreadsheet = openFileId ? store.getSpreadsheetById(openFileId) : undefined;
+  const isForeignFile = !!openedSpreadsheet && openedSpreadsheet.project !== projectId;
+  useEffect(() => {
+    if (isForeignFile) closeFile();
+  }, [isForeignFile, closeFile]);
 
   const handleRename = useCallback(
     (id: string, name: string) => store.renameSpreadsheet(workspaceSlug, projectId, id, name),
@@ -373,7 +385,7 @@ export const ProjectDataFiles = observer(function ProjectDataFiles(props: Props)
         onDelete={handleDelete}
       />
 
-      {openFileId && loader === "loaded" && (
+      {openFileId && loader === "loaded" && !isForeignFile && (
         <SpreadsheetViewer
           key={openFileId}
           workspaceSlug={workspaceSlug}

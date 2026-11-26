@@ -59,6 +59,7 @@
       "upload_failed": "Il caricamento non è stato completato. Riprovi.",
       "unknown": "Si è verificato un errore. Riprovi.",
       "copy_failed": "Impossibile copiare negli appunti.",
+      "copy_too_large": "Questa selezione è troppo grande per essere copiata (oltre {limit, number} celle).",
       "export_failed": "Impossibile esportare la vista."
     },
     "viewer": {

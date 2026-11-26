@@ -48,6 +48,13 @@ export type TProjectSpreadsheetStoreOptions = {
   processUpload?: (spreadsheet: TProjectSpreadsheet, file: File) => Promise<TSpreadsheetPreview | null | void>;
   /** Called when a file is deleted (e.g. to clear caches). */
   onDeleted?: (spreadsheetId: string) => void;
+  /**
+   * Called when a rename changed `updated_at` (content unchanged), before the
+   * store switches to the new version, so caches keyed by version can follow.
+   */
+  onRenamed?: (spreadsheetId: string, fromVersion: string, toVersion: string) => void;
+  /** Called by `reset()` when the store is discarded (sign-out), to clear caches. */
+  onReset?: () => void;
   /** How long a finished upload keeps its "ready" badge. */
   readyDismissMs?: number;
   generateId?: () => string;
@@ -93,6 +100,11 @@ export class ProjectSpreadsheetStore {
       runUpload: action,
     });
   }
+
+  /** Runs the `onReset` hook; the root store calls this before replacing the store on sign-out. */
+  reset = () => {
+    this.options.onReset?.();
+  };
 
   /** Attach UI-side hooks (worker parsing, cache cleanup) after construction by the root store. */
   setOptions = (options: TProjectSpreadsheetStoreOptions) => {
@@ -278,6 +290,8 @@ export class ProjectSpreadsheetStore {
     this.spreadsheetMap[spreadsheetId] = { ...existing, name };
     try {
       const updated = await this.service.update(workspaceSlug, projectId, spreadsheetId, { name });
+      if (updated.updated_at !== existing.updated_at)
+        this.options.onRenamed?.(spreadsheetId, existing.updated_at, updated.updated_at);
       runInAction(() => {
         // keep the preview linked: a rename doesn't change the content
         const preview = this.previews[spreadsheetId];

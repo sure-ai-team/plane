@@ -5,7 +5,14 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { selectEvictions, getWorkbookCacheKey } from "../helpers/cache";
+import {
+  getCacheDatabaseName,
+  getCacheScope,
+  getWorkbookCacheKey,
+  parseWorkbookCacheKey,
+  selectEvictions,
+  setCacheScope,
+} from "../helpers/cache";
 import {
   cellToText,
   columnLetter,
@@ -368,6 +375,21 @@ describe("errors, cache, preview, format", () => {
     expect(selectEvictions(entries, 10)).toEqual(["k11", "k10"]);
     expect(selectEvictions(entries.slice(0, 3), 10)).toEqual([]);
     expect(getWorkbookCacheKey("a", "2024")).toBe("a:2024");
+  });
+
+  it("scopes the cache database per user and disables it when signed out", () => {
+    expect(getCacheDatabaseName("user-1")).toBe("plane-data-files:user-1");
+    expect(getCacheDatabaseName("user-2")).not.toBe(getCacheDatabaseName("user-1"));
+    expect(getCacheDatabaseName(null)).toBeNull();
+    setCacheScope("user-1");
+    expect(getCacheScope()).toBe("user-1");
+    setCacheScope(null);
+    expect(getCacheScope()).toBeNull();
+  });
+
+  it("parses version keys whose version contains colons", () => {
+    const key = getWorkbookCacheKey("asset-1", "2024-05-01T10:20:30Z");
+    expect(parseWorkbookCacheKey(key)).toEqual({ assetId: "asset-1", version: "2024-05-01T10:20:30Z" });
   });
 
   it("builds a small preview", () => {

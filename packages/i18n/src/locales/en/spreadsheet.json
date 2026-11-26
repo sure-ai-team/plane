@@ -59,6 +59,7 @@
       "upload_failed": "The upload didn't finish. Try again.",
       "unknown": "Something went wrong. Try again.",
       "copy_failed": "Couldn't copy to the clipboard.",
+      "copy_too_large": "This selection is too large to copy (more than {limit, number} cells).",
       "export_failed": "Couldn't export the view."
     },
     "viewer": {

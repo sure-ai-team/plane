@@ -59,6 +59,7 @@
       "upload_failed": "上傳未完成。請重試。",
       "unknown": "發生問題。請重試。",
       "copy_failed": "無法複製到剪貼簿。",
+      "copy_too_large": "選取範圍過大，無法複製（超過 {limit, number} 個儲存格）。",
       "export_failed": "無法匯出檢視。"
     },
     "viewer": {

@@ -59,6 +59,7 @@
       "upload_failed": "O envio não foi concluído. Tente novamente.",
       "unknown": "Algo deu errado. Tente novamente.",
       "copy_failed": "Não foi possível copiar para a área de transferência.",
+      "copy_too_large": "Esta seleção é grande demais para copiar (mais de {limit, number} células).",
       "export_failed": "Não foi possível exportar a visualização."
     },
     "viewer": {

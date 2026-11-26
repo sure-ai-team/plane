@@ -59,6 +59,7 @@
       "upload_failed": "Przesyłanie nie zostało ukończone. Spróbuj ponownie.",
       "unknown": "Coś poszło nie tak. Spróbuj ponownie.",
       "copy_failed": "Nie udało się skopiować do schowka.",
+      "copy_too_large": "Ten zaznaczony zakres jest zbyt duży, aby go skopiować (ponad {limit, number} komórek).",
       "export_failed": "Nie udało się wyeksportować widoku."
     },
     "viewer": {

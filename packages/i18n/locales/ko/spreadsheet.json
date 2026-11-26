@@ -59,6 +59,7 @@
       "upload_failed": "업로드가 완료되지 않았습니다. 다시 시도하십시오.",
       "unknown": "문제가 발생했습니다. 다시 시도하십시오.",
       "copy_failed": "클립보드에 복사하지 못했습니다.",
+      "copy_too_large": "선택 범위가 너무 커서 복사할 수 없습니다({limit, number}셀 초과).",
       "export_failed": "보기를 내보내지 못했습니다."
     },
     "viewer": {

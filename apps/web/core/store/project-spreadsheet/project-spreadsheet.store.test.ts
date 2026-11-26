@@ -56,6 +56,8 @@ type TMockService = Record<keyof TProjectSpreadsheetServiceLike, Mock>;
 let service: TMockService;
 let processUpload: Mock;
 let onDeleted: Mock;
+let onRenamed: Mock;
+let onReset: Mock;
 let store: ProjectSpreadsheetStore;
 let idCounter = 0;
 
@@ -70,10 +72,14 @@ beforeEach(() => {
   };
   processUpload = vi.fn().mockResolvedValue(null);
   onDeleted = vi.fn();
+  onRenamed = vi.fn();
+  onReset = vi.fn();
   idCounter = 0;
   store = new ProjectSpreadsheetStore(service as unknown as TProjectSpreadsheetServiceLike, {
     processUpload,
     onDeleted,
+    onRenamed,
+    onReset,
     readyDismissMs: 0,
     generateId: () => `tmp-${++idCounter}`,
   });
@@ -238,7 +244,15 @@ describe("rename and delete", () => {
     expect(store.getSpreadsheetById("a")?.name).toBe("new.xlsx");
     await promise;
     expect(service.update).toHaveBeenCalledWith(WS, PROJECT, "a", { name: "new.xlsx" });
+    // the parsed cache follows the new version instead of being re-downloaded
+    expect(onRenamed).toHaveBeenCalledWith("a", "2024-01-01T00:00:00Z", "2024-06-01T00:00:00Z");
     expect(store.getPreview(store.getSpreadsheetById("a")!)).toBeDefined();
+  });
+
+  it("doesn't re-key when a rename leaves the version unchanged", async () => {
+    service.update.mockResolvedValueOnce(makeSpreadsheet({ id: "a", name: "same-version.xlsx" }));
+    await store.renameSpreadsheet(WS, PROJECT, "a", "same-version.xlsx");
+    expect(onRenamed).not.toHaveBeenCalled();
   });
 
   it("rolls a failed rename back", async () => {
@@ -261,5 +275,24 @@ describe("rename and delete", () => {
     await expect(store.deleteSpreadsheet(WS, PROJECT, "a")).rejects.toEqual({ status: 403 });
     expect(store.getProjectSpreadsheets(PROJECT).map((s) => s.id)).toEqual(["a", "b"]);
     expect(onDeleted).not.toHaveBeenCalled();
+  });
+});
+
+describe("reset", () => {
+  it("runs the reset hook (sign-out clears caches)", () => {
+    store.reset();
+    expect(onReset).toHaveBeenCalledTimes(1);
+  });
+
+  it("never re-keys the cache for a replacement", async () => {
+    service.list.mockResolvedValueOnce([makeSpreadsheet()]);
+    await store.fetchSpreadsheets(WS, PROJECT);
+    service.replace.mockResolvedValueOnce(signed("s1"));
+    service.uploadToStorage.mockResolvedValueOnce(undefined);
+    service.update.mockResolvedValueOnce(makeSpreadsheet({ updated_at: "2024-09-01T00:00:00Z" }));
+    store.replaceSpreadsheet(WS, PROJECT, "s1", file("v2.xlsx", "zip"));
+    await flush();
+    expect(store.getSpreadsheetById("s1")?.updated_at).toBe("2024-09-01T00:00:00Z");
+    expect(onRenamed).not.toHaveBeenCalled();
   });
 });

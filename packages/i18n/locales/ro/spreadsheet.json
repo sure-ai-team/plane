@@ -59,6 +59,7 @@
       "upload_failed": "Încărcarea nu s-a finalizat. Încercați din nou.",
       "unknown": "A apărut o eroare. Încercați din nou.",
       "copy_failed": "Nu s-a putut copia în clipboard.",
+      "copy_too_large": "Această selecție este prea mare pentru a fi copiată (peste {limit, number} de celule).",
       "export_failed": "Vizualizarea nu a putut fi exportată."
     },
     "viewer": {

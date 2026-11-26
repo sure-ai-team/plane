@@ -59,6 +59,7 @@
       "upload_failed": "Nahrávání nebylo dokončeno. Zkuste to znovu.",
       "unknown": "Něco se pokazilo. Zkuste to znovu.",
       "copy_failed": "Kopírování do schránky se nezdařilo.",
+      "copy_too_large": "Tento výběr je příliš velký na zkopírování (více než {limit, number} buněk).",
       "export_failed": "Zobrazení se nepodařilo exportovat."
     },
     "viewer": {

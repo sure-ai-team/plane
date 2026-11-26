@@ -16,7 +16,12 @@ export type TViewState = {
   failed: boolean;
 };
 
-/** Asks the worker for the filtered + sorted row order whenever the query changes. */
+/**
+ * Asks the worker for the filtered + sorted row order whenever the query
+ * changes. A view computed for another sheet or file version is never
+ * returned (the caller shows its skeleton until the new one arrives); one for
+ * the same sheet stays visible while a new filter or sort is computed.
+ */
 export const useSpreadsheetView = (
   key: string | null,
   sheet: number,
@@ -48,7 +53,8 @@ export const useSpreadsheetView = (
     void run();
   }, [key, sheet, headerRow, filters, sort]);
 
-  return { ...state, query };
+  const isCurrent = !!query && query.key === key && query.sheet === sheet;
+  return isCurrent ? { ...state, query } : { ...state, view: null, query: null };
 };
 
 export type TSearchState = {

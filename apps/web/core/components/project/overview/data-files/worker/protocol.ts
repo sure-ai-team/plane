@@ -9,8 +9,10 @@ import type { TSpreadsheetKind } from "../helpers/constants";
 import type { TColumnType } from "../helpers/detect";
 import type { TSpreadsheetErrorShape } from "../helpers/errors";
 import type { TSpreadsheetPreview } from "../helpers/preview";
+import type { TSelectionBounds } from "../grid/selection";
+import type { TCacheScope } from "../helpers/cache";
 import type { TSpreadsheetFilter, TSpreadsheetSort } from "../helpers/query";
-import type { TColumnStats } from "../helpers/stats";
+import type { TColumnStats, TSelectionStats } from "../helpers/stats";
 
 /**
  * Messages between the main thread and `spreadsheet.worker.ts`.
@@ -38,11 +40,18 @@ export type TLoadedWorkbook = {
 };
 
 export type TWorkerRequestMap = {
-  /** look the workbook up in IndexedDB; null on a miss */
-  open: { input: { key: string; assetId: string; version: string }; output: TLoadedWorkbook | null };
-  /** parse raw bytes (transferred) and cache the result */
+  /** look the workbook up (memory, then IndexedDB); null on a miss */
+  open: {
+    input: { scope: TCacheScope; key: string; assetId: string; version: string };
+    output: TLoadedWorkbook | null;
+  };
+  /**
+   * Parse raw bytes and cache the result. Parses run one at a time and
+   * concurrent parses of the same key share one run.
+   */
   parse: {
     input: {
+      scope: TCacheScope;
       key: string;
       assetId: string;
       version: string;
@@ -56,6 +65,12 @@ export type TWorkerRequestMap = {
   search: { input: TViewQuery & { term: string }; output: { matches: Uint32Array; truncated: boolean } };
   "column-stats": { input: TViewQuery & { column: number }; output: TColumnStats };
   export: { input: TViewQuery; output: { csv: string } };
+  /** stats for a selected range (used for large selections) */
+  "selection-stats": { input: TViewQuery & { bounds: TSelectionBounds }; output: TSelectionStats };
+  /** tab-separated text of a selected range, for the clipboard */
+  "selection-text": { input: TViewQuery & { bounds: TSelectionBounds }; output: { text: string } };
+  /** after a rename: move the document and its cache entry to the new version key */
+  rekey: { input: { scope: TCacheScope; from: string; to: string }; output: null };
   release: { input: { key: string }; output: null };
 };
 
@@ -66,5 +81,7 @@ export type TWorkerRequest = {
 }[TWorkerRequestType];
 
 export type TWorkerResponse =
+  /** the worker began working on the request (timeouts count from here) */
+  | { id: number; started: true }
   | { id: number; ok: true; result: unknown }
   | { id: number; ok: false; error: TSpreadsheetErrorShape };

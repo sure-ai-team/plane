@@ -59,6 +59,7 @@
       "upload_failed": "La subida no terminó. Inténtelo de nuevo.",
       "unknown": "Algo salió mal. Inténtelo de nuevo.",
       "copy_failed": "No se pudo copiar al portapapeles.",
+      "copy_too_large": "Esta selección es demasiado grande para copiarla (más de {limit, number} celdas).",
       "export_failed": "No se pudo exportar la vista."
     },
     "viewer": {

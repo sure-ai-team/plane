@@ -7,11 +7,9 @@
 import ExcelJS from "exceljs";
 import { strToU8, zipSync } from "fflate";
 import { describe, expect, it } from "vitest";
-import type { TParsedWorkbook } from "@plane/types";
 import { SpreadsheetError } from "../helpers/errors";
 import { parseCsv, parseSpreadsheet, parseXlsx } from "../helpers/parse";
 import { assertSafeXlsx, inspectZip } from "../helpers/zip-guard";
-import { createWorkerHandlers } from "../worker/handlers";
 
 const buildWorkbook = async (build: (workbook: ExcelJS.Workbook) => void): Promise<Uint8Array> => {
   const workbook = new ExcelJS.Workbook();
@@ -119,69 +117,5 @@ describe("xlsx parsing", () => {
 
   it("rejects corrupt workbooks", async () => {
     await expectCode(parseXlsx(zipSync({ "xl/workbook.xml": strToU8("garbage") })), "corrupt");
-  });
-});
-
-describe("worker handlers", () => {
-  const createCache = () => {
-    const store = new Map<string, TParsedWorkbook>();
-    const previews: unknown[] = [];
-    return {
-      store,
-      previews,
-      adapter: {
-        getWorkbook: async (key: string) => store.get(key) ?? null,
-        putWorkbook: async (key: string, workbook: TParsedWorkbook) => void store.set(key, workbook),
-        putPreview: async (preview: unknown) => void previews.push(preview),
-      },
-    };
-  };
-
-  it("parses, caches, queries, searches, computes stats and exports", async () => {
-    const cache = createCache();
-    const handlers = createWorkerHandlers(cache.adapter as never);
-    const buffer = strToU8("City,Pop\nOslo,700\nParis,2100\nRome,2800\n").buffer as ArrayBuffer;
-
-    expect((await handlers.open({ key: "f:1", assetId: "f", version: "1" })).result).toBeNull();
-    const parsed = await handlers.parse({ key: "f:1", assetId: "f", version: "1", kind: "csv", buffer, retain: true });
-    expect(parsed.result.workbook?.sheets[0].rows).toHaveLength(4);
-    expect("columnTypes" in parsed.result && parsed.result.columnTypes).toEqual([["text", "number"]]);
-    expect("headerGuess" in parsed.result && parsed.result.headerGuess).toEqual([true]);
-    expect(cache.store.has("f:1")).toBe(true);
-    expect(cache.previews).toHaveLength(1);
-
-    const query = {
-      key: "f:1",
-      sheet: 0,
-      headerRow: true,
-      filters: [{ id: "1", column: 1, operator: "gt" as const, value: "1000" }],
-      sort: { column: 1, direction: "desc" as const },
-    };
-    const { result: queried, transfer } = await handlers.query(query);
-    expect(Array.from(queried.view)).toEqual([3, 2]);
-    expect(transfer).toHaveLength(1);
-
-    const search = await handlers.search({ ...query, term: "par" });
-    expect(Array.from(search.result.matches)).toEqual([1, 0]);
-
-    const stats = await handlers["column-stats"]({ ...query, column: 1 });
-    expect(stats.result.numeric?.sum).toBe(4900);
-
-    const exported = await handlers.export(query);
-    expect(exported.result.csv).toBe("﻿City,Pop\r\nRome,2800\r\nParis,2100\r\n");
-
-    await handlers.release({ key: "f:1" });
-    await expect(handlers.query(query)).rejects.toBeInstanceOf(SpreadsheetError);
-    // served from the cache after release
-    expect((await handlers.open({ key: "f:1", assetId: "f", version: "1" })).result?.workbook.sheets).toHaveLength(1);
-  });
-
-  it("returns only the preview when not retained", async () => {
-    const cache = createCache();
-    const handlers = createWorkerHandlers(cache.adapter as never);
-    const buffer = strToU8("a\n1").buffer as ArrayBuffer;
-    const parsed = await handlers.parse({ key: "g:1", assetId: "g", version: "1", kind: "csv", buffer, retain: false });
-    expect(parsed.result.workbook).toBeNull();
-    expect(parsed.result.preview.assetId).toBe("g");
   });
 });

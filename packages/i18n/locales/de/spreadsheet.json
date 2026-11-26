@@ -59,6 +59,7 @@
       "upload_failed": "Das Hochladen wurde nicht abgeschlossen. Versuchen Sie es erneut.",
       "unknown": "Etwas ist schiefgelaufen. Versuchen Sie es erneut.",
       "copy_failed": "Kopieren in die Zwischenablage nicht möglich.",
+      "copy_too_large": "Diese Auswahl ist zu groß zum Kopieren (mehr als {limit, number} Zellen).",
       "export_failed": "Die Ansicht konnte nicht exportiert werden."
     },
     "viewer": {

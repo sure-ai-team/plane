@@ -59,6 +59,7 @@
       "upload_failed": "L'importation n'a pas abouti. Réessayez.",
       "unknown": "Une erreur s'est produite. Réessayez.",
       "copy_failed": "Impossible de copier dans le presse-papiers.",
+      "copy_too_large": "Cette sélection est trop grande pour être copiée (plus de {limit, number} cellules).",
       "export_failed": "Impossible d'exporter la vue."
     },
     "viewer": {

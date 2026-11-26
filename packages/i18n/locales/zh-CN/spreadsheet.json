@@ -59,6 +59,7 @@
       "upload_failed": "上传未完成。请重试。",
       "unknown": "出现问题。请重试。",
       "copy_failed": "无法复制到剪贴板。",
+      "copy_too_large": "所选范围过大，无法复制（超过 {limit, number} 个单元格）。",
       "export_failed": "无法导出视图。"
     },
     "viewer": {

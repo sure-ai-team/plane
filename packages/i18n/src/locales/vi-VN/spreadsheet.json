@@ -59,6 +59,7 @@
       "upload_failed": "Quá trình tải lên chưa hoàn tất. Hãy thử lại.",
       "unknown": "Đã xảy ra lỗi. Hãy thử lại.",
       "copy_failed": "Không thể sao chép vào bộ nhớ tạm.",
+      "copy_too_large": "Vùng chọn này quá lớn để sao chép (hơn {limit, number} ô).",
       "export_failed": "Không thể xuất chế độ xem."
     },
     "viewer": {
