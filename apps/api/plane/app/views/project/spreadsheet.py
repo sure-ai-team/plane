@@ -12,11 +12,13 @@ The browser parses the files itself, so the server only stores and serves bytes.
 # Python imports
 import hashlib
 import os
+import re
 import uuid
 from urllib.parse import quote
 
 # Django imports
 from django.conf import settings
+from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, StreamingHttpResponse
 from django.utils import timezone
 
@@ -43,6 +45,10 @@ SPREADSHEET_TYPES = {
     # installed) or text/plain; all of them are accepted only for a .csv name.
     ".csv": (CSV_TYPE, frozenset({CSV_TYPE, "application/vnd.ms-excel", "text/plain"})),
 }
+
+STORED_TYPES = frozenset(stored for stored, _ in SPREADSHEET_TYPES.values())
+# What follows the project prefix in a key made by object_key(): a hex token, a dash and a plain file name.
+SPREADSHEET_KEY_SUFFIX = re.compile(r"[0-9a-f]{32}-[^/\\]+")
 
 MAX_NAME_LENGTH = 255
 READ_ROLES = [ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST]
@@ -116,8 +122,38 @@ def spreadsheets(slug, project_id):
     ).select_related("workspace")
 
 
+def locked_spreadsheet(slug, project_id, asset_id):
+    return spreadsheets(slug, project_id).select_for_update(of=("self",)).get(pk=asset_id)
+
+
+def readable_spreadsheet(slug, project_id, asset_id):
+    """An uploaded spreadsheet whose storage key belongs to its own workspace and project; 404 otherwise."""
+    asset = spreadsheets(slug, project_id).get(pk=asset_id, is_uploaded=True)
+    if not is_spreadsheet_key(asset, asset.asset.name):
+        raise SpreadsheetError("The file could not be found.", status.HTTP_404_NOT_FOUND)
+    return asset
+
+
+def key_prefix(workspace_id, project_id):
+    return f"{workspace_id}/projects/{project_id}/spreadsheets/"
+
+
 def object_key(workspace_id, project_id, name):
-    return f"{workspace_id}/projects/{project_id}/spreadsheets/{uuid.uuid4().hex}-{name}"
+    return f"{key_prefix(workspace_id, project_id)}{uuid.uuid4().hex}-{name}"
+
+
+def is_spreadsheet_key(asset, key):
+    """True only for a key in the shape ``object_key`` makes for this asset's workspace and project.
+
+    Guards against a tampered key pointing at another workspace's or project's object.
+    """
+    if not isinstance(key, str):
+        return False
+    prefix = key_prefix(asset.workspace_id, asset.project_id)
+    if not key.startswith(prefix):
+        return False
+    rest = key[len(prefix) :]
+    return bool(SPREADSHEET_KEY_SUFFIX.fullmatch(rest)) and ".." not in rest
 
 
 def upload_response(request, asset, key, content_type, size):
@@ -182,14 +218,22 @@ class ProjectSpreadsheetDetailEndpoint(SpreadsheetBaseEndpoint):
 
     @allow_permission(WRITE_ROLES)
     def patch(self, request, slug, project_id, asset_id):
-        asset = spreadsheets(slug, project_id).get(pk=asset_id)
+        with transaction.atomic():
+            # Locked so a concurrent replace/rename can't drop each other's attributes.
+            asset = locked_spreadsheet(slug, project_id, asset_id)
+            return self.update(request, asset)
+
+    def update(self, request, asset):
         attributes = dict(asset.attributes or {})
         update_fields = set()
 
         if request.data.get("is_uploaded") is True:
             pending_key = attributes.get("pending_asset")
             if pending_key:
-                # Finish a replace: swap the new file in under the same id.
+                # Finish a replace: swap the new file in under the same id. The pending
+                # values are re-checked, since attributes are data, not a trusted source.
+                if not is_spreadsheet_key(asset, pending_key) or attributes.get("pending_type") not in STORED_TYPES:
+                    raise SpreadsheetError("The replacement upload is not valid. Start the replace again.")
                 self.check_uploaded(pending_key)
                 asset.asset = pending_key
                 attributes["name"] = attributes.pop("pending_name", attributes.get("name"))
@@ -201,6 +245,8 @@ class ProjectSpreadsheetDetailEndpoint(SpreadsheetBaseEndpoint):
                 asset.storage_metadata = {}
                 update_fields |= {"asset", "attributes", "size", "is_uploaded", "storage_metadata"}
             elif not asset.is_uploaded:
+                if not is_spreadsheet_key(asset, asset.asset.name):
+                    raise SpreadsheetError("The file could not be found.", status.HTTP_404_NOT_FOUND)
                 self.check_uploaded(asset.asset.name)
                 asset.is_uploaded = True
                 update_fields.add("is_uploaded")
@@ -242,18 +288,21 @@ class ProjectSpreadsheetReplaceEndpoint(SpreadsheetBaseEndpoint):
 
     @allow_permission(WRITE_ROLES)
     def post(self, request, slug, project_id, asset_id):
-        asset = spreadsheets(slug, project_id).get(pk=asset_id, is_uploaded=True)
         name, content_type, size = validate_upload(request.data)
-        key = object_key(asset.workspace_id, asset.project_id, name)
-        asset.attributes = {
-            **(asset.attributes or {}),
-            "pending_asset": key,
-            "pending_name": name,
-            "pending_type": content_type,
-            "pending_size": size,
-        }
-        # Not a visible change yet, so updated_at (and the content ETag) stay as they are.
-        FileAsset.objects.filter(pk=asset.pk).update(attributes=asset.attributes)
+        with transaction.atomic():
+            asset = locked_spreadsheet(slug, project_id, asset_id)
+            if not asset.is_uploaded:
+                raise SpreadsheetError("The file could not be found.", status.HTTP_404_NOT_FOUND)
+            key = object_key(asset.workspace_id, asset.project_id, name)
+            asset.attributes = {
+                **(asset.attributes or {}),
+                "pending_asset": key,
+                "pending_name": name,
+                "pending_type": content_type,
+                "pending_size": size,
+            }
+            # Not a visible change yet, so updated_at (and the content ETag) stay as they are.
+            asset.save(update_fields=["attributes"], disable_auto_set_user=True)
         return upload_response(request, asset, key, content_type, size)
 
 
@@ -262,7 +311,7 @@ class ProjectSpreadsheetContentEndpoint(SpreadsheetBaseEndpoint):
 
     @allow_permission(READ_ROLES)
     def get(self, request, slug, project_id, asset_id):
-        asset = spreadsheets(slug, project_id).get(pk=asset_id, is_uploaded=True)
+        asset = readable_spreadsheet(slug, project_id, asset_id)
         etag = content_etag(asset)
         if etag_matches(request.headers.get("If-None-Match"), etag):
             response = HttpResponse(status=status.HTTP_304_NOT_MODIFIED)
@@ -299,7 +348,7 @@ class ProjectSpreadsheetDownloadEndpoint(SpreadsheetBaseEndpoint):
 
     @allow_permission(READ_ROLES)
     def get(self, request, slug, project_id, asset_id):
-        asset = spreadsheets(slug, project_id).get(pk=asset_id, is_uploaded=True)
+        asset = readable_spreadsheet(slug, project_id, asset_id)
         url = S3Storage(request=request).generate_presigned_url(
             object_name=asset.asset.name,
             disposition="attachment",

@@ -8,6 +8,7 @@ import uuid
 from unittest.mock import MagicMock
 
 import pytest
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -523,3 +524,236 @@ class TestReadmeTemplates:
         from plane.utils.project_readme import readme_template_html
 
         assert readme_template_html("missing") == "<p></p>"
+
+
+# ---------------------------------------------------------------- Security regressions
+
+
+def make_issue(world, project=None):
+    from plane.db.models import Issue, State
+
+    project = project or world.project
+    state = State.objects.create(
+        name=f"Todo {uuid.uuid4().hex[:6]}", project=project, workspace=world.workspace, group="backlog"
+    )
+    return Issue.objects.create(name="Work item", workspace=world.workspace, project=project, state=state)
+
+
+class TestSpreadsheetKeyTampering:
+    """A tampered ``pending_asset`` / asset key must never read another tenant's object."""
+
+    def foreign_key(self):
+        return f"{uuid.uuid4()}/projects/{uuid.uuid4()}/spreadsheets/{uuid.uuid4().hex}-secret.xlsx"
+
+    def test_finalize_rejects_foreign_pending_key(self, world, storage):
+        sheet = uploaded_sheet(world, storage)
+        old_key = sheet.asset.name
+        foreign = self.foreign_key()
+        storage.objects[foreign] = b"other tenant"
+        sheet.attributes = {**sheet.attributes, "pending_asset": foreign, "pending_type": XLSX, "pending_size": 12}
+        sheet.save(update_fields=["attributes"])
+
+        response = client_for(world.member).patch(world.sheets_url(sheet), {"is_uploaded": True}, format="json")
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        sheet.refresh_from_db()
+        assert sheet.asset.name == old_key
+        assert foreign not in [c.args[0] for c in storage.get_object_metadata.call_args_list if c.args]
+
+    @pytest.mark.parametrize(
+        "suffix",
+        [
+            "../../other/secret.xlsx",
+            "not-a-token.xlsx",
+            f"{'a' * 32}-dir/secret.xlsx",
+        ],
+    )
+    def test_finalize_rejects_malformed_key_in_own_prefix(self, world, storage, suffix):
+        sheet = uploaded_sheet(world, storage)
+        key = f"{world.workspace.id}/projects/{world.project.id}/spreadsheets/{suffix}"
+        storage.objects[key] = b"x"
+        sheet.attributes = {**sheet.attributes, "pending_asset": key, "pending_type": XLSX, "pending_size": 1}
+        sheet.save(update_fields=["attributes"])
+        response = client_for(world.member).patch(world.sheets_url(sheet), {"is_uploaded": True}, format="json")
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_finalize_rejects_unexpected_pending_type(self, world, storage):
+        sheet = uploaded_sheet(world, storage)
+        replace = client_for(world.member).post(
+            world.sheets_url(sheet, "replace/"), {"name": "v2.csv", "type": "text/csv", "size": 3}, format="json"
+        )
+        key = replace.json()["upload_data"]["fields"]["key"]
+        storage.objects[key] = b"a,b"
+        sheet.refresh_from_db()
+        sheet.attributes = {**sheet.attributes, "pending_type": "text/html"}
+        sheet.save(update_fields=["attributes"])
+        response = client_for(world.member).patch(world.sheets_url(sheet), {"is_uploaded": True}, format="json")
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_content_and_download_refuse_foreign_asset_key(self, world, storage):
+        sheet = uploaded_sheet(world, storage)
+        foreign = self.foreign_key()
+        storage.objects[foreign] = b"other tenant"
+        FileAsset.objects.filter(pk=sheet.pk).update(asset=foreign)
+        client = client_for(world.member)
+        assert client.get(world.sheets_url(sheet, "content/")).status_code == status.HTTP_404_NOT_FOUND
+        assert client.get(world.sheets_url(sheet, "download/")).status_code == status.HTTP_404_NOT_FOUND
+        storage.get_object.assert_not_called()
+
+    def test_replace_then_rename_keeps_pending_upload(self, world, storage):
+        sheet = uploaded_sheet(world, storage)
+        client = client_for(world.member)
+        replace = client.post(
+            world.sheets_url(sheet, "replace/"), {"name": "v2.csv", "type": "text/csv", "size": 3}, format="json"
+        )
+        key = replace.json()["upload_data"]["fields"]["key"]
+        assert key.startswith(f"{world.workspace.id}/projects/{world.project.id}/spreadsheets/")
+        client.patch(world.sheets_url(sheet), {"name": "Renamed"}, format="json")
+        storage.objects[key] = b"a,b"
+        response = client.patch(world.sheets_url(sheet), {"is_uploaded": True}, format="json")
+        assert response.status_code == status.HTTP_200_OK, response.content
+        sheet.refresh_from_db()
+        assert sheet.asset.name == key
+
+
+class TestSpaceAssetEndpointsCannotTouchSpreadsheets:
+    """Published-project (space) asset endpoints must refuse private entity types."""
+
+    @pytest.fixture
+    def board(self, world):
+        from plane.db.models import DeployBoard
+
+        return DeployBoard.objects.create(
+            workspace=world.workspace,
+            project=world.project,
+            entity_name="project",
+            entity_identifier=world.project.id,
+        )
+
+    def test_patch_delete_restore_are_404(self, world, storage, board):
+        sheet = uploaded_sheet(world, storage)
+        outsider = client_for(make_user("anyone"))
+        base = f"/api/public/assets/v2/anchor/{board.anchor}/"
+
+        patch = outsider.patch(f"{base}{sheet.id}/", {"attributes": {"pending_asset": "x"}}, format="json")
+        assert patch.status_code == status.HTTP_404_NOT_FOUND
+        assert outsider.delete(f"{base}{sheet.id}/").status_code == status.HTTP_404_NOT_FOUND
+
+        FileAsset.objects.filter(pk=sheet.pk).update(is_deleted=True, deleted_at=timezone.now())
+        assert outsider.post(f"{base}restore/{sheet.id}/").status_code == status.HTTP_404_NOT_FOUND
+
+        sheet = FileAsset.all_objects.get(pk=sheet.pk)
+        assert "pending_asset" not in sheet.attributes
+        assert sheet.is_deleted is True
+
+    def test_create_refuses_private_entity_type(self, world, storage, board, mocker):
+        mocker.patch("plane.space.views.asset.S3Storage")
+        response = client_for(make_user("anyone")).post(
+            f"/api/public/assets/v2/anchor/{board.anchor}/",
+            {"name": "a.png", "type": "image/png", "size": 10, "entity_type": "PROJECT_SPREADSHEET"},
+            format="json",
+        )
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+class TestAttachmentEndpointsCannotTouchSpreadsheets:
+    def test_public_api_attachment_delete_and_patch_are_404(self, world, storage):
+        from plane.db.models import APIToken
+
+        sheet = uploaded_sheet(world, storage)
+        issue = make_issue(world)
+        token = APIToken.objects.create(user=world.member, label="member", token=f"tok-{uuid.uuid4().hex}")
+        client = APIClient()
+        client.credentials(HTTP_X_API_KEY=token.token)
+        base = f"/api/v1/workspaces/{world.workspace.slug}/projects/{world.project.id}"
+        url = f"{base}/work-items/{issue.id}/attachments/{sheet.id}/"
+
+        assert client.delete(url).status_code == status.HTTP_404_NOT_FOUND
+        assert client.patch(url, {}, format="json").status_code == status.HTTP_404_NOT_FOUND
+        assert client.get(url).status_code == status.HTTP_404_NOT_FOUND
+        sheet.refresh_from_db()
+        assert sheet.is_deleted is False
+
+    def test_public_api_attachment_scoped_to_issue(self, world, storage):
+        from plane.db.models import APIToken
+
+        issue, other_issue = make_issue(world), make_issue(world)
+        attachment = FileAsset.objects.create(
+            attributes={"name": "a.pdf", "type": "application/pdf"},
+            asset=f"{world.workspace.id}/a.pdf",
+            workspace=world.workspace,
+            project=world.project,
+            issue=other_issue,
+            entity_type=FileAsset.EntityTypeContext.ISSUE_ATTACHMENT,
+            is_uploaded=True,
+        )
+        token = APIToken.objects.create(user=world.admin, label="admin", token=f"tok-{uuid.uuid4().hex}")
+        client = APIClient()
+        client.credentials(HTTP_X_API_KEY=token.token)
+        base = f"/api/v1/workspaces/{world.workspace.slug}/projects/{world.project.id}/work-items"
+        assert client.delete(f"{base}/{issue.id}/attachments/{attachment.id}/").status_code == 404
+        attachment.refresh_from_db()
+        assert attachment.is_deleted is False
+
+    def test_app_attachment_endpoints_are_404(self, world, storage):
+        sheet = uploaded_sheet(world, storage)
+        issue = make_issue(world)
+        FileAsset.objects.filter(pk=sheet.pk).update(issue=issue)  # even if linked to a work item
+        base = f"/api/assets/v2/workspaces/{world.workspace.slug}/projects/{world.project.id}"
+        url = f"{base}/issues/{issue.id}/attachments/{sheet.id}/"
+        client = client_for(world.member)  # the uploader
+        assert client.delete(url).status_code == status.HTTP_404_NOT_FOUND
+        assert client.patch(url, {}, format="json").status_code == status.HTTP_404_NOT_FOUND
+        sheet.refresh_from_db()
+        assert sheet.is_deleted is False
+
+    def test_copy_assets_skips_private_types(self, world, storage, mocker):
+        from plane.bgtasks.copy_s3_object import copy_assets
+
+        mocker.patch("plane.bgtasks.copy_s3_object.S3Storage")
+        sheet = uploaded_sheet(world, storage)
+        page = Page.objects.create(name="p", workspace=world.workspace, owned_by=world.admin)
+        assert copy_assets(page, page.id, world.project.id, [str(sheet.id)], world.admin.id) == []
+
+
+class TestReadmeProtection:
+    @pytest.fixture
+    def readme_id(self, world):
+        return client_for(world.admin).post(world.readme_url(), {}, format="json").json()["page_id"]
+
+    @pytest.mark.parametrize(
+        "payload",
+        [
+            {"archived_at": "2026-01-01"},
+            {"access": 1},
+            {"parent": "PARENT"},
+        ],
+    )
+    def test_patch_cannot_archive_nest_or_hide(self, world, readme_id, payload):
+        client = client_for(world.admin)
+        if payload.get("parent"):
+            payload = {"parent": client.post(f"{world.base()}/pages/", {"name": "P"}, format="json").json()["id"]}
+        response = client.patch(f"{world.base()}/pages/{readme_id}/", payload, format="json")
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert "README" in response.json()["error"]
+        page = Page.objects.get(pk=readme_id)
+        assert page.archived_at is None and page.parent_id is None and page.access == Page.PUBLIC_ACCESS
+
+    def test_patch_name_still_allowed(self, world, readme_id):
+        response = client_for(world.admin).patch(
+            f"{world.base()}/pages/{readme_id}/", {"name": "Project README", "access": 0}, format="json"
+        )
+        assert response.status_code == status.HTTP_200_OK, response.content
+
+    def test_access_action_cannot_make_private(self, world, readme_id):
+        response = client_for(world.admin).post(
+            f"{world.base()}/pages/{readme_id}/access/", {"access": 1}, format="json"
+        )
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert Page.objects.get(pk=readme_id).access == Page.PUBLIC_ACCESS
+
+    def test_private_readme_treated_as_missing(self, world, readme_id):
+        Page.objects.filter(pk=readme_id).update(access=Page.PRIVATE_ACCESS)
+        assert client_for(world.member).get(world.readme_url()).json() == {"page_id": None}
+        response = client_for(world.member).post(world.readme_url(), {}, format="json")
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.json()["page_id"] != readme_id

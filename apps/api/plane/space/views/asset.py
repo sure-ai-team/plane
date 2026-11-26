@@ -24,6 +24,13 @@ from plane.utils.path_validator import sanitize_filename
 from .base import BaseAPIView
 
 
+def public_assets(manager=None):
+    """Assets the published-project endpoints may touch: never chat attachments or project spreadsheets,
+    which are only reachable through their own endpoints (see FileAsset.PRIVATE_ENTITY_TYPES)."""
+    manager = manager if manager is not None else FileAsset.objects
+    return manager.exclude(entity_type__in=FileAsset.PRIVATE_ENTITY_TYPES)
+
+
 class EntityAssetEndpoint(BaseAPIView):
     def get_permissions(self):
         if self.request.method == "GET":
@@ -102,7 +109,7 @@ class EntityAssetEndpoint(BaseAPIView):
         size_limit = max(1, min(size, settings.FILE_SIZE_LIMIT))
 
         # Check if the entity type is allowed
-        if entity_type not in FileAsset.EntityTypeContext.values:
+        if entity_type not in FileAsset.PUBLIC_ENTITY_TYPES:
             return Response(
                 {"error": "Invalid entity type.", "status": False},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -162,7 +169,7 @@ class EntityAssetEndpoint(BaseAPIView):
             return Response({"error": "Project is not published"}, status=status.HTTP_404_NOT_FOUND)
 
         # get the asset id — scope to project to prevent cross-project IDOR
-        asset = FileAsset.objects.get(id=pk, workspace=deploy_board.workspace, project_id=deploy_board.project_id)
+        asset = public_assets().get(id=pk, workspace=deploy_board.workspace, project_id=deploy_board.project_id)
         # get the storage metadata
         asset.is_uploaded = True
         # get the storage metadata
@@ -182,7 +189,7 @@ class EntityAssetEndpoint(BaseAPIView):
         if not deploy_board:
             return Response({"error": "Project is not published"}, status=status.HTTP_404_NOT_FOUND)
         # Get the asset
-        asset = FileAsset.objects.get(id=pk, workspace=deploy_board.workspace, project_id=deploy_board.project_id)
+        asset = public_assets().get(id=pk, workspace=deploy_board.workspace, project_id=deploy_board.project_id)
         # Check deleted assets
         asset.is_deleted = True
         asset.deleted_at = timezone.now()
@@ -202,7 +209,9 @@ class AssetRestoreEndpoint(BaseAPIView):
             return Response({"error": "Project is not published"}, status=status.HTTP_404_NOT_FOUND)
 
         # Get the asset — scope to project to prevent cross-project IDOR
-        asset = FileAsset.all_objects.get(id=pk, workspace=deploy_board.workspace, project_id=deploy_board.project_id)
+        asset = public_assets(FileAsset.all_objects).get(
+            id=pk, workspace=deploy_board.workspace, project_id=deploy_board.project_id
+        )
         asset.is_deleted = False
         asset.deleted_at = None
         asset.save(update_fields=["is_deleted", "deleted_at"])
@@ -226,7 +235,7 @@ class EntityBulkAssetEndpoint(BaseAPIView):
             return Response({"error": "No asset ids provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         # get the asset id
-        assets = FileAsset.objects.filter(
+        assets = public_assets().filter(
             id__in=asset_ids,
             workspace=deploy_board.workspace,
             project_id=deploy_board.project_id,

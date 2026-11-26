@@ -727,11 +727,15 @@ class ProjectBulkAssetEndpoint(BaseAPIView):
         # unassociated-or-same-project bound prevent cross-project/user IDOR (a caller can
         # only touch their own uploads, cannot move an asset in from another project, and
         # @allow_permission already scopes them to this project).
-        assets = FileAsset.objects.filter(
-            id__in=asset_ids,
-            workspace__slug=slug,
-            created_by=request.user,
-        ).filter(Q(project_id=project_id) | Q(project_id__isnull=True))
+        assets = (
+            non_chat_assets()
+            .filter(
+                id__in=asset_ids,
+                workspace__slug=slug,
+                created_by=request.user,
+            )
+            .filter(Q(project_id=project_id) | Q(project_id__isnull=True))
+        )
 
         # Get the first asset
         asset = assets.first()
@@ -914,7 +918,7 @@ class ProjectAssetDownloadEndpoint(BaseAPIView):
     @allow_permission([ROLE.ADMIN, ROLE.MEMBER, ROLE.GUEST], level="PROJECT")
     def get(self, request, slug, project_id, asset_id):
         try:
-            asset = FileAsset.objects.get(
+            asset = non_chat_assets().get(
                 id=asset_id,
                 workspace__slug=slug,
                 project_id=project_id,

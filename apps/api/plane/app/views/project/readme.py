@@ -25,12 +25,14 @@ from ..base import BaseAPIView
 
 
 def active_readme_page_id(project):
-    """The README page id, or None when it is unset, deleted, archived or detached from the project."""
+    """The README page id, or None when it is unset, deleted, archived, private or detached from the project."""
     if not project.readme_page_id:
         return None
     exists = Page.objects.filter(
         pk=project.readme_page_id,
         archived_at__isnull=True,
+        # A README made private before this was enforced is treated as missing.
+        access=Page.PUBLIC_ACCESS,
         project_pages__project_id=project.id,
         project_pages__deleted_at__isnull=True,
     ).exists()
